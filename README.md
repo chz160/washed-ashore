@@ -1,6 +1,6 @@
 # Washed Ashore
 
-A quarter century after the collapse, you wash ashore with nothing. Open-world, multiplayer, survival RPG with permadeath, realistic scarcity, and a world that remembers.
+A quarter century after the collapse, you wash ashore with nothing. Open-world, multiplayer, survival RPG with permadeath, realistic scarcity, and a world that remembers. This is the current working pitch for the project and remains open to refinement as the design evolves.
 
 ## Setting & Premise
 
@@ -114,8 +114,8 @@ The world preserves fragments of the old order, but the truth of how it ended is
 
 ## Multiplayer Direction
 
-- Multiplayer is mandatory and should remain part of the same core game loop as solo play
-- A server model with limited population and a persistent world is the preferred direction
+- Multiplayer is intended to be part of the same core game loop as solo play, with server population caps and persistent world state being explored as the design matures
+- A server model with limited population and a persistent world is currently the preferred direction, but the exact implementation is still open to iteration
 - Character death should be meaningful; upon death, a player reenters as a new character with consequences, a reset in world position, and a fresh survival start
 - The world should not feel like two separate games; single-player and online play should share the same survival logic, systems, and world integrity
 
@@ -129,7 +129,7 @@ The world preserves fragments of the old order, but the truth of how it ended is
 
 The project currently uses the title: Washed Ashore.
 
-This name reflects the theme of the player emerging into a ruined, indifferent world with no certainty beyond survival. It is deliberately grounded and evocative, while still leaving room to evolve if a stronger identity is later chosen.
+This name reflects the theme of the player emerging into a ruined, indifferent world with no certainty beyond survival. It is deliberately grounded and evocative, and it remains a live working title as the broader design continues to evolve.
 
 ## Summary
 
