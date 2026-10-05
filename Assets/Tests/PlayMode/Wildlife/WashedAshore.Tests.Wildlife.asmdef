@@ -1,0 +1,23 @@
+{
+    "name": "WashedAshore.Tests.Wildlife",
+    "rootNamespace": "WashedAshore.Tests.Wildlife",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "WashedAshore.Gameplay",
+        "WashedAshore.Wildlife"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

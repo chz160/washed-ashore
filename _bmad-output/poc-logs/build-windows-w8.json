@@ -1,0 +1,27 @@
+{"type":"progress","command":"build","message":"Resolving project..."}
+{"type":"progress","command":"build","message":"Resolving editor..."}
+{"type":"progress","command":"build","message":"Starting Unity..."}
+{"type":"progress","command":"build","message":"Still building ΓÇö 30s elapsed, last log output 0s ago"}
+{"type":"progress","command":"build","message":"Unity exited (code 0)"}
+{
+  "success": true,
+  "command": "build",
+  "data": {
+    "target": "StandaloneWindows64",
+    "logFile": "E:\\GitHub\\washed-ashore\\Builds\\build-windows-w8.log",
+    "version": null,
+    "editorErrors": [
+      {
+        "type": "license-error",
+        "raw": "[Licensing::Module] LicensingClient has failed validation; ignoring",
+        "message": "[Licensing::Module] LicensingClient has failed validation; ignoring",
+        "lineNumber": 13
+      }
+    ],
+    "provenance": "E:\\GitHub\\washed-ashore\\Builds\\Windows\\WashedAshorePOC.provenance.json",
+    "outputPath": "E:\\GitHub\\washed-ashore\\Builds\\Windows\\WashedAshorePOC.exe"
+  },
+  "errors": [],
+  "warnings": []
+}
+[[wrapper]] 2026-10-05T05:34:07Z | exit=0 | 37.5s | unity build E:\GitHub\washed-ashore --target StandaloneWindows64 --output-path E:\GitHub\washed-ashore\Builds\Windows\WashedAshorePOC.exe --log-file E:\GitHub\washed-ashore\Builds\build-windows-w8.log --no-tail --timeout 1800 --format json

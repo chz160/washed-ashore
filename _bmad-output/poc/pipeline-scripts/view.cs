@@ -1,0 +1,10 @@
+var sv = UnityEditor.SceneView.lastActiveSceneView;
+if (sv == null) return "no scene view";
+var sp = UnityEngine.GameObject.Find("PlayerSpawn").transform;
+var eye = sp.position + UnityEngine.Vector3.up * 1.65f;
+sv.orthographic = false;
+sv.pivot = eye + sp.forward * 30f;
+sv.rotation = UnityEngine.Quaternion.LookRotation(sp.forward);
+sv.size = 30f;
+sv.Repaint();
+return "pivot=" + sv.pivot + " cam=" + sv.camera.transform.position;

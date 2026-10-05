@@ -1,0 +1,22 @@
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 13812)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 26288)
+VBCSCompiler prewarm took 7.69 ms
+{
+  "success": true,
+  "command": "test",
+  "data": {
+    "projectPath": "E:\\GitHub\\washed-ashore",
+    "output": "E:\\GitHub\\washed-ashore\\_bmad-output\\poc-logs\\w3-playmode.xml",
+    "reports": {
+      "nunit": "E:\\GitHub\\washed-ashore\\_bmad-output\\poc-logs\\w3-playmode.xml",
+      "junit": null
+    },
+    "coverage": {
+      "requested": false,
+      "enabled": false,
+      "output": null
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,10 @@
+# Digest: verify (lead spot-check, normal validation)
+
+Evidence retrieved this run, 2026-10-04, by the lead. Local commands ran on Noah's machine against unity CLI 1.0.0-beta.12.
+
+## Claims
+- claim: ambientCG API v3 returns per-resolution zip URLs (`downloads[].url`, for example https://ambientcg.com/get?file=Rock064_1K-JPG.zip) with no auth. The JSON shape is confirmed live. | source: https://ambientcg.com/api/v3/assets?type=material&q=forest&include=downloads&limit=1 | publisher: ambientCG | pub_date: live | accessed: 2026-10-04 | confidence: high | class: import
+- claim: The Poly Haven API `assets?type=models&categories=nature` returns 110 models (the flora digest said "~120"; corrected). | source: https://api.polyhaven.com/assets?type=models&categories=nature | publisher: Poly Haven | pub_date: live | accessed: 2026-10-04 | confidence: high | class: import
+- claim: The Quaternius Stylized Nature MegaKit page's download flow goes through itch.io (itch embed api.js plus a quaternius.itch.io/stylized-nature-megakit link). There's no static zip URL in the page HTML, and the page links the CC0 1.0 deed. | source: https://quaternius.com/packs/stylizednaturemegakit.html | publisher: Quaternius | pub_date: live | accessed: 2026-10-04 | confidence: high | class: import
+- claim: `unity` CLI beta.12 command manifest: `assets import` imports a *local* .unitypackage in batch mode, and `assets inspect` and `assets export` exist. There is NO Asset Store download command. `projects create --template <id> --with-pipeline` exists. `test --mode EditMode|PlayMode --output <xml>` exists. `pipeline install`, `mcp configure`, `command`, `setup` and `skill` exist. | source: local `unity commands`, `unity projects create --help`, `unity test --help` | publisher: Unity Technologies (installed CLI 1.0.0-beta.12) | pub_date: 2026-10-01 build | accessed: 2026-10-04 | confidence: high | class: capability
+- claim: Unity Editor 6000.6.4f1 is installed locally, and the `unity` CLI is on PATH. | source: local `unity editors list` | publisher: local machine | accessed: 2026-10-04 | confidence: high | class: version

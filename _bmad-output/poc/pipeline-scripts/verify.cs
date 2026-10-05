@@ -1,0 +1,10 @@
+var t = UnityEngine.Terrain.activeTerrain; var d = t.terrainData;
+var counts = new int[d.treePrototypes.Length];
+foreach (var i in d.treeInstances) counts[i.prototypeIndex]++;
+var parts = new System.Collections.Generic.List<string>();
+for (int p = 0; p < counts.Length; p++) parts.Add(d.treePrototypes[p].prefab.name + "=" + counts[p] + "@" + UnityEditor.AssetDatabase.GetAssetPath(d.treePrototypes[p].prefab).Replace("Assets/ThirdParty/Quaternius/NatureMegaKit/Prefabs/", ""));
+var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+var roots = string.Join(",", System.Array.ConvertAll(scene.GetRootGameObjects(), g => g.name));
+var sp = UnityEngine.GameObject.Find("PlayerSpawn").transform;
+var layers = string.Join(",", System.Array.ConvertAll(d.terrainLayers, l => UnityEditor.AssetDatabase.GetAssetPath(l.diffuseTexture)));
+return "perPrototype: " + string.Join(" | ", parts) + "\nscene=" + scene.path + " dirty=" + scene.isDirty + " roots=" + roots + "\nPlayerSpawn pos=" + sp.position.ToString("F2") + " rot=" + sp.eulerAngles.ToString("F0") + "\nlayerTextures=" + layers + "\nterrainPos=" + t.transform.position + " skybox=" + (UnityEngine.RenderSettings.skybox ? UnityEngine.RenderSettings.skybox.name : "null") + " sun=" + (UnityEngine.RenderSettings.sun ? UnityEngine.RenderSettings.sun.name : "null");

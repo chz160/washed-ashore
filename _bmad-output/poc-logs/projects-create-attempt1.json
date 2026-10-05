@@ -1,0 +1,13 @@
+{
+  "success": false,
+  "command": "projects",
+  "data": null,
+  "errors": [
+    {
+      "code": "PROJECTS_CREATE_ERROR",
+      "message": "Project path already exists: E:\\GitHub\\washed-ashore"
+    }
+  ],
+  "warnings": []
+}
+[u.sh] exit=6 duration=0.1s

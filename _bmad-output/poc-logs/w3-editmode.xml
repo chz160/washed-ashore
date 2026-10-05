@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="11" result="Passed" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.0256584">
+  <test-suite type="TestSuite" id="1000" name="washed-ashore" fullname="washed-ashore" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.025658" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1025" name="WashedAshore.Tests.EditMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.EditMode.dll" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.020831" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32740" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1026" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.020624" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1027" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.020539" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1028" name="EditMode" fullname="WashedAshore.Tests.EditMode" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.020460" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1010" name="MouseLockGateTests" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.020058" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1024" name="ShouldApplyMouseLook" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldApplyMouseLook" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.016102" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1021" name="ShouldApplyMouseLook(WebGLPlayer,None)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldApplyMouseLook(WebGLPlayer,None)" methodname="ShouldApplyMouseLook" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="479208675" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.009198" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1022" name="ShouldApplyMouseLook(WebGLPlayer,Locked)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldApplyMouseLook(WebGLPlayer,Locked)" methodname="ShouldApplyMouseLook" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="2029258638" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.000104" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1023" name="ShouldApplyMouseLook(WindowsPlayer,None)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldApplyMouseLook(WindowsPlayer,None)" methodname="ShouldApplyMouseLook" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="1561432864" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.000043" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1016" name="ShouldLockOnStart" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldLockOnStart" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.001149" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1011" name="ShouldLockOnStart(WindowsPlayer)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldLockOnStart(WindowsPlayer)" methodname="ShouldLockOnStart" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="970113550" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.000180" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1012" name="ShouldLockOnStart(WindowsEditor)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldLockOnStart(WindowsEditor)" methodname="ShouldLockOnStart" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="1787385682" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.000049" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1013" name="ShouldLockOnStart(LinuxPlayer)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldLockOnStart(LinuxPlayer)" methodname="ShouldLockOnStart" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="1704643831" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.000031" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1014" name="ShouldLockOnStart(OSXPlayer)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldLockOnStart(OSXPlayer)" methodname="ShouldLockOnStart" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="1254332383" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.000026" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1015" name="ShouldLockOnStart(WebGLPlayer)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldLockOnStart(WebGLPlayer)" methodname="ShouldLockOnStart" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="1992316317" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.000027" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1020" name="ShouldRelockOnClick" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldRelockOnClick" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.000461" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1017" name="ShouldRelockOnClick(WebGLPlayer)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldRelockOnClick(WebGLPlayer)" methodname="ShouldRelockOnClick" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="1046657523" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.000084" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1018" name="ShouldRelockOnClick(WindowsPlayer)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldRelockOnClick(WindowsPlayer)" methodname="ShouldRelockOnClick" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="2068903287" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.000034" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1019" name="ShouldRelockOnClick(WindowsEditor)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldRelockOnClick(WindowsEditor)" methodname="ShouldRelockOnClick" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="559171478" result="Passed" start-time="2026-10-05 04:28:26Z" end-time="2026-10-05 04:28:26Z" duration="0.000027" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/washed-ashore\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

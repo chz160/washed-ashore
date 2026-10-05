@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-05 04:28:35Z" end-time="2026-10-05 04:28:41Z" duration="6.497646">
+  <test-suite type="TestSuite" id="1020" name="washed-ashore" fullname="washed-ashore" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-05 04:28:35Z" end-time="2026-10-05 04:28:41Z" duration="6.497646" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1036" name="WashedAshore.Tests.PlayMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.PlayMode.dll" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-05 04:28:35Z" end-time="2026-10-05 04:28:41Z" duration="6.492247" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="51600" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1037" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-05 04:28:35Z" end-time="2026-10-05 04:28:41Z" duration="6.491858" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1038" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-05 04:28:35Z" end-time="2026-10-05 04:28:41Z" duration="6.491656" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1039" name="PlayMode" fullname="WashedAshore.Tests.PlayMode" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-05 04:28:35Z" end-time="2026-10-05 04:28:41Z" duration="6.491488" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1030" name="WorldWalkTests" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-05 04:28:35Z" end-time="2026-10-05 04:28:41Z" duration="6.490686" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1031" name="A_LoadsWorld" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.A_LoadsWorld" methodname="A_LoadsWorld" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="418082269" result="Passed" start-time="2026-10-05 04:28:35Z" end-time="2026-10-05 04:28:35Z" duration="0.201409" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1032" name="B_HoldingWForTwoSecondsMovesPlayerAtLeastThreeMetres" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.B_HoldingWForTwoSecondsMovesPlayerAtLeastThreeMetres" methodname="B_HoldingWForTwoSecondsMovesPlayerAtLeastThreeMetres" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="947931880" result="Passed" start-time="2026-10-05 04:28:35Z" end-time="2026-10-05 04:28:37Z" duration="2.218602" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WorldWalkTests: W held 2 s moved 9.38 m
+]]></output>
+              </test-case>
+              <test-case id="1033" name="C_PlayerIsGroundedAfterThreeSeconds" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.C_PlayerIsGroundedAfterThreeSeconds" methodname="C_PlayerIsGroundedAfterThreeSeconds" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="612321149" result="Passed" start-time="2026-10-05 04:28:37Z" end-time="2026-10-05 04:28:40Z" duration="3.008024" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1034" name="D_FrameCountAdvances" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.D_FrameCountAdvances" methodname="D_FrameCountAdvances" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="1233623389" result="Passed" start-time="2026-10-05 04:28:40Z" end-time="2026-10-05 04:28:41Z" duration="1.026478" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WorldWalkTests: 9662 frames in 1 s realtime
+]]></output>
+              </test-case>
+              <test-case id="1035" name="E_MouseDeltaRotatesPlayer" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.E_MouseDeltaRotatesPlayer" methodname="E_MouseDeltaRotatesPlayer" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="1983958980" result="Passed" start-time="2026-10-05 04:28:41Z" end-time="2026-10-05 04:28:41Z" duration="0.027799" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/washed-ashore\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

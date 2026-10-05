@@ -1,0 +1,3 @@
+Quaternius assets in this folder are CC0 1.0 Universal (Public Domain Dedication).
+https://creativecommons.org/publicdomain/zero/1.0/
+Sources: Stylized Nature MegaKit [Standard/free] and Ultimate Animated Animals (July 2021), https://quaternius.com. Original license files kept in each subfolder.

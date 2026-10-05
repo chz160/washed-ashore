@@ -1,0 +1,56 @@
+Build Report
+Uncompressed usage by category (Percentages based on user generated assets only):
+Textures               52.7 mb	 80.9% 
+Meshes                 2.9 mb	 4.5% 
+Animations             0.0 kb	 0.0% 
+Sounds                 0.0 kb	 0.0% 
+Shaders                7.6 mb	 11.7% 
+Other Assets           1.6 mb	 2.4% 
+Levels                 0.0 kb	 0.0% 
+File headers           66.3 kb	 0.1% 
+Total User Assets      65.2 mb	 100.0% 
+Complete build size    39.4 mb
+Used Assets and files from the Resources folder, sorted by uncompressed size:
+ 5.3 mb	 13.5% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Bark_TwistedTree_Normal.png
+ 5.3 mb	 13.5% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Bark_NormalTree_Normal.png
+ 5.3 mb	 13.5% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Bark_DeadTree_Normal.png
+ 5.3 mb	 13.5% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Leaf_Pine_C.png
+ 5.3 mb	 13.5% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Leaves.png
+ 3.6 mb	 9.0% Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+ 2.7 mb	 6.8% Built-in Texture2D: Splash Screen Unity Logo
+ 2.7 mb	 6.8% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Rocks_Diffuse.png
+ 2.7 mb	 6.8% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Bark_TwistedTree.png
+ 2.7 mb	 6.8% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Bark_NormalTree.png
+ 2.7 mb	 6.8% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Bark_DeadTree.png
+ 2.5 mb	 6.3% Assets/World/Terrain/WorldTerrain.asset
+ 1.3 mb	 3.4% Assets/World/Terrain/Textures/Ground037_1K-JPG_NormalGL.jpg
+ 1.3 mb	 3.4% Assets/World/Terrain/Textures/Rock030_1K-JPG_NormalGL.jpg
+ 1.3 mb	 3.4% Assets/World/Terrain/Textures/Grass004_1K-JPG_NormalGL.jpg
+ 1.3 mb	 3.4% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Leaves_TwistedTree_C.png
+ 1.3 mb	 3.4% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Leaves_NormalTree_C.png
+ 1.3 mb	 3.4% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Flowers.png
+ 1.2 mb	 3.0% Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLit.shader
+ 1.2 mb	 3.0% Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitAdd.shader
+ 954.9 kb	 2.4% Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitBase.shader
+ 769.7 kb	 1.9% Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/TwistedTree_1.fbx
+ 682.8 kb	 1.7% Assets/World/Terrain/Textures/Ground037_1K-JPG_Color.jpg
+ 682.8 kb	 1.7% Assets/World/Terrain/Textures/Grass004_1K-JPG_Color.jpg
+ 682.8 kb	 1.7% Assets/World/Terrain/Textures/Rock030_1K-JPG_Color.jpg
+ 588.9 kb	 1.5% Resources/unity_builtin_extra
+ 514.2 kb	 1.3% Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/CommonTree_1.fbx
+ 460.6 kb	 1.1% Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/DeadTree_1.fbx
+ 315.4 kb	 0.8% Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/CommonTree_3.fbx
+ 310.0 kb	 0.8% Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/Pine_3.fbx
+ 272.7 kb	 0.7% Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/Pine_1.fbx
+ 262.6 kb	 0.7% Packages/com.unity.render-pipelines.universal/Textures/SMAA/AreaTex.tga
+ 204.8 kb	 0.5% Packages/com.unity.render-pipelines.core/Runtime/RenderPipelineResources/GPUDriven/InstanceOcclusionCullingKernels.compute
+ 170.8 kb	 0.4% Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Grass.png
+ 160.6 kb	 0.4% Packages/com.unity.render-pipelines.universal/Shaders/Terrain/WavingGrass.shader
+ 152.9 kb	 0.4% Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/Bush_Common_Flowers.fbx
+ 97.1 kb	 0.2% Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/Bush_Common.fbx
+ 74.6 kb	 0.2% Packages/com.unity.render-pipelines.universal/Shaders/Terrain/WavingGrassBillboard.shader
+ 74.4 kb	 0.2% Packages/com.unity.render-pipelines.core/Runtime/RenderPipelineResources/GPUDriven/InstanceTransformUpdateKernels.compute
+ 64.1 kb	 0.2% Packages/com.unity.render-pipelines.universal/Textures/BlueNoise256/LDR_LLL1_6.png
+ 64.1 kb	 0.2% Packages/com.unity.render-pipelines.universal/Textures/BlueNoise256/LDR_LLL1_5.png
+ 64.1 kb	 0.2% Packages/com.unity.render-pipelines.universal/Textures/BlueNoise256/LDR_LLL1_4.png
+ 64.1 kb	 0.2% Packages/com.unity.render-pipelines.universal/Textures/BlueNoise256/LDR_LLL1_3.png

@@ -1,0 +1,8 @@
+# Digest: verify (lead spot-check, normal validation)
+
+## Claims
+- claim: Paul Spooner (Peripheral Arbor) released "the entirety of my intellectual property to the public domain" on 2014-08-05. | source: https://ip.tryop.com/ | publisher: Peripheral Arbor / Paul Spooner | pub_date: 2014-08-05 | accessed: 2026-10-05 | confidence: high | class: license
+- claim: http://peripheralarbor.com/bird.blend downloads anonymously (301, then 200, Content-Length 459,693 bytes). | source: https://peripheralarbor.com/bird.blend | publisher: Peripheral Arbor | pub_date: live | accessed: 2026-10-05 | confidence: high | class: import
+- claim: The SoltorchGames American Robin page says: free, 20 clips, GLB/FBX/.blend, "Use it in any project, personal or commercial … Credit is welcome but not required. The one restriction is that you cannot resell the assets themselves as assets." The download is LookToTheBirds_FreeSample_AmericanRobin_v1.0.zip. | source: https://soltorchgames.itch.io/animated-low-poly-bird-sample | publisher: SoltorchGames | pub_date: ~2026-09 | accessed: 2026-10-05 | confidence: high | class: license
+- claim: Blender 5.2.2 LTS is installed locally at C:\Program Files\Blender Foundation\Blender 5.2\blender.exe, so a script can export .blend to FBX in background mode (`blender -b`). | source: local `blender.exe --version` | publisher: local machine | accessed: 2026-10-05 | confidence: high | class: import
+- claim: None of the 8 Quaternius packs in vendor/ has a bird file name; the lead checked them with grep. | source: local unzip -l listing | publisher: local machine | accessed: 2026-10-05 | confidence: high | class: other

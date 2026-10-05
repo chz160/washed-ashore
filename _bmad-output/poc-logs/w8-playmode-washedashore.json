@@ -1,0 +1,23 @@
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 12508)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 63852)
+VBCSCompiler prewarm took 7.17 ms
+{
+  "success": true,
+  "command": "test",
+  "data": {
+    "projectPath": "E:\\GitHub\\washed-ashore",
+    "output": "E:\\GitHub\\washed-ashore\\TestResults\\w8-playmode-washedashore.xml",
+    "reports": {
+      "nunit": "E:\\GitHub\\washed-ashore\\TestResults\\w8-playmode-washedashore.xml",
+      "junit": null
+    },
+    "coverage": {
+      "requested": false,
+      "enabled": false,
+      "output": null
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
+[[wrapper]] 2026-10-05T05:34:41Z | exit=0 | 16.6s | unity test E:\GitHub\washed-ashore --mode PlayMode --filter WashedAshore.Tests.PlayMode --output E:\GitHub\washed-ashore\TestResults\w8-playmode-washedashore.xml --timeout 900 --format json -- -logFile E:\GitHub\washed-ashore\TestResults\w8-playmode-washedashore-editor.log

@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2248394001856934880
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1136273664545552959, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ada3ecf78ce2e54428c79d50189bb5da, type: 2}
+    - target: {fileID: 3012880920453247549, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      propertyPath: m_Name
+      value: Wildlife_Fox
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492300660348553432, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492300660348553432, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492300660348553432, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492300660348553432, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492300660348553432, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492300660348553432, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492300660348553432, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492300660348553432, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492300660348553432, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8492300660348553432, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3012880920453247549, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5493321536173206062}
+    - targetCorrespondingSourceObject: {fileID: 3012880920453247549, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 262890531522336518}
+  m_SourcePrefab: {fileID: 100100000, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+--- !u!95 &1222512404656769503 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1136273664545552959, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+  m_PrefabInstance: {fileID: 2248394001856934880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3962043238204293597 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3012880920453247549, guid: 4b69e317d7c2fef44baa71c1e93edc57, type: 3}
+  m_PrefabInstance: {fileID: 2248394001856934880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &5493321536173206062
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3962043238204293597}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.2
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 60
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.5
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 0.6565812
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 1
+--- !u!114 &262890531522336518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3962043238204293597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053ab9a25f00871408e8990a231eefc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WashedAshore.Wildlife::WashedAshore.Wildlife.WildlifeAgent
+  species: 2
+  tuning: {fileID: 11400000, guid: 8224e7336e62f974fa9a525454727db8, type: 2}
+  animator: {fileID: 1222512404656769503}
+  snapToTerrain: 1

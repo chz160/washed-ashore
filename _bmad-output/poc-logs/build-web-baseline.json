@@ -1,0 +1,45 @@
+{"type":"progress","command":"build","message":"Resolving project..."}
+{"type":"progress","command":"build","message":"Resolving editor..."}
+{"type":"progress","command":"build","message":"Starting Unity..."}
+{"type":"progress","command":"build","message":"Still building — 30s elapsed, last log output 0s ago"}
+{"type":"progress","command":"build","message":"Still building — 1m00s elapsed, last log output 0s ago"}
+{"type":"progress","command":"build","message":"Still building — 1m30s elapsed, last log output 13s ago"}
+{"type":"progress","command":"build","message":"Still building — 2m01s elapsed, last log output 11s ago"}
+{"type":"progress","command":"build","message":"Still building — 2m31s elapsed, last log output 41s ago"}
+{"type":"progress","command":"build","message":"Still building — 3m02s elapsed, last log output 0s ago"}
+{"type":"progress","command":"build","message":"Still building — 3m32s elapsed, last log output 7s ago"}
+{"type":"progress","command":"build","message":"Still building — 4m03s elapsed, last log output 7s ago"}
+{"type":"progress","command":"build","message":"Still building — 4m33s elapsed, last log output 3s ago"}
+{"type":"progress","command":"build","message":"Still building — 5m03s elapsed, last log output 4s ago"}
+{"type":"progress","command":"build","message":"Still building — 5m33s elapsed, last log output 1s ago"}
+{"type":"progress","command":"build","message":"Still building — 6m04s elapsed, last log output 3s ago"}
+{"type":"progress","command":"build","message":"Still building — 6m34s elapsed, last log output 3s ago"}
+{"type":"progress","command":"build","message":"Still building — 7m04s elapsed, last log output 3s ago"}
+{"type":"progress","command":"build","message":"Still building — 7m35s elapsed, last log output 7s ago"}
+{"type":"progress","command":"build","message":"Still building — 8m05s elapsed, last log output 7s ago"}
+{"type":"progress","command":"build","message":"Still building — 8m36s elapsed, last log output 7s ago"}
+{"type":"progress","command":"build","message":"Still building — 9m06s elapsed, last log output 4s ago"}
+{"type":"progress","command":"build","message":"Still building — 9m36s elapsed, last log output 4s ago"}
+{"type":"progress","command":"build","message":"Unity exited (code 0)"}
+{
+  "success": true,
+  "command": "build",
+  "data": {
+    "target": "WebGL",
+    "logFile": "E:\\GitHub\\washed-ashore\\Builds\\build-web-baseline.log",
+    "version": null,
+    "editorErrors": [
+      {
+        "type": "license-error",
+        "raw": "[Licensing::Module] LicensingClient has failed validation; ignoring",
+        "message": "[Licensing::Module] LicensingClient has failed validation; ignoring",
+        "lineNumber": 13
+      }
+    ],
+    "provenance": "E:\\GitHub\\washed-ashore\\Builds\\Web\\unity-build.provenance.json",
+    "outputPath": "E:\\GitHub\\washed-ashore\\Builds\\Web"
+  },
+  "errors": [],
+  "warnings": []
+}
+[[wrapper]] 2026-10-05T05:01:56Z | exit=0 | 602.8s | unity build E:\GitHub\washed-ashore --profile Assets/Settings/Build Profiles/WebGL.asset --output-path E:\GitHub\washed-ashore\Builds\Web --log-file E:\GitHub\washed-ashore\Builds\build-web-baseline.log --no-tail --timeout 3600 --format json

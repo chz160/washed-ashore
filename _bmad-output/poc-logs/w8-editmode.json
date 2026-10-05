@@ -1,0 +1,23 @@
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 63232)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 62272)
+VBCSCompiler prewarm took 7.58 ms
+{
+  "success": true,
+  "command": "test",
+  "data": {
+    "projectPath": "E:\\GitHub\\washed-ashore",
+    "output": "E:\\GitHub\\washed-ashore\\TestResults\\w8-editmode.xml",
+    "reports": {
+      "nunit": "E:\\GitHub\\washed-ashore\\TestResults\\w8-editmode.xml",
+      "junit": null
+    },
+    "coverage": {
+      "requested": false,
+      "enabled": false,
+      "output": null
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
+[[wrapper]] 2026-10-05T05:34:49Z | exit=0 | 8.1s | unity test E:\GitHub\washed-ashore --mode EditMode --output E:\GitHub\washed-ashore\TestResults\w8-editmode.xml --timeout 900 --format json -- -logFile E:\GitHub\washed-ashore\TestResults\w8-editmode-editor.log
