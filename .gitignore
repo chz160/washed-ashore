@@ -89,3 +89,9 @@ crashlytics-build.properties
 # Terrain pipeline (tools/terrain): DEM download cache and Python bytecode
 /Data/terrain/cache/
 __pycache__/
+
+# Burst output written during WebGL builds; regenerated on every web build (deploy-web.ps1 uploads Builds/Web only)
+/Data/Plugins/
+
+# Temporary scenes the Unity Test Runner leaves behind when a run is interrupted
+/Assets/InitTestScene*
