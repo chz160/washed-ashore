@@ -1,0 +1,74 @@
+LOW POLY BIRDS - ASSET LICENSE
+Copyright (c) 2026 Soltorch Games Inc.
+
+These birds were modelled and animated by hand for the game Look to the
+Birds. Here are the terms in plain language so you can get on with using
+them.
+
+
+WHAT YOU CAN DO
+
+Use the models, textures, animations and source files in any project,
+personal or commercial. No royalties, no revenue cap.
+
+Use them in as many of your own projects as you like. One purchase covers
+you forever, not one game.
+
+Modify anything. Remesh, retexture, re-rig, retarget, add or delete
+animations, recolour, cut them up, combine them with other assets.
+
+Use renders or gameplay footage containing them in your marketing, trailers,
+screenshots and store pages.
+
+Use them in games, films, animation, VR and AR, architectural work,
+education, research, or anything else you think of.
+
+You do not have to credit me. If you want to, "Birds by Soltorch Games" is
+plenty. I would enjoy hearing what you made with them, but that is not
+required either.
+
+
+WHAT YOU CANNOT DO
+
+Do not resell, redistribute, sublicense or give away the assets themselves,
+modified or not, as assets. Not in another asset pack, not on another asset
+store, not in a template or starter kit whose substance is the assets, not
+as free downloads, not as an NFT or similar token.
+
+Sell or share what you make with them, not the birds themselves. Shipping
+them inside a game, film or app is fine, because that is a product. Shipping
+them as files for other people to build with is not.
+
+Do not use them to train generative machine learning models, or include them
+in a dataset meant for that.
+
+Do not claim you made the original assets.
+
+
+IF YOU WORK WITH OTHER PEOPLE
+
+One purchase covers you and anyone working directly on your project, whether
+they are collaborators, contractors or employees. They may use the assets on
+that project. If your studio wants them available to everyone across
+unrelated projects, please buy a copy per seat or get in touch.
+
+You can pass the files to a contractor working on your project. They may not
+keep them for other clients afterwards.
+
+
+NO WARRANTY
+
+These assets are provided "as is", without warranty of any kind, express or
+implied, including but not limited to the warranties of merchantability,
+fitness for a particular purpose and non-infringement. In no event shall the
+author be liable for any claim, damages or other liability arising from, out
+of, or in connection with the assets or their use.
+
+
+QUESTIONS
+
+If something here is unclear, or your situation is not covered, just ask:
+
+  https://soltorchgames.itch.io/
+
+Asking is easier for both of us than guessing.
