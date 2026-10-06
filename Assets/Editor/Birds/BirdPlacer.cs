@@ -4,6 +4,7 @@ using System.Text;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using WashedAshore.World;
 using WashedAshore.Wildlife;
 using WashedAshore.Wildlife.Editor;
 
@@ -46,7 +47,7 @@ namespace WashedAshore.Birds.Editor
 
         class Context
         {
-            public Terrain terrain;
+            public HabitatGround ground;
             public GameObject spawn;
             public WildlifeTuning wildlife;
             public List<Vector3> route;
@@ -56,12 +57,15 @@ namespace WashedAshore.Birds.Editor
         static Context Load(out string error)
         {
             error = null;
-            var c = new Context { terrain = Terrain.activeTerrain, spawn = GameObject.Find("PlayerSpawn"),
+            var c = new Context { spawn = GameObject.Find("PlayerSpawn"),
                 wildlife = AssetDatabase.LoadAssetAtPath<WildlifeTuning>(WildlifePrefabBuilder.TuningPath) };
-            if (!c.terrain) error = "no active Terrain";
-            else if (!c.spawn) error = "no PlayerSpawn";
+            var map = AssetDatabase.LoadAssetAtPath<MapConfig>(WildlifePlacement.MapConfigPath);
+            if (!c.spawn) error = "no PlayerSpawn";
+            else if (!map) error = "no MapConfig";
             else if (!c.wildlife) error = "no WildlifeTuning";
             if (error != null) return null;
+            c.ground = WildlifePopulation.Habitat(map, c.spawn.transform);
+            if (c.ground.Tiles.Count == 0) { error = "no terrain tiles under the habitat window"; return null; }
             c.route = WildlifeRules.CheckRoute(c.wildlife, c.spawn.transform.position, out c.routeNote);
             return c;
         }
@@ -69,7 +73,7 @@ namespace WashedAshore.Birds.Editor
         /// <summary>The wildlife group anchors the same seed produces (bird patches keep >= 10 m from them).</summary>
         static List<Vector3> WildlifeAnchors(Context c, int seed, out string error)
         {
-            var groups = WildlifeRules.PlanGroups(c.wildlife, seed, c.terrain, c.spawn.transform.position, c.route, out error);
+            var groups = WildlifeRules.PlanGroups(c.wildlife, seed, c.ground, c.spawn.transform.position, c.route, out error);
             return groups?.Select(g => g.anchor).ToList();
         }
 
@@ -78,7 +82,7 @@ namespace WashedAshore.Birds.Editor
             var anchors = WildlifeAnchors(c, seed, out error);
             if (anchors == null) { error = "wildlife plan failed: " + error; return null; }
             var spawn = c.spawn.transform.position;
-            return BirdPlacementRules.Plan(seed, c.terrain, spawn, c.route, anchors, p => WildlifeRules.InTestLane(p, spawn), out error);
+            return BirdPlacementRules.Plan(seed, c.ground, spawn, c.route, anchors, c.ground.InTestLane, out error);
         }
 
         public static string Run(int seed = SceneSeed)
@@ -168,7 +172,7 @@ namespace WashedAshore.Birds.Editor
             var spawn = c.spawn.transform.position;
             // The scene's wildlife is baked from its own seed (WildlifePlacer.SceneSeed); check against what is actually there.
             var herds = Object.FindObjectsByType<WildlifeHerd>(FindObjectsInactive.Include).Select(h => h.transform.position).ToList();
-            var site = new BirdPlacementRules.Site(c.terrain, spawn, c.route, herds, p => WildlifeRules.InTestLane(p, spawn));
+            var site = new BirdPlacementRules.Site(c.ground, spawn, c.route, herds, c.ground.InTestLane);
             var fails = new List<string>();
             var patches = layout.patches; var flocks = layout.flocks;
 

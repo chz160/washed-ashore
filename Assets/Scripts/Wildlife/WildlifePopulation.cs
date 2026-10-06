@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using WashedAshore.World;
 
 namespace WashedAshore.Wildlife
 {
@@ -19,10 +20,23 @@ namespace WashedAshore.Wildlife
         [SerializeField] int bakedSeed = 101;
         [Tooltip("Prefab per species, indexed by WildlifeSpecies.")]
         [SerializeField] GameObject[] prefabs = new GameObject[4];
+        [Tooltip("Map scale and water level (Bells Bend). Habitats never plan below WaterLevelY + LandMargin.")]
+        [SerializeField] MapConfig map;
 
         public WildlifeTuning Tuning => tuning;
         public Transform PlayerSpawn => playerSpawn;
         public int BakedSeed => bakedSeed;
+        public MapConfig Map => map;
+
+        /// <summary>The habitat window around the spawn on this scene's terrain tiles.</summary>
+        public HabitatGround Ground => ground ??= playerSpawn ? Habitat(map, playerSpawn) : null;
+        HabitatGround ground;
+
+        /// <summary>Land margin above MapConfig.WaterLevelY, so nothing plans on the shore ramp.</summary>
+        public const float LandMargin = 0.5f;
+
+        public static HabitatGround Habitat(MapConfig cfg, Transform spawn) =>
+            HabitatGround.Around(spawn.position, spawn.eulerAngles.y, cfg ? cfg.WaterLevelY + LandMargin : float.NegativeInfinity);
         public int ActiveSeed { get; private set; }
         /// <summary>Why this seed's placement failed, or null. A failed seed spawns nothing (no stale groups).</summary>
         public string PlacementError { get; private set; }
@@ -30,9 +44,16 @@ namespace WashedAshore.Wildlife
         void Awake()
         {
             ActiveSeed = WildlifeRandom.RunSeed(tuning);
+            if (!playerSpawn)
+            {
+                // A terrain rebuild replaced PlayerSpawn; habitats need regenerating (WildlifePlacer.Run).
+                PlacementError = "PlayerSpawn not assigned; regenerate the habitat with WildlifePlacer.Run";
+                Debug.LogWarning($"WildlifePopulation: {PlacementError}", this);
+                return;
+            }
             if (ActiveSeed == bakedSeed && GetComponentsInChildren<WildlifeHerd>().Length > 0) return;
 
-            var plan = WildlifeRules.PlanGroups(tuning, ActiveSeed, Terrain.activeTerrain, playerSpawn.position,
+            var plan = WildlifeRules.PlanGroups(tuning, ActiveSeed, Ground, playerSpawn.position,
                 Route(tuning, playerSpawn.position), out string error);
             if (plan == null)
             {
@@ -103,8 +124,10 @@ namespace WashedAshore.Wildlife
             }
         }
 
-        public void Configure(WildlifeTuning t, Transform spawn, int seed, GameObject[] speciesPrefabs)
+        public void Configure(WildlifeTuning t, Transform spawn, int seed, GameObject[] speciesPrefabs, MapConfig mapConfig)
         {
+            map = mapConfig;
+            ground = null;
             tuning = t;
             playerSpawn = spawn;
             bakedSeed = seed;

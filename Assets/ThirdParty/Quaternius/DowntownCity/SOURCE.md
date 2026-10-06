@@ -1,0 +1,1 @@
+Source: vendor/Downtown City MegaKit[Standard].zip (Quaternius, CC0 1.0). Imported subset for the Bells Bend north barrier (B2): Brick_Plain_1, Entrance_Concrete_2x1, Metal_Plain_1, Prop_Bollard, Street_Asphalt_6x6 (Exports/FBX (Unity)) and the RedBrick/Concrete/MetalConcrete textures they reference. vendor/ is untouched.

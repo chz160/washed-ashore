@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c93545f1ff784f05ba2d7b0f58f3e2ec, type: 3}
+  m_Name: MapConfig
+  m_EditorClassIdentifier: WashedAshore.World::WashedAshore.World.MapConfig
+  horizontalScale: 0.5
+  verticalScale: 0.7
+  datumMeters: 115
+  poolElevationMeters: 117.3
+  northLineZ: 1986.7
+  gateOpen: 0
+  tileSizeMeters: 1024
+  heightmapResolution: 1025
+  marginMeters: 600
+  northVistaMinMeters: 400
+  lakeDepthBelowWater: 10
+  shoreRampMeters: 20
+  landMinAboveWater: 1.5
+  bankLipAboveWater: 0.3
+  bankSlopeDeg: 18
+  bankBandMeters: 12
+  bankHighStart: 4
+  bankHighEnd: 6
+  wadeDepth: 2
+  bankSteepFadeStartDeg: 35
+  bankSteepExemptDeg: 40
+  bankBluffExclusionMeters: 60
+  bankBluffFadeMeters: 20
+  bankSteepExemptHighBanksOnly: 1
+  oppositeBankEnabled: 1
+  oppositeBankSlopeDeg: 25
+  oppositeBankOffsetMax: 60
+  oppositeBankWavelengthMin: 80
+  oppositeBankWavelengthMax: 200
+  oppositeBankTaper: 100
+  oppositeBankSeed: 1987
+  manifestPath: Data/terrain/build/manifest.json

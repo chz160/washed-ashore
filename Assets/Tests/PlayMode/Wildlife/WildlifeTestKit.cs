@@ -16,6 +16,19 @@ namespace WashedAshore.Tests.Wildlife
     {
         public const string WorldScene = "World";
 
+        /// <summary>designer-2: wildlife and bird PlayMode tests run at a pinned 60 fps step (the R2 target) instead of
+        /// unthrottled batchmode frame rates, so NavMesh steering and the 0.2 s / 1 s probes see the same frames every run.
+        /// qa-2: environment variable WA_TEST_CAPTURE_FPS overrides it (0 = unpinned); the value used is logged per fixture.
+        /// Set only in the wildlife and bird test fixtures, never in game code or ProjectSettings.</summary>
+        public const int TestFrameRate = 60;
+        public static void PinFrameStep()
+        {
+            int fps = int.TryParse(System.Environment.GetEnvironmentVariable("WA_TEST_CAPTURE_FPS"), out int v) && v >= 0 ? v : TestFrameRate;
+            Time.captureFramerate = fps;
+            Debug.Log($"WildlifeTestKit: captureFramerate={fps} (WA_TEST_CAPTURE_FPS={System.Environment.GetEnvironmentVariable("WA_TEST_CAPTURE_FPS") ?? "unset"})");
+        }
+        public static void UnpinFrameStep() => Time.captureFramerate = 0;
+
         public static IEnumerator LoadWorld(int seed)
         {
             WildlifeRandom.OverrideSeed(seed);
@@ -38,6 +51,9 @@ namespace WashedAshore.Tests.Wildlife
             return pop;
         }
 
+        /// <summary>The habitat window the population planned on (512 m around PlayerSpawn, across terrain tiles).</summary>
+        public static HabitatGround Ground() => Population().Ground;
+
         public static IEnumerator WaitGrounded(PlayerController player, float timeout = 5f)
         {
             float waited = 0f;
@@ -52,8 +68,7 @@ namespace WashedAshore.Tests.Wildlife
         public static void Teleport(PlayerController player, Vector3 xz)
         {
             var cc = player.GetComponent<CharacterController>();
-            var t = Terrain.activeTerrain;
-            xz.y = t.SampleHeight(xz) + t.transform.position.y + 0.5f;
+            xz.y = TerrainQuery.Height(xz) + 0.5f;
             cc.enabled = false;
             player.transform.position = xz;
             cc.enabled = true;
@@ -190,7 +205,7 @@ namespace WashedAshore.Tests.Wildlife
         public static int OccluderMask()
         {
             int mask = 1 << LayerMask.NameToLayer("Default");
-            var t = Terrain.activeTerrain;
+            var t = TerrainQuery.TileAtOrNearest(Vector3.zero); // every tile shares one layer
             if (t) mask |= 1 << t.gameObject.layer;
             return mask;
         }

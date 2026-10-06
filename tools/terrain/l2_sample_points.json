@@ -1,0 +1,118 @@
+{
+ "source": "_bmad-output/research/domain-bells-bend-map-2026-10-05/digests/elevation-r1-1.md, 'Sampled elevations table' (USGS EPQS, metres). east_bank_bottom_in and east_lobe_in added per the director ruling (designer-2, EPQS).",
+ "rule": "L2 (grade L2): inside polygon expectedY = max(MapConfig.DemToUnityY(demMeters), WaterLevelY + landMinAboveWater); north vista (neck_north) expectedY = DemToUnityY(demMeters), no floor; pass if |actual - expected| <= 3. Grade L3 points must be <= WaterLevelY - 8. Ruling: studio:decisions ruling/bells-bend-L2-points.",
+ "points": [
+  {
+   "label": "central_ridge_S",
+   "lat": 36.166,
+   "lon": -86.906,
+   "demMeters": 239.2,
+   "grade": "L2"
+  },
+  {
+   "label": "central_ridge_mid",
+   "lat": 36.182,
+   "lon": -86.9104,
+   "demMeters": 235.2,
+   "grade": "L2"
+  },
+  {
+   "label": "central_ridge_N",
+   "lat": 36.194,
+   "lon": -86.922,
+   "demMeters": 230.6,
+   "grade": "L2"
+  },
+  {
+   "label": "neck_north",
+   "lat": 36.21,
+   "lon": -86.915,
+   "demMeters": 168.9,
+   "grade": "L2"
+  },
+  {
+   "label": "park_floodplain_W",
+   "lat": 36.1578,
+   "lon": -86.9389,
+   "demMeters": 122.3,
+   "grade": "L2"
+  },
+  {
+   "label": "west_bottom",
+   "lat": 36.18,
+   "lon": -86.936,
+   "demMeters": 119.8,
+   "grade": "L2"
+  },
+  {
+   "label": "south_fields",
+   "lat": 36.148,
+   "lon": -86.915,
+   "demMeters": 150.6,
+   "grade": "L2"
+  },
+  {
+   "label": "south_tip_bottom",
+   "lat": 36.141,
+   "lon": -86.92,
+   "demMeters": 120.6,
+   "grade": "L2"
+  },
+  {
+   "label": "east_bottom",
+   "lat": 36.18,
+   "lon": -86.897,
+   "demMeters": 127.1,
+   "grade": "L3"
+  },
+  {
+   "label": "east_lobe_bottom",
+   "lat": 36.2,
+   "lon": -86.9,
+   "demMeters": 121.8,
+   "grade": "L3"
+  },
+  {
+   "label": "river_W_arm",
+   "lat": 36.17,
+   "lon": -86.943,
+   "demMeters": 122.2,
+   "grade": "L3"
+  },
+  {
+   "label": "river_S",
+   "lat": 36.137,
+   "lon": -86.925,
+   "demMeters": 122.6,
+   "grade": "L3"
+  },
+  {
+   "label": "scottsboro_ridge_N",
+   "lat": 36.2561,
+   "lon": -86.9006,
+   "demMeters": 277.0,
+   "grade": "NA_unless_in_terrain"
+  },
+  {
+   "label": "check_E_of_east_arm",
+   "lat": 36.1664,
+   "lon": -86.878,
+   "demMeters": 132.7,
+   "grade": "L3"
+  },
+  {
+   "label": "east_bank_bottom_in",
+   "lat": 36.171,
+   "lon": -86.903,
+   "demMeters": 123.9,
+   "grade": "L2"
+  },
+  {
+   "label": "east_lobe_in",
+   "lat": 36.2,
+   "lon": -86.9166,
+   "demMeters": 147.9,
+   "grade": "L2"
+  }
+ ]
+}

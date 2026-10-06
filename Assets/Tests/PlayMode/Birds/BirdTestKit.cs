@@ -4,6 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using WashedAshore.Birds;
+using WashedAshore.Gameplay;
 using WashedAshore.Wildlife;
 using WashedAshore.Tests.Wildlife;
 
@@ -48,8 +49,7 @@ namespace WashedAshore.Tests.Birds
 
         public static float TerrainY(Vector3 p)
         {
-            var t = Terrain.activeTerrain;
-            return t.SampleHeight(p) + t.transform.position.y;
+            return TerrainQuery.Height(p);
         }
 
         // ---- Animator ------------------------------------------------------------------------------
@@ -162,17 +162,17 @@ namespace WashedAshore.Tests.Birds
     {
         public readonly List<(Vector2 xz, float bottom, float top, float radius)> Trees = new List<(Vector2, float, float, float)>();
 
-        public TestCrowns(Terrain terrain)
+        public TestCrowns(HabitatGround ground)
         {
-            var d = terrain.terrainData;
-            var o = terrain.transform.position;
-            var protos = d.treePrototypes;
-            var shape = protos.Select(p => p.prefab && !p.prefab.name.StartsWith("Rock_") ? Shape(p.prefab) : (0f, 0f)).ToArray();
-            foreach (var inst in d.treeInstances)
+            var shapes = new Dictionary<GameObject, (float, float)>();
+            foreach (var inst in ground.Trees())
             {
-                var (h, r) = shape[inst.prototypeIndex];
+                if (!inst.prefab) continue;
+                if (!shapes.TryGetValue(inst.prefab, out var shape))
+                    shapes[inst.prefab] = shape = inst.prefab.name.StartsWith("Rock_") ? (0f, 0f) : Shape(inst.prefab);
+                var (h, r) = shape;
                 if (h <= 0f) continue;
-                var w = Vector3.Scale(inst.position, d.size) + o;
+                var w = inst.world;
                 float top = w.y + h * inst.heightScale;
                 Trees.Add((new Vector2(w.x, w.z), Mathf.Lerp(w.y, top, 0.3f), top, 0.8f * r * inst.widthScale));
             }

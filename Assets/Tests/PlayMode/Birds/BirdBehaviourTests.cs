@@ -21,8 +21,15 @@ namespace WashedAshore.Tests.Birds
         const int Seed = 101;
         const float Window = 0.1f;
 
+        [SetUp]
+        public void SetUp() => WildlifeTestKit.PinFrameStep();
+
         [TearDown]
-        public void TearDown() => Reset();
+        public void TearDown()
+        {
+            Reset();
+            WildlifeTestKit.UnpinFrameStep();
+        }
 
         // ---- B3: ground cycle -----------------------------------------------------------------------
 
@@ -165,7 +172,7 @@ namespace WashedAshore.Tests.Birds
             yield return new WaitForSeconds(1f);
             Assert.IsFalse(target.IsFlying || target.Despawned, "Target robin was not on the ground before the approach");
 
-            var crowns = new TestCrowns(Terrain.activeTerrain);
+            var crowns = new TestCrowns(WildlifeTestKit.Ground());
             int mask = ObstacleMask();
             var cam = player.GetComponentInChildren<Camera>();
             probes.Add(new FlightProbe(target));
@@ -223,7 +230,7 @@ namespace WashedAshore.Tests.Birds
                 Assert.AreEqual(pop.Plan.flocks[i].size, pop.Flocks[i].Birds.Count, $"{pop.Flocks[i].name} size differs from the plan");
                 Assert.That(pop.Flocks[i].Birds.Count, Is.InRange(pop.Tuning.flockSize.x, pop.Tuning.flockSize.y), $"{pop.Flocks[i].name} size outside the spec bounds");
             }
-            var check = new FlockCheck(pop.Flocks.SelectMany(f => f.Birds), pop.Tuning, new TestCrowns(Terrain.activeTerrain));
+            var check = new FlockCheck(pop.Flocks.SelectMany(f => f.Birds), pop.Tuning, new TestCrowns(WildlifeTestKit.Ground()));
             yield return Run(60f, check.Sample);
             Debug.Log($"B5 {check}");
             var failures = check.Failures(pop.Flocks);
@@ -238,7 +245,7 @@ namespace WashedAshore.Tests.Birds
             yield return LoadWorld(Seed);
             var pop = Population();
             var flock = pop.Flocks[0];
-            var crowns = new TestCrowns(Terrain.activeTerrain);
+            var crowns = new TestCrowns(WildlifeTestKit.Ground());
             flock.CollapseSlots = true;
             foreach (var b in flock.Birds) b.InvertWings = true;
             flock.Birds[0].ExtraModelYaw = 180f;

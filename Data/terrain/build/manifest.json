@@ -1,0 +1,326 @@
+{
+ "generator": "tools/terrain/build_terrain.py",
+ "buildTag": "dev",
+ "builtUtc": "2026-10-06T11:04:55Z",
+ "mapConfig": {
+  "horizontalScale": 0.5,
+  "verticalScale": 0.7,
+  "datumMeters": 115.0,
+  "poolElevationMeters": 117.3,
+  "northLineZ": 1986.7,
+  "marginMeters": 600.0,
+  "northVistaMinMeters": 400.0,
+  "lakeDepthBelowWater": 10.0,
+  "shoreRampMeters": 20.0,
+  "landMinAboveWater": 1.5,
+  "bankLipAboveWater": 0.3,
+  "bankSlopeDeg": 18.0,
+  "bankBandMeters": 12.0,
+  "bankHighStart": 4.0,
+  "bankHighEnd": 6.0,
+  "wadeDepth": 2.0,
+  "oppositeBankSlopeDeg": 25.0,
+  "oppositeBankOffsetMax": 60.0,
+  "oppositeBankWavelengthMin": 80.0,
+  "oppositeBankWavelengthMax": 200.0,
+  "oppositeBankTaper": 100.0,
+  "bankSteepFadeStartDeg": 35.0,
+  "bankSteepExemptDeg": 40.0,
+  "bankBluffExclusionMeters": 60.0,
+  "bankBluffFadeMeters": 20.0,
+  "tileSizeMeters": 1024,
+  "heightmapResolution": 1025,
+  "gateOpen": 0,
+  "oppositeBankEnabled": 1,
+  "oppositeBankSeed": 1987,
+  "bankSteepExemptHighBanksOnly": 1,
+  "manifestPath": "Data/terrain/build/manifest.json",
+  "WaterLevelY": 1.6099999999999979
+ },
+ "mapConfigSha256_16": "d18800230508b305",
+ "frame": {
+  "utmEpsg": 26916,
+  "originE": 507317,
+  "originN": 4002771,
+  "origin": "playable polygon centroid",
+  "axes": "+X east, +Z north"
+ },
+ "raw": {
+  "format": "uint16 little-endian",
+  "rowOrder": "row 0 = south (min Z), col 0 = west (min X)",
+  "demFiles": "dem_x{i}_z{j}.raw: unshaped real DEM (before clamp/lake), uint16 LE centimetres, same layout",
+  "unityImport": "TerrainData.SetHeights(0, 0, float[row, col] = u16 / 65535f): SetHeights' first index is Z, so row 0 lands at the tile's min Z"
+ },
+ "tileSize": 1024,
+ "heightmapResolution": 1025,
+ "sampleSpacing": 1.0,
+ "tilesX": 4,
+ "tilesZ": 5,
+ "gridOrigin": [
+  -2087,
+  -2492
+ ],
+ "terrainBaseY": -9.4,
+ "terrainHeight": 103.2,
+ "heightRangeY": [
+  -9.4,
+  92.732
+ ],
+ "WaterLevelY": 1.61,
+ "northLineZData": 1986.72,
+ "tiles": [
+  {
+   "file": "tile_x0_z0.raw",
+   "ix": 0,
+   "iz": 0,
+   "position": [
+    -2087,
+    -9.4,
+    -2492
+   ],
+   "demFile": "dem_x0_z0.raw"
+  },
+  {
+   "file": "tile_x1_z0.raw",
+   "ix": 1,
+   "iz": 0,
+   "position": [
+    -1063,
+    -9.4,
+    -2492
+   ],
+   "demFile": "dem_x1_z0.raw"
+  },
+  {
+   "file": "tile_x2_z0.raw",
+   "ix": 2,
+   "iz": 0,
+   "position": [
+    -39,
+    -9.4,
+    -2492
+   ],
+   "demFile": "dem_x2_z0.raw"
+  },
+  {
+   "file": "tile_x3_z0.raw",
+   "ix": 3,
+   "iz": 0,
+   "position": [
+    985,
+    -9.4,
+    -2492
+   ],
+   "demFile": "dem_x3_z0.raw"
+  },
+  {
+   "file": "tile_x0_z1.raw",
+   "ix": 0,
+   "iz": 1,
+   "position": [
+    -2087,
+    -9.4,
+    -1468
+   ],
+   "demFile": "dem_x0_z1.raw"
+  },
+  {
+   "file": "tile_x1_z1.raw",
+   "ix": 1,
+   "iz": 1,
+   "position": [
+    -1063,
+    -9.4,
+    -1468
+   ],
+   "demFile": "dem_x1_z1.raw"
+  },
+  {
+   "file": "tile_x2_z1.raw",
+   "ix": 2,
+   "iz": 1,
+   "position": [
+    -39,
+    -9.4,
+    -1468
+   ],
+   "demFile": "dem_x2_z1.raw"
+  },
+  {
+   "file": "tile_x3_z1.raw",
+   "ix": 3,
+   "iz": 1,
+   "position": [
+    985,
+    -9.4,
+    -1468
+   ],
+   "demFile": "dem_x3_z1.raw"
+  },
+  {
+   "file": "tile_x0_z2.raw",
+   "ix": 0,
+   "iz": 2,
+   "position": [
+    -2087,
+    -9.4,
+    -444
+   ],
+   "demFile": "dem_x0_z2.raw"
+  },
+  {
+   "file": "tile_x1_z2.raw",
+   "ix": 1,
+   "iz": 2,
+   "position": [
+    -1063,
+    -9.4,
+    -444
+   ],
+   "demFile": "dem_x1_z2.raw"
+  },
+  {
+   "file": "tile_x2_z2.raw",
+   "ix": 2,
+   "iz": 2,
+   "position": [
+    -39,
+    -9.4,
+    -444
+   ],
+   "demFile": "dem_x2_z2.raw"
+  },
+  {
+   "file": "tile_x3_z2.raw",
+   "ix": 3,
+   "iz": 2,
+   "position": [
+    985,
+    -9.4,
+    -444
+   ],
+   "demFile": "dem_x3_z2.raw"
+  },
+  {
+   "file": "tile_x0_z3.raw",
+   "ix": 0,
+   "iz": 3,
+   "position": [
+    -2087,
+    -9.4,
+    580
+   ],
+   "demFile": "dem_x0_z3.raw"
+  },
+  {
+   "file": "tile_x1_z3.raw",
+   "ix": 1,
+   "iz": 3,
+   "position": [
+    -1063,
+    -9.4,
+    580
+   ],
+   "demFile": "dem_x1_z3.raw"
+  },
+  {
+   "file": "tile_x2_z3.raw",
+   "ix": 2,
+   "iz": 3,
+   "position": [
+    -39,
+    -9.4,
+    580
+   ],
+   "demFile": "dem_x2_z3.raw"
+  },
+  {
+   "file": "tile_x3_z3.raw",
+   "ix": 3,
+   "iz": 3,
+   "position": [
+    985,
+    -9.4,
+    580
+   ],
+   "demFile": "dem_x3_z3.raw"
+  },
+  {
+   "file": "tile_x0_z4.raw",
+   "ix": 0,
+   "iz": 4,
+   "position": [
+    -2087,
+    -9.4,
+    1604
+   ],
+   "demFile": "dem_x0_z4.raw"
+  },
+  {
+   "file": "tile_x1_z4.raw",
+   "ix": 1,
+   "iz": 4,
+   "position": [
+    -1063,
+    -9.4,
+    1604
+   ],
+   "demFile": "dem_x1_z4.raw"
+  },
+  {
+   "file": "tile_x2_z4.raw",
+   "ix": 2,
+   "iz": 4,
+   "position": [
+    -39,
+    -9.4,
+    1604
+   ],
+   "demFile": "dem_x2_z4.raw"
+  },
+  {
+   "file": "tile_x3_z4.raw",
+   "ix": 3,
+   "iz": 4,
+   "position": [
+    985,
+    -9.4,
+    1604
+   ],
+   "demFile": "dem_x3_z4.raw"
+  }
+ ],
+ "dem": {
+  "source": "USGS 3DEP ImageServer exportImage, 1 m, EPSG:26916, bilinear",
+  "window": [
+   503139,
+   3997783,
+   8201,
+   10249
+  ],
+  "chunks": 9,
+  "fetched": 0,
+  "cached": 9,
+  "nodataFilled": 0
+ },
+ "shaping": {
+  "bankLoweredCells": 74700,
+  "bankLoweredOnPreSlopeOver40": 4891,
+  "bankLoweredWithinBluffExclusion": 0,
+  "bankLoweredMaxShoreDist": 12.0,
+  "insideCellsRaisedToMinLand": 171719,
+  "insideFractionRaisedToMinLand": 0.0267,
+  "insideDemMinMeters": 117.96,
+  "northDemMinMeters": 117.89,
+  "northRiverCarvedCells": 119031,
+  "northRiverCarveBelowDemMeters": 118.8,
+  "oppositeBankCappedCells": 80493,
+  "window": [
+   4474,
+   5121
+  ],
+  "capDistanceMax": 193.6,
+  "oppositeBankLakeCells": 56806,
+  "shoreRampMeters": 20.0
+ }
+}

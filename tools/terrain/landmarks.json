@@ -1,0 +1,81 @@
+{
+ "source": "_bmad-output/research/domain-bells-bend-map-2026-10-05/digests/landcover-landmarks-r1-1.md (WGS84). Spec L7 list.",
+ "landmarks": [
+  {
+   "id": "OutdoorCenter",
+   "name": "Bells Bend Outdoor Center",
+   "lat": 36.1543,
+   "lon": -86.9219,
+   "approx": false
+  },
+  {
+   "id": "BuchananHouse",
+   "name": "Buchanan House (1842)",
+   "lat": 36.1546,
+   "lon": -86.9225,
+   "approx": true,
+   "note": "Research gives no coordinate, only 'on the park campus'. Placed about 60 m (real) NW of the Outdoor Center; verify against the satellite reference."
+  },
+  {
+   "id": "BoatSlipway",
+   "name": "Boat slipway (east bank)",
+   "lat": 36.144,
+   "lon": -86.8927,
+   "approx": false,
+   "note": "OSM slipway is untagged by name."
+  },
+  {
+   "id": "CleecesFerryLanding",
+   "name": "Cleeces Ferry landing (closed 1990)",
+   "approx": true,
+   "derive": "road_end_nearest_bank",
+   "roads": [
+    "Cleeces Rerry Road"
+   ],
+   "note": "Approximate: no OSM way reaches the bank. Derived from OSM 'Cleeces Rerry Road' (typo of Cleeces Ferry Rd): its westernmost junction (36.1796, -86.9320), carried west to the inner bank. Confirmed by designer-2."
+  },
+  {
+   "id": "Viewpoint",
+   "name": "Viewpoint",
+   "lat": 36.1428,
+   "lon": -86.9279,
+   "approx": false
+  },
+  {
+   "id": "WastewaterPlant",
+   "name": "Wastewater treatment plant",
+   "lat": 36.1451,
+   "lon": -86.9147,
+   "approx": false
+  },
+  {
+   "id": "BuzzardBluff",
+   "name": "Buzzard Bluff",
+   "lat": 36.202,
+   "lon": -86.9094,
+   "approx": false
+  },
+  {
+   "id": "McCordBluff",
+   "name": "McCord Bluff",
+   "lat": 36.1826,
+   "lon": -86.9097,
+   "approx": false
+  },
+  {
+   "id": "PotatoHill",
+   "name": "Potato Hill",
+   "lat": 36.2042,
+   "lon": -86.9306,
+   "approx": false
+  },
+  {
+   "id": "WestBankPonds",
+   "name": "West-bottom pond cluster",
+   "lat": 36.185,
+   "lon": -86.937,
+   "approx": true,
+   "note": "Cluster spans 36.177-36.193 N at -86.937; marker at its centre."
+  }
+ ]
+}

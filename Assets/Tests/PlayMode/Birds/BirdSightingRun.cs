@@ -75,6 +75,7 @@ namespace WashedAshore.Tests.Birds
         public float distance;   // horizontal player distance, measured by the test when the flush fired
         public bool social;
         public bool seen;        // visible in the flush sample or the next
+        public string unseenWhy; // designer-2 diagnosis: why an unseen flush was not seen at its last check
     }
 
     [Serializable]

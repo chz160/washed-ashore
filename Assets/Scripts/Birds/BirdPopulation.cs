@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
+using WashedAshore.Gameplay;
 using WashedAshore.Wildlife;
 
 namespace WashedAshore.Birds
@@ -36,9 +37,16 @@ namespace WashedAshore.Birds
         void Awake()
         {
             ActiveSeed = BirdRandom.RunSeed(seed);
-            var terrain = Terrain.activeTerrain;
             var wild = FindAnyObjectByType<WildlifePopulation>();
-            if (!tuning || !robinPrefab || !crowPrefab || !terrain || !wild)
+            if (wild && !wild.PlayerSpawn)
+            {
+                // Same stale-habitat case as WildlifePopulation: report it, don't throw.
+                PlacementError = "WildlifePopulation has no PlayerSpawn; regenerate the habitats";
+                Debug.LogWarning($"BirdPopulation: {PlacementError}", this);
+                return;
+            }
+            var ground = wild ? wild.Ground : null;
+            if (!tuning || !robinPrefab || !crowPrefab || !wild || ground == null || ground.Tiles.Count == 0)
             {
                 Fail("missing BirdTuning, a bird prefab, the terrain or the WildlifePopulation");
                 return;
@@ -46,8 +54,8 @@ namespace WashedAshore.Birds
             Vector3 spawn = wild.PlayerSpawn.position;
             var route = WildlifePopulation.Route(wild.Tuning, spawn);
             var anchors = wild.GetComponentsInChildren<WildlifeHerd>().Select(h => h.Anchor).ToList();
-            bool InLane(Vector3 p) => WildlifeRules.InTestLane(p, spawn);
-            Site = new BirdPlacementRules.Site(terrain, spawn, route, anchors, InLane);
+            bool InLane(Vector3 p) => ground.InTestLane(p);
+            Site = new BirdPlacementRules.Site(ground, spawn, route, anchors, InLane);
 
             var layout = GetComponent<BirdLayout>();
             if (layout && layout.seed == ActiveSeed && layout.patches.Count > 0)
@@ -55,7 +63,7 @@ namespace WashedAshore.Birds
                     tallestCrown = layout.tallestCrown, tallestCrownTopY = layout.tallestCrownTopY };
             else
             {
-                Plan = BirdPlacementRules.Plan(ActiveSeed, terrain, spawn, route, anchors, InLane, out string error);
+                Plan = BirdPlacementRules.Plan(ActiveSeed, ground, spawn, route, anchors, InLane, out string error);
                 if (Plan == null) { Fail($"seed {ActiveSeed} failed the placement rules: {error}"); return; }
             }
             string bounds = CheckBounds(Plan);
@@ -98,12 +106,11 @@ namespace WashedAshore.Birds
             string layer = Robins.Count > 0 ? LayerMask.LayerToName(Robins[0].gameObject.layer) : "-";
             Debug.Log($"Birds: seed={ActiveSeed} robins={Robins.Count} flocks={Flocks.Count} flockBirds={Flocks.Sum(f => f.Birds.Count)} layer={layer}");
             yield return new WaitForSeconds(5f);
-            var terrain = Terrain.activeTerrain;
             float lo = float.MaxValue, hi = float.MinValue;
             foreach (var b in Flocks.SelectMany(f => f.Birds))
             {
                 Vector3 p = b.transform.position;
-                float agl = p.y - terrain.SampleHeight(p) - terrain.transform.position.y;
+                float agl = p.y - TerrainQuery.Height(p);
                 lo = Mathf.Min(lo, agl);
                 hi = Mathf.Max(hi, agl);
             }

@@ -1,0 +1,2 @@
+Top-down orthographic capture of the built terrain (blue = below WaterLevelY 1.61), red = scaled OSM playable polygon, yellow = MapConfig.northLineZ 1986.7. 2.02 m/px, origin (-1570,-2000).
+L1 samples=955 mean=0.51m p95=0.75m max=1.25m noCrossingWithin60m=0 (counted as 60 m) pass(<=15)=True

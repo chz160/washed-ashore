@@ -2,6 +2,8 @@
     "name": "WashedAshore.Birds.Editor",
     "rootNamespace": "WashedAshore.Birds.Editor",
     "references": [
+        "WashedAshore.World",
+        "WashedAshore.Gameplay",
         "WashedAshore.Wildlife.Editor",
         "WashedAshore.Wildlife",
         "WashedAshore.Birds"

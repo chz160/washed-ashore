@@ -54,6 +54,8 @@ namespace WashedAshore.Tests.Wildlife
         float inState;
         public int FacingSamples, FacingOk, WatchSamples, WatchOk;
         public float MinMovingDot = 1f, MinWatchDot = 1f;
+        /// <summary>designer-2: every moving sample under MinFacingDot, with what can tell a slow turn from an avoidance push.</summary>
+        public readonly List<string> BadFacing = new List<string>();
         public bool HasHead => head;
         public float FacingShare => FacingSamples == 0 ? 1f : (float)FacingOk / FacingSamples;
         public float WatchShare => WatchSamples == 0 ? 1f : (float)WatchOk / WatchSamples;
@@ -71,6 +73,26 @@ namespace WashedAshore.Tests.Wildlife
             return f.normalized;
         }
 
+        string DescribeBadFacing(float dot, float v, Vector3 displacement)
+        {
+            Vector3 p = a.transform.position;
+            var ag = a.Agent;
+            Vector3 desired = ag.desiredVelocity; desired.y = 0f;
+            // Turn lag: the model trails a desired direction that the motion already follows. Push: the motion itself departs
+            // from the desired direction (avoidance or a NavMesh corner).
+            float motionVsDesired = desired.sqrMagnitude > 0.01f ? Vector3.Angle(displacement, desired) : -1f;
+            float modelVsDesired = desired.sqrMagnitude > 0.01f ? Vector3.Angle(ModelForward(), desired) : -1f;
+            float mate = float.MaxValue;
+            foreach (var o in WildlifeAgent.All)
+                if (o != a && o.Species == a.Species) mate = Mathf.Min(mate, WildlifeTestKit.Flat(o.transform.position, p));
+            float obstacle = float.MaxValue;
+            foreach (var c in Physics.OverlapSphere(p, 5f, ~0, QueryTriggerInteraction.Ignore))
+                if (!(c is TerrainCollider) && !c.transform.IsChildOf(a.transform)) obstacle = Mathf.Min(obstacle, Vector3.Distance(c.ClosestPoint(p), p));
+            return $"t+{Samples * 0.2f:F1}s pos=({p.x:F1},{p.z:F1}) v={v:F2} dot={dot:F2} slope={WashedAshore.Gameplay.TerrainQuery.Steepness(p):F0}deg " +
+                   $"motionVsDesired={motionVsDesired:F0}deg modelVsDesired={modelVsDesired:F0}deg angularSpeed={ag.angularSpeed:F0} " +
+                   $"state={a.Current} nearestMate={(mate < float.MaxValue ? mate.ToString("F1") : "-")}m nearestObstacle={(obstacle < float.MaxValue ? obstacle.ToString("F1") : ">5")}m";
+        }
+
         void SampleFacing(Vector3 displacement, float v, float window, Vector3? player)
         {
             if (a.Current != state) { state = a.Current; inState = 0f; }
@@ -82,6 +104,7 @@ namespace WashedAshore.Tests.Wildlife
                 float dot = Vector3.Dot(ModelForward(), displacement.normalized);
                 FacingSamples++;
                 if (dot >= MinFacingDot) FacingOk++;
+                else BadFacing.Add(DescribeBadFacing(dot, v, displacement));
                 MinMovingDot = Mathf.Min(MinMovingDot, dot);
             }
             // Alert (and the wolves' post-retreat watch) must face the player once they've had 1 s to turn.
@@ -170,7 +193,8 @@ namespace WashedAshore.Tests.Wildlife
             return (clip, gap);
         }
 
-        static float TerrainHeight(Terrain t, Vector3 p) => t.SampleHeight(p) + t.transform.position.y;
+        // Tiled terrain: the tile under the point, not the one passed in.
+        static float TerrainHeight(Terrain t, Vector3 p) => WashedAshore.Gameplay.TerrainQuery.Height(p);
 
         public const string NavMeshMethod =
             "|transform.y - NavMesh.SamplePosition(transform.position, r=2 m).position.y|; transform.y is set to terrain height each frame";
@@ -208,7 +232,8 @@ namespace WashedAshore.Tests.Wildlife
             $"{Name}: samples={Samples} moving={MovingSamples} still={StillSamples} maxMismatch={MaxMismatch:F2}s " +
             $"maxClip={MaxClipDepth:F3}m (run {MaxClipRunSeconds}s) maxFloat={MaxFloatGap:F3}m (run {MaxFloatRunSeconds}s) " +
             $"stuck={StuckEvents} navMeshDeltaY={MaxNavMeshDelta:F3}m rootGroundErr={MaxRootGroundError:F3}m offNavMesh={OffNavMeshSamples} " +
-            $"facing={FacingOk}/{FacingSamples} ({FacingShare:P0}, minDot {MinMovingDot:F2}) watch={WatchOk}/{WatchSamples} (minDot {MinWatchDot:F2})";
+            $"facing={FacingOk}/{FacingSamples} ({FacingShare:P0}, minDot {MinMovingDot:F2}) watch={WatchOk}/{WatchSamples} (minDot {MinWatchDot:F2})" +
+            (BadFacing.Count > 0 ? $" badFacing=[{string.Join(" ; ", BadFacing)}]" : "");
 
         /// <summary>Fails the agent if its model doesn't face its motion (or the player while watching) often enough.</summary>
         public void AssertFacing(string context)
@@ -216,7 +241,7 @@ namespace WashedAshore.Tests.Wildlife
             NUnit.Framework.Assert.IsTrue(HasHead, $"{Name}: no Head bone to measure the model's facing");
             if (FacingSamples >= MinFacingSamples)
                 NUnit.Framework.Assert.GreaterOrEqual(FacingShare, MinFacingShare,
-                    $"{context} {Name} ({Species}) runs facing away from its motion: {this}");
+                    $"{context} {Name} ({Species}) runs facing away from its motion: {this} | bad samples: {string.Join(" ; ", BadFacing)}");
             if (WatchSamples >= MinFacingSamples)
                 NUnit.Framework.Assert.GreaterOrEqual(WatchShare, MinFacingShare,
                     $"{context} {Name} ({Species}) turns its back while watching the player: {this}");

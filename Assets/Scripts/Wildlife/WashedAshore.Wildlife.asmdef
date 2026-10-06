@@ -1,7 +1,10 @@
 {
     "name": "WashedAshore.Wildlife",
     "rootNamespace": "WashedAshore.Wildlife",
-    "references": [],
+    "references": [
+        "WashedAshore.Gameplay",
+        "WashedAshore.World"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

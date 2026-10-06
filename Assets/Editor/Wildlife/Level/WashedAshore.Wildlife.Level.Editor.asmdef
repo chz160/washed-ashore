@@ -2,6 +2,8 @@
     "name": "WashedAshore.Wildlife.Level.Editor",
     "rootNamespace": "WashedAshore.Wildlife.Level",
     "references": [
+        "WashedAshore.World",
+        "WashedAshore.Gameplay",
         "WashedAshore.Wildlife",
         "WashedAshore.Wildlife.Editor",
         "Unity.AI.Navigation"

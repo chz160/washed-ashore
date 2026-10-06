@@ -2,6 +2,8 @@
     "name": "WashedAshore.Wildlife.Editor",
     "rootNamespace": "WashedAshore.Wildlife.Editor",
     "references": [
+        "WashedAshore.World",
+        "WashedAshore.Gameplay",
         "WashedAshore.Wildlife"
     ],
     "includePlatforms": [

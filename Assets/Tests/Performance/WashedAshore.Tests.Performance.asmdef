@@ -2,6 +2,7 @@
     "name": "WashedAshore.Tests.Performance",
     "rootNamespace": "WashedAshore.Tests.Performance",
     "references": [
+        "WashedAshore.World",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Unity.PerformanceTesting",

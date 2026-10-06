@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
+using WashedAshore.World;
 
 namespace WashedAshore.Wildlife.Editor
 {
@@ -17,6 +18,7 @@ namespace WashedAshore.Wildlife.Editor
     public static class WildlifePlacement
     {
         public const string RootName = "Wildlife";
+        public const string MapConfigPath = "Assets/World/MapConfig.asset";
 
         public static string BakeIntoScene(int seed)
         {
@@ -29,8 +31,11 @@ namespace WashedAshore.Wildlife.Editor
             if (!spawn) return "MISSING PlayerSpawn";
             if (NavMesh.CalculateTriangulation().indices.Length == 0) return "NO NavMesh baked";
 
+            var map = AssetDatabase.LoadAssetAtPath<MapConfig>(MapConfigPath);
+            if (!map) return "MISSING MapConfig at " + MapConfigPath;
             var route = WildlifePopulation.Route(tuning, spawn.transform.position);
-            var plan = WildlifeRules.PlanGroups(tuning, seed, Terrain.activeTerrain, spawn.transform.position, route, out string error);
+            var ground = WildlifePopulation.Habitat(map, spawn.transform);
+            var plan = WildlifeRules.PlanGroups(tuning, seed, ground, spawn.transform.position, route, out string error);
             if (plan == null)
             {
                 Debug.LogError($"WildlifePlacement: seed {seed} failed: {error}");
@@ -41,7 +46,7 @@ namespace WashedAshore.Wildlife.Editor
             if (!root) root = new GameObject(RootName);
             var pop = root.GetComponent<WildlifePopulation>();
             if (!pop) pop = root.AddComponent<WildlifePopulation>();
-            pop.Configure(tuning, spawn.transform, seed, prefabs);
+            pop.Configure(tuning, spawn.transform, seed, prefabs, map);
             pop.Clear();
             pop.Spawn(plan, (s, parent, pos, rot) =>
             {
