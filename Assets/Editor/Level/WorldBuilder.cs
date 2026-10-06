@@ -12,7 +12,8 @@ using UnityEngine.Rendering;
 public static class WorldBuilder
 {
     const string Root = "Assets/World/Terrain";
-    const string StagingDir = @"E:\GitHub\washed-ashore\_staging\ambientcg";
+    // Raw ambientCG downloads (git-ignored), next to Assets/. Only read when a texture is missing from Root.
+    static string StagingDir => Path.Combine(Path.GetDirectoryName(Application.dataPath), "_staging", "ambientcg");
     const float Size = 512f;
     const float MaxHeight = 80f;
     const int HeightRes = 513;
@@ -163,7 +164,10 @@ public static class WorldBuilder
         var dst = $"{Root}/Textures/{file}";
         var existing = AssetDatabase.LoadAssetAtPath<Texture2D>(dst);
         if (existing) return existing;
-        File.Copy(Path.Combine(StagingDir, id, file), dst, true);
+        var src = Path.Combine(StagingDir, id, file);
+        if (!File.Exists(src))
+            throw new FileNotFoundException($"{dst} is missing and there is no staged copy. Download the ambientCG {id} 1K-JPG zip and unpack it into {Path.Combine(StagingDir, id)}.", src);
+        File.Copy(src, dst, true);
         AssetDatabase.ImportAsset(dst, ImportAssetOptions.ForceSynchronousImport);
         var imp = (TextureImporter)AssetImporter.GetAtPath(dst);
         imp.textureType = normal ? TextureImporterType.NormalMap : TextureImporterType.Default;
