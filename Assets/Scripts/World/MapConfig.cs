@@ -23,6 +23,8 @@ namespace WashedAshore.World
         [Header("North boundary")]
         [Tooltip("Unity Z of the north line (36.2055 N by default). Player must stay at z <= northLineZ.")]
         public float northLineZ = 1986.7f;
+        // Before opening the north for real, split content with Addressables:
+        // _bmad-output/planning-artifacts/deferred-addressables-content-streaming.md
         [Tooltip("Old Hickory Blvd checkpoint gate state. Closed by default.")]
         public bool gateOpen;
 

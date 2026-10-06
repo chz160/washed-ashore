@@ -1,5 +1,9 @@
 # washed-ashore (Washed Ashore)
 
+## Web build size (deferred Addressables work)
+
+`deploy-web.ps1` moves files over the 25 MiB Cloudflare Pages limit to the R2 bucket `washed-ashore-game-data`. That's a stopgap. **Before opening the northern region** (`MapConfig.gateOpen`, or any playable land north of the north line), **or when the deploy warns that `Web.data` is over 100 MB**, raise the Addressables split with Noah first. See `_bmad-output/planning-artifacts/deferred-addressables-content-streaming.md`.
+
 ## Model facing (rigged FBX)
 
 Unity's forward is +Z. Most vendor rigged FBX files arrive facing -Z, among them Quaternius animals and characters (see `_bmad-output/poc/vendor-facing-survey.md`). `Assets/Editor/Wildlife/ModelFacingPostprocessor.cs` fixes this at import time: it detects the facing and bakes a 180° yaw into the armature root, the mesh node and the clips.

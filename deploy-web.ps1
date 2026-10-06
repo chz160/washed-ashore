@@ -11,6 +11,13 @@
     The build uses Brotli with Unity's decompression fallback, so the loader
     decompresses in JavaScript and Pages needs no special headers.
 
+    Pages rejects any file over 25 MiB. Larger files (in practice Web.data) go
+    to an R2 bucket instead, under a key made from the file's hash, and
+    index.html is rewritten to load them from there. R2 must be enabled on the
+    Cloudflare account once, in the dashboard. The long-term fix is splitting
+    content with Addressables; see
+    _bmad-output/planning-artifacts/deferred-addressables-content-streaming.md.
+
 .PARAMETER ProjectName
     Cloudflare Pages project name. The site is served at https://<name>.pages.dev.
 
@@ -24,6 +31,13 @@
 .PARAMETER Message
     Note attached to the deployment in the Cloudflare dashboard.
 
+.PARAMETER Bucket
+    R2 bucket for files over the Pages limit. Created on first use.
+
+.PARAMETER DataBaseUrl
+    Public base URL of the bucket, for a custom domain connected to it. When
+    omitted, the bucket's r2.dev URL is used (rate-limited; fine for testing).
+
 .EXAMPLE
     .\deploy-web.ps1
     .\deploy-web.ps1 -Build -Message "Added birds"
@@ -34,7 +48,9 @@ param(
     [string]$ProjectName = "washed-ashore-game",
     [switch]$Build,
     [string]$Branch = "main",
-    [string]$Message = "Web build $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
+    [string]$Message = "Web build $(Get-Date -Format 'yyyy-MM-dd HH:mm')",
+    [string]$Bucket = "washed-ashore-game-data",
+    [string]$DataBaseUrl
 )
 
 $ErrorActionPreference = "Stop"
@@ -71,21 +87,72 @@ if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
 Copy-Item $webDir $stage -Recurse
 Get-ChildItem $stage -Recurse -Include "*.provenance.json", "*.log" | Remove-Item -Force
 
-# Pages rejects any single file over 25 MiB.
-$tooBig = Get-ChildItem $stage -Recurse -File | Where-Object Length -gt 25MB
-if ($tooBig) {
-    $tooBig | ForEach-Object { Write-Host ("  {0}  {1:N1} MB" -f $_.Name, ($_.Length / 1MB)) }
-    throw "These files exceed the 25 MiB Cloudflare Pages limit."
-}
 $sizeMb = (Get-ChildItem $stage -Recurse -File | Measure-Object Length -Sum).Sum / 1MB
 $built = (Get-ChildItem $stage -Recurse -File | Sort-Object LastWriteTime | Select-Object -Last 1).LastWriteTime
 Write-Host ("Deploying build from {0:yyyy-MM-dd HH:mm} ({1:N1} MB)" -f $built, $sizeMb) -ForegroundColor Cyan
+
+# Every player downloads the whole data file before the game starts. Past this
+# size it is time to split content out with Addressables.
+$dataFile = Get-ChildItem $stage -Recurse -File -Filter "*.data*" | Sort-Object Length -Descending | Select-Object -First 1
+if ($dataFile -and $dataFile.Length -gt 100MB) {
+    Write-Warning ("{0} is {1:N1} MB. Time to plan the Addressables split: see _bmad-output/planning-artifacts/deferred-addressables-content-streaming.md" -f $dataFile.Name, ($dataFile.Length / 1MB))
+}
 
 # Log in on first use. CLOUDFLARE_API_TOKEN, if set, skips the browser login.
 $whoami = (& npx.cmd @wrangler whoami 2>&1) -join "`n"
 if ($whoami -notmatch "logged in") {
     Write-Host "Logging in to Cloudflare..." -ForegroundColor Cyan
     Invoke-Wrangler login
+}
+
+# Pages rejects any single file over 25 MiB, so those go to R2 instead.
+$tooBig = @(Get-ChildItem $stage -Recurse -File | Where-Object Length -gt 25MB)
+if ($tooBig) {
+    $buckets = (& npx.cmd @wrangler r2 bucket list 2>&1) -join "`n"
+    if ($buckets -match "10042") {
+        throw "R2 is not enabled on this Cloudflare account. Enable it once in the dashboard (R2 Object Storage), then run this again."
+    }
+    if ($buckets -notmatch "(?m)\s$([regex]::Escape($Bucket))\s*$") {
+        Write-Host "Creating R2 bucket '$Bucket'..." -ForegroundColor Cyan
+        Invoke-Wrangler r2 bucket create $Bucket
+    }
+
+    # The game page and the bucket are different origins, so the bucket needs CORS.
+    $cors = Join-Path ([IO.Path]::GetTempPath()) "washed-ashore-r2-cors.json"
+    '{"rules":[{"allowed":{"origins":["*"],"methods":["GET","HEAD"],"headers":["*"]},"maxAgeSeconds":86400}]}' |
+        Set-Content $cors -Encoding ascii
+    Invoke-Wrangler r2 bucket cors set $Bucket --file $cors --force
+
+    if (-not $DataBaseUrl) {
+        $devUrl = (& npx.cmd @wrangler r2 bucket dev-url get $Bucket 2>&1) -join "`n"
+        if ($devUrl -notmatch "https://pub-[a-z0-9]+\.r2\.dev") {
+            Invoke-Wrangler r2 bucket dev-url enable $Bucket --force
+            $devUrl = (& npx.cmd @wrangler r2 bucket dev-url get $Bucket 2>&1) -join "`n"
+        }
+        if ($devUrl -notmatch "https://pub-[a-z0-9]+\.r2\.dev") { throw "Could not read the r2.dev URL for bucket '$Bucket'." }
+        $DataBaseUrl = $Matches[0]
+    }
+    $DataBaseUrl = $DataBaseUrl.TrimEnd("/")
+
+    $indexPath = Join-Path $stage "index.html"
+    $html = [IO.File]::ReadAllText($indexPath)
+    foreach ($file in $tooBig) {
+        if ($file.Length -gt 300MB) { throw "$($file.Name) is over 300 MB, the largest file Wrangler can upload to R2." }
+        $rel = $file.FullName.Substring($stage.Length + 1).Replace("\", "/")
+        if (-not $html.Contains("`"$rel`"")) { throw "index.html does not reference $rel, so it cannot be moved to R2." }
+
+        # The hash in the key means a new build never collides with a cached old file.
+        $hash = (Get-FileHash $file.FullName -Algorithm SHA256).Hash.Substring(0, 16).ToLower()
+        $key = "$hash/$($file.Name)"
+        Write-Host ("Uploading {0} ({1:N1} MB) to R2..." -f $rel, ($file.Length / 1MB)) -ForegroundColor Cyan
+        Invoke-Wrangler r2 object put "$Bucket/$key" --file $file.FullName --remote `
+            --content-type application/octet-stream `
+            --cache-control "public, max-age=31536000, immutable"
+
+        $html = $html.Replace("`"$rel`"", "`"$DataBaseUrl/$key`"")
+        Remove-Item $file.FullName -Force
+    }
+    [IO.File]::WriteAllText($indexPath, $html, [Text.UTF8Encoding]::new($false))
 }
 
 # Create the Pages project the first time.
