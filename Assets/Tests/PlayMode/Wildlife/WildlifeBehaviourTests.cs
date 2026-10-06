@@ -22,11 +22,15 @@ namespace WashedAshore.Tests.Wildlife
         const int MaxEpisodeSeconds = 5;     // spec A4: float or clip for longer than 5 s fails
         const float MaxNavMeshDelta = 0.5f;  // wl-qa (c): terrain height vs agent.nextPosition.y
 
+        [SetUp]
+        public void SetUp() => WildlifeTestKit.PinFrameStep();
+
         [TearDown]
         public void TearDown()
         {
             WildlifeRandom.OverrideSeed(null);
             Time.timeScale = 1f;
+            WildlifeTestKit.UnpinFrameStep();
         }
 
         [UnityTest]
@@ -200,7 +204,7 @@ namespace WashedAshore.Tests.Wildlife
             bool prey = t.response == ThreatResponse.Flee;
             float startDistance = (prey ? t.alertDistance : t.releaseDistance) + 12f;
 
-            Teleport(player, StartPoint(herd.Centroid, startDistance, pop.Tuning.placement.terrainCentre));
+            Teleport(player, StartPoint(pop.Ground, herd.Centroid, startDistance, pop.Ground.ToWorld(pop.Tuning.placement.terrainCentre)));
             yield return new WaitForSeconds(1.5f);
             float calmWait = 0f;
             while (members.Any(m => m.IsEscaping) && calmWait < 12f) { calmWait += Time.deltaTime; yield return null; }
@@ -282,20 +286,16 @@ namespace WashedAshore.Tests.Wildlife
 
         /// <summary>A NavMesh point at <paramref name="distance"/> from the group, preferring the side away
         /// from the map centre so the animals have room to run inward.</summary>
-        static Vector3 StartPoint(Vector3 centroid, float distance, Vector2 centre)
+        static Vector3 StartPoint(HabitatGround ground, Vector3 centroid, float distance, Vector2 centre)
         {
             Vector3 outward = centroid - new Vector3(centre.x, centroid.y, centre.y);
             outward.y = 0f;
             outward = outward.sqrMagnitude > 1f ? outward.normalized : Vector3.forward;
-            var terrain = Terrain.activeTerrain;
-            var size = terrain.terrainData.size;
-            Vector3 origin = terrain.transform.position;
             foreach (float a in new[] { 0f, 30f, -30f, 60f, -60f, 90f, -90f, 120f, -120f, 150f, -150f, 180f })
             {
                 Vector3 p = centroid + Quaternion.Euler(0f, a, 0f) * outward * distance;
-                p.y = terrain.SampleHeight(p) + origin.y; // sample at ground height, not the herd's
-                Vector3 local = p - origin;
-                if (Mathf.Min(local.x, local.z, size.x - local.x, size.z - local.z) < 12f) continue;
+                p.y = ground.Height(p); // sample at ground height, not the herd's
+                if (ground.EdgeDistance(p) < 12f || !ground.IsLand(p)) continue;
                 if (NavMesh.SamplePosition(p, out var hit, 3f, NavMesh.AllAreas)) return hit.position;
             }
             Assert.Fail($"No start point {distance} m from {centroid}");

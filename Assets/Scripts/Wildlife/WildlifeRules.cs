@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using WashedAshore.Gameplay;
 
 namespace WashedAshore.Wildlife
 {
@@ -12,8 +13,8 @@ namespace WashedAshore.Wildlife
     /// </summary>
     public static class WildlifeRules
     {
-        // Mirrors WorldBuilder: spawn clearing 22 m, test lane 10 m x 36 m along yaw 45.
-        const float SpawnClear = 22f, SpawnYaw = 45f;
+        // Mirrors WorldBuilder: spawn clearing 22 m, test lane 10 m x 36 m along the spawn's facing.
+        const float SpawnClear = 22f;
 
         public class GroupPlan
         {
@@ -33,20 +34,19 @@ namespace WashedAshore.Wildlife
         public static List<Vector3> CheckRoute(WildlifeTuning tuning, Vector3 spawn, out string note)
         {
             var offsets = tuning.sighting.routeOffsets;
-            var terrain = Terrain.activeTerrain;
             var pts = new List<Vector3>();
             var notes = new List<string>();
             for (int i = 0; i < offsets.Length; i++)
             {
                 var p = spawn + new Vector3(offsets[i].x, 0f, offsets[i].y);
-                p.y = terrain.SampleHeight(p) + terrain.transform.position.y;
+                p.y = TerrainQuery.Height(p);
                 if (NavMesh.SamplePosition(p, out var hit, 3f, NavMesh.AllAreas)) { pts.Add(hit.position); continue; }
                 Vector3? nudged = null;
                 for (float r = 1f; r <= 10f && nudged == null; r += 1f)
                     for (int a = 0; a < 16 && nudged == null; a++)
                     {
                         var q = p + Quaternion.Euler(0f, a * 22.5f, 0f) * Vector3.forward * r;
-                        q.y = terrain.SampleHeight(q) + terrain.transform.position.y;
+                        q.y = TerrainQuery.Height(q);
                         if (NavMesh.SamplePosition(q, out var h2, 3f, NavMesh.AllAreas)) nudged = h2.position;
                     }
                 if (nudged == null) { notes.Add($"W{i}:OFFMESH"); pts.Add(p); continue; }
@@ -69,17 +69,17 @@ namespace WashedAshore.Wildlife
             public int[] finalAssignment;
         }
 
-        public static List<GroupPlan> PlanGroups(WildlifeTuning tuning, int seed, Terrain t, Vector3 spawn, List<Vector3> route, out string error) =>
-            PlanGroups(tuning, seed, t, spawn, route, out error, out _);
+        public static List<GroupPlan> PlanGroups(WildlifeTuning tuning, int seed, HabitatGround ground, Vector3 spawn, List<Vector3> route, out string error) =>
+            PlanGroups(tuning, seed, ground, spawn, route, out error, out _);
 
-        public static List<GroupPlan> PlanGroups(WildlifeTuning tuning, int seed, Terrain t, Vector3 spawn, List<Vector3> route,
+        public static List<GroupPlan> PlanGroups(WildlifeTuning tuning, int seed, HabitatGround ground, Vector3 spawn, List<Vector3> route,
             out string error, out PlanLog log)
         {
             error = null;
             log = new PlanLog();
             var r = tuning.placement;
             var rng = new System.Random(seed);
-            var site = new Site(tuning, t, spawn, route);
+            var site = new Site(tuning, ground, spawn, route);
 
             // Deer first: stag, fox and wolf rules reference deer anchors.
             var order = tuning.population.OrderBy(p => PlanOrder(p.species))
@@ -159,29 +159,23 @@ namespace WashedAshore.Wildlife
         class Site
         {
             readonly PlacementRules r;
-            readonly Terrain t;
-            readonly TerrainData d;
-            readonly Vector3 o, spawn;
+            readonly HabitatGround g;
+            readonly Vector3 spawn;
             readonly List<Vector3> route;
             readonly RouteArcs arcs;
-            readonly float[,,] splat;
             readonly List<Vector2> trees = new List<Vector2>(), cover = new List<Vector2>();
 
-            public Site(WildlifeTuning tuning, Terrain terrain, Vector3 spawnPos, List<Vector3> routePts)
+            public Site(WildlifeTuning tuning, HabitatGround ground, Vector3 spawnPos, List<Vector3> routePts)
             {
                 r = tuning.placement;
-                t = terrain;
-                d = t.terrainData;
-                o = t.transform.position;
+                g = ground;
                 spawn = spawnPos;
                 route = routePts;
                 arcs = new RouteArcs(route, r.routeArcs);
-                splat = d.GetAlphamaps(0, 0, d.alphamapWidth, d.alphamapHeight);
-                var protoNames = d.treePrototypes.Select(p => p.prefab ? p.prefab.name : "").ToArray();
-                foreach (var inst in d.treeInstances)
+                foreach (var inst in g.Trees())
                 {
-                    var w = new Vector2(o.x + inst.position.x * d.size.x, o.z + inst.position.z * d.size.z);
-                    string n = protoNames[inst.prototypeIndex];
+                    var w = new Vector2(inst.world.x, inst.world.z);
+                    string n = inst.prefab ? inst.prefab.name : "";
                     bool bush = r.foxCoverPrefixes.Any(n.StartsWith);
                     bool rock = n.StartsWith("Rock_");
                     if (!bush && !rock && !n.StartsWith("Bush_")) trees.Add(w);
@@ -199,26 +193,25 @@ namespace WashedAshore.Wildlife
                     float ang = (float)rng.NextDouble() * Mathf.PI * 2f;
                     float rad = Mathf.Sqrt(Mathf.Lerp(r.minFromRoute * r.minFromRoute, r.maxFromRoute * r.maxFromRoute, (float)rng.NextDouble()));
                     var c = onRoute + new Vector3(Mathf.Cos(ang) * rad, 0f, Mathf.Sin(ang) * rad);
-                    c.y = t.SampleHeight(c) + o.y;
+                    c.y = g.Height(c);
                     if (!NavMesh.SamplePosition(c, out var hit, r.navMeshSnap, NavMesh.AllAreas)) continue;
                     var p = hit.position;
                     var p2 = new Vector2(p.x, p.z);
                     float spawnDist = Vector2.Distance(p2, new Vector2(spawn.x, spawn.z));
-                    float nx = (p.x - o.x) / d.size.x, nz = (p.z - o.z) / d.size.z;
                     if (spawnDist < r.minFromSpawn) continue;
-                    if (Mathf.Min(p.x - o.x, p.z - o.z, o.x + d.size.x - p.x, o.z + d.size.z - p.z) < r.minFromEdge) continue;
-                    if (Vector2.Distance(p2, r.terrainCentre) > r.maxFromCentre) continue;
+                    if (!g.IsLand(p)) continue; // Bells Bend: never in the river margin
+                    if (g.EdgeDistance(p) < r.minFromEdge) continue;
+                    // terrainCentre is in old-terrain (habitat window) coordinates.
+                    if (Vector2.Distance(p2, g.ToWorld(r.terrainCentre)) > r.maxFromCentre) continue;
                     if (plans.Any(q => Flat(q.anchor, p) < r.minBetweenAnchors)) continue;
                     float routeDist = RouteDistance(route, p2);
                     if (routeDist > r.maxFromRoute || routeDist < r.minFromRoute) continue;
                     if (arcs.ArcOf(p2) != plan.arc) continue; // an offset near a corner can land in the next arc
-                    float slope = d.GetSteepness(nx, nz);
+                    float slope = g.Steepness(p);
                     switch (plan.species)
                     {
                         case WildlifeSpecies.Deer:
-                            int sx = Mathf.Clamp(Mathf.RoundToInt(nx * (d.alphamapWidth - 1)), 0, d.alphamapWidth - 1);
-                            int sz = Mathf.Clamp(Mathf.RoundToInt(nz * (d.alphamapHeight - 1)), 0, d.alphamapHeight - 1);
-                            if (splat[sz, sx, 0] < r.deerMinGrass || slope > r.deerMaxSlope || !Near(trees, p2, r.deerMaxFromTree)) continue;
+                            if (g.Splat(p, 0) < r.deerMinGrass || slope > r.deerMaxSlope || !Near(trees, p2, r.deerMaxFromTree)) continue;
                             if (deer.Any(q => Flat(q.anchor, p) < r.deerHerdsMinApart)) continue;
                             break;
                         case WildlifeSpecies.Stag:
@@ -233,8 +226,8 @@ namespace WashedAshore.Wildlife
                             break;
                     }
                     float back = -1f, fromS = -1f;
-                    if (r.approachSightline && !ApproachClear(arcs, t, p, r, out back, out fromS)) continue;
-                    if (!PlaceMembers(rng, plan, p, size, cohesion, spawn)) continue;
+                    if (r.approachSightline && !ApproachClear(arcs, p, r, out back, out fromS)) continue;
+                    if (!PlaceMembers(rng, plan, p, size, cohesion, spawn, g.SpawnYaw)) continue;
                     plan.anchor = p;
                     plan.routeDistance = routeDist;
                     plan.spawnDistance = spawnDist;
@@ -250,19 +243,19 @@ namespace WashedAshore.Wildlife
         /// <summary>R1 approach sightline: from at least one route point 40-80 m before the anchor's nearest
         /// route point (walk direction, every 5 m), an eye-height ray to the anchor must miss the terrain and
         /// its tree colliders.</summary>
-        public static bool ApproachClear(RouteArcs arcs, Terrain t, Vector3 anchor, PlacementRules r) =>
-            ApproachClear(arcs, t, anchor, r, out _, out _);
+        public static bool ApproachClear(RouteArcs arcs, Vector3 anchor, PlacementRules r) =>
+            ApproachClear(arcs, anchor, r, out _, out _);
 
         /// <param name="usedBack">Distance before the anchor of the first clear route point, or -1.</param>
         /// <param name="usedS">Arc length (from W0) of that route point, or -1.</param>
-        public static bool ApproachClear(RouteArcs arcs, Terrain t, Vector3 anchor, PlacementRules r, out float usedBack, out float usedS)
+        public static bool ApproachClear(RouteArcs arcs, Vector3 anchor, PlacementRules r, out float usedBack, out float usedS)
         {
             float s = arcs.NearestS(new Vector2(anchor.x, anchor.z));
-            Vector3 target = new Vector3(anchor.x, t.SampleHeight(anchor) + t.transform.position.y + r.sightlineTargetHeight, anchor.z);
+            Vector3 target = new Vector3(anchor.x, TerrainQuery.Height(anchor) + r.sightlineTargetHeight, anchor.z);
             for (float back = r.sightlineBack.x; back <= r.sightlineBack.y + 0.01f; back += r.sightlineStep)
             {
                 Vector3 from = arcs.PointAt(s - back);
-                from.y = t.SampleHeight(from) + t.transform.position.y + r.sightlineEyeHeight;
+                from.y = TerrainQuery.Height(from) + r.sightlineEyeHeight;
                 if (TerrainBlocks(from, target)) continue;
                 usedBack = back;
                 usedS = arcs.Wrap(s - back);
@@ -345,7 +338,7 @@ namespace WashedAshore.Wildlife
             public int ArcOf(Vector2 p) => Mathf.Min(count - 1, Mathf.FloorToInt(NearestS(p) / ArcLength));
         }
 
-        static bool PlaceMembers(System.Random rng, GroupPlan plan, Vector3 anchor, int size, float cohesion, Vector3 spawn)
+        static bool PlaceMembers(System.Random rng, GroupPlan plan, Vector3 anchor, int size, float cohesion, Vector3 spawn, float spawnYaw)
         {
             plan.members.Clear();
             plan.yaws.Clear();
@@ -361,7 +354,7 @@ namespace WashedAshore.Wildlife
                     float a = (float)rng.NextDouble() * Mathf.PI * 2f, rr = 1.5f + (float)rng.NextDouble() * (spread - 1.5f);
                     var q = anchor + new Vector3(Mathf.Cos(a) * rr, 0f, Mathf.Sin(a) * rr);
                     if (!NavMesh.SamplePosition(q, out var hit, 1.5f, NavMesh.AllAreas)) continue;
-                    if (Flat(hit.position, anchor) > spread || InTestLane(hit.position, spawn)) continue;
+                    if (Flat(hit.position, anchor) > spread || InTestLane(hit.position, spawn, spawnYaw)) continue;
                     if (plan.members.Any(m => Flat(m, hit.position) < 1.8f)) continue;
                     if (!NavMesh.CalculatePath(anchor, hit.position, NavMesh.AllAreas, path) || path.status != NavMeshPathStatus.PathComplete) continue;
                     pos = hit.position;
@@ -374,11 +367,11 @@ namespace WashedAshore.Wildlife
         }
 
         // WorldWalkTests' ground: the spawn clearing and the 10 m x 36 m lane ahead of PlayerSpawn.
-        public static bool InTestLane(Vector3 p, Vector3 spawn)
+        public static bool InTestLane(Vector3 p, Vector3 spawn, float spawnYaw)
         {
             var rel = new Vector2(p.x - spawn.x, p.z - spawn.z);
             if (rel.magnitude <= SpawnClear) return true;
-            float yaw = SpawnYaw * Mathf.Deg2Rad;
+            float yaw = spawnYaw * Mathf.Deg2Rad;
             var f = new Vector2(Mathf.Sin(yaw), Mathf.Cos(yaw));
             float along = Vector2.Dot(rel, f), side = Mathf.Abs(rel.x * f.y - rel.y * f.x);
             return along > -2f && along < 36f && side < 5f;

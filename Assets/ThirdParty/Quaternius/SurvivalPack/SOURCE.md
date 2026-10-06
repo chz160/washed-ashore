@@ -1,0 +1,1 @@
+Source: vendor/Survival Pack - Sept 2020-20261005T045151Z-1-001.zip (Quaternius, CC0 1.0). Imported subset for the Bells Bend north barrier clutter (B2): GasCan, PropaneTank, Trashcan, WoodLog. vendor/ is untouched.

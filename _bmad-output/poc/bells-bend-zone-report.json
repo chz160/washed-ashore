@@ -1,0 +1,16 @@
+{
+ "generator": "BellsBendZoneReport.Run", "builtUtc": "2026-10-06T06:58:24Z",
+ "params": { "zoneCell": 5, "forestSlopeDeg": 6, "ridgeHRel": 60, "bankBuffer": 30, "bankHRel": 15, "roadBuffer": 20, "clearingSpawnRadius": 40, "clearingMarkerRadius": 20, "openRadius": 8, "verticalScale": 0.7, "seed": 0 },
+ "treePrototypesCounted": ["CommonTree_3","CommonTree_5","TwistedTree_1","CommonTree_2","CommonTree_1","CommonTree_4","Pine_3","Pine_1","DeadTree_1","DeadTree_2","DeadTree_3"], "shrubDetailLayers": ["Briar","ShrubThicket","KudzuMound","KudzuLeaf"],
+ "zones": {
+  "Z0_Road": { "cells": 3069, "areaHa": 7.673, "pctLand": 1.193, "trees": 0, "treesPerHa": 0, "openPct": 98.306, "openBarePct": 56.403, "shrubPct": 42.587, "shrubPctOfOpen": 42.625, "dominantSplat": "CrackedAsphalt", "dominantSplatShare": 82.828 },
+  "Z1_RoadBuffer": { "cells": 7660, "areaHa": 19.15, "pctLand": 2.978, "trees": 296, "treesPerHa": 15.457, "openPct": 64.726, "openBarePct": 1.136, "shrubPct": 98.773, "shrubPctOfOpen": 98.245, "dominantSplat": "KudzuCover", "dominantSplatShare": 56.789 },
+  "Z2_Bank": { "cells": 9659, "areaHa": 24.148, "pctLand": 3.756, "trees": 2284, "treesPerHa": 94.585, "openPct": 12.517, "openBarePct": 4.649, "shrubPct": 81.748, "shrubPctOfOpen": 62.862, "dominantSplat": "ForestFloor", "dominantSplatShare": 78.445 },
+  "Z4a_Ridge": { "cells": 43128, "areaHa": 107.82, "pctLand": 16.769, "trees": 15554, "treesPerHa": 144.259, "openPct": 1.644, "openBarePct": 1.614, "shrubPct": 21.207, "shrubPctOfOpen": 1.834, "dominantSplat": "ForestFloor", "dominantSplatShare": 89.847 },
+  "Z4b_Hollows": { "cells": 71647, "areaHa": 179.118, "pctLand": 27.858, "trees": 25872, "treesPerHa": 144.442, "openPct": 2.812, "openBarePct": 2.628, "shrubPct": 38.518, "shrubPctOfOpen": 6.551, "dominantSplat": "ForestFloor", "dominantSplatShare": 96.202 },
+  "Z5_FormerFields": { "cells": 121572, "areaHa": 303.93, "pctLand": 47.27, "trees": 21179, "treesPerHa": 69.684, "openPct": 36.986, "openBarePct": 5.717, "shrubPct": 66.059, "shrubPctOfOpen": 84.544, "dominantSplat": "OldFieldGrass", "dominantSplatShare": 50.428 },
+  "Z6_Clearing": { "cells": 451, "areaHa": 1.128, "pctLand": 0.175, "trees": 0, "treesPerHa": 0, "openPct": 91.796, "openBarePct": 66.741, "shrubPct": 27.716, "shrubPctOfOpen": 27.295, "dominantSplat": "OldFieldGrass", "dominantSplatShare": 95.565 },
+  "ZN_NorthVista": { "cells": 99057, "areaHa": 247.643, "pctLand": null, "trees": 36407, "treesPerHa": 147.014, "openPct": 0.743, "openBarePct": 0.743, "shrubPct": 0, "shrubPctOfOpen": 0, "dominantSplat": "ForestFloor", "dominantSplatShare": 96.417 }
+ },
+ "wholeLand": { "cells": 257186, "areaHa": 642.965, "trees": 65185, "openPctExclRoadAndClearings": 21.231, "openBarePctExclRoadAndClearings": 3.968, "cliffCells": 10368, "totalTreeInstancesAllTiles": 101592 }
+}

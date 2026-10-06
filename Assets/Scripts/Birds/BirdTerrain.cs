@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using WashedAshore.Wildlife;
 
 namespace WashedAshore.Birds
 {
     /// <summary>
     /// Ground height, slope and terrain-tree crowns for the birds. Trees are bucketed on a 16 m grid; a crown is
     /// a vertical cylinder (prototype mesh radius x widthScale) from a fifth of the tree's height to its top.
-    /// Rocks (prototype name "Rock_*") are not trees. Built once per terrain and shared by every bird.
+    /// Rocks (prototype name "Rock_*") are not trees. Built once per habitat window (the wildlife population's
+    /// <see cref="HabitatGround"/> over the terrain tiles) and shared by every bird.
     /// </summary>
     public class BirdTerrain
     {
@@ -21,7 +23,7 @@ namespace WashedAshore.Birds
         }
 
         static BirdTerrain cached;
-        readonly Terrain terrain;
+        readonly HabitatGround ground;
         readonly Dictionary<Vector2Int, List<Tree>> cells = new Dictionary<Vector2Int, List<Tree>>();
         float maxRadius;
 
@@ -29,28 +31,28 @@ namespace WashedAshore.Birds
         {
             get
             {
-                var t = Terrain.activeTerrain;
-                if (cached == null || cached.terrain != t) cached = t ? new BirdTerrain(t) : null;
+                var pop = Object.FindAnyObjectByType<WildlifePopulation>();
+                var g = pop ? pop.Ground : null;
+                if (cached == null || cached.ground != g) cached = g != null ? new BirdTerrain(g) : null;
                 return cached;
             }
         }
 
-        public Terrain Terrain => terrain;
+        public HabitatGround Ground => ground;
+        /// <summary>A tile of the window, for its layer (every tile shares one).</summary>
+        public Terrain Terrain => ground.Tiles.Count > 0 ? ground.Tiles[0] : null;
 
-        BirdTerrain(Terrain t)
+        BirdTerrain(HabitatGround g)
         {
-            terrain = t;
-            var d = t.terrainData;
-            var o = t.transform.position;
-            var protos = d.treePrototypes;
-            var shapes = new (float top, float radius)[protos.Length];
-            for (int i = 0; i < protos.Length; i++)
-                shapes[i] = protos[i].prefab && !protos[i].prefab.name.StartsWith("Rock_") ? Shape(protos[i].prefab) : (0f, 0f);
-            foreach (var inst in d.treeInstances)
+            ground = g;
+            var shapes = new Dictionary<GameObject, (float top, float radius)>();
+            foreach (var inst in g.Trees())
             {
-                var s = shapes[inst.prototypeIndex];
+                if (!inst.prefab) continue;
+                if (!shapes.TryGetValue(inst.prefab, out var s))
+                    shapes[inst.prefab] = s = inst.prefab.name.StartsWith("Rock_") ? (0f, 0f) : Shape(inst.prefab);
                 if (s.top <= 0f) continue;
-                var w = Vector3.Scale(inst.position, d.size) + o;
+                var w = inst.world;
                 var tree = new Tree
                 {
                     xz = new Vector2(w.x, w.z), baseY = w.y,
@@ -63,7 +65,7 @@ namespace WashedAshore.Birds
             }
         }
 
-        public float Height(Vector3 p) => terrain.SampleHeight(p) + terrain.transform.position.y;
+        public float Height(Vector3 p) => ground.Height(p);
 
         public Vector3 OnGround(Vector3 p)
         {
@@ -71,19 +73,10 @@ namespace WashedAshore.Birds
             return p;
         }
 
-        public float Slope(Vector3 p)
-        {
-            var d = terrain.terrainData;
-            var o = terrain.transform.position;
-            return d.GetSteepness((p.x - o.x) / d.size.x, (p.z - o.z) / d.size.z);
-        }
+        public float Slope(Vector3 p) => ground.Steepness(p);
 
-        public bool Inside(Vector3 p, float margin)
-        {
-            var d = terrain.terrainData;
-            Vector3 l = p - terrain.transform.position;
-            return l.x >= margin && l.z >= margin && l.x <= d.size.x - margin && l.z <= d.size.z - margin;
-        }
+        /// <summary>Inside the habitat window (the old terrain's extent) by at least <paramref name="margin"/>.</summary>
+        public bool Inside(Vector3 p, float margin) => ground.EdgeDistance(p) >= margin;
 
         /// <summary>Highest crown top whose cylinder (plus <paramref name="radius"/>) covers <paramref name="p"/>; the ground if none.</summary>
         public float CanopyTop(Vector3 p, float radius)

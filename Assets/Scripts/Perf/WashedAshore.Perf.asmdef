@@ -1,0 +1,16 @@
+{
+    "name": "WashedAshore.Perf",
+    "rootNamespace": "WashedAshore.Perf",
+    "references": [
+        "WashedAshore.Gameplay"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

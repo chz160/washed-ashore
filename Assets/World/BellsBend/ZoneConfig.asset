@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec9235fb53621943b22319dd7221ada, type: 3}
+  m_Name: ZoneConfig
+  m_EditorClassIdentifier: WashedAshore.Level::WashedAshore.Level.ZoneConfig
+  zoneCell: 5
+  forestSlopeDeg: 6
+  ridgeHRel: 60
+  bankBuffer: 30
+  bankHRel: 15
+  roadBuffer: 20
+  clearingSpawnRadius: 40
+  clearingMarkerRadius: 20
+  demSlopeBlurReal: 30
+  cliffSlopeDeg: 40
+  roads:
+  - osmNames:
+    - Old Hickory Boulevard
+    id: 1
+    core: 5.5
+    verge: 1.5
+    falloff: 8
+    gravel: 0
+  - osmNames:
+    - Pecan Valley Road
+    id: 2
+    core: 5
+    verge: 1
+    falloff: 6
+    gravel: 0
+  - osmNames:
+    - Tidwell Hollow Road
+    id: 3
+    core: 3.5
+    verge: 1
+    falloff: 6
+    gravel: 1
+  - osmNames:
+    - Cleeces Rerry Road
+    id: 4
+    core: 4.5
+    verge: 1
+    falloff: 6
+    gravel: 0
+  - osmNames:
+    - Cleeces Ferry Road
+    id: 5
+    core: 3
+    verge: 0.5
+    falloff: 4
+    gravel: 1
+  roadSmoothWindow: 30
+  roadCutFillCap: 3
+  roadBluffExclusion: 30
+  roadShoreExclusion: 12
+  spawnAnchorLat: 36.1535
+  spawnAnchorLon: -86.9235
+  spawnFaceLat: 36.166
+  spawnFaceLon: -86.906
+  spawnSearchRadius: 150
+  spawnFlatRadius: 25
+  spawnMaxRange: 1.5
+  spawnMaxSlope: 10
+  spawnMinAboveWater: 3

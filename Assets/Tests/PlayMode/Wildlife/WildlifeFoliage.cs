@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WashedAshore.Wildlife;
 
 namespace WashedAshore.Tests.Wildlife
 {
@@ -14,20 +15,19 @@ namespace WashedAshore.Tests.Wildlife
     {
         const float Radius = 2f;
 
-        readonly List<(Vector2 xz, float baseY, float topY)> trees = new List<(Vector2, float, float)>();
+        readonly List<(Vector2 xz, float baseY, float topY, string name)> trees = new List<(Vector2, float, float, string)>();
 
-        public WildlifeFoliage(Terrain terrain)
+        /// <param name="ground">The habitat window; trees within its 50 m margin across every terrain tile.</param>
+        public WildlifeFoliage(HabitatGround ground)
         {
-            var d = terrain.terrainData;
-            var o = terrain.transform.position;
-            var protos = d.treePrototypes;
-            var heights = protos.Select(p => PrototypeHeight(p.prefab)).ToArray();
-            foreach (var inst in d.treeInstances)
+            var heights = new Dictionary<GameObject, float>();
+            foreach (var inst in ground.Trees())
             {
-                var prefab = protos[inst.prototypeIndex].prefab;
+                var prefab = inst.prefab;
                 if (!prefab || prefab.name.StartsWith("Rock_")) continue;
-                var w = Vector3.Scale(inst.position, d.size) + o;
-                trees.Add((new Vector2(w.x, w.z), w.y, w.y + heights[inst.prototypeIndex] * inst.heightScale));
+                if (!heights.TryGetValue(prefab, out float h)) heights[prefab] = h = PrototypeHeight(prefab);
+                var w = inst.world;
+                trees.Add((new Vector2(w.x, w.z), w.y, w.y + h * inst.heightScale, prefab.name));
             }
         }
 
@@ -40,7 +40,7 @@ namespace WashedAshore.Tests.Wildlife
             var a = new Vector2(from.x, from.z);
             var ab = new Vector2(to.x, to.z) - a;
             float len2 = Mathf.Max(ab.sqrMagnitude, 1e-4f);
-            foreach (var (xz, baseY, topY) in trees)
+            foreach (var (xz, baseY, topY, _) in trees)
             {
                 float u = Mathf.Clamp01(Vector2.Dot(xz - a, ab) / len2);
                 if ((a + ab * u - xz).sqrMagnitude > Radius * Radius) continue;
@@ -48,6 +48,23 @@ namespace WashedAshore.Tests.Wildlife
                 if (y >= baseY && y <= topY) return false;
             }
             return true;
+        }
+
+        /// <summary>Prototype name of the first tree or bush whose foliage blocks the ray, or null (designer-2 flush diagnosis).</summary>
+        public string FirstBlocker(Vector3 from, Vector3 to)
+        {
+            var a = new Vector2(from.x, from.z);
+            var ab = new Vector2(to.x, to.z) - a;
+            float len2 = Mathf.Max(ab.sqrMagnitude, 1e-4f), bestU = float.MaxValue;
+            string best = null;
+            foreach (var (xz, baseY, topY, name) in trees)
+            {
+                float u = Mathf.Clamp01(Vector2.Dot(xz - a, ab) / len2);
+                if ((a + ab * u - xz).sqrMagnitude > Radius * Radius) continue;
+                float y = Mathf.Lerp(from.y, to.y, u);
+                if (y >= baseY && y <= topY && u < bestU) { bestU = u; best = name; }
+            }
+            return best;
         }
 
         static float PrototypeHeight(GameObject prefab)

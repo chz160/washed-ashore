@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+using WashedAshore.Gameplay;
+
 namespace WashedAshore.Wildlife
 {
     /// <summary>
@@ -32,7 +34,6 @@ namespace WashedAshore.Wildlife
         WildlifeHerd herd;
         SpeciesTuning t;
         Transform threat;
-        Terrain terrain;
         Renderer[] renderers;
         System.Random rng;
         float yaw;
@@ -104,7 +105,6 @@ namespace WashedAshore.Wildlife
             }
             t = tuning.Get(species);
             rng = WildlifeRandom.For(tuning, transform.position);
-            terrain = Terrain.activeTerrain;
             yaw = transform.eulerAngles.y;
 
             // Prefabs ship with the NavMeshAgent disabled: in a player, a scene-load OnEnable can run
@@ -312,12 +312,10 @@ namespace WashedAshore.Wildlife
         {
             Vector3 p = agent.nextPosition;
             Vector3 normal = Vector3.up;
-            if (snapToTerrain && terrain)
+            if (snapToTerrain && TerrainQuery.TileAt(p) != null)
             {
-                Vector3 tp = terrain.transform.position;
-                p.y = terrain.SampleHeight(p) + tp.y;
-                var data = terrain.terrainData;
-                normal = data.GetInterpolatedNormal((p.x - tp.x) / data.size.x, (p.z - tp.z) / data.size.z);
+                p.y = TerrainQuery.Height(p);
+                normal = TerrainQuery.Normal(p);
             }
 
             Vector3 v = agent.velocity;
@@ -358,8 +356,7 @@ namespace WashedAshore.Wildlife
         /// hill can be many metres above or below the animal, and SamplePosition only searches a few metres.</summary>
         internal static Vector3 OnGround(Vector3 p)
         {
-            var terrain = Terrain.activeTerrain;
-            if (terrain) p.y = terrain.SampleHeight(p) + terrain.transform.position.y;
+            if (TerrainQuery.TileAt(p) != null) p.y = TerrainQuery.Height(p);
             return p;
         }
 

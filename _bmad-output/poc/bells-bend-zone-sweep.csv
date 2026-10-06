@@ -1,0 +1,5 @@
+forestSlopeDeg,ridgeHRel,shares
+6,50,zones grid=820x1024@5m demBlurRadiusCells=1 playableCells=257186 cliffCells=10368 shares[Z0_Road=1.2% Z1_RoadBuffer=3.0% Z2_Bank=3.8% Z4a_Ridge=23.7% Z4b_Hollows=21.2% Z5_FormerFields=47.0% Z6_Clearing=0.2% ] vistaCells=99057
+6,60,zones grid=820x1024@5m demBlurRadiusCells=1 playableCells=257186 cliffCells=10368 shares[Z0_Road=1.2% Z1_RoadBuffer=3.0% Z2_Bank=3.8% Z4a_Ridge=16.8% Z4b_Hollows=27.9% Z5_FormerFields=47.3% Z6_Clearing=0.2% ] vistaCells=99057
+7,50,zones grid=820x1024@5m demBlurRadiusCells=1 playableCells=257186 cliffCells=10368 shares[Z0_Road=1.2% Z1_RoadBuffer=3.0% Z2_Bank=3.8% Z4a_Ridge=23.7% Z4b_Hollows=18.4% Z5_FormerFields=49.8% Z6_Clearing=0.2% ] vistaCells=99057
+7,60,zones grid=820x1024@5m demBlurRadiusCells=1 playableCells=257186 cliffCells=10368 shares[Z0_Road=1.2% Z1_RoadBuffer=3.0% Z2_Bank=3.8% Z4a_Ridge=16.8% Z4b_Hollows=24.9% Z5_FormerFields=50.2% Z6_Clearing=0.2% ] vistaCells=99057

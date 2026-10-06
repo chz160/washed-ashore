@@ -1,0 +1,14 @@
+bin_deg,samples,pct
+0-5,2490175,38.81
+5-10,1038866,16.19
+10-15,745864,11.62
+15-20,680414,10.60
+20-25,512139,7.98
+25-30,358388,5.59
+30-35,226460,3.53
+35-40,160963,2.51
+40-45,113663,1.77
+>45,89432,1.39
+# verticalScale=0.7 landSamples=6416364 pctAtOrBelow40=96.83 floorClampedSamples=193071 (3.01%)
+# BuzzardBluff: areaOver40Within60m=3767m2 maxSlope=68.1deg pass(>=200m2)=True
+# McCordBluff: areaOver40Within60m=5959m2 maxSlope=77.3deg pass(>=200m2)=True

@@ -6,9 +6,8 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-// Level-designer tool: generates the World terrain (heights, layers, trees, details,
-// light/sky, PlayerSpawn). Re-runnable; overwrites its own assets.
-// Run via: unity command eval "return WorldBuilder.Build();"
+// Level-designer tool: generated the original 512 m World terrain (heights, layers, trees, details,
+// light/sky, PlayerSpawn). Retired; see Build() below.
 public static class WorldBuilder
 {
     const string Root = "Assets/World/Terrain";
@@ -35,7 +34,13 @@ public static class WorldBuilder
     public static (int count, float min, float max)[] RockSpecs = { (60, 0.7f, 1.5f), (50, 0.7f, 1.5f), (80, 0.8f, 1.2f), (50, 0.8f, 1.2f) };
     public static string[] GrassNames = { "Grass_Common_Short", "Grass_Wispy_Short", "Clover_1" };
 
-    public static string Build()
+    // RETIRED by the Bells Bend land build (BellsBendLevel.BuildAll): Build() refuses so World.unity
+    // never gets a second terrain. The old 512 m generator is kept below as BuildLegacy512 for reference.
+    public const string RetiredMessage = "WorldBuilder is retired: the World terrain is the Bells Bend tile grid. Run BellsBendLevel.BuildAll().";
+
+    public static string Build() => RetiredMessage;
+
+    static string BuildLegacy512()
     {
         Random.InitState(Seed);
         Directory.CreateDirectory(Root + "/Textures");

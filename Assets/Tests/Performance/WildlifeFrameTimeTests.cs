@@ -186,7 +186,9 @@ namespace WashedAshore.Tests.Performance
             var agents = Object.FindObjectsByType<NavMeshAgent>(FindObjectsInactive.Exclude).Where(a => a.isActiveAndEnabled).ToList();
             r.agentsActive = agents.Count;
             r.agentsOnNavMesh = agents.Count(a => a.isOnNavMesh);
-            r.animatorsEnabled = Object.FindObjectsByType<Animator>(FindObjectsInactive.Exclude).Count(a => a.isActiveAndEnabled);
+            // Animal Animators only: the Birds root (added after this test) stays on in both runs and is not wildlife.
+            r.animatorsEnabled = Object.FindObjectsByType<Animator>(FindObjectsInactive.Exclude)
+                .Count(a => a.isActiveAndEnabled && a.GetComponentInParent<WashedAshore.Birds.BirdPopulation>() == null);
         }
 
         static void Place(Transform player, Terrain terrain, Vector2[] route, float distance, float eye)
@@ -206,7 +208,7 @@ namespace WashedAshore.Tests.Performance
             }
         }
 
-        static float Ground(Terrain terrain, Vector3 p) => terrain.SampleHeight(p) + terrain.transform.position.y;
+        static float Ground(Terrain terrain, Vector3 p) => WashedAshore.Gameplay.TerrainQuery.Height(p); // tiled terrain: the tile under p
 
         static double Percentile(List<double> v, double q)
         {

@@ -85,3 +85,7 @@ crashlytics-build.properties
 
 # Local staging area for raw downloads; WorldBuilder copies what it needs into Assets/
 /_staging/
+
+# Terrain pipeline (tools/terrain): DEM download cache and Python bytecode
+/Data/terrain/cache/
+__pycache__/

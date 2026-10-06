@@ -31,3 +31,8 @@
 # Unity assets that serialize as binary
 Assets/Scenes/World/WildlifeNavMesh.asset filter=lfs diff=lfs merge=lfs -text
 Assets/World/Terrain/WorldTerrain.asset filter=lfs diff=lfs merge=lfs -text
+# Bells Bend generated assets (BellsBendLevel.BuildAll / RebuildBarrier)
+Assets/World/BellsBend/Tiles/*.asset filter=lfs diff=lfs merge=lfs -text
+Assets/World/BellsBend/Barrier/Meshes/*.asset filter=lfs diff=lfs merge=lfs -text
+# Terrain pipeline output (tools/terrain/build_terrain.py)
+Data/terrain/build/*.raw filter=lfs diff=lfs merge=lfs -text

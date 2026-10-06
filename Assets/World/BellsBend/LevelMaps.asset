@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 348f68527238c034ca41330cad60415d, type: 3}
+  m_Name: LevelMaps
+  m_EditorClassIdentifier: WashedAshore.Level::WashedAshore.Level.BellsBendLevelMaps
+  originXZ: {x: -2087, y: -2492}
+  zoneCell: 5
+  roadCell: 2
+  zoneW: 820
+  zoneH: 1024
+  roadW: 2048
+  roadH: 2560
+  zoneTex: {fileID: 2800000, guid: befadde60e3ac1642a223b887be0751e, type: 3}
+  roadTex: {fileID: 2800000, guid: 3bf87aec5a573474082b761e8c69231e, type: 3}

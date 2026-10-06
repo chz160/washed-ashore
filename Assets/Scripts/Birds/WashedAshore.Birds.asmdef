@@ -2,7 +2,9 @@
     "name": "WashedAshore.Birds",
     "rootNamespace": "WashedAshore.Birds",
     "references": [
-        "WashedAshore.Wildlife"
+        "WashedAshore.Wildlife",
+        "WashedAshore.Gameplay",
+        "WashedAshore.World"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

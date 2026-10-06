@@ -27,8 +27,15 @@ namespace WashedAshore.Tests.Birds
         static readonly int[] RobustnessSeeds = { 404, 505, 606, 707, 808 };
         static readonly List<BirdSightingRun> Runs = new List<BirdSightingRun>(), Robustness = new List<BirdSightingRun>();
 
+        [SetUp]
+        public void SetUp() => WildlifeTestKit.PinFrameStep();
+
         [TearDown]
-        public void TearDown() => Reset();
+        public void TearDown()
+        {
+            Reset();
+            WildlifeTestKit.UnpinFrameStep();
+        }
 
         [UnityTest, Timeout(600000)]
         public IEnumerator B6_BirdSightingWalkLandsInsideTheBriefBands([ValueSource(nameof(Seeds))] int seed)
@@ -91,8 +98,8 @@ namespace WashedAshore.Tests.Birds
             run.runnerAspect = cam.aspect;
             cam.aspect = 16f / 9f;
             int mask = ObstacleMask();
-            var foliage = new WildlifeFoliage(Terrain.activeTerrain);
-            var crowns = new TestCrowns(Terrain.activeTerrain);
+            var foliage = new WildlifeFoliage(WildlifeTestKit.Ground());
+            var crowns = new TestCrowns(WildlifeTestKit.Ground());
             var walker = new WildlifeTestKit.Walker(player, ws.walkSpeed);
             var arcs = new BirdPlacementRules.Arcs(route, 8); // non-gating per-arc sky cut
             int leg = 1;
@@ -148,6 +155,7 @@ namespace WashedAshore.Tests.Birds
                         {
                             var (e, r, checks) = pending[i];
                             if (!r.Despawned && Visible(eye, planes, r.VisualBounds, s.robinViewDistance, mask, player.transform, foliage)) e.seen = true;
+                            if (!e.seen && checks >= 1) e.unseenWhy = WhyUnseen(r, eye, planes, s.robinViewDistance, mask, player.transform, foliage);
                             if (e.seen || checks >= 1) pending.RemoveAt(i);
                             else pending[i] = (e, r, checks + 1);
                         }
@@ -171,10 +179,38 @@ namespace WashedAshore.Tests.Birds
                 for (int k = 0; k < smp.flockWhy.Count; k++) run.sky.Add(smp.flockDist[k], smp.flockWhy[k]);
             run.sky.AddArcs(run.perSample);
             Record(run, tuning);
+            var unseen = run.flushLog.Where(f => !f.seen).ToList();
+            Debug.Log($"B6 seed {seed} unseen flushes {unseen.Count}/{run.flushLog.Count}: " +
+                      string.Join(" ; ", unseen.Select(f => $"{f.robin} t={f.t:F1}s d={f.distance:F1}m {(f.social ? "social" : "player")}: {f.unseenWhy ?? "pending at walk end"}")));
             Debug.Log($"B6 seed {seed} gating={gating}: {JsonUtility.ToJson(run.pass)} flockInView={run.flockInViewPct:P1} emptySky={run.longestEmptySkySec}s " +
                       $"first={run.firstFlockSec}s met={run.groundMetCount} ({run.groundMetPerMin:F2}/min) flushes={run.flushEvents} seen={run.flushSeenPct:P0} " +
                       $"maxInView={run.maxBirdsInView} ge15={run.pctSamplesGe15:P1} glide={run.glideShare:P1} flapRule={run.flapRuleCompliance:P1} " +
                       $"agl={run.altitudeMinAGL:F1}-{run.altitudeMaxAGL:F1} crown={run.minCrownClearance:F1} spacing={run.minFlockSpacing:F2} stalls={run.stallRecoveries} | {check}");
+        }
+
+        /// <summary>designer-2: why a robin was not visible at a flush check: out of the view cone, beyond the robin view distance,
+        /// terrain, a trunk (tree collider above the ground) or foliage (with the blocking prototype).</summary>
+        static string WhyUnseen(RobinAgent r, Vector3 eye, Plane[] planes, float range, int mask, Transform player, WildlifeFoliage foliage)
+        {
+            if (r.Despawned) return "despawned";
+            var b = r.VisualBounds;
+            if (!GeometryUtility.TestPlanesAABB(planes, b)) return "out of view cone";
+            float d = Vector3.Distance(eye, b.center);
+            if (d > range) return $"beyond {range:F0} m ({d:F0} m)";
+            if (!Visible(eye, planes, b, range, mask, player, null))
+            {
+                Vector3 dir = b.center - eye;
+                foreach (var hit in Physics.RaycastAll(eye, dir.normalized, dir.magnitude, mask, QueryTriggerInteraction.Ignore).OrderBy(h => h.distance))
+                {
+                    if (hit.collider.transform.IsChildOf(player) || hit.collider.transform.IsChildOf(r.transform)) continue;
+                    if (hit.collider is TerrainCollider)
+                        return hit.point.y > WashedAshore.Gameplay.TerrainQuery.Height(hit.point) + 0.3f ? "trunk (terrain tree collider)" : "terrain";
+                    return $"collider {hit.collider.name}";
+                }
+                return "terrain or trunk";
+            }
+            if (!Visible(eye, planes, b, range, mask, player, foliage)) return $"foliage ({foliage.FirstBlocker(eye, b.center) ?? foliage.FirstBlocker(eye, new Vector3(b.center.x, b.max.y, b.center.z)) ?? "?"})";
+            return "visible at check";
         }
 
         static BirdSample TakeSample(float at, Camera cam, int mask, Transform player, WildlifeFoliage foliage, TestCrowns crowns,
@@ -320,7 +356,7 @@ namespace WashedAshore.Tests.Birds
             int mask = ObstacleMask();
             var planes = GeometryUtility.CalculateFrustumPlanes(cam);
             var b = bird.VisualBounds;
-            var foliage = new WildlifeFoliage(Terrain.activeTerrain);
+            var foliage = new WildlifeFoliage(WildlifeTestKit.Ground());
             bool clear = Visible(cam.transform.position, planes, b, 200f, mask, player.transform, null);
             bool far = Visible(cam.transform.position, planes, b, 20f, mask, player.transform, null);
             var wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -333,11 +369,9 @@ namespace WashedAshore.Tests.Birds
 
             // Foliage: look past a terrain tree 1 m beside its trunk at 3 m height (misses the trunk collider, inside
             // the 2 m foliage radius below the crown top). Only the foliage-aware rule may call it hidden.
-            var terrain = Terrain.activeTerrain;
-            var d = terrain.terrainData;
-            var tree = d.treeInstances.First(i => d.treePrototypes[i.prototypeIndex].prefab
-                                                   && !d.treePrototypes[i.prototypeIndex].prefab.name.StartsWith("Rock_") && i.heightScale > 0.8f);
-            Vector3 tp = Vector3.Scale(tree.position, d.size) + terrain.transform.position;
+            var tree = WildlifeTestKit.Ground().Trees().First(i => i.prefab && !i.prefab.name.StartsWith("Rock_")
+                                                                   && !i.prefab.name.StartsWith("Bush_") && i.heightScale > 0.8f);
+            Vector3 tp = tree.world;
             Vector3 from = tp + new Vector3(-8f, 3f, 1f), to = tp + new Vector3(8f, 3f, 1f);
             go.transform.SetPositionAndRotation(from, Quaternion.LookRotation(to - from));
             planes = GeometryUtility.CalculateFrustumPlanes(cam);

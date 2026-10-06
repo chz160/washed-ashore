@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "Unity.InputSystem",
         "Unity.InputSystem.TestFramework",
-        "WashedAshore.Gameplay"
+        "WashedAshore.Gameplay",
+        "WashedAshore.World"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

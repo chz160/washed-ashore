@@ -83,10 +83,48 @@ namespace WashedAshore.Tests.PlayMode
 
             Vector3 pos = player.transform.position;
             Assert.IsTrue(player.IsGrounded, $"Player not grounded at {pos}");
-            Terrain terrain = Terrain.activeTerrain;
-            Assert.IsNotNull(terrain, "No active Terrain");
-            float ground = terrain.SampleHeight(pos) + terrain.transform.position.y;
+            Assert.IsTrue(TerrainQuery.TryGroundHeight(pos, out float ground), $"No terrain tile under {pos}");
             Assert.GreaterOrEqual(pos.y, ground - 0.1f, "Player fell through the terrain");
+        }
+
+        /// <summary>R1 (qa-2 BB-QA-5): the player starts at PlayerSpawn (Spawn_BellsBendPark) and is on the ground.</summary>
+        [UnityTest]
+        public IEnumerator C2_PlayerSpawnsAtPlayerSpawnOnTheGround()
+        {
+            // qa-2: pass only with the scene reference wired, i.e. without PlayerController's fallback warnings.
+            var fallbackWarnings = new System.Collections.Generic.List<string>();
+            void Watch(string msg, string stack, LogType type)
+            {
+                if (type == LogType.Warning && msg.StartsWith("PlayerController:")) fallbackWarnings.Add(msg);
+            }
+            Application.logMessageReceived += Watch;
+            PlayerController player;
+            GameObject spawn;
+            try
+            {
+                // Watch through PlayerController.Start (it respawns there) and the landing.
+                yield return LoadWorld();
+                player = FindPlayer();
+                spawn = GameObject.Find("PlayerSpawn");
+                Assert.IsNotNull(spawn, "No PlayerSpawn in World");
+                for (int i = 0; i < 10; i++) yield return null;
+                float waited = 0f;
+                while (!player.IsGrounded && waited < 3f)
+                {
+                    waited += Time.deltaTime;
+                    yield return null;
+                }
+            }
+            finally { Application.logMessageReceived -= Watch; }
+
+            Vector3 pos = player.transform.position;
+            float offset = Vector2.Distance(Horizontal(pos), Horizontal(spawn.transform.position));
+            Assert.IsTrue(TerrainQuery.TryGroundHeight(pos, out float ground), $"No terrain tile under {pos}");
+            Debug.Log($"WorldWalkTests: player at {pos:F2}, {offset:F2} m from PlayerSpawn {spawn.transform.position:F2}, ground {ground:F2}, grounded={player.IsGrounded}");
+            Assert.IsEmpty(fallbackWarnings, "PlayerController.spawnPoint is not wired in the scene: " + string.Join("; ", fallbackWarnings));
+            Assert.LessOrEqual(offset, 1f, "Player is not at PlayerSpawn");
+            Assert.IsTrue(player.IsGrounded, $"Player not grounded at {pos}");
+            Assert.That(pos.y, Is.InRange(ground - 0.1f, ground + 1f), "Player is not on the ground");
         }
 
         [UnityTest]

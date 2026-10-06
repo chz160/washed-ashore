@@ -27,11 +27,15 @@ namespace WashedAshore.Tests.Wildlife
         static readonly List<RunResult> Robustness = new List<RunResult>();
         static readonly List<RunResult> Fidelity = new List<RunResult>();
 
+        [SetUp]
+        public void SetUp() => WildlifeTestKit.PinFrameStep();
+
         [TearDown]
         public void TearDown()
         {
             WildlifeRandom.OverrideSeed(null);
             Time.timeScale = 1f;
+            WildlifeTestKit.UnpinFrameStep();
         }
 
         [UnityTest, Timeout(600000)]
@@ -108,8 +112,8 @@ namespace WashedAshore.Tests.Wildlife
             // Re-plan the seed independently (twice) for the R1-A log and as a determinism proof against the
             // anchors the scene actually holds (baked for 101, re-planned at load for the rest).
             var route = WildlifePopulation.Route(tuning, pop.PlayerSpawn.position);
-            var plan = WildlifeRules.PlanGroups(tuning, seed, Terrain.activeTerrain, pop.PlayerSpawn.position, route, out string planError, out var log);
-            var again = WildlifeRules.PlanGroups(tuning, seed, Terrain.activeTerrain, pop.PlayerSpawn.position, route, out _, out _);
+            var plan = WildlifeRules.PlanGroups(tuning, seed, pop.Ground, pop.PlayerSpawn.position, route, out string planError, out var log);
+            var again = WildlifeRules.PlanGroups(tuning, seed, pop.Ground, pop.PlayerSpawn.position, route, out _, out _);
             run.assignmentDraws = log.draws;
             run.validAssignments = log.validAssignments;
             run.redraws = log.redraws;
@@ -156,7 +160,7 @@ namespace WashedAshore.Tests.Wildlife
             run.runnerAspect = cam.aspect;
             cam.aspect = 16f / 9f;
             int mask = OccluderMask();
-            var foliage = new WildlifeFoliage(Terrain.activeTerrain);
+            var foliage = new WildlifeFoliage(WildlifeTestKit.Ground());
             var walker = new Walker(player, s.walkSpeed);
             int leg = 1;
             walker.SetGoal(route[leg]);

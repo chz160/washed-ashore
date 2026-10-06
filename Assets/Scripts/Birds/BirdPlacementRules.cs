@@ -2,44 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using WashedAshore.Wildlife;
 
 namespace WashedAshore.Birds
 {
-    public enum PatchType { Trail, Meadow }
-
-    [Serializable]
-    public class PatchPlan
-    {
-        public string name;
-        public PatchType type;
-        public int size, arc;
-        public Vector3 centre;
-        public float routeDistance, nearestTree, slope, grass, sightlineBack = -1f;
-        public List<Vector3> starts = new List<Vector3>();
-    }
-
-    [Serializable]
-    public class FlockPlan
-    {
-        public string name;
-        public int size, arc, secondaryArc;
-        public Vector3 primary, secondary;
-        public string primaryKind, secondaryKind;
-        public float primaryRouteDistance, secondaryRouteDistance;
-    }
-
-    [Serializable]
-    public class BirdPlan
-    {
-        public int seed, patchDraws, flockDraws;
-        public List<PatchPlan> patches = new List<PatchPlan>();
-        public List<FlockPlan> flocks = new List<FlockPlan>();
-        public List<string> redraws = new List<string>();
-        public float tallestCrown, tallestCrownTopY;
-        public int RobinCount => patches.Sum(p => p.size);
-        public int FlockBirdCount => flocks.Sum(f => f.size);
-    }
-
     /// <summary>
     /// Robin patches and flock POIs from bird-density-brief.md 3.1/3.2 (authored by level-designer).
     /// UnityEngine-only and NavMesh-free, so the editor bake (World.unity, seed 101) and per-seed test runs
@@ -47,7 +13,7 @@ namespace WashedAshore.Birds
     /// Bird RNG is its own stream, so wildlife placement is unchanged. No rule is relaxed: a seed that can't
     /// place within 200 attempts per patch/POI and 20 assignment draws fails.
     /// </summary>
-    public static class BirdPlacementRules
+    public static partial class BirdPlacementRules
     {
         // 3.1 population.
         static readonly (PatchType type, int size)[] PatchSpec =
@@ -73,11 +39,11 @@ namespace WashedAshore.Birds
 
         public static Vector2 Band(PatchType t) => t == PatchType.Trail ? TrailBand : MeadowBand;
 
-        public static BirdPlan Plan(int seed, Terrain t, Vector3 spawn, List<Vector3> route, IList<Vector3> wildlifeAnchors,
+        public static BirdPlan Plan(int seed, HabitatGround g, Vector3 spawn, List<Vector3> route, IList<Vector3> wildlifeAnchors,
             Func<Vector3, bool> inTestLane, out string error)
         {
             error = null;
-            var site = new Site(t, spawn, route, wildlifeAnchors, inTestLane);
+            var site = new Site(g, spawn, route, wildlifeAnchors, inTestLane);
             var rng = new System.Random(unchecked(seed * 486187739 + SeedSalt));
             var plan = new BirdPlan { seed = seed, tallestCrown = site.TallestCrown, tallestCrownTopY = site.TallestCrownTop };
 
@@ -158,10 +124,11 @@ namespace WashedAshore.Birds
             const float Cell = 10f;
             struct Tree { public Vector2 xz; public float baseY, topY; }
 
-            readonly Terrain t;
-            readonly TerrainData d;
+            const int GridRes = 513; // the old 512 m terrain's heightmap: 1 m steps over the window
+            readonly HabitatGround g;
             readonly Vector3 o, spawn;
-            readonly float[,,] splat;
+            readonly Vector2 centre;
+            float[,] grid;
             readonly IList<Vector3> wildlife;
             readonly Func<Vector3, bool> inLane;
             readonly List<Tree> trees = new List<Tree>();
@@ -176,25 +143,26 @@ namespace WashedAshore.Birds
             public float TallestCrown { get; private set; }
             public float TallestCrownTop { get; private set; }
 
-            public Site(Terrain terrain, Vector3 spawnPos, List<Vector3> route, IList<Vector3> wildlifeAnchors, Func<Vector3, bool> inTestLane)
+            public Site(HabitatGround ground, Vector3 spawnPos, List<Vector3> route, IList<Vector3> wildlifeAnchors, Func<Vector3, bool> inTestLane)
             {
-                t = terrain; d = t.terrainData; o = t.transform.position; spawn = spawnPos;
+                g = ground; o = g.Origin; spawn = spawnPos;
+                centre = g.ToWorld(TerrainCentre); // TerrainCentre is in habitat-window (old terrain) coordinates
                 wildlife = wildlifeAnchors ?? Array.Empty<Vector3>();
                 inLane = inTestLane ?? (_ => false);
                 Route = route;
                 Robin = new Arcs(route, RobinArcs);
                 Flock = new Arcs(route, FlockArcs);
-                splat = d.GetAlphamaps(0, 0, d.alphamapWidth, d.alphamapHeight);
-                var protos = d.treePrototypes;
-                var heights = protos.Select(p => p.prefab && !p.prefab.name.StartsWith("Rock_") ? PrototypeHeight(p.prefab) : 0f).ToArray();
-                foreach (var inst in d.treeInstances)
+                var heights = new Dictionary<GameObject, float>();
+                foreach (var inst in g.Trees())
                 {
-                    var prefab = protos[inst.prototypeIndex].prefab;
+                    var prefab = inst.prefab;
                     if (!prefab) continue;
-                    var w = Vector3.Scale(inst.position, d.size) + o;
+                    if (!heights.TryGetValue(prefab, out float protoHeight))
+                        heights[prefab] = protoHeight = prefab.name.StartsWith("Rock_") ? 0f : PrototypeHeight(prefab);
+                    var w = inst.world;
                     var xz = new Vector2(w.x, w.z);
                     if (prefab.name.StartsWith("Rock_")) { Bucket(rockCells, xz, xz); continue; }
-                    var tree = new Tree { xz = xz, baseY = w.y, topY = w.y + heights[inst.prototypeIndex] * inst.heightScale };
+                    var tree = new Tree { xz = xz, baseY = w.y, topY = w.y + protoHeight * inst.heightScale };
                     trees.Add(tree); // foliage occluders include bushes
                     Bucket(treeCells, xz, tree);
                     if (!prefab.name.StartsWith("Bush_")) Bucket(clearingCells, xz, tree);
@@ -203,16 +171,12 @@ namespace WashedAshore.Birds
                 }
             }
 
-            public float Height(Vector3 p) => t.SampleHeight(p) + o.y;
+            public float Height(Vector3 p) => g.Height(p);
             public Vector3 OnGround(Vector3 p) { p.y = Height(p); return p; }
-            public float Slope(Vector3 p) => d.GetSteepness((p.x - o.x) / d.size.x, (p.z - o.z) / d.size.z);
+            public float Slope(Vector3 p) => g.Steepness(p);
+            public bool IsLand(Vector3 p) => g.IsLand(p);
 
-            public float Grass(Vector3 p)
-            {
-                int sx = Mathf.Clamp(Mathf.RoundToInt((p.x - o.x) / d.size.x * (d.alphamapWidth - 1)), 0, d.alphamapWidth - 1);
-                int sz = Mathf.Clamp(Mathf.RoundToInt((p.z - o.z) / d.size.z * (d.alphamapHeight - 1)), 0, d.alphamapHeight - 1);
-                return splat[sz, sx, 0];
-            }
+            public float Grass(Vector3 p) => g.Splat(p, 0);
 
             /// <summary>Flat distance to the nearest non-rock tree instance (bushes included), or +inf beyond <paramref name="max"/>.</summary>
             public float NearestTree(Vector3 p, float max) => Nearest(treeCells, p, max);
@@ -246,9 +210,10 @@ namespace WashedAshore.Birds
                 if (Robin.ArcOf(Flat(c)) != p.arc) f.Add("arc");
                 if (Vector2.Distance(Flat(c), Flat(spawn)) < MinFromSpawn) f.Add("spawn<20");
                 if (inLane(c)) f.Add("testLane");
-                if (Vector2.Distance(Flat(c), TerrainCentre) > MaxFromCentre) f.Add("centre>170");
+                if (Vector2.Distance(Flat(c), centre) > MaxFromCentre) f.Add("centre>170");
                 if (Grass(c) < MinGrass) f.Add("grass<0.6");
                 if (Slope(c) > MaxSlope) f.Add("slope>15");
+                if (!IsLand(c)) f.Add("notLand");
                 float nt = NearestTree(c, TreeMax);
                 if (nt < TreeMin || float.IsInfinity(nt)) f.Add($"nearestTree {nt:F1} not 6-30");
                 if (RockNear(c, RockClear)) f.Add("rock<3");
@@ -330,9 +295,10 @@ namespace WashedAshore.Birds
                 var f = new List<string>();
                 float rd = RouteDistance(p);
                 if (rd < PoiBand.x || rd > PoiBand.y) f.Add($"route {rd:F0} not 50-150");
-                if (Vector2.Distance(Flat(p), TerrainCentre) > PoiMaxFromCentre) f.Add("centre>190");
+                if (Vector2.Distance(Flat(p), centre) > PoiMaxFromCentre) f.Add("centre>190");
                 if (Flock.ArcOf(Flat(p)) != arc) f.Add("arc");
                 if (PoiKind(p) == null) f.Add("notClearingOrRidge");
+                if (!IsLand(p)) f.Add("notLand");
                 return f;
             }
 
@@ -345,21 +311,34 @@ namespace WashedAshore.Birds
             /// <summary>Hilltop/ridge: higher than every heightmap sample within 40 m.</summary>
             public bool IsRidge(Vector3 p)
             {
-                int res = d.heightmapResolution;
-                float step = d.size.x / (res - 1);
-                int cx = Mathf.RoundToInt((p.x - o.x) / step), cz = Mathf.RoundToInt((p.z - o.z) / step), rr = Mathf.CeilToInt(RidgeRadius / step);
-                if (cx < 0 || cz < 0 || cx >= res || cz >= res) return false;
-                var h = d.GetHeights(Mathf.Max(0, cx - rr), Mathf.Max(0, cz - rr), Mathf.Min(res, cx + rr + 1) - Mathf.Max(0, cx - rr), Mathf.Min(res, cz + rr + 1) - Mathf.Max(0, cz - rr));
-                int x0 = Mathf.Max(0, cx - rr), z0 = Mathf.Max(0, cz - rr);
-                float me = h[cz - z0, cx - x0];
-                for (int z = 0; z < h.GetLength(0); z++)
-                    for (int x = 0; x < h.GetLength(1); x++)
+                var h = Grid(out float step, out int pad);
+                int res = h.GetLength(0);
+                int cx = Mathf.RoundToInt((p.x - o.x) / step) + pad, cz = Mathf.RoundToInt((p.z - o.z) / step) + pad, rr = Mathf.CeilToInt(RidgeRadius / step);
+                if (cx < pad || cz < pad || cx >= res - pad || cz >= res - pad) return false; // outside the habitat window
+                float me = h[cz, cx];
+                for (int z = Mathf.Max(0, cz - rr); z <= Mathf.Min(res - 1, cz + rr); z++)
+                    for (int x = Mathf.Max(0, cx - rr); x <= Mathf.Min(res - 1, cx + rr); x++)
                     {
-                        if (x + x0 == cx && z + z0 == cz) continue;
-                        if (((x + x0 - cx) * (x + x0 - cx) + (z + z0 - cz) * (z + z0 - cz)) * step * step > RidgeRadius * RidgeRadius) continue;
+                        if (x == cx && z == cz) continue;
+                        if (((x - cx) * (x - cx) + (z - cz) * (z - cz)) * step * step > RidgeRadius * RidgeRadius) continue;
                         if (h[z, x] >= me) return false;
                     }
                 return true;
+            }
+
+            /// <summary>World heights at the old terrain's 1 m heightmap spacing over the habitat window, padded by
+            /// RidgeRadius on every side so a hill that runs past the window edge is not taken for a peak.</summary>
+            float[,] Grid(out float step, out int pad)
+            {
+                step = g.Size.x / (GridRes - 1);
+                pad = Mathf.CeilToInt(RidgeRadius / step);
+                if (grid != null) return grid;
+                int res = GridRes + 2 * pad;
+                grid = new float[res, res];
+                for (int z = 0; z < res; z++)
+                    for (int x = 0; x < res; x++)
+                        grid[z, x] = Height(new Vector3(o.x + (x - pad) * step, 0f, o.z + (z - pad) * step));
+                return grid;
             }
 
             public bool PlacePoi(FlockPlan f, List<FlockPlan> flocks, bool primary, System.Random rng)
@@ -384,11 +363,11 @@ namespace WashedAshore.Birds
             {
                 if (pois != null) return pois;
                 var raw = new List<(Vector3, string)>();
-                for (float z = o.z + 4f; z < o.z + d.size.z; z += 4f)
-                    for (float x = o.x + 4f; x < o.x + d.size.x; x += 4f)
+                for (float z = o.z + 4f; z < o.z + g.Size.y; z += 4f)
+                    for (float x = o.x + 4f; x < o.x + g.Size.x; x += 4f)
                     {
                         var p = OnGround(new Vector3(x, 0f, z));
-                        if (Vector2.Distance(Flat(p), TerrainCentre) > PoiMaxFromCentre) continue;
+                        if (Vector2.Distance(Flat(p), centre) > PoiMaxFromCentre || !IsLand(p)) continue;
                         if (IsClearing(p)) raw.Add((p, "clearing"));
                     }
                 foreach (var p in HillTops()) raw.Add((p, "ridge"));
@@ -396,7 +375,7 @@ namespace WashedAshore.Birds
                 foreach (var (p, kind) in raw)
                 {
                     float rd = RouteDistance(p);
-                    if (rd < PoiBand.x || rd > PoiBand.y || Vector2.Distance(Flat(p), TerrainCentre) > PoiMaxFromCentre) continue;
+                    if (rd < PoiBand.x || rd > PoiBand.y || Vector2.Distance(Flat(p), centre) > PoiMaxFromCentre) continue;
                     pois.Add((p, kind, rd, Flock.ArcOf(Flat(p))));
                 }
                 return pois;
@@ -404,9 +383,9 @@ namespace WashedAshore.Birds
 
             List<Vector3> HillTops()
             {
-                int res = d.heightmapResolution;
-                var h = d.GetHeights(0, 0, res, res);
-                float step = d.size.x / (res - 1);
+                // Hill-climb inside the window only (as on the old terrain); IsRidge sees the padding.
+                var h = Grid(out float step, out int pad);
+                int res = GridRes;
                 var peaks = new HashSet<Vector2Int>();
                 for (int z = 4; z < res; z += 8)
                     for (int x = 4; x < res; x += 8)
@@ -420,7 +399,7 @@ namespace WashedAshore.Birds
                                 {
                                     int nx = cx + dx, nz = cz + dz;
                                     if (nx < 0 || nz < 0 || nx >= res || nz >= res) continue;
-                                    if (h[nz, nx] > h[bz, bx]) { bx = nx; bz = nz; }
+                                    if (h[nz + pad, nx + pad] > h[bz + pad, bx + pad]) { bx = nx; bz = nz; }
                                 }
                             if (bx == cx && bz == cz) break;
                             cx = bx; cz = bz;
@@ -429,7 +408,7 @@ namespace WashedAshore.Birds
                     }
                 return peaks.OrderBy(q => q.y).ThenBy(q => q.x)
                     .Select(q => OnGround(new Vector3(o.x + q.x * step, 0f, o.z + q.y * step)))
-                    .Where(IsRidge).ToList();
+                    .Where(p => IsLand(p) && IsRidge(p)).ToList();
             }
 
             public bool FoliageClear(Vector3 from, Vector3 to)
@@ -488,60 +467,6 @@ namespace WashedAshore.Birds
                 }
                 return top;
             }
-        }
-
-        /// <summary>The closed route split into equal-length arcs from W0 (0-based); same maths as WildlifeRules.RouteArcs.</summary>
-        public class Arcs
-        {
-            readonly List<Vector3> route;
-            readonly float[] cum;
-            readonly int count;
-            public float Length { get; }
-            public float ArcLength => Length / count;
-
-            public Arcs(List<Vector3> closedRoute, int arcCount)
-            {
-                route = closedRoute; count = Mathf.Max(1, arcCount);
-                cum = new float[route.Count];
-                for (int i = 1; i < route.Count; i++) cum[i] = cum[i - 1] + Vector2.Distance(Flat(route[i - 1]), Flat(route[i]));
-                Length = cum[route.Count - 1];
-            }
-
-            public float Wrap(float s) => Length > 0f ? ((s % Length) + Length) % Length : 0f;
-
-            public Vector3 PointAt(float s)
-            {
-                s = Wrap(s);
-                for (int i = 0; i + 1 < route.Count; i++)
-                    if (s <= cum[i + 1]) return Vector3.Lerp(route[i], route[i + 1], Mathf.InverseLerp(cum[i], cum[i + 1], s));
-                return route[route.Count - 1];
-            }
-
-            public Vector3 Tangent(float s)
-            {
-                s = Wrap(s);
-                for (int i = 0; i + 1 < route.Count; i++)
-                    if (s <= cum[i + 1]) { var v = route[i + 1] - route[i]; v.y = 0f; return v.normalized; }
-                return Vector3.forward;
-            }
-
-            /// <summary>Arc length of the single nearest route point; ties break to the lower segment.</summary>
-            public float NearestS(Vector2 p)
-            {
-                float best = float.MaxValue, bestS = 0f;
-                for (int i = 0; i + 1 < route.Count; i++)
-                {
-                    Vector2 a = Flat(route[i]), ab = Flat(route[i + 1]) - a;
-                    float u = Mathf.Clamp01(Vector2.Dot(p - a, ab) / Mathf.Max(ab.sqrMagnitude, 1e-4f));
-                    float dist = Vector2.Distance(p, a + ab * u);
-                    if (dist < best) { best = dist; bestS = cum[i] + u * ab.magnitude; }
-                }
-                return bestS;
-            }
-
-            public float Distance(Vector2 p) => Vector2.Distance(p, Flat(PointAt(NearestS(p))));
-
-            public int ArcOf(Vector2 p) => Mathf.Min(count - 1, Mathf.FloorToInt(NearestS(p) / ArcLength));
         }
 
         static Vector2 Flat(Vector3 v) => new Vector2(v.x, v.z);

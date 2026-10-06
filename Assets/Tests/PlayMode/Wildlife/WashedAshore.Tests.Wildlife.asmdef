@@ -2,6 +2,7 @@
     "name": "WashedAshore.Tests.Wildlife",
     "rootNamespace": "WashedAshore.Tests.Wildlife",
     "references": [
+        "WashedAshore.World",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "WashedAshore.Gameplay",

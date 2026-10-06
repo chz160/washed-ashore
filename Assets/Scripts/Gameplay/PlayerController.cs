@@ -13,11 +13,17 @@ namespace WashedAshore.Gameplay
         [Header("References")]
         [SerializeField] Transform cameraPivot;
         [SerializeField] Transform spawnPoint;
+        [Tooltip("Looked up by name when spawnPoint is missing: a scripted level rebuild recreates PlayerSpawn.")]
+        [SerializeField] string spawnPointName = "PlayerSpawn";
 
         [Header("Movement")]
         [SerializeField] float walkSpeed = 5f;
+        [SerializeField] float sprintSpeed = 8f;
         [SerializeField] float acceleration = 20f;
         [SerializeField] float deceleration = 25f;
+
+        [Header("Jump")]
+        [SerializeField] float jumpHeight = 1.2f;
 
         [Header("Gravity")]
         [SerializeField] float gravity = -20f;
@@ -36,11 +42,18 @@ namespace WashedAshore.Gameplay
         InputAction moveAction;
         InputAction lookAction;
         InputAction stickLookAction;
+        InputAction sprintAction;
+        InputAction jumpAction;
         Vector3 horizontalVelocity;
         float verticalVelocity;
         float pitch;
 
         public bool IsGrounded => controller != null && controller.isGrounded;
+        public float WalkSpeed => walkSpeed;
+        public float SprintSpeed => sprintSpeed;
+        public float JumpHeight => jumpHeight;
+        public float Gravity => gravity;
+        public Transform SpawnPoint => spawnPoint;
 
         void Awake()
         {
@@ -56,6 +69,10 @@ namespace WashedAshore.Gameplay
 
             lookAction = new InputAction("Look", InputActionType.Value, "<Mouse>/delta");
             stickLookAction = new InputAction("StickLook", InputActionType.Value, "<Gamepad>/rightStick");
+            sprintAction = new InputAction("Sprint", InputActionType.Button, "<Keyboard>/leftShift");
+            sprintAction.AddBinding("<Gamepad>/leftStickPress");
+            jumpAction = new InputAction("Jump", InputActionType.Button, "<Keyboard>/space");
+            jumpAction.AddBinding("<Gamepad>/buttonSouth");
         }
 
         void OnEnable()
@@ -63,6 +80,8 @@ namespace WashedAshore.Gameplay
             moveAction.Enable();
             lookAction.Enable();
             stickLookAction.Enable();
+            sprintAction.Enable();
+            jumpAction.Enable();
         }
 
         void OnDisable()
@@ -70,6 +89,8 @@ namespace WashedAshore.Gameplay
             moveAction.Disable();
             lookAction.Disable();
             stickLookAction.Disable();
+            sprintAction.Disable();
+            jumpAction.Disable();
         }
 
         void OnDestroy()
@@ -77,6 +98,8 @@ namespace WashedAshore.Gameplay
             moveAction.Dispose();
             lookAction.Dispose();
             stickLookAction.Dispose();
+            sprintAction.Dispose();
+            jumpAction.Dispose();
         }
 
         void Start()
@@ -104,11 +127,24 @@ namespace WashedAshore.Gameplay
 
         public void Respawn()
         {
-            if (spawnPoint == null) return;
+            if (spawnPoint == null && !string.IsNullOrEmpty(spawnPointName))
+            {
+                var found = GameObject.Find(spawnPointName);
+                if (found != null)
+                {
+                    spawnPoint = found.transform;
+                    // Safety net only: the scene should carry the reference (level build re-links it).
+                    Debug.LogWarning($"PlayerController: spawnPoint reference missing; using '{spawnPointName}' found by name.", this);
+                }
+            }
+            if (spawnPoint == null)
+            {
+                Debug.LogWarning($"PlayerController: no spawn point (looked for '{spawnPointName}'); staying at {transform.position}.", this);
+                return;
+            }
             Vector3 position = spawnPoint.position;
-            Terrain terrain = Terrain.activeTerrain;
-            if (terrain != null)
-                position.y = terrain.SampleHeight(position) + terrain.transform.position.y + spawnHeightOffset;
+            if (TerrainQuery.TryGroundHeight(position, out float ground))
+                position.y = ground + spawnHeightOffset;
 
             // CharacterController overrides transform writes while enabled.
             controller.enabled = false;
@@ -147,11 +183,14 @@ namespace WashedAshore.Gameplay
         void Move(float dt)
         {
             Vector2 input = Vector2.ClampMagnitude(moveAction.ReadValue<Vector2>(), 1f);
-            Vector3 target = (transform.forward * input.y + transform.right * input.x) * walkSpeed;
+            float speed = sprintAction.IsPressed() ? sprintSpeed : walkSpeed;
+            Vector3 target = (transform.forward * input.y + transform.right * input.x) * speed;
             float rate = input.sqrMagnitude > 0f ? acceleration : deceleration;
             horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, target, rate * dt);
 
-            if (controller.isGrounded && verticalVelocity < 0f)
+            if (controller.isGrounded && jumpAction.WasPressedThisFrame())
+                verticalVelocity = Mathf.Sqrt(2f * jumpHeight * -gravity);
+            else if (controller.isGrounded && verticalVelocity < 0f)
                 verticalVelocity = groundedStickVelocity;
             else
                 verticalVelocity = Mathf.Max(verticalVelocity + gravity * dt, terminalVelocity);
@@ -161,9 +200,7 @@ namespace WashedAshore.Gameplay
 
         void GuardFallThrough()
         {
-            Terrain terrain = Terrain.activeTerrain;
-            if (terrain == null) return;
-            float ground = terrain.SampleHeight(transform.position) + terrain.transform.position.y;
+            if (!TerrainQuery.TryGroundHeight(transform.position, out float ground)) return;
             if (transform.position.y < ground - fallThroughTolerance)
             {
                 Debug.LogWarning($"PlayerController: fell below terrain at {transform.position}, respawning.");

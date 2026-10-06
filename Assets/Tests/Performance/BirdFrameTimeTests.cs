@@ -166,7 +166,7 @@ namespace WashedAshore.Tests.Performance
             }
         }
 
-        static float Ground(Terrain terrain, Vector3 p) => terrain.SampleHeight(p) + terrain.transform.position.y;
+        static float Ground(Terrain terrain, Vector3 p) => WashedAshore.Gameplay.TerrainQuery.Height(p); // tiled terrain: the tile under p
 
         static double Percentile(List<double> v, double q)
         {
