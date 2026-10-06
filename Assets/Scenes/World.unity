@@ -810,6 +810,195 @@ MonoBehaviour:
   m_EditorClassIdentifier: WashedAshore.Wildlife::WashedAshore.Wildlife.WildlifeHerd
   species: 3
   routeArc: 3
+--- !u!1 &635537328
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 635537331}
+  - component: {fileID: 635537330}
+  - component: {fileID: 635537329}
+  m_Layer: 0
+  m_Name: Birds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &635537329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635537328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c809e5abe236d374796904bdb35f8296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WashedAshore.Birds::WashedAshore.Birds.BirdLayout
+  seed: 101
+  tallestCrown: 11.339701
+  tallestCrownTopY: 73.88123
+  patches:
+  - name: RobinPatch_1_Trail
+    type: 0
+    size: 3
+    arc: 5
+    centre: {x: 201.27008, y: 26.229628, z: 181.40833}
+    routeDistance: 5.177149
+    nearestTree: 7.492671
+    slope: 0
+    grass: 0.7176471
+    sightlineBack: 10
+    starts:
+    - {x: 197.58598, y: 26.229628, z: 183.5524}
+    - {x: 204.54065, y: 26.229628, z: 180.71432}
+    - {x: 203.25883, y: 26.12445, z: 176.99648}
+  - name: RobinPatch_2_Trail
+    type: 0
+    size: 2
+    arc: 1
+    centre: {x: 336.05988, y: 31.165678, z: 241.36629}
+    routeDistance: 5.299458
+    nearestTree: 10.724871
+    slope: 4.627492
+    grass: 1
+    sightlineBack: 10
+    starts:
+    - {x: 335.5776, y: 30.154087, z: 235.93663}
+    - {x: 332.59033, y: 30.558243, z: 236.97311}
+  - name: RobinPatch_3_Trail
+    type: 0
+    size: 2
+    arc: 7
+    centre: {x: 280.37112, y: 20.095926, z: 179.64433}
+    routeDistance: 4.6307783
+    nearestTree: 6.0705895
+    slope: 14.431879
+    grass: 0.78823537
+    sightlineBack: 10
+    starts:
+    - {x: 274.6311, y: 20.151722, z: 178.9561}
+    - {x: 278.21634, y: 19.614777, z: 177.62753}
+  - name: RobinPatch_4_Meadow
+    type: 1
+    size: 3
+    arc: 4
+    centre: {x: 139.62103, y: 25.278625, z: 288.37286}
+    routeDistance: 21.178946
+    nearestTree: 15.132724
+    slope: 1.5072709
+    grass: 1
+    sightlineBack: 10
+    starts:
+    - {x: 139.65776, y: 25.271868, z: 293.03378}
+    - {x: 139.6155, y: 25.258072, z: 290.32178}
+    - {x: 141.52193, y: 25.03871, z: 291.24994}
+  - name: RobinPatch_5_Meadow
+    type: 1
+    size: 2
+    arc: 6
+    centre: {x: 255.58694, y: 13.350273, z: 144.87665}
+    routeDistance: 23.378033
+    nearestTree: 10.86232
+    slope: 2.3405066
+    grass: 1
+    sightlineBack: 10
+    starts:
+    - {x: 257.03876, y: 12.979347, z: 148.85162}
+    - {x: 258.29974, y: 13.310853, z: 143.59937}
+  - name: RobinPatch_6_Meadow
+    type: 1
+    size: 2
+    arc: 3
+    centre: {x: 246.28415, y: 27.937372, z: 399.81055}
+    routeDistance: 16.095818
+    nearestTree: 25.794638
+    slope: 8.358298
+    grass: 1
+    sightlineBack: 10
+    starts:
+    - {x: 249.74568, y: 28.171383, z: 400.89307}
+    - {x: 242.74522, y: 27.175356, z: 400.06482}
+  - name: RobinPatch_7_Meadow
+    type: 1
+    size: 2
+    arc: 2
+    centre: {x: 376.87814, y: 14.78306, z: 322.0052}
+    routeDistance: 12.492823
+    nearestTree: 10.64603
+    slope: 13.933781
+    grass: 0.83921576
+    sightlineBack: 14
+    starts:
+    - {x: 377.98642, y: 14.307494, z: 323.83142}
+    - {x: 372.8497, y: 15.299308, z: 322.92258}
+  flocks:
+  - name: Flock_1
+    size: 6
+    arc: 1
+    secondaryArc: 2
+    primary: {x: 188, y: 21.278154, z: 412}
+    secondary: {x: 276, y: 16.304707, z: 120}
+    primaryKind: clearing
+    secondaryKind: clearing
+    primaryRouteDistance: 51.08713
+    secondaryRouteDistance: 50.35678
+  - name: Flock_2
+    size: 5
+    arc: 0
+    secondaryArc: 1
+    primary: {x: 416, y: 17.650003, z: 220}
+    secondary: {x: 316, y: 30.15809, z: 428}
+    primaryKind: clearing
+    secondaryKind: clearing
+    primaryRouteDistance: 82.768326
+    secondaryRouteDistance: 52.714752
+  - name: Flock_3
+    size: 4
+    arc: 2
+    secondaryArc: 0
+    primary: {x: 148, y: 10.818531, z: 104}
+    secondary: {x: 304, y: 29.957884, z: 296}
+    primaryKind: clearing
+    secondaryKind: clearing
+    primaryRouteDistance: 97.580734
+    secondaryRouteDistance: 52.543934
+--- !u!114 &635537330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635537328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1cc3ed11164f574bb204da5135c3282, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WashedAshore.Birds::WashedAshore.Birds.BirdPopulation
+  tuning: {fileID: 11400000, guid: c504f015ef9a71448826ef1dcdcfa770, type: 2}
+  robinPrefab: {fileID: 1840507516386787032, guid: 4ef677792f350f4489ad67ee472b433d, type: 3}
+  crowPrefab: {fileID: 5931697506051018088, guid: 2b5b556f2296eb045bb7c8410b13da15, type: 3}
+  seed: 101
+--- !u!4 &635537331
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635537328}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &827520235
 GameObject:
   m_ObjectHideFlags: 0
@@ -1901,3 +2090,4 @@ SceneRoots:
   - {fileID: 267676272}
   - {fileID: 1032947181}
   - {fileID: 2096044028}
+  - {fileID: 635537331}

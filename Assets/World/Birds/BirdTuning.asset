@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4815f27223e8144595f97fe916d1620, type: 3}
+  m_Name: BirdTuning
+  m_EditorClassIdentifier: WashedAshore.Birds::WashedAshore.Birds.BirdTuning
+  playerTag: Player
+  birdLayer: Birds
+  briefRevision: final 2026-10-05 (A1-A4) + R1 final 02:23:29Z
+  robinTotal: {x: 4, y: 30}
+  flockCount: {x: 1, y: 4}
+  flockSize: {x: 3, y: 12}
+  maxInViewCap: 20
+  robin:
+    bouts:
+    - name: PeckGround
+      weight: 0.35
+      duration: {x: 1, y: 3}
+      states:
+      - A_PeckGround_01
+      - A_PeckGround_02
+      - A_PeckGround_03
+    - name: Hop
+      weight: 0.25
+      duration: {x: 1, y: 3}
+      states:
+      - A_Hop_01
+      - A_Hop_02
+      - A_Hop_03
+    - name: Idle
+      weight: 0.2
+      duration: {x: 1.5, y: 4}
+      states:
+      - A_Idle_01
+      - A_Idle_02
+      - A_Idle_03
+    - name: Preen
+      weight: 0.1
+      duration: {x: 2, y: 5}
+      states:
+      - A_Preen_01
+      - A_Preen_02
+      - A_Preen_03
+    - name: ScratchGround
+      weight: 0.1
+      duration: {x: 1, y: 2}
+      states:
+      - A_ScratchGround_01
+      - A_ScratchGround_02
+      - A_ScratchGround_03
+    flutterState: A_Flutter
+    flyState: A_Fly_01
+    crossFadeSeconds: 0.15
+    playbackSpeed: {x: 0.9, y: 1.1}
+    neighbourRadius: 8
+    hopLength: 0.3
+    hopSeconds: 0.29
+    hopLeash: 4
+    turnSpeed: 240
+    idleTurnDegrees: 70
+    minGrass: 0.6
+    maxSlope: 15
+    offTrail: 3
+    landMinFromRoute: 12
+    landTreeDistance: {x: 6, y: 30}
+    landRockClear: 3
+    alertDistance: 14
+    flightInitiationDistance: 8
+    socialRadius: 8
+    socialDelay: {x: 0.2, y: 0.8}
+    maxFlushes: 2
+    flutterSeconds: {x: 0.3, y: 0.6}
+    flutterRise: 0.6
+    flySpeed: 8
+    climbAngleDegrees: 30
+    climbHeight: {x: 4, y: 10}
+    headingJitterDegrees: 40
+    headings: 8
+    landDistance: {x: 25, y: 40}
+    landFlutterDistance: 1.5
+    calmSeconds: 20
+    pathRadius: 0.3
+    bodyCenterHeight: 0.1
+    bodyRadius: 0.08
+    despawnDistance: 60
+    respawnSeconds: 30
+    minRespawnDistance: 40
+  flock:
+    flappingState: Flapping
+    glidingState: Gliding
+    crossFadeSeconds: 0.25
+    minDwellSeconds: 1
+    flapAboveClimbRate: 0.3
+    scale: 1.35
+    altitudeBand: {x: 25, y: 50}
+    orbitMeanAltitude: {x: 30, y: 45}
+    commuteAltitude: {x: 35, y: 45}
+    crownClearance: 10
+    crownSearchRadius: 30
+    waveAmplitude: 5
+    wavePeriod: {x: 20, y: 30}
+    altitudeSmoothing: 1.5
+    crownLookupInterval: 0.25
+    orbitRadius: {x: 35, y: 55}
+    orbitSpeed: {x: 9, y: 12}
+    commuteSpeed: 12
+    dwellSeconds: {x: 25, y: 40}
+    targetSpacing: 3
+    cohesionRadius: 15
+    spreadPerBird: {x: 2.5, y: 1.5}
+    verticalJitter: 0.5
+    wobbleAmplitude: 0.3
+    wobblePeriod: 4
+    maxBankDegrees: 25
+    turnSmoothing: 4
+  sighting:
+    sampleInterval: 0.5
+    walkSeconds: 180
+    robinViewDistance: 30
+    flockViewDistance: 200
+    flockInViewMinBirds: 2
+    metConsecutiveSamples: 2
+    flockInView: {x: 0.3, y: 0.65}
+    maxEmptySkySeconds: 45
+    firstFlockMaxSeconds: 30
+    groundMetPerMinute: {x: 1.7, y: 5}
+    flushesPerWalk: {x: 3, y: 12}
+    flushSeenMin: 0.4
+    maxInView: {x: 3, y: 20}
+    busyCount: 15
+    busyShareMax: 0.05
+    glideShare: {x: 0.4, y: 0.75}
+    flapRuleMin: 0.95
+    minSpacing: 1.5
+    fidBelow: 1
+    fidAbove: 0.5
+    altitudeBelow: 5
+    altitudeAbove: 10
+    crownMin: 5
+    altitudeAbsolute: {x: 20, y: 90}

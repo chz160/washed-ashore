@@ -1,13 +1,13 @@
 {
-    "name": "WashedAshore.Tests.Performance",
-    "rootNamespace": "WashedAshore.Tests.Performance",
+    "name": "WashedAshore.Tests.Birds",
+    "rootNamespace": "WashedAshore.Tests.Birds",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Unity.PerformanceTesting",
         "WashedAshore.Gameplay",
         "WashedAshore.Wildlife",
-        "WashedAshore.Birds"
+        "WashedAshore.Birds",
+        "WashedAshore.Tests.Wildlife"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

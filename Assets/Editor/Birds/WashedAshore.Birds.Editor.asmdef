@@ -1,0 +1,20 @@
+{
+    "name": "WashedAshore.Birds.Editor",
+    "rootNamespace": "WashedAshore.Birds.Editor",
+    "references": [
+        "WashedAshore.Wildlife.Editor",
+        "WashedAshore.Wildlife",
+        "WashedAshore.Birds"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
