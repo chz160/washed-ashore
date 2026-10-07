@@ -1,0 +1,18 @@
+WaterQaProbes 2026-10-07T00:01:18Z batch=True
+== W3-probe-b
+watched files: 22 (World.unity, MapConfig.asset, 20 tiles)
+Guard threw WaterBuildException: water: north line moved (MapConfig.northLineZ 2086.7 vs data 1986.72, delta +100.0 m, report moved=False). Neck crossings are not re-derived for a moved line, so water would flood the cut (td-note §3 risk 2). Build error until they are.
+BuildAll(clone, false) threw WaterBuildException: water: no MapConfig
+files changed: 0 
+RESULT: PASS
+
+== AF1-water-sky
+water: water guard ok: lakeMask=8f8a637cd4657d82 northLineZ=1986.7 data=1986.72 | water: 20 quads 1024 m at y=WaterLevelY=1.610002 layer=4 extent X[-2087,2009] Z[-2492,2628] lakeMask=8f8a637cd4657d82 | water: WaterBody configured with Assets/World/Water/WaterMotion.asset | water: WaterMaps WaterMaps 2048x2560 @2 m RG8 wetCells=3017559 uncovered=0 W=1.610 northLineZ=1986.7 neckX=-414.1 ripple=written material=updated 1402 ms | water: scene saved Assets/Scenes/World.unity | 
+sky: BellsBendSky.Build 2026-10-07T00:01:23Z | before: skybox=BellsBendSky Assets/World/BellsBend/Sky/BellsBendSky.mat fog=RGBA(0.844, 0.909, 0.885, 1.000) Linear 120-520 | sky: Assets/World/BellsBend/Sky/BellsBendSky.mat on Skybox/Procedural (built-in), SkyTint=RGBA(0.530, 0.490, 0.470, 1.000) Atmosphere=1.1 Exposure=1 Ground=sRGB(0.78,0.76,0.70); sky at horizon (0.5-1.5 deg, 8 headings) sRGB=(0.844,0.909,0.885) -> fog colour; DynamicGI.UpdateEnvironment (ambient + default reflection) | root 'Sky' with BellsBendSkyInit (DynamicGI.UpdateEnvironment at load) | after: skybox=Assets/World/BellsBend/Sky/BellsBendSky.mat fog=sRGB(0.844,0.909,0.885) Linear 120-520; default reflection Default-Skybox-Cubemap 128px Cube (generated, no asset); scene saved | upper sky (45 deg up, sky only, linear) mean channel diff before/after = 0.0000 | bank: horizon row step before=0.061 after=0.062 (max mean adjacent-row step, centre third); lower third mean diff=0.0029; water-area blue excess before=-0.091 after=-0.094; bank-before.png bank-after.png | north-line-east-channel: horizon row step before=0.054 after=0.055 (max mean adjacent-row step, centre third); lower third mean diff=0.0033; water-area blue excess before=-0.068 after=-0.072; north-line-east-channel-before.png north-line-east-channel-after.png | bluff-top: horizon row step before=0.071 after=0.071 (max mean adjacent-row step, centre third); lower third mean diff=0.0048; water-area blue excess before=-0.160 after=-0.167; bluff-top-before.png bluff-top-after.png | 
+F0 lines 75, F1 lines 75, differing lines 0
+RESULT: PASS (F1 == F0)
+
+== west-channel-shot
+w5-north-line-west-channel.png: eye (-1440.00, 9.61, 1946.70) -> (-1470.00, 1.61, 2106.70) (RGB24, opaque)
+
+done

@@ -1,0 +1,27 @@
+{
+    "name": "WashedAshore.Tests.EditMode.Level",
+    "rootNamespace": "WashedAshore.Tests.EditMode.Level",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "WashedAshore.World",
+        "WashedAshore.Gameplay",
+        "WashedAshore.Level",
+        "WashedAshore.Level.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

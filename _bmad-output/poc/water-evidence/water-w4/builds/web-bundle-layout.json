@@ -1,0 +1,47 @@
+{
+ "signature": "UnityFS",
+ "version": 8,
+ "unity": "5.x.x",
+ "revision": "6000.6.4f1",
+ "bundleBytes": 75478961,
+ "headerTotal": 75478961,
+ "blockCount": 2790,
+ "blockCompression": {
+  "lz4hc": 2783,
+  "none": 7
+ },
+ "packedBlockBytes": 75470529,
+ "unpackedBlockBytes": 365603492,
+ "files": [
+  {
+   "name": "sharedassets0.assets",
+   "offset": 5553544,
+   "bytes": 359307728
+  },
+  {
+   "name": "globalgamemanagers.assets",
+   "offset": 542624,
+   "bytes": 5010920
+  },
+  {
+   "name": "level0",
+   "offset": 364861272,
+   "bytes": 738896
+  },
+  {
+   "name": "Resources/unity_builtin_extra",
+   "offset": 121364,
+   "bytes": 421260
+  },
+  {
+   "name": "globalgamemanagers",
+   "offset": 0,
+   "bytes": 121364
+  },
+  {
+   "name": "resources.assets",
+   "offset": 365600168,
+   "bytes": 3324
+  }
+ ]
+}

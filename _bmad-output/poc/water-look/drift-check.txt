@@ -1,0 +1,2 @@
+drift 0.10->0.25: image shift dx=0px dy=0px (dy>0 = south on screen), peak=0.977
+drift 0.25->0.40: image shift dx=0px dy=0px (dy>0 = south on screen), peak=0.978

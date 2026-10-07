@@ -1,0 +1,7 @@
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 61100)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 68516)
+VBCSCompiler prewarm took 7.84 ms
+The Editor log reported the following errors:
+  [license] [Licensing::Module] LicensingClient has failed validation; ignoring
+Error: Tests failed: Unity process exited with code 2.
+exit 8

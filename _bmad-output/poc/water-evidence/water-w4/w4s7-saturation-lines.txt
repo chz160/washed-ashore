@@ -1,0 +1,17 @@
+W-QA-1 bird sightline GATING seed 101: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+W-QA-1 bird sightline GATING seed 202: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+W-QA-1 bird sightline GATING seed 303: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+W-QA-1 bird sightline ROBUSTNESS seed 404: sightSaturations=0 sightMaxHits=1 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+W-QA-1 bird sightline ROBUSTNESS seed 505: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=1
+W-QA-1 bird sightline ROBUSTNESS seed 606: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=1
+W-QA-1 bird sightline ROBUSTNESS seed 707: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+W-QA-1 bird sightline ROBUSTNESS seed 808: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+W-QA-1 wildlife sightline FIDELITY seed 101: sightSaturations=0 sightMaxHits=1
+W-QA-1 wildlife sightline GATING seed 101: sightSaturations=0 sightMaxHits=1
+W-QA-1 wildlife sightline GATING seed 202: sightSaturations=0 sightMaxHits=0
+W-QA-1 wildlife sightline GATING seed 303: sightSaturations=0 sightMaxHits=0
+W-QA-1 wildlife sightline ROBUSTNESS seed 404: sightSaturations=0 sightMaxHits=0
+W-QA-1 wildlife sightline ROBUSTNESS seed 505: sightSaturations=0 sightMaxHits=1
+W-QA-1 wildlife sightline ROBUSTNESS seed 606: sightSaturations=0 sightMaxHits=1
+W-QA-1 wildlife sightline ROBUSTNESS seed 707: sightSaturations=0 sightMaxHits=0
+W-QA-1 wildlife sightline ROBUSTNESS seed 808: sightSaturations=0 sightMaxHits=0

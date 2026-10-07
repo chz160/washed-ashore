@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="11" result="Passed" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 23:03:42Z" end-time="2026-10-06 23:03:52Z" duration="10.374114">
+  <test-suite type="TestSuite" id="1119" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="73" result="Passed" start-time="2026-10-06 23:03:42Z" end-time="2026-10-06 23:03:52Z" duration="10.374114" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1206" name="WashedAshore.Tests.PlayMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.PlayMode.dll" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-06 23:03:42Z" end-time="2026-10-06 23:03:52Z" duration="10.368087" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="61436" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1207" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-06 23:03:42Z" end-time="2026-10-06 23:03:52Z" duration="10.367319" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1208" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-06 23:03:42Z" end-time="2026-10-06 23:03:52Z" duration="10.366417" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1209" name="PlayMode" fullname="WashedAshore.Tests.PlayMode" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-06 23:03:42Z" end-time="2026-10-06 23:03:52Z" duration="10.365632" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1182" name="WorldBoundsClampTests" fullname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" classname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 23:03:42Z" end-time="2026-10-06 23:03:45Z" duration="3.019087" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1187" name="Clamp_PerFrameCost_UnderHalfAMillisecondWithTheVistaLoaded" fullname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests.Clamp_PerFrameCost_UnderHalfAMillisecondWithTheVistaLoaded" methodname="Clamp_PerFrameCost_UnderHalfAMillisecondWithTheVistaLoaded" classname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" runstate="Runnable" seed="916276434" result="Passed" start-time="2026-10-06 23:03:42Z" end-time="2026-10-06 23:03:44Z" duration="1.877412" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsClampTests: clamp LateUpdate 0.0011 ms/frame over 200 calls; terrain tree instances=101592, Rigidbodies=0
+]]></output>
+              </test-case>
+              <test-case id="1184" name="Player_TeleportedTenMetresNorth_IsSnappedBackWithinOneFrame" fullname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests.Player_TeleportedTenMetresNorth_IsSnappedBackWithinOneFrame" methodname="Player_TeleportedTenMetresNorth_IsSnappedBackWithinOneFrame" classname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" runstate="Runnable" seed="1695817031" result="Passed" start-time="2026-10-06 23:03:44Z" end-time="2026-10-06 23:03:44Z" duration="0.700723" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1859 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+WorldBoundsClamp: Player was 10.00 m north of the line at (-400.71, 10.86, 1996.70); snapped to (-400.71, 10.86, 1982.20).
+WorldBoundsClampTests: player at (-400.71, 10.85, 1982.20), -4.50 m from the line after 1 frame(s)
+]]></output>
+              </test-case>
+              <test-case id="1186" name="Rigidbody_AmongOver1024StaticCollidersNorth_IsSnappedWithinOneFrame" fullname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests.Rigidbody_AmongOver1024StaticCollidersNorth_IsSnappedWithinOneFrame" methodname="Rigidbody_AmongOver1024StaticCollidersNorth_IsSnappedWithinOneFrame" classname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" runstate="Runnable" seed="1038755847" result="Passed" start-time="2026-10-06 23:03:44Z" end-time="2026-10-06 23:03:45Z" duration="0.227246" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1859 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+WorldBoundsClamp: ClampTestBox was 10.00 m north of the line at (-400.71, 11.86, 1996.70); snapped to (-400.71, 11.86, 1982.20).
+WorldBoundsClampTests: 1500 static colliders north; Rigidbody at (-400.71, 11.86, 1982.20) after 1 frame(s), other clamp warnings=0
+]]></output>
+              </test-case>
+              <test-case id="1185" name="Rigidbody_DroppedTenMetresNorth_IsSnappedBackWithinOneFrame" fullname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests.Rigidbody_DroppedTenMetresNorth_IsSnappedBackWithinOneFrame" methodname="Rigidbody_DroppedTenMetresNorth_IsSnappedBackWithinOneFrame" classname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" runstate="Runnable" seed="200870426" result="Passed" start-time="2026-10-06 23:03:45Z" end-time="2026-10-06 23:03:45Z" duration="0.201555" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1859 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+WorldBoundsClamp: ClampTestBox was 10.00 m north of the line at (-400.71, 11.86, 1996.70); snapped to (-400.71, 11.86, 1982.20).
+WorldBoundsClampTests: Rigidbody at (-400.71, 11.86, 1982.20) after 1 frame(s)
+]]></output>
+              </test-case>
+              <test-case id="1183" name="Rule_SnapsOnlyNorthOfLine" fullname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests.Rule_SnapsOnlyNorthOfLine" methodname="Rule_SnapsOnlyNorthOfLine" classname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" runstate="Runnable" seed="566629364" result="Passed" start-time="2026-10-06 23:03:45Z" end-time="2026-10-06 23:03:45Z" duration="0.002802" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1199" name="WorldWalkTests" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-06 23:03:45Z" end-time="2026-10-06 23:03:52Z" duration="7.344601" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1200" name="A_LoadsWorld" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.A_LoadsWorld" methodname="A_LoadsWorld" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="506651816" result="Passed" start-time="2026-10-06 23:03:45Z" end-time="2026-10-06 23:03:45Z" duration="0.263134" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+]]></output>
+              </test-case>
+              <test-case id="1201" name="B_HoldingWForTwoSecondsMovesPlayerAtLeastThreeMetres" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.B_HoldingWForTwoSecondsMovesPlayerAtLeastThreeMetres" methodname="B_HoldingWForTwoSecondsMovesPlayerAtLeastThreeMetres" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="2007706592" result="Passed" start-time="2026-10-06 23:03:45Z" end-time="2026-10-06 23:03:47Z" duration="2.215203" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldWalkTests: W held 2 s moved 9.38 m
+]]></output>
+              </test-case>
+              <test-case id="1202" name="C_PlayerIsGroundedAfterThreeSeconds" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.C_PlayerIsGroundedAfterThreeSeconds" methodname="C_PlayerIsGroundedAfterThreeSeconds" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="306756348" result="Passed" start-time="2026-10-06 23:03:47Z" end-time="2026-10-06 23:03:51Z" duration="3.183711" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+]]></output>
+              </test-case>
+              <test-case id="1203" name="C2_PlayerSpawnsAtPlayerSpawnOnTheGround" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.C2_PlayerSpawnsAtPlayerSpawnOnTheGround" methodname="C2_PlayerSpawnsAtPlayerSpawnOnTheGround" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="872447362" result="Passed" start-time="2026-10-06 23:03:51Z" end-time="2026-10-06 23:03:51Z" duration="0.257435" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldWalkTests: player at (-202.81, 15.94, -942.11), 0.00 m from PlayerSpawn (-202.81, 15.89, -942.11), ground 15.89, grounded=True
+]]></output>
+              </test-case>
+              <test-case id="1204" name="D_FrameCountAdvances" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.D_FrameCountAdvances" methodname="D_FrameCountAdvances" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="1160555116" result="Passed" start-time="2026-10-06 23:03:51Z" end-time="2026-10-06 23:03:52Z" duration="1.231873" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldWalkTests: 2109 frames in 1 s realtime
+]]></output>
+              </test-case>
+              <test-case id="1205" name="E_MouseDeltaRotatesPlayer" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.E_MouseDeltaRotatesPlayer" methodname="E_MouseDeltaRotatesPlayer" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="20891490" result="Passed" start-time="2026-10-06 23:03:52Z" end-time="2026-10-06 23:03:52Z" duration="0.190607" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

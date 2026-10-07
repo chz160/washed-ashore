@@ -18,6 +18,7 @@ namespace WashedAshore.Tests.Birds
         public static IEnumerator LoadWorld(int seed)
         {
             BirdRandom.OverrideSeed(seed);
+            BirdPlacementRules.Site.ResetSightStats(); // the bird plan runs on load (W-QA-1)
             yield return WildlifeTestKit.LoadWorld(seed);
         }
 

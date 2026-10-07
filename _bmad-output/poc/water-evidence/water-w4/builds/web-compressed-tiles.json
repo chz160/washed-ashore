@@ -1,0 +1,106 @@
+{
+ "rows": [
+  {
+   "file": "TD_0_0.asset",
+   "bytes": 13365532,
+   "brotli_q11": 3112
+  },
+  {
+   "file": "TD_0_1.asset",
+   "bytes": 13365532,
+   "brotli_q11": 3130
+  },
+  {
+   "file": "TD_0_2.asset",
+   "bytes": 13365532,
+   "brotli_q11": 3163
+  },
+  {
+   "file": "TD_0_3.asset",
+   "bytes": 13365532,
+   "brotli_q11": 3155
+  },
+  {
+   "file": "TD_0_4.asset",
+   "bytes": 13757500,
+   "brotli_q11": 2032095
+  },
+  {
+   "file": "TD_1_0.asset",
+   "bytes": 13468124,
+   "brotli_q11": 160341
+  },
+  {
+   "file": "TD_1_1.asset",
+   "bytes": 14343036,
+   "brotli_q11": 1576300
+  },
+  {
+   "file": "TD_1_2.asset",
+   "bytes": 14657372,
+   "brotli_q11": 2312825
+  },
+  {
+   "file": "TD_1_3.asset",
+   "bytes": 14630348,
+   "brotli_q11": 2709477
+  },
+  {
+   "file": "TD_1_4.asset",
+   "bytes": 14162252,
+   "brotli_q11": 2605204
+  },
+  {
+   "file": "TD_2_0.asset",
+   "bytes": 13751724,
+   "brotli_q11": 613599
+  },
+  {
+   "file": "TD_2_1.asset",
+   "bytes": 14704812,
+   "brotli_q11": 2146501
+  },
+  {
+   "file": "TD_2_2.asset",
+   "bytes": 14462812,
+   "brotli_q11": 2275779
+  },
+  {
+   "file": "TD_2_3.asset",
+   "bytes": 13854200,
+   "brotli_q11": 1156061
+  },
+  {
+   "file": "TD_2_4.asset",
+   "bytes": 13928828,
+   "brotli_q11": 1885571
+  },
+  {
+   "file": "TD_3_0.asset",
+   "bytes": 13396212,
+   "brotli_q11": 60421
+  },
+  {
+   "file": "TD_3_1.asset",
+   "bytes": 13740748,
+   "brotli_q11": 611463
+  },
+  {
+   "file": "TD_3_2.asset",
+   "bytes": 13500764,
+   "brotli_q11": 237486
+  },
+  {
+   "file": "TD_3_3.asset",
+   "bytes": 13365532,
+   "brotli_q11": 3158
+  },
+  {
+   "file": "TD_3_4.asset",
+   "bytes": 13689164,
+   "brotli_q11": 1264775
+  }
+ ],
+ "raw": 276875556,
+ "brotli_q11": 21663616
+}

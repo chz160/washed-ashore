@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="89" result="Passed" total="89" passed="89" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:11Z" duration="2.5449911">
+  <test-suite type="TestSuite" id="1000" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="89" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:11Z" duration="2.544991" total="89" passed="89" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1095" name="WashedAshore.Tests.EditMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.EditMode.dll" runstate="Runnable" testcasecount="73" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:11Z" duration="2.220618" total="73" passed="73" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="65700" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1096" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="73" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:11Z" duration="2.218397" total="73" passed="73" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1097" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="73" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:11Z" duration="2.218292" total="73" passed="73" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1098" name="EditMode" fullname="WashedAshore.Tests.EditMode" runstate="Runnable" testcasecount="73" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:11Z" duration="2.218175" total="73" passed="73" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1010" name="LayerAuditTests" fullname="WashedAshore.Tests.EditMode.LayerAuditTests" classname="WashedAshore.Tests.EditMode.LayerAuditTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.627317" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1014" name="Backstop_IsOnWorldBounds" fullname="WashedAshore.Tests.EditMode.LayerAuditTests.Backstop_IsOnWorldBounds" methodname="Backstop_IsOnWorldBounds" classname="WashedAshore.Tests.EditMode.LayerAuditTests" runstate="Runnable" seed="836119925" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.011308" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[LayerAudit: backstop colliders 86
+]]></output>
+              </test-case>
+              <test-case id="1013" name="BarrierExtensions_AreAllOnWorldBounds" fullname="WashedAshore.Tests.EditMode.LayerAuditTests.BarrierExtensions_AreAllOnWorldBounds" methodname="BarrierExtensions_AreAllOnWorldBounds" classname="WashedAshore.Tests.EditMode.LayerAuditTests" runstate="Runnable" seed="2028356988" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.008324" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[LayerAudit: barrier extensions 800 (BayCollider=796 GatePostCollider=2 LeafCollider=2), off WorldBounds 0
+]]></output>
+              </test-case>
+              <test-case id="1011" name="Layers_ResolveByName" fullname="WashedAshore.Tests.EditMode.LayerAuditTests.Layers_ResolveByName" methodname="Layers_ResolveByName" classname="WashedAshore.Tests.EditMode.LayerAuditTests" runstate="Runnable" seed="1922494208" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.004328" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[LayerAudit: water=4 worldBounds=9 default=0
+]]></output>
+              </test-case>
+              <test-case id="1016" name="Masks_LeaveOutWaterAndWorldBounds" fullname="WashedAshore.Tests.EditMode.LayerAuditTests.Masks_LeaveOutWaterAndWorldBounds" methodname="Masks_LeaveOutWaterAndWorldBounds" classname="WashedAshore.Tests.EditMode.LayerAuditTests" runstate="Runnable" seed="1289180519" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.001085" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1012" name="PhysicsMatrix_PlayerLayerStillCollidesWithBoundsAndWater" fullname="WashedAshore.Tests.EditMode.LayerAuditTests.PhysicsMatrix_PlayerLayerStillCollidesWithBoundsAndWater" methodname="PhysicsMatrix_PlayerLayerStillCollidesWithBoundsAndWater" classname="WashedAshore.Tests.EditMode.LayerAuditTests" runstate="Runnable" seed="1229274373" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000327" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1017" name="Sightlines_StillFindTerrainUnderWaterAndFences" fullname="WashedAshore.Tests.EditMode.LayerAuditTests.Sightlines_StillFindTerrainUnderWaterAndFences" methodname="Sightlines_StillFindTerrainUnderWaterAndFences" classname="WashedAshore.Tests.EditMode.LayerAuditTests" runstate="Runnable" seed="1848119358" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.005566" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[LayerAudit: sightline probe on Terrain_0_2 at (-1575,-8.4,68)
+]]></output>
+              </test-case>
+              <test-case id="1015" name="WaterObjects_AreOnWaterLayerWithNoSolidCollider" fullname="WashedAshore.Tests.EditMode.LayerAuditTests.WaterObjects_AreOnWaterLayerWithNoSolidCollider" methodname="WaterObjects_AreOnWaterLayerWithNoSolidCollider" classname="WashedAshore.Tests.EditMode.LayerAuditTests" runstate="Runnable" seed="1583768542" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.002937" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[LayerAudit: water objects: 21 water renderers: 20 terrain tiles: 20 roots: [Water]
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1018" name="ModelFacingDetectionTests" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" testcasecount="31" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:10Z" duration="0.768636" total="31" passed="31" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1051" name="AllTwelveQuaterniusAnimals_WereFlippedByLeftRight_AndNowFacePlusZ" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.AllTwelveQuaterniusAnimals_WereFlippedByLeftRight_AndNowFacePlusZ" methodname="AllTwelveQuaterniusAnimals_WereFlippedByLeftRight_AndNowFacePlusZ" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="345473961" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.129728" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1047" name="BoneSide_MatchesTheSpecPatterns" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.002183" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1031" name="BoneSide_MatchesTheSpecPatterns(&quot;Leg.L&quot;,-1)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;Leg.L&quot;,-1)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1228611996" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000276" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1032" name="BoneSide_MatchesTheSpecPatterns(&quot;Leg_L&quot;,-1)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;Leg_L&quot;,-1)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1613444068" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000053" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1033" name="BoneSide_MatchesTheSpecPatterns(&quot;ear.l&quot;,-1)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;ear.l&quot;,-1)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1410200279" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000040" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1034" name="BoneSide_MatchesTheSpecPatterns(&quot;FF.L_end&quot;,-1)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;FF.L_end&quot;,-1)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1963711018" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000037" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1035" name="BoneSide_MatchesTheSpecPatterns(&quot;LeftArm&quot;,-1)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;LeftArm&quot;,-1)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1209554209" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000043" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1036" name="BoneSide_MatchesTheSpecPatterns(&quot;Left_Hand&quot;,-1)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;Left_Hand&quot;,-1)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1934174724" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000043" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1037" name="BoneSide_MatchesTheSpecPatterns(&quot;Left.003&quot;,-1)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;Left.003&quot;,-1)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="31614762" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000040" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1038" name="BoneSide_MatchesTheSpecPatterns(&quot;Left&quot;,-1)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;Left&quot;,-1)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="687913897" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000038" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1039" name="BoneSide_MatchesTheSpecPatterns(&quot;mixamorig:LeftUpLeg&quot;,-1)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;mixamorig:LeftUpLeg&quot;,-1)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="582853088" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000041" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1040" name="BoneSide_MatchesTheSpecPatterns(&quot;Leg.R&quot;,1)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;Leg.R&quot;,1)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="847853488" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000042" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1041" name="BoneSide_MatchesTheSpecPatterns(&quot;RightFoot&quot;,1)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;RightFoot&quot;,1)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="870434689" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000042" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1042" name="BoneSide_MatchesTheSpecPatterns(&quot;Ear1.R&quot;,1)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;Ear1.R&quot;,1)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="192914387" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000053" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1043" name="BoneSide_MatchesTheSpecPatterns(&quot;Leftover&quot;,0)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;Leftover&quot;,0)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="295238576" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000046" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1044" name="BoneSide_MatchesTheSpecPatterns(&quot;Rightful&quot;,0)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;Rightful&quot;,0)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1310123951" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000045" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1045" name="BoneSide_MatchesTheSpecPatterns(&quot;Tail&quot;,0)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;Tail&quot;,0)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="727074327" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000040" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1046" name="BoneSide_MatchesTheSpecPatterns(&quot;Head&quot;,0)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.BoneSide_MatchesTheSpecPatterns(&quot;Head&quot;,0)" methodname="BoneSide_MatchesTheSpecPatterns" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="764523162" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000040" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1020" name="Fixture1_LeftBonesAtMinusX_KeepsAndIsUnchanged" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.Fixture1_LeftBonesAtMinusX_KeepsAndIsUnchanged" methodname="Fixture1_LeftBonesAtMinusX_KeepsAndIsUnchanged" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="411193659" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.003625" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1023" name="Fixture2_NoLeftRightBonesAndSidewaysHead_IsAmbiguousAndUnchanged" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.Fixture2_NoLeftRightBonesAndSidewaysHead_IsAmbiguousAndUnchanged" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.002309" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1021" name="Fixture2_NoLeftRightBonesAndSidewaysHead_IsAmbiguousAndUnchanged(1.0f)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.Fixture2_NoLeftRightBonesAndSidewaysHead_IsAmbiguousAndUnchanged(1.0f)" methodname="Fixture2_NoLeftRightBonesAndSidewaysHead_IsAmbiguousAndUnchanged" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1052635482" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.001084" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1022" name="Fixture2_NoLeftRightBonesAndSidewaysHead_IsAmbiguousAndUnchanged(-1.0f)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.Fixture2_NoLeftRightBonesAndSidewaysHead_IsAmbiguousAndUnchanged(-1.0f)" methodname="Fixture2_NoLeftRightBonesAndSidewaysHead_IsAmbiguousAndUnchanged" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1234978565" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000266" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1048" name="Flip_IsIdempotent" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.Flip_IsIdempotent" methodname="Flip_IsIdempotent" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="949065416" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.001720" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1050" name="HumanoidRig_IsSkipped" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.HumanoidRig_IsSkipped" methodname="HumanoidRig_IsSkipped" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="251405710" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000687" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1019" name="LeftBonesAtPlusX_FlipsByLeftRight" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.LeftBonesAtPlusX_FlipsByLeftRight" methodname="LeftBonesAtPlusX_FlipsByLeftRight" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1982931198" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000405" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1030" name="LeftOnlyRig_UsesLeftOnlyForm" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.LeftOnlyRig_UsesLeftOnlyForm" methodname="LeftOnlyRig_UsesLeftOnlyForm" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="148928347" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000308" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1028" name="LeftRightWinsOverADisagreeingHead" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.LeftRightWinsOverADisagreeingHead" methodname="LeftRightWinsOverADisagreeingHead" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="110904850" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000362" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1029" name="LeftRightWithinEpsilon_DefersToHead" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.LeftRightWithinEpsilon_DefersToHead" methodname="LeftRightWithinEpsilon_DefersToHead" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="44771108" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000362" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1027" name="NoLeftRightBones_FallsBackToHead" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.NoLeftRightBones_FallsBackToHead" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.001105" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1025" name="NoLeftRightBones_FallsBackToHead(-1.0f)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.NoLeftRightBones_FallsBackToHead(-1.0f)" methodname="NoLeftRightBones_FallsBackToHead" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1146253781" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000332" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1026" name="NoLeftRightBones_FallsBackToHead(1.0f)" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.NoLeftRightBones_FallsBackToHead(1.0f)" methodname="NoLeftRightBones_FallsBackToHead" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="466708320" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000179" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1049" name="NonFbx_IsSkipped" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.NonFbx_IsSkipped" methodname="NonFbx_IsSkipped" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1082415572" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:09Z" duration="0.000103" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1052" name="ReimportingTwice_GivesIdenticalHeadDirection" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.ReimportingTwice_GivesIdenticalHeadDirection" methodname="ReimportingTwice_GivesIdenticalHeadDirection" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="294054125" result="Passed" start-time="2026-10-06 22:55:09Z" end-time="2026-10-06 22:55:10Z" duration="0.622688" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1024" name="UprightHeadWithoutLeftRight_IsAmbiguous" fullname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests.UprightHeadWithoutLeftRight_IsAmbiguous" methodname="UprightHeadWithoutLeftRight_IsAmbiguous" classname="WashedAshore.Tests.EditMode.ModelFacingDetectionTests" runstate="Runnable" seed="1818018507" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000461" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1053" name="MouseLockGateTests" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.003026" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1067" name="ShouldApplyMouseLook" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldApplyMouseLook" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000955" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1064" name="ShouldApplyMouseLook(WebGLPlayer,None)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldApplyMouseLook(WebGLPlayer,None)" methodname="ShouldApplyMouseLook" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="294242703" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000460" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1065" name="ShouldApplyMouseLook(WebGLPlayer,Locked)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldApplyMouseLook(WebGLPlayer,Locked)" methodname="ShouldApplyMouseLook" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="831011371" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000079" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1066" name="ShouldApplyMouseLook(WindowsPlayer,None)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldApplyMouseLook(WindowsPlayer,None)" methodname="ShouldApplyMouseLook" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="1697408564" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000037" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1059" name="ShouldLockOnStart" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldLockOnStart" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000637" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1054" name="ShouldLockOnStart(WindowsPlayer)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldLockOnStart(WindowsPlayer)" methodname="ShouldLockOnStart" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="987973109" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000159" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1055" name="ShouldLockOnStart(WindowsEditor)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldLockOnStart(WindowsEditor)" methodname="ShouldLockOnStart" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="1496295118" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000042" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1056" name="ShouldLockOnStart(LinuxPlayer)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldLockOnStart(LinuxPlayer)" methodname="ShouldLockOnStart" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="1972893301" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000029" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1057" name="ShouldLockOnStart(OSXPlayer)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldLockOnStart(OSXPlayer)" methodname="ShouldLockOnStart" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="992157215" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000027" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1058" name="ShouldLockOnStart(WebGLPlayer)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldLockOnStart(WebGLPlayer)" methodname="ShouldLockOnStart" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="624923192" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000025" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1063" name="ShouldRelockOnClick" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldRelockOnClick" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000402" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1060" name="ShouldRelockOnClick(WebGLPlayer)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldRelockOnClick(WebGLPlayer)" methodname="ShouldRelockOnClick" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="822646908" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000088" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1061" name="ShouldRelockOnClick(WindowsPlayer)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldRelockOnClick(WindowsPlayer)" methodname="ShouldRelockOnClick" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="2092781489" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000036" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1062" name="ShouldRelockOnClick(WindowsEditor)" fullname="WashedAshore.Tests.EditMode.MouseLockGateTests.ShouldRelockOnClick(WindowsEditor)" methodname="ShouldRelockOnClick" classname="WashedAshore.Tests.EditMode.MouseLockGateTests" runstate="Runnable" seed="703900222" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000025" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestFixture" id="1068" name="SwimRulesTests" fullname="WashedAshore.Tests.EditMode.SwimRulesTests" classname="WashedAshore.Tests.EditMode.SwimRulesTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.017993" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1069" name="Classify_DryWadeSwim_ByDepth" fullname="WashedAshore.Tests.EditMode.SwimRulesTests.Classify_DryWadeSwim_ByDepth" methodname="Classify_DryWadeSwim_ByDepth" classname="WashedAshore.Tests.EditMode.SwimRulesTests" runstate="Runnable" seed="759458477" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000936" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1070" name="Classify_Hysteresis_OneTransitionEachWay" fullname="WashedAshore.Tests.EditMode.SwimRulesTests.Classify_Hysteresis_OneTransitionEachWay" methodname="Classify_Hysteresis_OneTransitionEachWay" classname="WashedAshore.Tests.EditMode.SwimRulesTests" runstate="Runnable" seed="1705791970" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000262" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1075" name="Float_FollowsSurface_NeverBelowGround_Capped" fullname="WashedAshore.Tests.EditMode.SwimRulesTests.Float_FollowsSurface_NeverBelowGround_Capped" methodname="Float_FollowsSurface_NeverBelowGround_Capped" classname="WashedAshore.Tests.EditMode.SwimRulesTests" runstate="Runnable" seed="409370346" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000788" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1074" name="JumpAndRates_FollowSpec" fullname="WashedAshore.Tests.EditMode.SwimRulesTests.JumpAndRates_FollowSpec" methodname="JumpAndRates_FollowSpec" classname="WashedAshore.Tests.EditMode.SwimRulesTests" runstate="Runnable" seed="108415453" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000632" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1078" name="ProjectAsset_PassesValidation_AndApprovedBand" fullname="WashedAshore.Tests.EditMode.SwimRulesTests.ProjectAsset_PassesValidation_AndApprovedBand" methodname="ProjectAsset_PassesValidation_AndApprovedBand" classname="WashedAshore.Tests.EditMode.SwimRulesTests" runstate="Runnable" seed="269643103" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000667" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1073" name="StrokeSurge_AveragesOneOverWholeStrokes" fullname="WashedAshore.Tests.EditMode.SwimRulesTests.StrokeSurge_AveragesOneOverWholeStrokes" methodname="StrokeSurge_AveragesOneOverWholeStrokes" classname="WashedAshore.Tests.EditMode.SwimRulesTests" runstate="Runnable" seed="1560779997" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000338" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1071" name="TargetSpeed_MatchesSpecBars" fullname="WashedAshore.Tests.EditMode.SwimRulesTests.TargetSpeed_MatchesSpecBars" methodname="TargetSpeed_MatchesSpecBars" classname="WashedAshore.Tests.EditMode.SwimRulesTests" runstate="Runnable" seed="370260398" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000303" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1076" name="Validate_DefaultsPass_BadNumbersFail" fullname="WashedAshore.Tests.EditMode.SwimRulesTests.Validate_DefaultsPass_BadNumbersFail" methodname="Validate_DefaultsPass_BadNumbersFail" classname="WashedAshore.Tests.EditMode.SwimRulesTests" runstate="Runnable" seed="407346029" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000246" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1072" name="WadeCurve_IsLinearBetweenKeys_AndFalls" fullname="WashedAshore.Tests.EditMode.SwimRulesTests.WadeCurve_IsLinearBetweenKeys_AndFalls" methodname="WadeCurve_IsLinearBetweenKeys_AndFalls" classname="WashedAshore.Tests.EditMode.SwimRulesTests" runstate="Runnable" seed="1796974673" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000371" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1077" name="WorldScene_PlayerReferencesSwimTuning" fullname="WashedAshore.Tests.EditMode.SwimRulesTests.WorldScene_PlayerReferencesSwimTuning" methodname="WorldScene_PlayerReferencesSwimTuning" classname="WashedAshore.Tests.EditMode.SwimRulesTests" runstate="Runnable" seed="79764275" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.012437" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1079" name="WaterMotionTests" fullname="WashedAshore.Tests.EditMode.WaterMotionTests" classname="WashedAshore.Tests.EditMode.WaterMotionTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.026398" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1088" name="Offset_IgnoresBadAndExtraWaves" fullname="WashedAshore.Tests.EditMode.WaterMotionTests.Offset_IgnoresBadAndExtraWaves" methodname="Offset_IgnoresBadAndExtraWaves" classname="WashedAshore.Tests.EditMode.WaterMotionTests" runstate="Runnable" seed="1635238628" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000703" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1086" name="Offset_IsDeterministic" fullname="WashedAshore.Tests.EditMode.WaterMotionTests.Offset_IsDeterministic" methodname="Offset_IsDeterministic" classname="WashedAshore.Tests.EditMode.WaterMotionTests" runstate="Runnable" seed="242043034" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.003670" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1082" name="Offset_MatchesAnalytic_LongSession" fullname="WashedAshore.Tests.EditMode.WaterMotionTests.Offset_MatchesAnalytic_LongSession" methodname="Offset_MatchesAnalytic_LongSession" classname="WashedAshore.Tests.EditMode.WaterMotionTests" runstate="Runnable" seed="1321823362" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.002346" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WaterMotionTests[test waves, t up to 7 days]: 1000 samples (seed 1987), max |C# - analytic| = 1.06E-005 m, amplitude <= 0.060 m
+]]></output>
+              </test-case>
+              <test-case id="1081" name="Offset_MatchesAnalytic_ProjectWaves" fullname="WashedAshore.Tests.EditMode.WaterMotionTests.Offset_MatchesAnalytic_ProjectWaves" methodname="Offset_MatchesAnalytic_ProjectWaves" classname="WashedAshore.Tests.EditMode.WaterMotionTests" runstate="Runnable" seed="785357859" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.001276" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WaterMotionTests[project WaterMotion.asset]: 1000 samples (seed 1987), max |C# - analytic| = 4.67E-006 m, amplitude <= 0.028 m
+]]></output>
+              </test-case>
+              <test-case id="1080" name="Offset_MatchesAnalytic_TestWaves" fullname="WashedAshore.Tests.EditMode.WaterMotionTests.Offset_MatchesAnalytic_TestWaves" methodname="Offset_MatchesAnalytic_TestWaves" classname="WashedAshore.Tests.EditMode.WaterMotionTests" runstate="Runnable" seed="814870356" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000991" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WaterMotionTests[test waves]: 1000 samples (seed 1987), max |C# - analytic| = 9.35E-006 m, amplitude <= 0.060 m
+]]></output>
+              </test-case>
+              <test-case id="1087" name="Offset_StaysWithinAmplitude" fullname="WashedAshore.Tests.EditMode.WaterMotionTests.Offset_StaysWithinAmplitude" methodname="Offset_StaysWithinAmplitude" classname="WashedAshore.Tests.EditMode.WaterMotionTests" runstate="Runnable" seed="387785796" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.005078" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1083" name="Phase_IsWrapped" fullname="WashedAshore.Tests.EditMode.WaterMotionTests.Phase_IsWrapped" methodname="Phase_IsWrapped" classname="WashedAshore.Tests.EditMode.WaterMotionTests" runstate="Runnable" seed="1868107029" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.002458" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1089" name="ProjectWaves_AreNearFlat" fullname="WashedAshore.Tests.EditMode.WaterMotionTests.ProjectWaves_AreNearFlat" methodname="ProjectWaves_AreNearFlat" classname="WashedAshore.Tests.EditMode.WaterMotionTests" runstate="Runnable" seed="2033814771" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.000761" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WaterMotionTests: project waves=4 max amplitude=0.028 m
+]]></output>
+              </test-case>
+              <test-case id="1085" name="Scroll_IsContinuousAcrossWraps_ProjectLayers" fullname="WashedAshore.Tests.EditMode.WaterMotionTests.Scroll_IsContinuousAcrossWraps_ProjectLayers" methodname="Scroll_IsContinuousAcrossWraps_ProjectLayers" classname="WashedAshore.Tests.EditMode.WaterMotionTests" runstate="Runnable" seed="1572158126" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.001729" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WaterMotionTests[project WaterMotion.asset]: 10 wrap points continuous
+]]></output>
+              </test-case>
+              <test-case id="1084" name="Scroll_IsContinuousAcrossWraps_TestLayers" fullname="WashedAshore.Tests.EditMode.WaterMotionTests.Scroll_IsContinuousAcrossWraps_TestLayers" methodname="Scroll_IsContinuousAcrossWraps_TestLayers" classname="WashedAshore.Tests.EditMode.WaterMotionTests" runstate="Runnable" seed="871346578" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.001044" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WaterMotionTests[test layers]: 50 wrap points continuous
+]]></output>
+              </test-case>
+              <test-case id="1090" name="WaterBody_SurfaceY_IsWaterLevelPlusOffset" fullname="WashedAshore.Tests.EditMode.WaterMotionTests.WaterBody_SurfaceY_IsWaterLevelPlusOffset" methodname="WaterBody_SurfaceY_IsWaterLevelPlusOffset" classname="WashedAshore.Tests.EditMode.WaterMotionTests" runstate="Runnable" seed="1980536264" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:10Z" duration="0.001263" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1091" name="WorldBoundsBackstopTests" fullname="WashedAshore.Tests.EditMode.WorldBoundsBackstopTests" classname="WashedAshore.Tests.EditMode.WorldBoundsBackstopTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:11Z" duration="0.773729" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1094" name="NoTerrainHoles_Within50mOfLine" fullname="WashedAshore.Tests.EditMode.WorldBoundsBackstopTests.NoTerrainHoles_Within50mOfLine" methodname="NoTerrainHoles_Within50mOfLine" classname="WashedAshore.Tests.EditMode.WorldBoundsBackstopTests" runstate="Runnable" seed="737074931" result="Passed" start-time="2026-10-06 22:55:10Z" end-time="2026-10-06 22:55:11Z" duration="0.691404" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WorldBoundsBackstopTests: 409600 hole samples within 50 m, holes=0
+]]></output>
+              </test-case>
+              <test-case id="1093" name="RaycastEveryMetre_FindsNoGaps" fullname="WashedAshore.Tests.EditMode.WorldBoundsBackstopTests.RaycastEveryMetre_FindsNoGaps" methodname="RaycastEveryMetre_FindsNoGaps" classname="WashedAshore.Tests.EditMode.WorldBoundsBackstopTests" runstate="Runnable" seed="479690729" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.075422" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WorldBoundsBackstopTests: 122910 rays over x=[-2087,2009], gaps=0
+]]></output>
+              </test-case>
+              <test-case id="1092" name="Walls_AreHiddenThickTallAndOnWorldBoundsLayer" fullname="WashedAshore.Tests.EditMode.WorldBoundsBackstopTests.Walls_AreHiddenThickTallAndOnWorldBoundsLayer" methodname="Walls_AreHiddenThickTallAndOnWorldBoundsLayer" classname="WashedAshore.Tests.EditMode.WorldBoundsBackstopTests" runstate="Runnable" seed="839136486" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.004872" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1117" name="WashedAshore.Tests.EditMode.Level.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.EditMode.Level.dll" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.319212" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="65700" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1118" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.318827" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1119" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.318740" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1120" name="EditMode" fullname="WashedAshore.Tests.EditMode" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.318679" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1121" name="Level" fullname="WashedAshore.Tests.EditMode.Level" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.318600" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1099" name="WaterBuildTests" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.318450" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1102" name="W1_NoLiteralWaterHeight" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W1_NoLiteralWaterHeight" methodname="W1_NoLiteralWaterHeight" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="2011752529" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.018678" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1100" name="W1_PlaneYEqualsWaterLevelY" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W1_PlaneYEqualsWaterLevelY" methodname="W1_PlaneYEqualsWaterLevelY" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="1454053907" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.001627" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1101" name="W1_WaterBodyLevelEqualsWaterLevelY" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W1_WaterBodyLevelEqualsWaterLevelY" methodname="W1_WaterBodyLevelEqualsWaterLevelY" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="351902360" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.001124" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1104" name="W2_CoverageScanWholeExtent" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W2_CoverageScanWholeExtent" methodname="W2_CoverageScanWholeExtent" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="399736296" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.146496" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[W2 coverage: 5628438 samples, 0 uncovered
+]]></output>
+                </test-case>
+                <test-case id="1106" name="W2_NorthOfLineRiverCovered" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W2_NorthOfLineRiverCovered" methodname="W2_NorthOfLineRiverCovered" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="1939814668" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.115620" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[W2 north of line: 2384 below-water samples, 0 uncovered
+]]></output>
+                </test-case>
+                <test-case id="1103" name="W2_QuadsAreWaterLayerNoColliderNoShadows" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W2_QuadsAreWaterLayerNoColliderNoShadows" methodname="W2_QuadsAreWaterLayerNoColliderNoShadows" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="1743449743" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.002296" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1105" name="W2_SeamsShareEdgesExactly" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W2_SeamsShareEdgesExactly" methodname="W2_SeamsShareEdgesExactly" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="500868283" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.001918" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[W2 seams: 31 shared edges, worst mismatch 0 m
+]]></output>
+                </test-case>
+                <test-case id="1116" name="W3_BuildAllThrowsOnMovedLine" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W3_BuildAllThrowsOnMovedLine" methodname="W3_BuildAllThrowsOnMovedLine" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="85127659" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.011728" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[water: north line moved (MapConfig.northLineZ 2016.7 vs data 1986.72, delta +30.0 m, report moved=False). Neck crossings are not re-derived for a moved line, so water would flood the cut (td-note §3 risk 2). Build error until they are.
+]]></output>
+                </test-case>
+                <test-case id="1107" name="W3_BuiltWaterMatchesCurrentTerrain" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W3_BuiltWaterMatchesCurrentTerrain" methodname="W3_BuiltWaterMatchesCurrentTerrain" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="1957360282" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.000548" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1108" name="W3_GuardPassesOnCurrentTerrain" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W3_GuardPassesOnCurrentTerrain" methodname="W3_GuardPassesOnCurrentTerrain" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="929273330" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.000948" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1109" name="W3_LakeMaskMismatchFailsBuild" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W3_LakeMaskMismatchFailsBuild" methodname="W3_LakeMaskMismatchFailsBuild" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="197226629" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.004778" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1110" name="W3_MissingLakeMaskFailsBuild" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W3_MissingLakeMaskFailsBuild" methodname="W3_MissingLakeMaskFailsBuild" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="1167385623" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.000554" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1115" name="W3_MovedNorthLineFailsBuild" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W3_MovedNorthLineFailsBuild" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.007199" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1112" name="W3_MovedNorthLineFailsBuild(1.5f)" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W3_MovedNorthLineFailsBuild(1.5f)" methodname="W3_MovedNorthLineFailsBuild" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="2095990062" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.000886" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1113" name="W3_MovedNorthLineFailsBuild(-1.5f)" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W3_MovedNorthLineFailsBuild(-1.5f)" methodname="W3_MovedNorthLineFailsBuild" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="838373642" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.000506" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1114" name="W3_MovedNorthLineFailsBuild(30.0f)" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W3_MovedNorthLineFailsBuild(30.0f)" methodname="W3_MovedNorthLineFailsBuild" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="1011226305" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.000431" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1111" name="W3_ReportSaysLineMovedFailsBuild" fullname="WashedAshore.Tests.EditMode.Level.WaterBuildTests.W3_ReportSaysLineMovedFailsBuild" methodname="W3_ReportSaysLineMovedFailsBuild" classname="WashedAshore.Tests.EditMode.Level.WaterBuildTests" runstate="Runnable" seed="2103436173" result="Passed" start-time="2026-10-06 22:55:11Z" end-time="2026-10-06 22:55:11Z" duration="0.000484" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

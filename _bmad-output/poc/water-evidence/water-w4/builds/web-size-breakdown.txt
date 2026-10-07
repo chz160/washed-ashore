@@ -1,0 +1,221 @@
+Web build size breakdown (read-only; source = the 'Build Report' Unity writes to the build's Editor log from the
+BuildReport; sizes are Unity's UNCOMPRESSED per-asset sizes, Web.data on disk is Brotli-compressed)
+
+=== water (W10, 2026-10-06 19:06-19:10 local)
+ log: Builds/build-web-water.log
+ Web.data on disk: 59855830 bytes = 57.1 MiB
+ Complete build size (Unity): 64.5 MB; assets listed: 848, sum 347.62 MB
+ Categories (MB): Textures 266.0, Meshes 15.3, Animations 1.6, Sounds 0.0, Shaders 12.5, Other Assets 52.1, Levels 0.0, File headers 0.32, Total User Assets 348.1
+ Top 30 by size (MB):
+      14.00  Assets/World/BellsBend/Tiles/TD_2_1.asset
+      14.00  Assets/World/BellsBend/Tiles/TD_1_2.asset
+      13.90  Assets/World/BellsBend/Tiles/TD_1_3.asset
+      13.80  Assets/World/BellsBend/Tiles/TD_2_2.asset
+      13.70  Assets/World/BellsBend/Tiles/TD_1_1.asset
+      13.50  Assets/World/BellsBend/Tiles/TD_1_4.asset
+      13.30  Assets/World/BellsBend/Tiles/TD_2_4.asset
+      13.20  Assets/World/BellsBend/Tiles/TD_2_3.asset
+      13.10  Assets/World/BellsBend/Tiles/TD_0_4.asset
+      13.10  Assets/World/BellsBend/Tiles/TD_2_0.asset
+      13.10  Assets/World/BellsBend/Tiles/TD_3_1.asset
+      13.00  Assets/World/BellsBend/Tiles/TD_3_4.asset
+      12.90  Assets/World/BellsBend/Tiles/TD_3_2.asset
+      12.80  Assets/World/BellsBend/Tiles/TD_1_0.asset
+      12.80  Assets/World/BellsBend/Tiles/TD_3_0.asset
+      12.70  Assets/World/BellsBend/Tiles/TD_3_3.asset
+      12.70  Assets/World/BellsBend/Tiles/TD_0_3.asset
+      12.70  Assets/World/BellsBend/Tiles/TD_0_2.asset
+      12.70  Assets/World/BellsBend/Tiles/TD_0_1.asset
+      12.70  Assets/World/BellsBend/Tiles/TD_0_0.asset
+      10.00  Assets/World/BellsBend/Water/WaterMaps.png
+       3.60  Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+       2.70  Built-in Texture2D: Splash Screen Unity Logo
+       2.70  Assets/ThirdParty/Quaternius/DowntownCity/Textures/T_MetalConcrete_BaseColor.png
+       2.70  Assets/ThirdParty/Quaternius/DowntownCity/Textures/T_Concrete_Asphalt_BaseColor.png
+       2.70  Assets/ThirdParty/Quaternius/DowntownCity/Textures/T_MetalConcrete_Normal.png
+       2.70  Assets/ThirdParty/Quaternius/DowntownCity/Textures/T_RedBrick_Normal.png
+       2.70  Assets/ThirdParty/Quaternius/DowntownCity/Textures/T_RedBrick_BaseColor.png
+       2.70  Assets/ThirdParty/Quaternius/DowntownCity/Textures/T_Concrete_Normal.png
+       2.40  Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLit.shader
+ Totals per folder (depth 3, MB):
+     290.20  Assets/World/BellsBend
+      24.86  Assets/ThirdParty/Quaternius
+      12.80  Assets/ThirdParty/ambientCG
+      12.50  Packages/com.unity.render-pipelines.universal/Shaders
+       3.28  (built-in / other)
+       0.89  Assets/ThirdParty/SoltorchGames
+       0.85  Assets/ThirdParty/PeripheralArbor
+       0.73  Packages/com.unity.render-pipelines.universal/Textures
+       0.51  Assets/Scenes/World
+       0.48  Assets/Scenes/World.unity
+       0.32  Packages/com.unity.render-pipelines.core/Runtime
+       0.10  Packages/com.unity.render-pipelines.universal/Runtime
+       0.04  Assets/World/Wildlife
+       0.03  Assets/World/Birds
+       0.01  Packages/com.unity.visualscripting/Runtime
+       0.01  Assets/InputSystem_Actions.inputactions
+       0.01  Packages/com.unity.render-pipelines.core/Shaders
+       0.01  Packages/com.unity.inputsystem/InputSystem
+       0.00  Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+       0.00  Assets/Resources/PerformanceTestRunInfo.json
+       0.00  Assets/Settings/DefaultVolumeProfile.asset
+       0.00  Packages/com.unity.render-pipelines.core/Runtime-PrivateShared
+       0.00  Packages/com.unity.collections/Unity.Collections.Tests
+       0.00  Assets/Settings/SampleSceneProfile.asset
+       0.00  Assets/Settings/Mobile_RPAsset.asset
+       0.00  Assets/Settings/PC_RPAsset.asset
+       0.00  Assets/Settings/PC_Renderer.asset
+       0.00  Packages/com.unity.collections/Unity.Collections
+       0.00  Assets/World/Water
+       0.00  Assets/Settings/Mobile_Renderer.asset
+       0.00  Assets/World/MapConfig.asset
+
+=== bells-bend-land deploy build (2026-10-06 16:27 local, pre-water)
+ log: Builds/build-web-deploy.log
+ Web.data on disk: n/a (output folder since replaced)
+ Complete build size (Unity): 64.1 MB; assets listed: 2395, sum 337.41 MB
+ Categories (MB): Textures 255.7, Meshes 15.3, Animations 1.6, Sounds 0.0, Shaders 12.5, Other Assets 52.1, Levels 0.0, File headers 0.32, Total User Assets 337.8
+ Top 30 by size (MB):
+      14.00  Assets/World/BellsBend/Tiles/TD_2_1.asset
+      14.00  Assets/World/BellsBend/Tiles/TD_1_2.asset
+      13.90  Assets/World/BellsBend/Tiles/TD_1_3.asset
+      13.80  Assets/World/BellsBend/Tiles/TD_2_2.asset
+      13.70  Assets/World/BellsBend/Tiles/TD_1_1.asset
+      13.50  Assets/World/BellsBend/Tiles/TD_1_4.asset
+      13.30  Assets/World/BellsBend/Tiles/TD_2_4.asset
+      13.20  Assets/World/BellsBend/Tiles/TD_2_3.asset
+      13.10  Assets/World/BellsBend/Tiles/TD_0_4.asset
+      13.10  Assets/World/BellsBend/Tiles/TD_2_0.asset
+      13.10  Assets/World/BellsBend/Tiles/TD_3_1.asset
+      13.00  Assets/World/BellsBend/Tiles/TD_3_4.asset
+      12.90  Assets/World/BellsBend/Tiles/TD_3_2.asset
+      12.80  Assets/World/BellsBend/Tiles/TD_1_0.asset
+      12.80  Assets/World/BellsBend/Tiles/TD_3_0.asset
+      12.70  Assets/World/BellsBend/Tiles/TD_3_3.asset
+      12.70  Assets/World/BellsBend/Tiles/TD_0_3.asset
+      12.70  Assets/World/BellsBend/Tiles/TD_0_2.asset
+      12.70  Assets/World/BellsBend/Tiles/TD_0_1.asset
+      12.70  Assets/World/BellsBend/Tiles/TD_0_0.asset
+       3.60  Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+       2.70  Built-in Texture2D: Splash Screen Unity Logo
+       2.70  Assets/ThirdParty/Quaternius/DowntownCity/Textures/T_MetalConcrete_BaseColor.png
+       2.70  Assets/ThirdParty/Quaternius/DowntownCity/Textures/T_Concrete_Asphalt_BaseColor.png
+       2.70  Assets/ThirdParty/Quaternius/DowntownCity/Textures/T_MetalConcrete_Normal.png
+       2.70  Assets/ThirdParty/Quaternius/DowntownCity/Textures/T_RedBrick_Normal.png
+       2.70  Assets/ThirdParty/Quaternius/DowntownCity/Textures/T_RedBrick_BaseColor.png
+       2.70  Assets/ThirdParty/Quaternius/DowntownCity/Textures/T_Concrete_Normal.png
+       2.40  Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLit.shader
+       2.30  Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitAdd.shader
+ Totals per folder (depth 3, MB):
+     279.85  Assets/World/BellsBend
+      24.86  Assets/ThirdParty/Quaternius
+      12.80  Assets/ThirdParty/ambientCG
+      12.50  Packages/com.unity.render-pipelines.universal/Shaders
+       3.28  (built-in / other)
+       0.89  Assets/ThirdParty/SoltorchGames
+       0.85  Assets/ThirdParty/PeripheralArbor
+       0.73  Packages/com.unity.render-pipelines.universal/Textures
+       0.51  Assets/Scenes/World
+       0.48  Assets/Scenes/World.unity
+       0.33  Packages/com.unity.render-pipelines.core/Runtime
+       0.11  Packages/com.unity.render-pipelines.universal/Runtime
+       0.07  Packages/com.unity.visualscripting/Runtime
+       0.04  Assets/World/Wildlife
+       0.04  Packages/com.unity.inputsystem/InputSystem
+       0.03  Assets/World/Birds
+       0.01  Packages/com.unity.ugui/Runtime
+       0.01  Assets/InputSystem_Actions.inputactions
+       0.01  Packages/com.unity.render-pipelines.core/Shaders
+       0.01  Packages/com.unity.timeline/Runtime
+       0.01  Packages/com.unity.collections/Unity.Collections
+       0.00  Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+       0.00  Assets/Resources/PerformanceTestRunInfo.json
+       0.00  Assets/Settings/DefaultVolumeProfile.asset
+       0.00  Packages/com.unity.render-pipelines.core/Runtime-PrivateShared
+       0.00  Assets/Scripts/Birds
+       0.00  Packages/com.unity.collections/Unity.Collections.Tests
+       0.00  Assets/Scripts/Wildlife
+       0.00  Assets/Settings/SampleSceneProfile.asset
+       0.00  Assets/Settings/Mobile_RPAsset.asset
+       0.00  Packages/com.unity.ai.navigation/Runtime
+       0.00  Assets/Settings/PC_RPAsset.asset
+       0.00  Assets/Settings/PC_Renderer.asset
+       0.00  Assets/Scripts/Gameplay
+       0.00  Packages/com.unity.pipeline/Runtime
+       0.00  Assets/Scripts/Level
+       0.00  Assets/Settings/Mobile_Renderer.asset
+       0.00  Assets/World/MapConfig.asset
+       0.00  Packages/com.unity.render-pipelines.universal/ShaderLibrary
+       0.00  Packages/com.unity.profiling.core/Runtime
+       0.00  Packages/com.unity.visualscripting/DocCodeExamples
+       0.00  Packages/com.unity.render-pipelines.universal-config/Runtime
+       0.00  Packages/com.unity.shadergraph/ShaderGraphLibrary
+       0.00  Packages/com.unity.render-pipelines.core/ShaderLibrary
+       0.00  Assets/Scripts/Perf
+       0.00  Assets/Scripts/World
+       0.00  Assets/TutorialInfo/Readme.cs
+       0.00  Assets/Resources/PerformanceTestRunSettings.json
+
+=== web-pod baseline (2026-10-04 23:59 local, project E:/GitHub/test-fps)
+ log: Builds/build-web-baseline.log
+ Web.data on disk: 33811700 bytes = 32.2 MiB
+ Complete build size (Unity): 39.4 MB; assets listed: 237, sum 64.76 MB
+ Categories (MB): Textures 52.7, Meshes 2.9, Animations 0.0, Sounds 0.0, Shaders 7.6, Other Assets 1.6, Levels 0.0, File headers 0.06, Total User Assets 65.2
+ Top 30 by size (MB):
+       5.30  Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Bark_TwistedTree_Normal.png
+       5.30  Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Bark_NormalTree_Normal.png
+       5.30  Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Bark_DeadTree_Normal.png
+       5.30  Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Leaf_Pine_C.png
+       5.30  Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Leaves.png
+       3.60  Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+       2.70  Built-in Texture2D: Splash Screen Unity Logo
+       2.70  Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Rocks_Diffuse.png
+       2.70  Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Bark_TwistedTree.png
+       2.70  Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Bark_NormalTree.png
+       2.70  Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Bark_DeadTree.png
+       2.50  Assets/World/Terrain/WorldTerrain.asset
+       1.30  Assets/World/Terrain/Textures/Ground037_1K-JPG_NormalGL.jpg
+       1.30  Assets/World/Terrain/Textures/Rock030_1K-JPG_NormalGL.jpg
+       1.30  Assets/World/Terrain/Textures/Grass004_1K-JPG_NormalGL.jpg
+       1.30  Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Leaves_TwistedTree_C.png
+       1.30  Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Leaves_NormalTree_C.png
+       1.30  Assets/ThirdParty/Quaternius/NatureMegaKit/Textures/Flowers.png
+       1.20  Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLit.shader
+       1.20  Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitAdd.shader
+       0.93  Packages/com.unity.render-pipelines.universal/Shaders/Terrain/TerrainLitBase.shader
+       0.75  Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/TwistedTree_1.fbx
+       0.67  Assets/World/Terrain/Textures/Ground037_1K-JPG_Color.jpg
+       0.67  Assets/World/Terrain/Textures/Grass004_1K-JPG_Color.jpg
+       0.67  Assets/World/Terrain/Textures/Rock030_1K-JPG_Color.jpg
+       0.58  Resources/unity_builtin_extra
+       0.50  Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/CommonTree_1.fbx
+       0.45  Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/DeadTree_1.fbx
+       0.31  Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/CommonTree_3.fbx
+       0.30  Assets/ThirdParty/Quaternius/NatureMegaKit/FBX/Pine_3.fbx
+ Totals per folder (depth 3, MB):
+      44.30  Assets/ThirdParty/Quaternius
+       8.40  Assets/World/Terrain
+       7.63  Packages/com.unity.render-pipelines.universal/Shaders
+       3.28  (built-in / other)
+       0.73  Packages/com.unity.render-pipelines.universal/Textures
+       0.31  Packages/com.unity.render-pipelines.core/Runtime
+       0.08  Packages/com.unity.render-pipelines.universal/Runtime
+       0.01  Assets/InputSystem_Actions.inputactions
+       0.01  Packages/com.unity.render-pipelines.core/Shaders
+       0.00  Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+       0.00  Assets/Resources/PerformanceTestRunInfo.json
+       0.00  Assets/Settings/DefaultVolumeProfile.asset
+       0.00  Assets/Scenes/World.unity
+       0.00  Packages/com.unity.visualscripting/Runtime
+       0.00  Packages/com.unity.collections/Unity.Collections.Tests
+       0.00  Packages/com.unity.render-pipelines.core/Runtime-PrivateShared
+       0.00  Assets/Settings/SampleSceneProfile.asset
+       0.00  Assets/Settings/Mobile_RPAsset.asset
+       0.00  Assets/Settings/PC_RPAsset.asset
+       0.00  Assets/Settings/PC_Renderer.asset
+       0.00  Assets/Settings/Mobile_Renderer.asset
+
+=== Delta water minus pre-water deploy build, per depth-4 folder (MB, |delta| >= 0.05):
+     +10.35  Assets/World/BellsBend/Water
+ Assets only in the water build: Assets/World/BellsBend/Water/WaterMaps.png 10.00; Assets/World/BellsBend/Water/WaterRipple.png 0.33; Assets/World/BellsBend/Water/BellsBendWater.shader 0.01; Assets/World/BellsBend/Water/BellsBendWater.mat 0.00; Assets/World/BellsBend/Water/WaterTile.asset 0.00; Assets/World/Water/SwimTuning.asset 0.00; Assets/World/BellsBend/Sky/BellsBendSky.mat 0.00
+ Assets only in the pre-water build: Packages/com.unity.visualscripting/Runtime/VisualScripting.Flow/Dependencies/NCalc/EvaluationException.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Variables/VariableDeclarationsCloner.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Utilities/ReferenceEqualityComparer.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Unity/UnityObjectOwnershipUtility.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Unity/RequiresUnityAPIAttribute.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/SerializedProperties/ISerializedPropertyProvider.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Serialization/Converters/LooseAssemblyNameConverter.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Reflection/RenamedNamespaceAttribute.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Reflection/Optimization/ReflectionPropertyAccessor.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Reflection/Operators/GreaterThanOrEqualHandler.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Reflection/Operators/AmbiguousOperatorException.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Profiling/ProfiledSegmentCollection.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Listeners/UIInterfaces/UnityOnSubmitMessageListener.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Listeners/UIInterfaces/UnityOnSelectMessageListener.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Listeners/UIInterfaces/UnityOnScrollMessageListener.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Listeners/UIInterfaces/UnityOnMoveMessageListener.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Listeners/UIInterfaces/UnityOnDropMessageListener.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Listeners/UIInterfaces/UnityOnDragMessageListener.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Listeners/UIInterfaces/UnityOnCancelMessageListener.cs 0.00; Packages/com.unity.visualscripting/Runtime/VisualScripting.Core/Graphs/MergedGraphElementCollection.cs 0.00

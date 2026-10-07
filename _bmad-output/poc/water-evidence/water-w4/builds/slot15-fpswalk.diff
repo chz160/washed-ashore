@@ -1,0 +1,15 @@
+--- Assets/Scripts/Perf/BellsBendFpsWalk.cs	2026-10-06 19:05:35.865164800 -0500
++++ /c/Users/noah/AppData/Local/Temp/claude/C--Tools-ruflo-studio/d30412c9-b209-4b7a-8cb4-af7df6b6cb3b/scratchpad/w4/new/Assets/Scripts/Perf/BellsBendFpsWalk.cs	2026-10-06 21:46:25.794821800 -0500
+@@ -171,9 +171,11 @@
+         {
+             var s = ms.OrderBy(v => v).ToList();
+             double P(double q) => s.Count == 0 ? 0 : s[Mathf.Clamp((int)System.Math.Round(q * (s.Count - 1)), 0, s.Count - 1)];
++            double share = s.Count == 0 ? 0 : s.Count(v => v <= 1000.0 / 60.0) / (double)s.Count;
++            // The closing brace is appended separately: "{share:F4}}}" would end the format string at the wrong brace.
+             return $"{{\"samples\":{ms.Count},\"duration_s\":{ms.Sum() / 1000:F1},\"median_ms\":{P(0.5):F2},\"p95_ms\":{P(0.95):F2}," +
+                    $"\"p99_ms\":{P(0.99):F2},\"max_ms\":{(s.Count > 0 ? s[s.Count - 1] : 0):F2},\"median_fps\":{1000 / System.Math.Max(0.01, P(0.5)):F1}," +
+-                   $"\"share_frames_at_or_above_60\":{(s.Count == 0 ? 0 : s.Count(v => v <= 1000.0 / 60.0) / (double)s.Count):F4}}}";
++                   $"\"share_frames_at_or_above_60\":{share:F4}" + "}";
+         }
+ 
+         static void Write(List<double> ms, List<Vector3> route, float metres, List<double> legMs)

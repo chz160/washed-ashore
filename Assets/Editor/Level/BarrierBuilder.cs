@@ -11,11 +11,13 @@ using WashedAshore.World;
 // MapConfig.northLineZ so a line shift (B6) moves it. A scavenged post-1987 fence line
 // (timber posts, rusted sheet, barbed wire) with rubble, wrecked vehicles, concrete blocks,
 // a washed-out cut where the old Cleeces Ferry track meets it, and one closed checkpoint gate
-// on Old Hickory Blvd (BoundaryGate reads MapConfig.gateOpen). Colliders stay on Default;
-// the WorldBounds backstop belongs to WorldBoundsBuilder. Never saves the scene.
+// on Old Hickory Blvd (BoundaryGate reads MapConfig.gateOpen). Visible colliders stay on Default; the
+// invisible extensions (ExtensionNames) go on the WorldBounds layer so robin and sky casts ignore them (water W4).
+// The WorldBounds backstop belongs to WorldBoundsBuilder. Never saves the scene.
 public static class BarrierBuilder
 {
     public const string RootName = "NorthBarrier";
+    public static readonly string[] ExtensionNames = { "BayCollider", "GatePostCollider", "LeafCollider" };
     public static float LineOffset = 20f;      // fence line this far south of northLineZ (Layer A: 10-30 m)
     public static float PostSpacing = 2.5f;
     public static float FenceHeight = 2.6f;
@@ -222,7 +224,7 @@ public static class BarrierBuilder
     /// <summary>
     /// One see-through bay (team-lead: the north view must read past the fence): timber post, three
     /// rails, barbed wire strands between and above them, an occasional low scavenged sheet. Visuals go
-    /// into the bake buffer; impassability is one invisible box collider per bay on Default.
+    /// into the bake buffer; impassability is one invisible box collider per bay on WorldBounds.
     /// </summary>
     static void Bay(Transform parent, Vector2 a2, Vector2 b2, bool washout)
     {
@@ -255,7 +257,7 @@ public static class BarrierBuilder
             Prim(PrimitiveType.Cube, vis, "Sheet", mid + Vector3.up * (h * 0.5f), rot * Quaternion.Euler(Rand(-8f, 8f), 0f, Rand(-6f, 6f)),
                 new Vector3(len * Rand(0.6f, 1f), h, 0.05f), rng.NextDouble() < 0.4 ? "RustDark" : "Rust", false);
         }
-        var col = new GameObject("BayCollider") { isStatic = true };
+        var col = new GameObject("BayCollider") { isStatic = true, layer = WorldLayers.WorldBounds };
         col.transform.SetParent(parent, false);
         // Level box (yaw only) from below the low end to FenceHeight above the high end, so steep bays stay full height (qa-2 scan).
         // Highest and lowest ground along the bay (not just at the posts: humps between posts count).
@@ -438,7 +440,7 @@ public static class BarrierBuilder
         {
             Prim(PrimitiveType.Cube, parent, "GatePost", Ground(x + s * (half + 0.3f), z, 1.5f), Quaternion.identity, new Vector3(0.6f, 3.6f, 0.6f), "Concrete", true);
             // Invisible extension so the posts stop a jump as high as the fence bays do.
-            var ext = new GameObject("GatePostCollider") { isStatic = true };
+            var ext = new GameObject("GatePostCollider") { isStatic = true, layer = WorldLayers.WorldBounds };
             ext.transform.SetParent(parent, false);
             var pxz = new Vector2(x + s * (half + 0.3f), z);
             float ptop = GateColliderTop(pxz - Vector2.right * 0.3f, pxz + Vector2.right * 0.3f, Ground(pxz.x, pxz.y).y);
@@ -477,7 +479,7 @@ public static class BarrierBuilder
             if (!col) Object.DestroyImmediate(c.GetComponent<Collider>());
             pieces++;
         }
-        var infill = new GameObject("LeafCollider"); infill.transform.SetParent(hinge, false);
+        var infill = new GameObject("LeafCollider") { layer = WorldLayers.WorldBounds }; infill.transform.SetParent(hinge, false);
         // Invisible: from 0.5 m below the hinge ground to ColliderHeight above it (visual leaf is 2.85 m).
         // +0.3 m for road camber across the leaf; taller where the road climbs toward the gate.
         float ltop = GateColliderTop(new Vector2(Mathf.Min(hingeX, hingeX + dir * w), z), new Vector2(Mathf.Max(hingeX, hingeX + dir * w), z), hinge.position.y);

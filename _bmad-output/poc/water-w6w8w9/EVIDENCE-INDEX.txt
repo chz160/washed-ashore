@@ -1,0 +1,92 @@
+Water pod W6/W8/W9 evidence index (w-engineer, baton slot #5, 2026-10-06). Times are XML start-time, UTC.
+Headless batchmode only (unity test). Landed-file hashes: landed.sha256. Every file here: evidence.sha256.
+
+RECORD (cited by the verdict)
+  W9   pm-w9b.xml            22:56:17  Crate_BobsWithin5cmOfSurface PASS (0.3 mm, bob 3.6 cm); GpuHeight x2 PASS (max 0.02 mm at 4 corners + origin, t=0 and +3 days)
+                                       (same file: Crate_PushedNorthPastEnds x2 FAILED, test-side bug, see below)
+       pm-w8c.xml            23:08:16  Crate_PushedNorthPastEnds West/East PASS
+       editmode-final.xml    23:09:32  89/89 incl. WaterMotionTests, SwimRulesTests, W1 WaterBody level
+       w-td signed off W9 on these three (bob/readback ran on the current WaterFloat.cs, sha 0f2de8e9...).
+  W6   pm-w6c.xml            23:07:42  6/6: walk-in (Dry>Wade>Swim>Wade>Dry, 50 m in 27.8 s, groundedDeep 0), sprint-jump x2, 12 exits (8.5-12.2 s, no stall), bluff no-trap, bluff no-climb guard 12/12
+  W8   pm-w8c.xml            23:08:16  4/4: sweep West/East 25/25 valid each, 0 crossings, worst 3.41 m south; inward-corner extras 3 per end, 0 crossings; crate snaps
+  W11  pm-b5.xml             23:04:14  B5 9/9, 0 crossings, water placement on  -- PRE-GUARD (ran before the G < S guard, 23:07); superseded by w-qa's W11 re-run
+       pm-walkclamp.xml      23:03:42  WorldWalk + WorldBoundsClamp 11/11        -- PRE-GUARD; superseded by w-qa's W11 re-run
+
+HISTORY (in run order; [..] = change landed between runs)
+  editmode.xml          22:55:09  89/89
+  pm-w9.xml             22:55:35  2 pass / 1 FAIL (Crate_BobsWithin5cmOfSurface: measured before first physics step; WaterFloat read Rigidbody.position)
+  [WaterFloat.cs: transform + Rigidbody written together in FixedUpdate; test waits one FixedUpdate]
+  pm-w9b.xml            22:56:17  3 pass / 2 FAIL (Crate_PushedNorthPastEnds West/East 0.0856 m > 0.0843 m: test moved the kinematic crate by transform only)
+  [WaterSwimAroundTests: crate moved via body + transform; bar 0.001 m]
+  pm-crate.xml          22:57:01  2/2
+  pm-w6.xml             22:57:21  4 pass / 1 FAIL (WalkIn: groundedDeep 6, capsule touched the 18 deg shelf)
+  [spec 5 fix 1: float clamp = highest ground under capsule footprint]
+  pm-w6b.xml            22:58:52  5/5
+  pm-w8.xml             22:59:24  1 pass / 1 FAIL (West 19/20 valid attempts; 0 crossings, worst -3.42 m; 6 variants ended Dry on land 26-34 m short). Runs: water-w8-runs.try1.csv
+  [W8 bank-hug steered along the water's edge; diagonals outward]
+  pm-w8b.xml            23:02:29  2/2
+  pm-walkclamp.xml      23:03:42  11/11  (pre-guard; superseded by w-qa's W11 re-run)
+  pm-b5.xml             23:04:14  9/9    (pre-guard; superseded by w-qa's W11 re-run)
+  [w-designer guard (only footprint samples with G < S); BluffFaces_SwimmerNeverClimbs; inward-corner extras + minCornerDist]
+  pm-w6c.xml            23:07:42  6/6
+  pm-w8c.xml            23:08:16  4/4
+  editmode-final.xml    23:09:32  89/89
+  No code changed after 23:07 (landed.sha256 at 23:10).
+
+CSVs
+  water-w6-exits.csv     appended by pm-w6, pm-w6b, pm-w6c (3 runs). Columns by kind:
+    exit           ok = reached dry ground >= W + lip in time; seconds = time out; worstStall = longest stall (s)
+    bluff/bluff-side  ok column changed meaning between runs: run 1 (pm-w6) wrote "not climbed out", runs 2-3 wrote "climbed out".
+                   Both say no swimmer climbed out at any bluff station. Grade on "why" and the seconds column, which holds the
+                   swim-away distance in metres (>= 17 m everywhere; 10 m required).
+    climb-guard-0/30  (pm-w6c only) ok = guard held; seconds = worst swimming feet height above S (m, negative = below)
+  water-w8-runs.try1.csv  first W8 run (pm-w8)
+  water-w8-runs-v2.csv    final W8 run (pm-w8c), adds minCornerDist; pm-w8b rows are in TestResults/water-w8-runs.csv
+  bb-b5-runs-water.csv, bb-b5-skips.csv  B5 with the wet column
+  bells-bend-water-build.txt  BellsBendWater.BuildBatch report: "WaterBody configured with Assets/World/Water/WaterMotion.asset"
+
+STATIONS
+  Exits: 10 seeded (seed 20261006) low-bank stations + 1549 (nearest low bank to McCord, 309.5 m, and to Buzzard, 1338.5 m; spec 5)
+  + 31 (-1280.8, 1920.7) as the west-neck-corner exit: the corner itself (-1422, 1988) is north of the line, so the test takes the
+  low-bank station nearest (-1419, 1970), 153 m from the west crossing.
+
+CONFIGURE FIX (lands in w-engineer slot #9, team-lead's call): WaterBody.Configure() pushed the stale time field, not WaterClock.Now
+  (edit mode only; found by w-artist). 1-line fix + EditMode assert. Slot #9 runs full EditMode and the W9 PlayMode tests:
+  editmode-configfix.xml, pm-w9-configfix.xml (added here when run). Per w-td's rule, once the fix lands that run (all five W9
+  cases + the WaterMotion EditMode set on the landed code) becomes the W9 record, replacing pm-w9b + pm-w8c + editmode-final.
+
+SLOT #9 (Configure fix, 2026-10-06 ~23:23Z): WaterBody.cs +1 line (time = WaterClock.Now before Push), WaterMotionTests.cs assert + clock reset.
+  editmode-configfix.xml  94/94 (incl. 11 WaterMotionTests, WaterBody_SurfaceY_IsWaterLevelPlusOffset with the new Configure assert)
+  pm-w9-configfix.xml     4 pass / 1 FAIL
+      PASS Crate_BobsWithin5cmOfSurface (0.3 mm, bob 3.6 cm)
+      PASS GpuHeight x2 (max 0.02 mm, both clocks; identical to pm-w9b)
+      PASS Crate_PushedNorthPastEnds(East)
+      FAIL Crate_PushedNorthPastEnds(West): "crate left the surface" worstFloat 1.419 m (snaps 7, worstNorthAfterClamp -0.07 = clamp fine)
+  Diagnosis (not fixed: stop-and-report rule): test timing, not the Configure change. The test spawns the crate at y = 0 and samples
+  it from the first frame; WaterFloat floats it in FixedUpdate, and with 1/60 s frames vs 0.02 s physics the first frame sometimes has
+  no physics step, so the first sample reads y = 0 (1.61 - 0.2 draft = 1.41 m off). It passed in pm-crate/pm-w8c by timing.
+  WaterFloatTests already waits one FixedUpdate before sampling; this test lacks that wait. Proposed fix (needs a slot + approval):
+  add `yield return new WaitForFixedUpdate(); yield return null;` after placing the crate, as in WaterFloatTests.
+  W9 record status: pending w-td / w-producer decision.
+
+SLOT #11 (W9 record run, 2026-10-06 ~23:28Z; w-td ruling + team-lead approval): landed WaterFloat.cs (floats in OnEnable as well as
+  FixedUpdate: transform + Rigidbody to SurfaceY(x, z, WaterClock.Now) - draft, so a body is on the surface from its spawn frame),
+  WaterFloatTests.cs and WaterSwimAroundTests.cs (spawn at position before WaterFloat is added; spawn-frame assert |y + draft - S| <= 5 cm;
+  one FixedUpdate wait before per-frame sampling).
+  editmode-w9-record.xml   94/94 (full suite incl. 11 WaterMotionTests)
+  pm-w9-record-run1.xml    5/5: bob 0.3 mm (bob 3.6 cm); readback 0.02 mm (both clocks, after w-artist's shader ring fix); snap West/East (7 snaps, -0.07 m, float 2-3 mm)
+  pm-w9-record-run2.xml    5/5: identical figures
+  >>> W9 RECORD = editmode-w9-record.xml + pm-w9-record-run1.xml + pm-w9-record-run2.xml (supersedes pm-w9b / pm-w8c / editmode-final /
+      pm-w9-configfix for W9). Same-blocker (crate initial height): no third occurrence.
+  landed-final.sha256: hashes of the same 22 files after slots #9 and #11 (landed.sha256 is the slot #5 state).
+
+SLOT #16 (DEBUG-ONLY -spawnShore flag + Windows rebuild, 2026-10-07 ~03:38Z, for Noah's feel check; not W9 evidence):
+  Assets/Scripts/Gameplay/Water/PlayerController.DebugSpawnShore.cs (new, temporary) + 1-line hook in PlayerController.Start.
+  editmode-spawnshore.xml 94/94. Windows build: Build Finished, Result: Success (Builds/build-windows-spawnshore.log).
+
+SLOT #17 (-spawnShore removed, 2026-10-07 ~04:03Z): PlayerController.DebugSpawnShore.cs + .meta deleted; PlayerController.cs restored
+  byte-identical to landed-final (d980a9a5...). All 5 Gameplay sources in landed-final.sha256 match; TerrainQuery.cs and WorldBounds/*
+  unchanged (git). grep "spawnShore" in Assets: 0. editmode-spawnshore-removed.xml 94/94.
+  Windows build: Result Success (Builds/build-windows-spawnshore-removed.log); WashedAshore.Gameplay.dll 25,088 B (same size as the
+  post-slot-13 build), sha 4351dd3438c02b522801e6b7b6251db3fc4220daf16783556bcfecda50623f35, no -spawnShore strings;
+  WashedAshorePOC.exe 91a36fa1... and WashedAshore.World.dll b3bb8178... unchanged from slot #16.

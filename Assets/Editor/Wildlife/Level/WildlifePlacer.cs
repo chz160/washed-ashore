@@ -28,6 +28,9 @@ namespace WashedAshore.Wildlife.Level
 
         public static string LastReport = "not run";
 
+        /// <summary>Every layer except Water.</summary>
+        public static int BakeLayerMask => ~(1 << WorldLayers.Water);
+
         public static void RunDeferred(int seed = SceneSeed)
         {
             LastReport = "running";
@@ -94,6 +97,7 @@ namespace WashedAshore.Wildlife.Level
             surface.center = new Vector3(c.x, (lo + hi) * 0.5f, c.y);
             surface.size = new Vector3(ground.Size.x, hi - lo + 40f, ground.Size.y);
             surface.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
+            surface.layerMask = BakeLayerMask; // animals never path on water (water W4/W11)
             surface.ignoreNavMeshAgent = true;
             surface.ignoreNavMeshObstacle = true;
             surface.overrideVoxelSize = true;

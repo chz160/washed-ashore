@@ -1,0 +1,8 @@
+== phase blend w0=1.0: 1246 scum patches over 12 windows (20 x 6 m, 2 cm)
+ length m       0.96 (p10-p90 0.52-2.40)
+ width m        0.14 (p10-p90 0.10-0.22)
+ moment aspect  4.70 (p10-p90 2.33-10.07)   [graded: median 4-6]
+ len/meanwidth  7.02 (p10-p90 3.74-16.46)   [reported only]
+ band coverage  0.32 (min 0.31, max 0.34)  [bar 0.25-0.40]
+ edge ramp 10-90% 0.037 m = 27% of median width  [bar >= 30%]
+ drift streaks: length 0.54 (p10-p90 0.26-0.98) width 0.08 (p10-p90 0.04-0.13) aspect 5.08 (p10-p90 2.42-10.75)

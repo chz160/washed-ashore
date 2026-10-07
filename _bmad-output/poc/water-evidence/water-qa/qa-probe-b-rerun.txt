@@ -1,0 +1,8 @@
+W3 probe (b) rerun 2026-10-07T00:02:16Z
+watched files: 22 (World.unity, MapConfig.asset, 20 tiles)
+Guard threw WaterBuildException: water: north line moved (MapConfig.northLineZ 2086.7 vs data 1986.72, delta +100.0 m, report moved=False). Neck crossings are not re-derived for a moved line, so water would flood the cut (td-note §3 risk 2). Build error until they are.
+BuildAll(clone, false) threw WaterBuildException: water: north line moved (MapConfig.northLineZ 2086.7 vs data 1986.72, delta +100.0 m, report moved=False). Neck crossings are not re-derived for a moved line, so water would flood the cut (td-note §3 risk 2). Build error until they are.
+files changed: 0 
+RESULT: PASS
+
+done

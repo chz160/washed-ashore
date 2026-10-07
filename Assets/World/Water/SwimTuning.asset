@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a43f4eecf84dfb9c17e3233acfd840, type: 3}
+  m_Name: SwimTuning
+  m_EditorClassIdentifier: WashedAshore.Gameplay::WashedAshore.Gameplay.SwimTuning
+  wadeMinDepth: 0.05
+  wadeSpeedByDepth:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.05
+      value: 0.9
+      inSlope: 0
+      outSlope: -0.6
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3
+      value: 0.75
+      inSlope: -0.6
+      outSlope: -0.5
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6
+      value: 0.6
+      inSlope: -0.5
+      outSlope: -0.25
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0
+      value: 0.5
+      inSlope: -0.25
+      outSlope: -0.2857143
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.35
+      value: 0.4
+      inSlope: -0.2857143
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  wadeSprintMaxDepth: 0.3
+  wadeJumpMaxDepth: 0.6
+  waterAcceleration: 8
+  waterDeceleration: 10
+  swimEnterDepth: 1.35
+  swimExitDepth: 1.15
+  floatDepth: 1.3
+  swimSpeed: 1.8
+  swimSprintSpeed: 2.4
+  swimBackStrafeMultiplier: 0.6
+  strokeSurgeAmplitude: 0.2
+  strokeSurgeHz: 0.9
+  swimAcceleration: 3
+  swimDeceleration: 2
+  swimOverspeedDeceleration: 6
+  surfaceFollowRate: 4

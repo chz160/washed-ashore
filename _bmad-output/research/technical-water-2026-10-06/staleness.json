@@ -1,0 +1,71 @@
+{
+  "today": "2026-10-06",
+  "claims": [
+    {
+      "claim": "URP Compatibility Mode removed (Render Graph only) on 6.4+",
+      "class": "version-compat",
+      "pub_date": "2026-10",
+      "recheck": "2026-11-01",
+      "stale": false
+    },
+    {
+      "claim": "URP SSR is preview only (6.7 target)",
+      "class": "version-compat",
+      "pub_date": "2026-05",
+      "recheck": "2026-06-01",
+      "stale": true
+    },
+    {
+      "claim": "WebGPU out of experimental in 6000.6",
+      "class": "version-compat",
+      "pub_date": "2026-08",
+      "recheck": "2026-09-01",
+      "stale": true
+    },
+    {
+      "claim": "Crest URP edition paid; GitHub edition built-in only",
+      "class": "ecosystem",
+      "pub_date": "2026-10",
+      "recheck": "2027-04-01",
+      "stale": false
+    },
+    {
+      "claim": "Uber-Stylized-Water MIT, no height query, depth texture mandatory",
+      "class": "ecosystem",
+      "pub_date": "2026-10",
+      "recheck": "2027-04-01",
+      "stale": false
+    },
+    {
+      "claim": "boat-attack-water open Unity 6 compile error",
+      "class": "ecosystem",
+      "pub_date": "2024-12",
+      "recheck": "2025-06-01",
+      "stale": true
+    },
+    {
+      "claim": "Scene Depth returns 0.5 when Depth Texture off",
+      "class": "version-compat",
+      "pub_date": "2026-10",
+      "recheck": "2026-11-01",
+      "stale": false
+    },
+    {
+      "claim": "Vertical-only sines give exact height without inversion",
+      "class": "patterns",
+      "pub_date": "2026",
+      "recheck": "2028-01-01",
+      "stale": false
+    },
+    {
+      "claim": "Server sync = same function + server time",
+      "class": "patterns",
+      "pub_date": "2025",
+      "recheck": "2027-01-01",
+      "stale": false
+    }
+  ],
+  "stale_count": 3,
+  "earliest_recheck": "2025-06-01",
+  "no_window_classes": []
+}

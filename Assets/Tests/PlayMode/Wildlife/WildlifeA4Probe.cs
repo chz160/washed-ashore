@@ -86,7 +86,7 @@ namespace WashedAshore.Tests.Wildlife
             foreach (var o in WildlifeAgent.All)
                 if (o != a && o.Species == a.Species) mate = Mathf.Min(mate, WildlifeTestKit.Flat(o.transform.position, p));
             float obstacle = float.MaxValue;
-            foreach (var c in Physics.OverlapSphere(p, 5f, ~0, QueryTriggerInteraction.Ignore))
+            foreach (var c in Physics.OverlapSphere(p, 5f, ~WashedAshore.World.WorldLayers.NonGroundMask, QueryTriggerInteraction.Ignore))
                 if (!(c is TerrainCollider) && !c.transform.IsChildOf(a.transform)) obstacle = Mathf.Min(obstacle, Vector3.Distance(c.ClosestPoint(p), p));
             return $"t+{Samples * 0.2f:F1}s pos=({p.x:F1},{p.z:F1}) v={v:F2} dot={dot:F2} slope={WashedAshore.Gameplay.TerrainQuery.Steepness(p):F0}deg " +
                    $"motionVsDesired={motionVsDesired:F0}deg modelVsDesired={modelVsDesired:F0}deg angularSpeed={ag.angularSpeed:F0} " +
