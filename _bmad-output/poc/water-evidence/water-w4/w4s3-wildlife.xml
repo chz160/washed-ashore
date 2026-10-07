@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="18" result="Passed" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 22:38:46Z" end-time="2026-10-06 22:39:15Z" duration="28.8642406">
+  <test-suite type="TestSuite" id="1099" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="61" result="Passed" start-time="2026-10-06 22:38:46Z" end-time="2026-10-06 22:39:15Z" duration="28.864241" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1194" name="WashedAshore.Tests.Wildlife.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.Wildlife.dll" runstate="Runnable" testcasecount="18" result="Passed" start-time="2026-10-06 22:38:46Z" end-time="2026-10-06 22:39:15Z" duration="28.859078" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="73260" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1195" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="18" result="Passed" start-time="2026-10-06 22:38:46Z" end-time="2026-10-06 22:39:15Z" duration="28.858716" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1196" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="18" result="Passed" start-time="2026-10-06 22:38:46Z" end-time="2026-10-06 22:39:15Z" duration="28.858503" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1197" name="Wildlife" fullname="WashedAshore.Tests.Wildlife" runstate="Runnable" testcasecount="18" result="Passed" start-time="2026-10-06 22:38:46Z" end-time="2026-10-06 22:39:15Z" duration="28.858300" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1170" name="WildlifeBehaviourTests" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-06 22:38:46Z" end-time="2026-10-06 22:38:52Z" duration="6.325538" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1171" name="A0_AnimalsHaveNoBlockingCollidersAndStayOffTheSpawnLane" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A0_AnimalsHaveNoBlockingCollidersAndStayOffTheSpawnLane" methodname="A0_AnimalsHaveNoBlockingCollidersAndStayOffTheSpawnLane" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="1087491496" result="Passed" start-time="2026-10-06 22:38:46Z" end-time="2026-10-06 22:38:46Z" duration="0.793718" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+]]></output>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1175" name="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-06 22:38:46Z" end-time="2026-10-06 22:38:47Z" duration="1.004609" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <test-case id="1172" name="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds(101)" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds(101)" methodname="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="1330545671" result="Passed" start-time="2026-10-06 22:38:46Z" end-time="2026-10-06 22:38:47Z" duration="0.327188" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                </test-case>
+                <test-case id="1173" name="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds(202)" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds(202)" methodname="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="3363155" result="Passed" start-time="2026-10-06 22:38:47Z" end-time="2026-10-06 22:38:47Z" duration="0.342781" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=202 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=12
+]]></output>
+                </test-case>
+                <test-case id="1174" name="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds(303)" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds(303)" methodname="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="802794639" result="Passed" start-time="2026-10-06 22:38:47Z" end-time="2026-10-06 22:38:47Z" duration="0.330037" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=303 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-case id="1176" name="A4_MovementMatchesAnimationAndGroundForSixtySeconds" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A4_MovementMatchesAnimationAndGroundForSixtySeconds" methodname="A4_MovementMatchesAnimationAndGroundForSixtySeconds" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="137405634" result="Passed" start-time="2026-10-06 22:38:47Z" end-time="2026-10-06 22:38:49Z" duration="1.983275" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="240000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+A4 Stag_1_2: samples=300 moving=180 still=117 maxMismatch=0.00s maxClip=0.177m (run 0s) maxFloat=-0.038m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=180/181 (99 %, minDot 0.68) watch=15/15 (minDot 1.00) badFacing=[t+23.4s pos=(-40.2,-936.8) v=0.60 dot=0.68 slope=3deg motionVsDesired=-1deg modelVsDesired=-1deg angularSpeed=600 state=Calm nearestMate=9.9m nearestObstacle=>5m]
+A4 Deer_2_1: samples=300 moving=226 still=63 maxMismatch=0.00s maxClip=0.126m (run 0s) maxFloat=-0.053m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=232/232 (100 %, minDot 0.96) watch=0/0 (minDot 1.00)
+A4 Wolf_1_1: samples=300 moving=188 still=111 maxMismatch=0.00s maxClip=0.141m (run 0s) maxFloat=-0.066m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=186/188 (99 %, minDot 0.06) watch=0/0 (minDot 1.00) badFacing=[t+11.0s pos=(-205.6,-828.1) v=0.84 dot=0.51 slope=4deg motionVsDesired=0deg modelVsDesired=59deg angularSpeed=300 state=Wander nearestMate=7.7m nearestObstacle=>5m ; t+33.8s pos=(-224.1,-823.5) v=1.46 dot=0.06 slope=4deg motionVsDesired=0deg modelVsDesired=87deg angularSpeed=300 state=Wander nearestMate=3.5m nearestObstacle=>5m]
+A4 Deer_2_3: samples=300 moving=216 still=81 maxMismatch=0.00s maxClip=0.131m (run 0s) maxFloat=-0.046m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=217/217 (100 %, minDot 0.90) watch=0/0 (minDot 1.00)
+A4 Fox_2_1: samples=300 moving=215 still=81 maxMismatch=0.00s maxClip=0.057m (run 0s) maxFloat=-0.025m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=217/217 (100 %, minDot 1.00) watch=0/0 (minDot 1.00)
+A4 Fox_1_1: samples=300 moving=236 still=62 maxMismatch=0.00s maxClip=0.063m (run 0s) maxFloat=-0.031m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=236/237 (100 %, minDot 0.30) watch=0/0 (minDot 1.00) badFacing=[t+57.2s pos=(-90.2,-988.2) v=0.55 dot=0.30 slope=3deg motionVsDesired=0deg modelVsDesired=72deg angularSpeed=600 state=Wander nearestMate=115.0m nearestObstacle=>5m]
+A4 Deer_1_3: samples=300 moving=206 still=87 maxMismatch=0.00s maxClip=0.075m (run 0s) maxFloat=-0.055m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=207/209 (99 %, minDot 0.07) watch=0/0 (minDot 1.00) badFacing=[t+17.6s pos=(-152.7,-725.3) v=0.57 dot=0.07 slope=5deg motionVsDesired=0deg modelVsDesired=86deg angularSpeed=720 state=Wander nearestMate=4.3m nearestObstacle=>5m ; t+48.8s pos=(-176.8,-734.2) v=0.78 dot=0.70 slope=2deg motionVsDesired=0deg modelVsDesired=46deg angularSpeed=720 state=Wander nearestMate=2.1m nearestObstacle=>5m]
+A4 Deer_2_2: samples=300 moving=184 still=109 maxMismatch=0.00s maxClip=0.124m (run 0s) maxFloat=-0.046m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=187/187 (100 %, minDot 0.99) watch=0/0 (minDot 1.00)
+A4 Deer_1_2: samples=300 moving=183 still=114 maxMismatch=0.00s maxClip=0.079m (run 0s) maxFloat=-0.050m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=183/183 (100 %, minDot 1.00) watch=0/0 (minDot 1.00)
+A4 Deer_1_1: samples=300 moving=177 still=119 maxMismatch=0.00s maxClip=0.072m (run 0s) maxFloat=-0.048m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=179/180 (99 %, minDot 0.70) watch=0/0 (minDot 1.00) badFacing=[t+49.2s pos=(-175.4,-730.9) v=0.57 dot=0.70 slope=3deg motionVsDesired=0deg modelVsDesired=46deg angularSpeed=720 state=Wander nearestMate=3.5m nearestObstacle=>5m]
+A4 Stag_1_3: samples=300 moving=164 still=134 maxMismatch=0.00s maxClip=0.188m (run 0s) maxFloat=-0.037m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=164/165 (99 %, minDot 0.69) watch=45/45 (minDot 1.00) badFacing=[t+23.4s pos=(-42.9,-924.4) v=0.60 dot=0.69 slope=4deg motionVsDesired=-1deg modelVsDesired=-1deg angularSpeed=600 state=Calm nearestMate=12.7m nearestObstacle=>5m]
+A4 Wolf_1_2: samples=300 moving=226 still=73 maxMismatch=0.00s maxClip=0.145m (run 0s) maxFloat=-0.070m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=225/226 (100 %, minDot 0.26) watch=0/0 (minDot 1.00) badFacing=[t+34.4s pos=(-227.0,-824.7) v=1.49 dot=0.26 slope=6deg motionVsDesired=0deg modelVsDesired=75deg angularSpeed=300 state=Wander nearestMate=4.0m nearestObstacle=>5m]
+A4 Deer_2_4: samples=300 moving=171 still=122 maxMismatch=0.00s maxClip=0.081m (run 0s) maxFloat=-0.042m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=171/173 (99 %, minDot 0.22) watch=0/0 (minDot 1.00) badFacing=[t+1.2s pos=(-150.7,-1007.5) v=0.57 dot=0.26 slope=4deg motionVsDesired=0deg modelVsDesired=75deg angularSpeed=720 state=Wander nearestMate=4.4m nearestObstacle=>5m ; t+53.2s pos=(-152.2,-1029.5) v=0.67 dot=0.22 slope=5deg motionVsDesired=0deg modelVsDesired=77deg angularSpeed=720 state=Wander nearestMate=3.5m nearestObstacle=>5m]
+A4 Deer_1_4: samples=300 moving=171 still=125 maxMismatch=0.00s maxClip=0.088m (run 0s) maxFloat=-0.056m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=173/173 (100 %, minDot 0.99) watch=0/0 (minDot 1.00)
+A4 Stag_1_1: samples=300 moving=175 still=122 maxMismatch=0.00s maxClip=0.128m (run 0s) maxFloat=-0.033m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=176/176 (100 %, minDot 0.79) watch=35/35 (minDot 1.00)
+A4 (c) method: |transform.y - NavMesh.SamplePosition(transform.position, r=2 m).position.y|; transform.y is set to terrain height each frame; positive control: agent=Stag_1_2 lifted1m=1.000 offEdge0.5m=0.500 rawNextPosVsTerrain=0.000
+A4 summary: agents=15 samples=4500 moving=2918 still=1520
+]]></output>
+              </test-case>
+              <test-case id="1180" name="A4c_FacingCheckCatchesAFlippedModel" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A4c_FacingCheckCatchesAFlippedModel" methodname="A4c_FacingCheckCatchesAFlippedModel" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="1230881903" result="Passed" start-time="2026-10-06 22:38:49Z" end-time="2026-10-06 22:38:50Z" duration="0.553786" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=6
+A4c facing Deer_1_3: samples=54 moving=33 still=20 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=0/34 (0 %, minDot -1.00) watch=0/10 (minDot -1.00) badFacing=[t+1.0s pos=(-162.4,-733.8) v=0.78 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=177deg angularSpeed=720 state=Wander nearestMate=5.6m nearestObstacle=>5m ; t+1.2s pos=(-162.2,-733.6) v=1.30 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=177deg angularSpeed=720 state=Wander nearestMate=5.4m nearestObstacle=>5m ; t+1.4s pos=(-162.0,-733.5) v=1.30 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=177deg angularSpeed=720 state=Wander nearestMate=5.2m nearestObstacle=>5m ; t+1.6s pos=(-161.8,-733.3) v=1.30 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=177deg angularSpeed=720 state=Wander nearestMate=5.0m nearestObstacle=>5m ; t+1.8s pos=(-161.7,-733.1) v=1.20 dot=-1.00 slope=4deg motionVsDesired=-1deg modelVsDesired=-1deg angularSpeed=720 state=Alert nearestMate=4.9m nearestObstacle=>5m ; t+5.0s pos=(-161.5,-733.4) v=1.50 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Flee nearestMate=4.8m nearestObstacle=>5m ; t+5.2s pos=(-161.2,-734.1) v=3.90 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Flee nearestMate=4.6m nearestObstacle=>5m ; t+5.4s pos=(-160.8,-735.3) v=6.30 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Flee nearestMate=4.3m nearestObstacle=>5m ; t+5.6s pos=(-160.2,-736.8) v=8.04 dot=-1.00 slope=4deg motionVsDesired=1deg modelVsDesired=175deg angularSpeed=720 state=Flee nearestMate=4.0m nearestObstacle=>5m ; t+5.8s pos=(-159.5,-738.5) v=8.98 dot=-1.00 slope=4deg motionVsDesired=8deg modelVsDesired=168deg angularSpeed=720 state=Flee nearestMate=3.6m nearestObstacle=>5m ; t+6.0s pos=(-159.1,-740.2) v=8.99 dot=-1.00 slope=4deg motionVsDesired=1deg modelVsDesired=175deg angularSpeed=720 state=Flee nearestMate=3.7m nearestObstacle=>5m ; t+6.2s pos=(-158.6,-741.9) v=9.00 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=176deg angularSpeed=720 state=Flee nearestMate=4.1m nearestObstacle=>5m ; t+6.4s pos=(-158.2,-743.7) v=9.00 dot=-1.00 slope=3deg motionVsDesired=0deg modelVsDesired=177deg angularSpeed=720 state=Flee nearestMate=4.4m nearestObstacle=>5m ; t+6.6s pos=(-157.8,-745.4) v=9.00 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=176deg angularSpeed=720 state=Flee nearestMate=4.8m nearestObstacle=>5m ; t+6.8s pos=(-157.4,-747.2) v=9.00 dot=-1.00 slope=3deg motionVsDesired=21deg modelVsDesired=155deg angularSpeed=720 state=Flee nearestMate=5.2m nearestObstacle=>5m ; t+7.0s pos=(-157.2,-749.0) v=8.85 dot=-1.00 slope=3deg motionVsDesired=14deg modelVsDesired=169deg angularSpeed=720 state=Flee nearestMate=6.0m nearestObstacle=>5m ; t+7.2s pos=(-157.4,-750.7) v=8.97 dot=-1.00 slope=4deg motionVsDesired=1deg modelVsDesired=176deg angularSpeed=720 state=Flee nearestMate=7.4m nearestObstacle=>5m ; t+7.4s pos=(-157.7,-752.5) v=9.00 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=176deg angularSpeed=720 state=Flee nearestMate=8.8m nearestObstacle=>5m ; t+7.6s pos=(-158.0,-754.3) v=9.00 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=176deg angularSpeed=720 state=Flee nearestMate=10.2m nearestObstacle=>5m ; t+7.8s pos=(-158.2,-756.1) v=9.00 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=176deg angularSpeed=720 state=Flee nearestMate=10.9m nearestObstacle=>5m ; t+8.0s pos=(-158.7,-757.8) v=8.97 dot=-1.00 slope=4deg motionVsDesired=4deg modelVsDesired=177deg angularSpeed=720 state=Flee nearestMate=11.6m nearestObstacle=>5m ; t+8.2s pos=(-159.3,-759.5) v=8.99 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=178deg angularSpeed=720 state=Flee nearestMate=11.9m nearestObstacle=>5m ; t+8.4s pos=(-159.8,-761.2) v=8.99 dot=-1.00 slope=6deg motionVsDesired=0deg modelVsDesired=178deg angularSpeed=720 state=Flee nearestMate=12.0m nearestObstacle=>5m ; t+8.6s pos=(-160.4,-762.9) v=8.98 dot=-0.99 slope=11deg motionVsDesired=0deg modelVsDesired=172deg angularSpeed=720 state=Flee nearestMate=12.0m nearestObstacle=>5m ; t+8.8s pos=(-161.0,-764.6) v=8.96 dot=-1.00 slope=12deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Flee nearestMate=12.1m nearestObstacle=>5m ; t+9.0s pos=(-161.4,-766.4) v=8.84 dot=-0.98 slope=4deg motionVsDesired=16deg modelVsDesired=174deg angularSpeed=720 state=Flee nearestMate=12.2m nearestObstacle=>5m ; t+9.2s pos=(-161.3,-768.1) v=8.88 dot=-1.00 slope=4deg motionVsDesired=3deg modelVsDesired=178deg angularSpeed=720 state=Flee nearestMate=12.3m nearestObstacle=>5m ; t+9.4s pos=(-161.2,-769.9) v=8.94 dot=-1.00 slope=5deg motionVsDesired=0deg modelVsDesired=179deg angularSpeed=720 state=Flee nearestMate=12.7m nearestObstacle=>5m ; t+9.6s pos=(-161.1,-771.7) v=8.93 dot=-1.00 slope=5deg motionVsDesired=0deg modelVsDesired=179deg angularSpeed=720 state=Flee nearestMate=13.2m nearestObstacle=>5m ; t+9.8s pos=(-161.0,-773.5) v=8.93 dot=-1.00 slope=5deg motionVsDesired=0deg modelVsDesired=179deg angularSpeed=720 state=Flee nearestMate=13.6m nearestObstacle=>5m ; t+10.0s pos=(-160.8,-775.2) v=8.91 dot=-1.00 slope=5deg motionVsDesired=2deg modelVsDesired=180deg angularSpeed=720 state=Flee nearestMate=13.9m nearestObstacle=>5m ; t+10.2s pos=(-160.5,-777.0) v=8.92 dot=-1.00 slope=5deg motionVsDesired=0deg modelVsDesired=180deg angularSpeed=720 state=Flee nearestMate=13.6m nearestObstacle=>5m ; t+10.4s pos=(-160.2,-778.8) v=8.91 dot=-1.00 slope=6deg motionVsDesired=0deg modelVsDesired=179deg angularSpeed=720 state=Flee nearestMate=13.0m nearestObstacle=>5m ; t+10.6s pos=(-159.9,-780.5) v=8.90 dot=-1.00 slope=7deg motionVsDesired=0deg modelVsDesired=178deg angularSpeed=720 state=Flee nearestMate=12.4m nearestObstacle=>5m]
+A4c facing Deer_1_4: samples=54 moving=36 still=16 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=36/36 (100 %, minDot 0.87) watch=9/9 (minDot 1.00)
+A4c facing Deer_1_1: samples=54 moving=34 still=18 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=34/34 (100 %, minDot 0.98) watch=6/6 (minDot 1.00)
+A4c facing Deer_1_2: samples=54 moving=37 still=16 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=37/37 (100 %, minDot 0.96) watch=10/10 (minDot 1.00)
+]]></output>
+              </test-case>
+              <test-case id="1177" name="A5a_DeerHerdFleesAndDistanceGrows" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A5a_DeerHerdFleesAndDistanceGrows" methodname="A5a_DeerHerdFleesAndDistanceGrows" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="1972522294" result="Passed" start-time="2026-10-06 22:38:50Z" end-time="2026-10-06 22:38:51Z" duration="0.542025" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=6
+A5 facing Deer_1_2: samples=54 moving=37 still=16 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=37/37 (100 %, minDot 0.96) watch=10/10 (minDot 1.00)
+A5 facing Deer_1_1: samples=54 moving=34 still=18 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=34/34 (100 %, minDot 0.98) watch=6/6 (minDot 1.00)
+A5 facing Deer_1_3: samples=54 moving=33 still=20 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=34/34 (100 %, minDot 0.98) watch=10/10 (minDot 1.00)
+A5 facing Deer_1_4: samples=54 moving=36 still=16 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=36/37 (97 %, minDot 0.64) watch=9/9 (minDot 1.00) badFacing=[t+0.6s pos=(-152.8,-735.6) v=0.57 dot=0.64 slope=5deg motionVsDesired=0deg modelVsDesired=50deg angularSpeed=720 state=Wander nearestMate=4.1m nearestObstacle=>5m]
+A5 Deer: trigger=35 dAtTrigger=34.4 dEnd=53.2 minD=33.3 escaped=4/4 stalls=0 trace: [0s d=60.0 Graze v=0.0] [1s d=54.9 Wander v=1.3] [2s d=49.0 Alert v=0.1] [3s d=43.9 Alert v=0.0] [4s d=38.8 Alert v=0.0] [5s d=33.8 Flee v=1.4] [6s d=35.0 Flee v=8.9] [7s d=39.0 Flee v=9.0] [8s d=42.8 Flee v=8.8] [9s d=46.4 Flee v=9.4] [10s d=50.3 Flee v=8.8]
+]]></output>
+              </test-case>
+              <test-case id="1178" name="A5b_FoxFleesAndDistanceGrows" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A5b_FoxFleesAndDistanceGrows" methodname="A5b_FoxFleesAndDistanceGrows" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="1716187036" result="Passed" start-time="2026-10-06 22:38:51Z" end-time="2026-10-06 22:38:51Z" duration="0.514167" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=9
+A5 facing Fox_1_1: samples=51 moving=38 still=11 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=38/39 (97 %, minDot 0.40) watch=5/5 (minDot 1.00) badFacing=[t+4.4s pos=(-86.7,-991.8) v=1.30 dot=0.40 slope=4deg motionVsDesired=0deg modelVsDesired=66deg angularSpeed=600 state=Flee nearestMate=122.1m nearestObstacle=>5m]
+A5 Fox: trigger=25 dAtTrigger=24.8 dEnd=28.5 minD=23.7 escaped=1/1 stalls=0 trace: [0s d=47.0 Graze v=0.0] [1s d=41.8 Wander v=1.2] [2s d=36.5 Wander v=1.2] [3s d=31.4 Alert v=0.0] [4s d=26.3 Alert v=0.0] [5s d=24.1 Flee v=7.0] [6s d=25.7 Flee v=7.0] [7s d=27.5 Flee v=7.0] [8s d=29.4 Flee v=7.0] [9s d=31.0 Flee v=7.0] [10s d=29.4 Alert v=0.0]
+]]></output>
+              </test-case>
+              <test-case id="1179" name="A5c_WolvesKeepTheirDistance" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A5c_WolvesKeepTheirDistance" methodname="A5c_WolvesKeepTheirDistance" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="933185187" result="Passed" start-time="2026-10-06 22:38:51Z" end-time="2026-10-06 22:38:52Z" duration="0.925854" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+A5 facing Wolf_1_2: samples=125 moving=86 still=39 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=83/86 (97 %, minDot -0.31) watch=12/12 (minDot 1.00) badFacing=[t+4.8s pos=(-198.8,-832.5) v=1.89 dot=-0.02 slope=7deg motionVsDesired=0deg modelVsDesired=91deg angularSpeed=300 state=KeepDistance nearestMate=7.5m nearestObstacle=>5m ; t+20.6s pos=(-148.5,-881.6) v=1.10 dot=-0.31 slope=4deg motionVsDesired=0deg modelVsDesired=108deg angularSpeed=300 state=KeepDistance nearestMate=28.4m nearestObstacle=>5m ; t+20.8s pos=(-148.1,-882.2) v=3.50 dot=0.63 slope=4deg motionVsDesired=0deg modelVsDesired=51deg angularSpeed=300 state=KeepDistance nearestMate=28.5m nearestObstacle=>5m]
+A5 facing Wolf_1_1: samples=125 moving=93 still=31 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=93/94 (99 %, minDot -0.13) watch=14/14 (minDot 1.00) badFacing=[t+4.8s pos=(-205.1,-828.4) v=1.90 dot=-0.13 slope=4deg motionVsDesired=0deg modelVsDesired=97deg angularSpeed=300 state=KeepDistance nearestMate=7.5m nearestObstacle=>5m]
+A5 Wolf: trigger=45 dAtTrigger=44.8 dEnd=47.1 minD=43.7 escaped=2/2 stalls=0 trace: [0s d=68.4 Graze v=0.0] [1s d=63.3 Graze v=0.0] [2s d=58.2 Graze v=0.0] [3s d=53.1 Graze v=0.0] [4s d=48.1 Alert v=0.0] [5s d=43.7 KeepDistance v=4.2] [6s d=44.5 KeepDistance v=6.0] [7s d=45.5 KeepDistance v=6.0] [8s d=46.4 KeepDistance v=6.0] [9s d=47.1 KeepDistance v=6.0] [10s d=47.7 KeepDistance v=6.0] [11s d=48.6 KeepDistance v=5.9] [12s d=49.4 KeepDistance v=5.5] [13s d=50.3 KeepDistance v=6.0] [14s d=51.2 KeepDistance v=6.0] [15s d=51.9 KeepDistance v=6.0] [16s d=52.1 KeepDistance v=5.8] [17s d=52.6 Calm v=3.8] [18s d=53.6 Alert v=0.0] [19s d=51.2 Alert v=0.0] [20s d=46.1 Alert v=0.0] [21s d=43.9 KeepDistance v=6.0] [22s d=44.8 KeepDistance v=6.0] [23s d=45.6 KeepDistance v=6.0] [24s d=46.6 KeepDistance v=6.0]
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1181" name="WildlifeSightingTests" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-06 22:38:52Z" end-time="2026-10-06 22:39:15Z" duration="22.531731" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1185" name="A6_SightingWalkLandsInsideTheBriefBands" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6_SightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-06 22:38:52Z" end-time="2026-10-06 22:38:59Z" duration="6.494188" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                </properties>
+                <test-case id="1182" name="A6_SightingWalkLandsInsideTheBriefBands(101)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6_SightingWalkLandsInsideTheBriefBands(101)" methodname="A6_SightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="55612968" result="Passed" start-time="2026-10-06 22:38:52Z" end-time="2026-10-06 22:38:54Z" duration="2.163305" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+A6 seed 101 gating=True: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=31.1 % gap=41s first=10.5s max=5 busy=0.3 % foliage=11.1 % draws=1 stalls=0
+]]></output>
+                </test-case>
+                <test-case id="1183" name="A6_SightingWalkLandsInsideTheBriefBands(202)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6_SightingWalkLandsInsideTheBriefBands(202)" methodname="A6_SightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="418986240" result="Passed" start-time="2026-10-06 22:38:54Z" end-time="2026-10-06 22:38:56Z" duration="2.183829" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=202 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=12
+A6 seed 202 gating=True: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=50.0 % gap=24s first=14s max=5 busy=3.3 % foliage=23.1 % draws=1 stalls=0
+]]></output>
+                </test-case>
+                <test-case id="1184" name="A6_SightingWalkLandsInsideTheBriefBands(303)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6_SightingWalkLandsInsideTheBriefBands(303)" methodname="A6_SightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="1837413334" result="Passed" start-time="2026-10-06 22:38:56Z" end-time="2026-10-06 22:38:59Z" duration="2.145891" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=303 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=14
+A6 seed 303 gating=True: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=50.6 % gap=23.5s first=0s max=5 busy=3.6 % foliage=29.4 % draws=1 stalls=0
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1193" name="A6f_Fidelity" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6f_Fidelity" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-06 22:38:59Z" end-time="2026-10-06 22:39:04Z" duration="5.081920" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="900000" />
+                </properties>
+                <test-case id="1192" name="A6f_Fidelity(&quot;101@1&quot;)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6f_Fidelity(&quot;101@1&quot;)" methodname="A6f_Fidelity" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="1327886137" result="Passed" start-time="2026-10-06 22:38:59Z" end-time="2026-10-06 22:39:04Z" duration="5.081015" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+A6 seed 101 gating=False: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=30.8 % gap=40.5s first=10.5s max=6 busy=1.4 % foliage=10.6 % draws=1 stalls=0
+A6f seed 101 timeScale=1 (non-gating): rate=30.8 % all=True stalls=0 
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1191" name="A6r_RobustnessSeedsAreRecorded" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 22:39:04Z" end-time="2026-10-06 22:39:15Z" duration="10.954706" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                </properties>
+                <test-case id="1186" name="A6r_RobustnessSeedsAreRecorded(404)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6r_RobustnessSeedsAreRecorded(404)" methodname="A6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="817285534" result="Passed" start-time="2026-10-06 22:39:04Z" end-time="2026-10-06 22:39:06Z" duration="2.193208" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=404 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=11
+A6 seed 404 gating=False: {"sightingRate":false,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":false} rate=65.3 % gap=17.5s first=0s max=7 busy=3.6 % foliage=37.2 % draws=1 stalls=0
+A6r seed 404 (non-gating): placementError=none all=False
+]]></output>
+                </test-case>
+                <test-case id="1187" name="A6r_RobustnessSeedsAreRecorded(505)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6r_RobustnessSeedsAreRecorded(505)" methodname="A6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="2132303991" result="Passed" start-time="2026-10-06 22:39:06Z" end-time="2026-10-06 22:39:08Z" duration="2.173823" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=505 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=12
+A6 seed 505 gating=False: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=39.4 % gap=28.5s first=0s max=6 busy=1.7 % foliage=20.6 % draws=2 stalls=0
+A6r seed 505 (non-gating): placementError=none all=True
+]]></output>
+                </test-case>
+                <test-case id="1188" name="A6r_RobustnessSeedsAreRecorded(606)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6r_RobustnessSeedsAreRecorded(606)" methodname="A6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="555467725" result="Passed" start-time="2026-10-06 22:39:08Z" end-time="2026-10-06 22:39:10Z" duration="2.179867" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=606 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=8
+A6 seed 606 gating=False: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=41.7 % gap=32s first=10.5s max=6 busy=4.4 % foliage=11.4 % draws=2 stalls=0
+A6r seed 606 (non-gating): placementError=none all=True
+]]></output>
+                </test-case>
+                <test-case id="1189" name="A6r_RobustnessSeedsAreRecorded(707)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6r_RobustnessSeedsAreRecorded(707)" methodname="A6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="1014842717" result="Passed" start-time="2026-10-06 22:39:10Z" end-time="2026-10-06 22:39:12Z" duration="2.187721" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=707 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=8
+A6 seed 707 gating=False: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=51.9 % gap=29s first=0s max=5 busy=3.1 % foliage=26.9 % draws=1 stalls=0
+A6r seed 707 (non-gating): placementError=none all=True
+]]></output>
+                </test-case>
+                <test-case id="1190" name="A6r_RobustnessSeedsAreRecorded(808)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6r_RobustnessSeedsAreRecorded(808)" methodname="A6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="1690217358" result="Passed" start-time="2026-10-06 22:39:12Z" end-time="2026-10-06 22:39:15Z" duration="2.218824" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=808 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=7
+A6 seed 808 gating=False: {"sightingRate":false,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":false} rate=55.6 % gap=15.5s first=0s max=5 busy=2.8 % foliage=35.6 % draws=1 stalls=0
+A6r seed 808 (non-gating): placementError=none all=False
+Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

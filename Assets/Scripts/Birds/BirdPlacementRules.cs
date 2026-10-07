@@ -425,14 +425,22 @@ namespace WashedAshore.Birds
                 return true;
             }
 
-            static readonly RaycastHit[] Hits = new RaycastHit[16];
+            static readonly RaycastHit[] Hits = new RaycastHit[64];
 
-            /// <summary>Terrain and its tree (trunk) colliders; matches the wildlife sightline.</summary>
+            /// <summary>Sightline casts whose hit buffer filled up (each counted as blocked), and the most hits one cast returned.
+            /// Test evidence only (W-QA-1); reset with <see cref="ResetSightStats"/>.</summary>
+            public static int SightSaturations, SightMaxHits;
+            public static void ResetSightStats() { SightSaturations = 0; SightMaxHits = 0; }
+
+            /// <summary>Terrain and its tree (trunk) colliders; matches the wildlife sightline. Water and the
+            /// WorldBounds fences are left out (water W4). A full buffer may hide the terrain hit, so it counts as blocked.</summary>
             static bool TerrainBlocks(Vector3 from, Vector3 to)
             {
                 var dir = to - from; float len = dir.magnitude;
-                int n = Physics.RaycastNonAlloc(from, dir / len, Hits, len, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+                int n = Physics.RaycastNonAlloc(from, dir / len, Hits, len, WashedAshore.World.WorldLayers.SightMask, QueryTriggerInteraction.Ignore);
+                SightMaxHits = Mathf.Max(SightMaxHits, n);
                 for (int i = 0; i < n; i++) if (Hits[i].collider is TerrainCollider) return true;
+                if (n == Hits.Length) { SightSaturations++; return true; }
                 return false;
             }
 

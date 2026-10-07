@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using WashedAshore.Gameplay;
+using WashedAshore.World;
 
 namespace WashedAshore.Tests.PlayMode
 {
@@ -111,6 +112,9 @@ namespace WashedAshore.Tests.PlayMode
             player = WorldBoundsTestKit.Player();
             cc = player.GetComponent<CharacterController>();
             water = WorldBoundsTestKit.Config().WaterLevelY;
+            // qa (W11): say whether wet starts are placed at float height in this run.
+            bool waterOn = WaterBody.Active != null && player.SwimTuning != null;
+            Debug.Log($"WorldBoundsSweepTests: water placement: {(waterOn ? "on" : "off")} (WaterBody {(WaterBody.Active != null ? "present" : "absent")}, SwimTuning {(player.SwimTuning != null ? "set" : "missing")})");
             playerSnaps = 0;
             WorldBoundsClamp.Snapped += OnSnap;
         }
@@ -142,7 +146,7 @@ namespace WashedAshore.Tests.PlayMode
         }
 
         /// <summary>
-        /// qa-2 escape risk: with no water yet, the lake bed beyond both banks is walkable ground. Walk and
+        /// qa-2 escape risk: the lake bed beyond both banks (walkable before the water pass, swum since). Walk and
         /// sprint north from it at 5 points per side, and at each wall end sprint north and 60 degrees outward.
         /// </summary>
         [UnityTest, Timeout(3600000)]
@@ -230,8 +234,14 @@ namespace WashedAshore.Tests.PlayMode
             ReleaseAllKeys();
             yield return new WaitForSeconds(0.5f); // let PlayerController's velocity decay
             WorldBoundsTestKit.Teleport(player, start, yaw);
+            // Water pass (qa): a start in the river goes straight to the float height, so the rise from the bed
+            // does not eat the run's PushSeconds headroom.
+            var waterBody = WaterBody.Active;
+            if (waterBody != null && player.SwimTuning != null && TerrainQuery.TryGroundHeight(start, out float bed) && bed < water)
+                WaterTestKit.Place(player, start, Mathf.Max(bed + 0.5f, waterBody.SurfaceY(start.x, start.z) - player.SwimTuning.floatDepth), yaw);
             yield return new WaitForSeconds(0.25f);
             float faceAhead = FaceDistance(start, dir), travel = 0f, maxZ = float.MinValue, peakSpeed = 0f;
+            bool wet = PathIsWet(start, dir, faceAhead);
             Vector3 last = player.transform.position;
             int snapsBefore = playerSnaps;
             float maxNorth = float.MinValue;
@@ -266,7 +276,8 @@ namespace WashedAshore.Tests.PlayMode
             }
             else
             {
-                float dur = pathLen / speed + PushSeconds, t = 0f;
+                // Water pass: a run that meets the river anywhere on its path is budgeted at the (slower) swim speed.
+                float dur = pathLen / (wet ? Mathf.Min(speed, player.SwimSpeed) : speed) + PushSeconds, t = 0f;
                 int jumpedAt = -1; // face index already jumped at (0 = first face, 1 = next)
                 // Shift before W: pressing W then Shift in the same InputTestFixture update loses W (harness quirk, probed
                 // 2026-10-06; Shift after W in later frames sprints normally).
@@ -307,7 +318,7 @@ namespace WashedAshore.Tests.PlayMode
             if (res.valid) tally.valid++;
             else res.why = $"stopped at z={maxZ:F1} by {stopper}, {faceAhead - travel:F1} m short of the first face";
             if (mode == Approach.Sprint || mode == Approach.SprintJump) tally.sprintPeaks.Add(peakSpeed);
-            tally.runRows.Add($"{testCase},{index},{x:F1},{res.valid},\"{source ?? "-"}\",{maxZ:F2},\"{stopper}\",{faceAhead:F1},{travel:F1},{snaps},{peakSpeed:F2}");
+            tally.runRows.Add($"{testCase},{index},{x:F1},{res.valid},\"{source ?? "-"}\",{maxZ:F2},\"{stopper}\",{faceAhead:F1},{travel:F1},{snaps},{peakSpeed:F2},{wet}");
         }
 
         static Vector3 Flat(Vector3 v) => new Vector3(v.x, 0f, v.z);

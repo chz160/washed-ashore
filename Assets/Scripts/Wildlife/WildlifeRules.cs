@@ -265,17 +265,25 @@ namespace WashedAshore.Wildlife
             return false;
         }
 
-        static readonly RaycastHit[] SightHits = new RaycastHit[16];
+        static readonly RaycastHit[] SightHits = new RaycastHit[64];
+
+        /// <summary>Sightline casts whose hit buffer filled up (each counted as blocked), and the most hits one cast returned.
+        /// Test evidence only (W-QA-1); reset with <see cref="ResetSightStats"/>.</summary>
+        public static int SightSaturations, SightMaxHits;
+        public static void ResetSightStats() { SightSaturations = 0; SightMaxHits = 0; }
 
         /// <summary>Only the terrain (including its tree colliders) blocks the approach sightline, matching
-        /// A6, which ignores the player and animals. The player's capsule sits at W0 on the same layer.</summary>
+        /// A6, which ignores the player and animals. The player's capsule sits at W0 on the same layer.
+        /// Water and the WorldBounds fences are left out (water W4); a full buffer counts as blocked.</summary>
         static bool TerrainBlocks(Vector3 from, Vector3 to)
         {
             Vector3 d = to - from;
             float len = d.magnitude;
-            int n = Physics.RaycastNonAlloc(from, d / len, SightHits, len, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+            int n = Physics.RaycastNonAlloc(from, d / len, SightHits, len, WashedAshore.World.WorldLayers.SightMask, QueryTriggerInteraction.Ignore);
+            SightMaxHits = Mathf.Max(SightMaxHits, n);
             for (int i = 0; i < n; i++)
                 if (SightHits[i].collider is TerrainCollider) return true;
+            if (n == SightHits.Length) { SightSaturations++; return true; }
             return false;
         }
 

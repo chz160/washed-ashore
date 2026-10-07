@@ -216,12 +216,16 @@ namespace WashedAshore.Tests.Wildlife
             Time.timeScale = 1f;
             run.stallRecoveries = walker.StallRecoveries;
             run.stallEvents = walker.StallLog;
+            run.sightSaturations = WildlifeRules.SightSaturations;
+            run.sightMaxHits = WildlifeRules.SightMaxHits;
             run.Score(s);
             run.sightingRateFoliage = (float)run.perSample.Count(x => x.visibleFoliage > 0) / run.samples;
             Record(run, s);
             Debug.Log($"A6 seed {seed} gating={gating}: {JsonUtility.ToJson(run.pass)} rate={run.sightingRate:P1} gap={run.longestGapSec}s " +
                       $"first={run.firstSightingSec}s max={run.maxVisible} busy={run.pctSamplesGe5:P1} foliage={run.sightingRateFoliage:P1} " +
                       $"draws={run.assignmentDraws} stalls={run.stallRecoveries}");
+            Debug.Log($"W-QA-1 wildlife sightline {(gating ? "GATING" : run.fidelity ? "FIDELITY" : "ROBUSTNESS")} seed {seed}: " +
+                      $"sightSaturations={run.sightSaturations} sightMaxHits={run.sightMaxHits}");
         }
 
         static void Record(RunResult run, SightingTargets s)
@@ -375,6 +379,7 @@ namespace WashedAshore.Tests.Wildlife
             public SpeciesCounts population = new SpeciesCounts();
             public List<GroupInfo> groups = new List<GroupInfo>();
             public int stallRecoveries;
+            public int sightSaturations, sightMaxHits; // WildlifeRules sightline buffer, since this run's load (W-QA-1)
             public List<StallEvent> stallEvents = new List<StallEvent>();
             public Pass pass = new Pass();
             public List<Sample> perSample = new List<Sample>();

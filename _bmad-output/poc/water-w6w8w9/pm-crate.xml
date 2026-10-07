@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 22:57:01Z" end-time="2026-10-06 22:57:02Z" duration="1.7315335">
+  <test-suite type="TestSuite" id="1119" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="73" result="Passed" start-time="2026-10-06 22:57:01Z" end-time="2026-10-06 22:57:02Z" duration="1.731534" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1206" name="WashedAshore.Tests.PlayMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.PlayMode.dll" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-06 22:57:01Z" end-time="2026-10-06 22:57:02Z" duration="1.725649" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="50972" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1207" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-06 22:57:01Z" end-time="2026-10-06 22:57:02Z" duration="1.724903" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1208" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-06 22:57:01Z" end-time="2026-10-06 22:57:02Z" duration="1.722986" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1209" name="PlayMode" fullname="WashedAshore.Tests.PlayMode" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-06 22:57:01Z" end-time="2026-10-06 22:57:02Z" duration="1.721757" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1168" name="WaterSwimAroundTests" fullname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" classname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-06 22:57:01Z" end-time="2026-10-06 22:57:02Z" duration="1.720584" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1174" name="Crate_PushedNorthPastEnds_IsSnapped" fullname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests.Crate_PushedNorthPastEnds_IsSnapped" classname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 22:57:01Z" end-time="2026-10-06 22:57:02Z" duration="1.718124" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                </properties>
+                <test-case id="1172" name="Crate_PushedNorthPastEnds_IsSnapped(West)" fullname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests.Crate_PushedNorthPastEnds_IsSnapped(West)" methodname="Crate_PushedNorthPastEnds_IsSnapped" classname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" runstate="Runnable" seed="1243895761" result="Passed" start-time="2026-10-06 22:57:01Z" end-time="2026-10-06 22:57:02Z" duration="1.181113" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsClamp: W8TestCrate was 0.01 m north of the line at (-1403.21, 7.41, 1986.71); snapped to (-1403.21, 7.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (-1403.21, 7.41, 1986.70); snapped to (-1403.21, 7.41, 1982.20).
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (-1403.21, 7.41, 1986.70); snapped to (-1403.21, 7.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (-1403.21, 7.41, 1986.70); snapped to (-1403.21, 7.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (-1403.21, 7.41, 1986.70); snapped to (-1403.21, 7.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (-1403.21, 7.41, 1986.70); snapped to (-1403.21, 7.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (-1403.21, 7.41, 1986.70); snapped to (-1403.21, 7.41, 1982.20).
+WaterSwimAroundTests[crate West]: snaps=7 worstNorthAfterClamp=-0.07 worstFloat=0.002
+]]></output>
+                </test-case>
+                <test-case id="1173" name="Crate_PushedNorthPastEnds_IsSnapped(East)" fullname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests.Crate_PushedNorthPastEnds_IsSnapped(East)" methodname="Crate_PushedNorthPastEnds_IsSnapped" classname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" runstate="Runnable" seed="308969116" result="Passed" start-time="2026-10-06 22:57:02Z" end-time="2026-10-06 22:57:02Z" duration="0.529434" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsClamp: W8TestCrate was 0.01 m north of the line at (600.11, 1.40, 1986.71); snapped to (600.11, 1.40, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (600.11, 1.41, 1986.70); snapped to (600.11, 1.41, 1982.20).
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (600.11, 1.42, 1986.70); snapped to (600.11, 1.42, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (600.11, 1.42, 1986.70); snapped to (600.11, 1.42, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (600.11, 1.41, 1986.70); snapped to (600.11, 1.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (600.11, 1.41, 1986.70); snapped to (600.11, 1.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (600.11, 1.41, 1986.70); snapped to (600.11, 1.41, 1982.20).
+WaterSwimAroundTests[crate East]: snaps=7 worstNorthAfterClamp=-0.07 worstFloat=0.003
+Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

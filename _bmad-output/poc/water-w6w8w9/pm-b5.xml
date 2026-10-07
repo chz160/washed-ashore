@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="9" result="Passed" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 23:04:14Z" end-time="2026-10-06 23:07:03Z" duration="169.0348673">
+  <test-suite type="TestSuite" id="1119" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="73" result="Passed" start-time="2026-10-06 23:04:14Z" end-time="2026-10-06 23:07:03Z" duration="169.034867" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1206" name="WashedAshore.Tests.PlayMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.PlayMode.dll" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-06 23:04:14Z" end-time="2026-10-06 23:07:03Z" duration="169.028763" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="75744" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1207" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-06 23:04:14Z" end-time="2026-10-06 23:07:03Z" duration="169.027902" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1208" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-06 23:04:14Z" end-time="2026-10-06 23:07:03Z" duration="169.027429" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1209" name="PlayMode" fullname="WashedAshore.Tests.PlayMode" runstate="Runnable" testcasecount="32" result="Passed" start-time="2026-10-06 23:04:14Z" end-time="2026-10-06 23:07:03Z" duration="169.026993" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1188" name="WorldBoundsSweepTests" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-06 23:04:14Z" end-time="2026-10-06 23:07:03Z" duration="169.025918" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1197" name="Sweep_FiftyPoints_ZeroCrossings" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-06 23:04:14Z" end-time="2026-10-06 23:06:44Z" duration="149.538337" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="3600000" />
+                </properties>
+                <test-case id="1189" name="Sweep_FiftyPoints_ZeroCrossings(Walk)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Walk)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="580352750" result="Passed" start-time="2026-10-06 23:04:14Z" end-time="2026-10-06 23:04:33Z" duration="18.439454" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Walk]: points=50 lineZ=1986.7 x=[-1308,543] runs=52 valid=50 skipped=0 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-20.58
+WorldBoundsSweepTests[Walk] skip table (index,x,case,reason,replacementX):
+0,-1307.7,Walk,"stopped at z=1947.0 by terrain slope (56 deg), 36.7 m short of the first face",-1295.7
+15,-740.7,Walk,"no start; no walkable point with >= 20 m run-up",-741.7
+49,543.3,Walk,"stopped at z=1963.0 by terrain slope (46 deg), 20.7 m short of the first face",545.3
+]]></output>
+                </test-case>
+                <test-case id="1190" name="Sweep_FiftyPoints_ZeroCrossings(Sprint)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Sprint)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="222361121" result="Passed" start-time="2026-10-06 23:04:33Z" end-time="2026-10-06 23:04:45Z" duration="12.537532" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Sprint]: points=50 lineZ=1986.7 x=[-1308,543] runs=51 valid=50 skipped=0 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-20.60 sprintPeak min=8.01 median=8.01 m/s
+WorldBoundsSweepTests[Sprint] skip table (index,x,case,reason,replacementX):
+0,-1307.7,Sprint,"stopped at z=1947.0 by terrain slope (54 deg), 36.7 m short of the first face",-1295.7
+15,-740.7,Sprint,"no start; no walkable point with >= 20 m run-up",-741.7
+]]></output>
+                </test-case>
+                <test-case id="1191" name="Sweep_FiftyPoints_ZeroCrossings(SprintJump)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(SprintJump)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="1361932142" result="Passed" start-time="2026-10-06 23:04:45Z" end-time="2026-10-06 23:04:59Z" duration="13.231887" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[SprintJump]: points=50 lineZ=1986.7 x=[-1308,543] runs=51 valid=50 skipped=0 crossings=0 clampSnaps=0 jumps=50 worstNorthOfLine=-20.60 sprintPeak min=8.01 median=8.01 m/s
+WorldBoundsSweepTests[SprintJump] skip table (index,x,case,reason,replacementX):
+0,-1307.7,SprintJump,"stopped at z=1947.0 by terrain slope (54 deg), 36.7 m short of the first face",-1295.7
+15,-740.7,SprintJump,"no start; no walkable point with >= 20 m run-up",-741.7
+]]></output>
+                </test-case>
+                <test-case id="1192" name="Sweep_FiftyPoints_ZeroCrossings(Off30Left)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Off30Left)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="671801402" result="Passed" start-time="2026-10-06 23:04:59Z" end-time="2026-10-06 23:05:18Z" duration="19.824813" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Off30Left]: points=50 lineZ=1986.7 x=[-1308,543] runs=52 valid=50 skipped=0 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-20.54
+WorldBoundsSweepTests[Off30Left] skip table (index,x,case,reason,replacementX):
+49,543.3,Off30Left,"stopped at z=1960.0 by terrain slope (45 deg), 27.6 m short of the first face",530.3
+]]></output>
+                </test-case>
+                <test-case id="1193" name="Sweep_FiftyPoints_ZeroCrossings(Off30Right)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Off30Right)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="1190052693" result="Passed" start-time="2026-10-06 23:05:18Z" end-time="2026-10-06 23:05:37Z" duration="18.052808" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Off30Right]: points=50 lineZ=1986.7 x=[-1308,543] runs=50 valid=49 skipped=1 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-20.56
+WorldBoundsSweepTests[Off30Right] skip table (index,x,case,reason,replacementX):
+0,-1307.7,Off30Right,"stopped at z=1951.7 by terrain slope (47 deg), 36.9 m short of the first face",none
+Off30Right: 1 points SKIPPED (not passes): #0 x=-1308 stopped at z=1951.7 by terrain slope (47 deg), 36.9 m short of the first face
+]]></output>
+                </test-case>
+                <test-case id="1194" name="Sweep_FiftyPoints_ZeroCrossings(Off60Left)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Off60Left)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="141336247" result="Passed" start-time="2026-10-06 23:05:37Z" end-time="2026-10-06 23:06:11Z" duration="34.281952" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Off60Left]: points=50 lineZ=1986.7 x=[-1308,543] runs=56 valid=47 skipped=3 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-20.52
+WorldBoundsSweepTests[Off60Left] skip table (index,x,case,reason,replacementX):
+45,392.3,Off60Left,"stopped at z=1966.1 by terrain slope (47 deg), 47.6 m short of the first face",none
+46,430.3,Off60Left,"stopped at z=1966.1 by terrain slope (48 deg), 17.3 m short of the first face",none
+47,467.3,Off60Left,"stopped at z=1943.4 by terrain slope (37 deg), 81.4 m short of the first face",471.3
+49,543.3,Off60Left,"not above WaterLevelY at the 45 m start; no walkable point with >= 20 m run-up",none
+Off60Left: 3 points SKIPPED (not passes): #45 x=392 stopped at z=1966.1 by terrain slope (47 deg), 47.6 m short of the first face; #46 x=430 stopped at z=1966.1 by terrain slope (48 deg), 17.3 m short of the first face; #49 x=543 not above WaterLevelY at the 45 m start; no walkable point with >= 20 m run-up
+]]></output>
+                </test-case>
+                <test-case id="1195" name="Sweep_FiftyPoints_ZeroCrossings(Off60Right)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Off60Right)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="728555592" result="Passed" start-time="2026-10-06 23:06:11Z" end-time="2026-10-06 23:06:41Z" duration="30.138065" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Off60Right]: points=50 lineZ=1986.7 x=[-1308,543] runs=51 valid=48 skipped=2 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-20.52
+WorldBoundsSweepTests[Off60Right] skip table (index,x,case,reason,replacementX):
+0,-1307.7,Off60Right,"stopped at z=1960.7 by terrain slope (58 deg), 28.9 m short of the first face",none
+1,-1269.7,Off60Right,"stopped at z=1952.4 by terrain slope (48 deg), 62.7 m short of the first face",none
+2,-1231.7,Off60Right,"stopped at z=1943.1 by terrain slope (36 deg), 64.5 m short of the first face",-1217.7
+Off60Right: 2 points SKIPPED (not passes): #0 x=-1308 stopped at z=1960.7 by terrain slope (58 deg), 28.9 m short of the first face; #1 x=-1270 stopped at z=1952.4 by terrain slope (48 deg), 62.7 m short of the first face
+]]></output>
+                </test-case>
+                <test-case id="1196" name="Sweep_FiftyPoints_ZeroCrossings(Fast50)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Fast50)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="932710888" result="Passed" start-time="2026-10-06 23:06:41Z" end-time="2026-10-06 23:06:44Z" duration="3.024946" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Fast50]: points=50 lineZ=1986.7 x=[-1308,543] runs=51 valid=50 skipped=0 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-3.45
+WorldBoundsSweepTests[Fast50] skip table (index,x,case,reason,replacementX):
+0,-1307.7,Fast50,"stopped at z=1959.0 by nothing within 3 m (slope 14 deg underfoot), 24.7 m short of the first face",-1295.7
+15,-740.7,Fast50,"no start; no walkable point with >= 20 m run-up",-741.7
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-case id="1198" name="Sweep_LakeBedAndWallEnds_ZeroCrossings" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_LakeBedAndWallEnds_ZeroCrossings" methodname="Sweep_LakeBedAndWallEnds_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="1570911440" result="Passed" start-time="2026-10-06 23:06:44Z" end-time="2026-10-06 23:07:03Z" duration="19.481607" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="3600000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[LakeBedAndEnds]: west=[-1997,-1857,-1718,-1579,-1439] east=[599,929,1259,1589,1919] terrainX=[-2087,2009] runs=24 valid=24 skipped=0 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-3.42 sprintPeak min=2.88 median=2.89 m/s
+WorldBoundsSweepTests[LakeBedAndEnds] skip table (index,x,case,reason,replacementX):
+(none)
+Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

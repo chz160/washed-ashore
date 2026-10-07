@@ -1,0 +1,73 @@
+{
+ "webDataOnDisk": 59855830,
+ "webDataDecompressed": 85000026,
+ "recompressed_q6": 65327554,
+ "recompressed_q9": 64197740,
+ "recompressed_q11": 59855679,
+ "matchedQuality": 11,
+ "container": "UnityWebData1.0",
+ "files": [
+  {
+   "name": "data.unity3d",
+   "bytes": 75478961,
+   "brotli": 57721327,
+   "ratio": 0.765
+  },
+  {
+   "name": "Il2CppData/Metadata/global-metadata.dat",
+   "bytes": 7879266,
+   "brotli": 1989241,
+   "ratio": 0.252
+  },
+  {
+   "name": "Resources/unity default resources",
+   "bytes": 1631680,
+   "brotli": 128874,
+   "ratio": 0.079
+  },
+  {
+   "name": "RuntimeInitializeOnLoads.json",
+   "bytes": 4937,
+   "brotli": 679,
+   "ratio": 0.138
+  },
+  {
+   "name": "ScriptingAssemblies.json",
+   "bytes": 4828,
+   "brotli": 906,
+   "ratio": 0.188
+  },
+  {
+   "name": "boot.config",
+   "bytes": 114,
+   "brotli": 95,
+   "ratio": 0.833
+  }
+ ],
+ "sources": [
+  {
+   "file": "C:/Users/noah/AppData/Local/Temp/claude/C--Tools-ruflo-studio/d30412c9-b209-4b7a-8cb4-af7df6b6cb3b/scratchpad/w4/WaterMaps.rg16.raw",
+   "bytes": 10485760,
+   "brotli": 106370,
+   "ratio": 0.01
+  },
+  {
+   "file": "Assets/World/BellsBend/Tiles/TD_2_1.asset",
+   "bytes": 14704812,
+   "brotli": 2146501,
+   "ratio": 0.146
+  },
+  {
+   "file": "Assets/World/BellsBend/Tiles/TD_0_0.asset",
+   "bytes": 13365532,
+   "brotli": 3112,
+   "ratio": 0
+  },
+  {
+   "file": "Data/terrain/build/tile_x2_z1.raw",
+   "bytes": 2101250,
+   "brotli": 1506690,
+   "ratio": 0.717
+  }
+ ]
+}

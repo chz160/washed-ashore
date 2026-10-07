@@ -1,0 +1,1199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="68" result="Passed" total="68" passed="68" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 23:46:08Z" end-time="2026-10-06 23:53:09Z" duration="420.553789">
+  <test-suite type="TestSuite" id="1120" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="74" result="Passed" start-time="2026-10-06 23:46:08Z" end-time="2026-10-06 23:53:09Z" duration="420.553789" total="68" passed="68" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1151" name="WashedAshore.Tests.Birds.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.Birds.dll" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-06 23:46:08Z" end-time="2026-10-06 23:46:47Z" duration="39.296200" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="54644" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1152" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-06 23:46:08Z" end-time="2026-10-06 23:46:47Z" duration="39.295831" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1153" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-06 23:46:08Z" end-time="2026-10-06 23:46:47Z" duration="39.295579" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1154" name="Birds" fullname="WashedAshore.Tests.Birds" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-06 23:46:08Z" end-time="2026-10-06 23:46:47Z" duration="39.295364" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1130" name="BirdBehaviourTests" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-06 23:46:08Z" end-time="2026-10-06 23:46:17Z" duration="9.078712" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1131" name="B3_RobinsCycleGroundClipsOutOfStepWithNeighbours" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B3_RobinsCycleGroundClipsOutOfStepWithNeighbours" methodname="B3_RobinsCycleGroundClipsOutOfStepWithNeighbours" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="1001217388" result="Passed" start-time="2026-10-06 23:46:08Z" end-time="2026-10-06 23:46:11Z" duration="2.817229" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B3 robins=16 samples=600 neighbourPairSamples=4800 coincidentSamples=23 maxLockstep=0.3s minDistinct=12 minRouteDistance=3.00m
+B3 RobinPatch_1_Trail_Robin_1: A_Hop_02,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_1_Trail_Robin_2: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_01,A_ScratchGround_02
+B3 RobinPatch_1_Trail_Robin_3: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_02,A_ScratchGround_01,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_2_Trail_Robin_1: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_03,A_ScratchGround_01,A_ScratchGround_02
+B3 RobinPatch_2_Trail_Robin_2: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_01,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_3_Trail_Robin_1: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_ScratchGround_01
+B3 RobinPatch_3_Trail_Robin_2: A_Hop_01,A_Hop_02,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_01
+B3 RobinPatch_4_Meadow_Robin_1: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_ScratchGround_01,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_4_Meadow_Robin_2: A_Hop_01,A_Hop_02,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_ScratchGround_01,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_4_Meadow_Robin_3: A_Hop_01,A_Hop_02,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_5_Meadow_Robin_1: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_01,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_5_Meadow_Robin_2: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_ScratchGround_01,A_ScratchGround_03
+B3 RobinPatch_6_Meadow_Robin_1: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_6_Meadow_Robin_2: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_7_Meadow_Robin_1: A_Hop_01,A_Hop_02,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_7_Meadow_Robin_2: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_03,A_ScratchGround_01,A_ScratchGround_02
+]]></output>
+              </test-case>
+              <test-case id="1132" name="B3c_GroundCheckCatchesLockstepASingleClipAndTheTrail" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B3c_GroundCheckCatchesLockstepASingleClipAndTheTrail" methodname="B3c_GroundCheckCatchesLockstepASingleClipAndTheTrail" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="779904619" result="Passed" start-time="2026-10-06 23:46:11Z" end-time="2026-10-06 23:46:12Z" duration="0.768477" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="120000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=7 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B3c robins=16 samples=200 neighbourPairSamples=1600 coincidentSamples=84 maxLockstep=0.5s minDistinct=1 minRouteDistance=0.00m
+]]></output>
+              </test-case>
+              <test-case id="1133" name="B4_RobinFlushesClimbsAwayAndLandsClear" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B4_RobinFlushesClimbsAwayAndLandsClear" methodname="B4_RobinFlushesClimbsAwayAndLandsClear" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="1555211771" result="Passed" start-time="2026-10-06 23:46:12Z" end-time="2026-10-06 23:46:12Z" duration="0.515498" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=15 distinctClips=10 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B4 target RobinPatch_4_Meadow_Robin_1: flushed=True social=False trigger=9.97 dFlush=10.0 d2s=10.9 dEnd=27.7 gain=5.4 landed=True land=32.6 landRoute=19.7 despawned=False frames=330 overlaps=0 terrain=0 crown=0 facing 248/248 (100 %, min dot 0.99)
+]]></output>
+              </test-case>
+              <test-case id="1134" name="B4c_FlightCheckCatchesFacingOverlapCrownAndTrigger" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B4c_FlightCheckCatchesFacingOverlapCrownAndTrigger" methodname="B4c_FlightCheckCatchesFacingOverlapCrownAndTrigger" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="73222339" result="Passed" start-time="2026-10-06 23:46:12Z" end-time="2026-10-06 23:46:13Z" duration="0.523691" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=15 distinctClips=10 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B4c RobinPatch_4_Meadow_Robin_1: flushed=True social=False trigger=9.97 dFlush=10.0 d2s=10.9 dEnd=27.7 gain=5.4 landed=True land=32.6 landRoute=19.7 despawned=False frames=330 overlaps=15 terrain=0 crown=19 facing 0/248 (0 %, min dot -1.00)
+]]></output>
+              </test-case>
+              <test-case id="1135" name="B4d_FlightCheckCatchesARobinThatNeverFlies" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B4d_FlightCheckCatchesARobinThatNeverFlies" methodname="B4d_FlightCheckCatchesARobinThatNeverFlies" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="58610974" result="Passed" start-time="2026-10-06 23:46:13Z" end-time="2026-10-06 23:46:13Z" duration="0.578041" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B4d RobinPatch_4_Meadow_Robin_1: flushed=False social=False trigger=-1.00 dFlush=0.0 d2s=-1.0 dEnd=0.0 gain=0.0 landed=False land=-1.0 landRoute=-1.0 despawned=False frames=0 overlaps=0 terrain=0 crown=0 facing 0/0 (100 %, min dot 1.00)
+]]></output>
+              </test-case>
+              <test-case id="1136" name="B5_FlocksHoldTheBandSpacingAndWingRule" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B5_FlocksHoldTheBandSpacingAndWingRule" methodname="B5_FlocksHoldTheBandSpacingAndWingRule" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="1524961884" result="Passed" start-time="2026-10-06 23:46:13Z" end-time="2026-10-06 23:46:16Z" duration="2.262246" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B5 birds=15 samples=600 agl=29.0-47.5 gate=20-60 out=0 crownClear=10.0 belowCrown=0 minSpacing=3.17 low=0 meshOverlaps=0 flapRule=99.1 % of 8970 (misses 84: commute 35/3081 samples, within dwell 41) glideShare=64.1 % facingMin=100 %
+]]></output>
+              </test-case>
+              <test-case id="1137" name="B5c_FlockCheckCatchesSpacingWingsFacingBandAndCrown" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B5c_FlockCheckCatchesSpacingWingsFacingBandAndCrown" methodname="B5c_FlockCheckCatchesSpacingWingsFacingBandAndCrown" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="1968436188" result="Passed" start-time="2026-10-06 23:46:16Z" end-time="2026-10-06 23:46:17Z" duration="1.604887" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=-0.2-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B5c birds=6 samples=450 agl=-0.8-8.1 gate=20-60 out=2700 crownClear=-9983.3 belowCrown=2658 minSpacing=0.00 low=6737 meshOverlaps=2656 flapRule=24.5 % of 2688 (misses 2030: commute 582/804 samples, within dwell 191) glideShare=60.4 % facingMin=0 %
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1138" name="BirdSightingTests" fullname="WashedAshore.Tests.Birds.BirdSightingTests" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-10-06 23:46:17Z" end-time="2026-10-06 23:46:47Z" duration="30.215494" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1142" name="B6_BirdSightingWalkLandsInsideTheBriefBands" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6_BirdSightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-06 23:46:17Z" end-time="2026-10-06 23:46:28Z" duration="11.245604" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                </properties>
+                <test-case id="1139" name="B6_BirdSightingWalkLandsInsideTheBriefBands(101)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6_BirdSightingWalkLandsInsideTheBriefBands(101)" methodname="B6_BirdSightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="1993559456" result="Passed" start-time="2026-10-06 23:46:17Z" end-time="2026-10-06 23:46:21Z" duration="3.707621" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B6 seed 101 unseen flushes 7/12: RobinPatch_5_Meadow_Robin_1 t=32.8s d=9.9m player: out of view cone ; RobinPatch_5_Meadow_Robin_2 t=33.2s d=12.6m social: out of view cone ; RobinPatch_1_Trail_Robin_3 t=46.5s d=9.9m player: out of view cone ; RobinPatch_1_Trail_Robin_1 t=46.6s d=10.0m player: out of view cone ; RobinPatch_1_Trail_Robin_2 t=47.3s d=9.9m player: out of view cone ; RobinPatch_2_Trail_Robin_1 t=122.0s d=9.9m player: out of view cone ; RobinPatch_2_Trail_Robin_2 t=122.7s d=13.3m social: out of view cone
+B6 seed 101 gating=True: {"flockInView":true,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":true} flockInView=39.7 % emptySky=18.5s first=0s met=10 (3.33/min) flushes=12 seen=42 % maxInView=14 ge15=0.0 % glide=63.0 % flapRule=98.5 % agl=29.0-47.6 crown=10.5 spacing=3.15 stalls=0 | birds=15 samples=1795 agl=29.0-47.7 gate=20-60 out=0 crownClear=10.4 belowCrown=0 minSpacing=3.15 low=0 meshOverlaps=0 flapRule=98.5 % of 26895 (misses 398: commute 230/10846 samples, within dwell 164) glideShare=62.8 % facingMin=100 %
+W-QA-1 bird sightline GATING seed 101: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+]]></output>
+                </test-case>
+                <test-case id="1140" name="B6_BirdSightingWalkLandsInsideTheBriefBands(202)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6_BirdSightingWalkLandsInsideTheBriefBands(202)" methodname="B6_BirdSightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="793225700" result="Passed" start-time="2026-10-06 23:46:21Z" end-time="2026-10-06 23:46:25Z" duration="3.842479" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=202 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=202 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=10 flockAgl=32.4-44.2
+Wildlife: t=5 onNavMesh=15 moving=12
+B6 seed 202 unseen flushes 4/10: RobinPatch_3_Trail_Robin_1 t=7.2s d=10.0m player: out of view cone ; RobinPatch_3_Trail_Robin_2 t=7.8s d=10.0m player: out of view cone ; RobinPatch_4_Meadow_Robin_1 t=46.5s d=9.9m player: out of view cone ; RobinPatch_3_Trail_Robin_1 t=167.4s d=10.0m player: out of view cone
+B6 seed 202 gating=True: {"flockInView":true,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":true} flockInView=30.3 % emptySky=37s first=5.5s met=14 (4.67/min) flushes=10 seen=60 % maxInView=13 ge15=0.0 % glide=60.3 % flapRule=97.8 % agl=29.8-48.8 crown=13.2 spacing=3.21 stalls=0 | birds=15 samples=1795 agl=29.8-48.8 gate=20-60 out=0 crownClear=13.1 belowCrown=0 minSpacing=3.21 low=0 meshOverlaps=0 flapRule=97.8 % of 26895 (misses 589: commute 274/8169 samples, within dwell 318) glideShare=60.2 % facingMin=100 %
+W-QA-1 bird sightline GATING seed 202: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+]]></output>
+                </test-case>
+                <test-case id="1141" name="B6_BirdSightingWalkLandsInsideTheBriefBands(303)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6_BirdSightingWalkLandsInsideTheBriefBands(303)" methodname="B6_BirdSightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="444817859" result="Passed" start-time="2026-10-06 23:46:25Z" end-time="2026-10-06 23:46:28Z" duration="3.694038" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=303 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=303 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=35.9-45.7
+Wildlife: t=5 onNavMesh=15 moving=14
+B6 seed 303 unseen flushes 2/9: RobinPatch_3_Trail_Robin_2 t=47.7s d=9.8m player: out of view cone ; RobinPatch_6_Meadow_Robin_2 t=166.2s d=13.7m social: out of view cone
+B6 seed 303 gating=True: {"flockInView":true,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":true} flockInView=36.9 % emptySky=32.5s first=0s met=10 (3.33/min) flushes=9 seen=78 % maxInView=13 ge15=0.0 % glide=63.9 % flapRule=98.0 % agl=30.9-48.7 crown=12.8 spacing=3.39 stalls=0 | birds=15 samples=1795 agl=30.9-48.8 gate=20-60 out=0 crownClear=12.8 belowCrown=0 minSpacing=3.36 low=0 meshOverlaps=0 flapRule=98.0 % of 26895 (misses 540: commute 138/8317 samples, within dwell 286) glideShare=63.8 % facingMin=100 %
+W-QA-1 bird sightline GATING seed 303: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-case id="1149" name="B6c_ScoringFailsAnEmptySkyAndACrowd" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6c_ScoringFailsAnEmptySkyAndACrowd" methodname="B6c_ScoringFailsAnEmptySkyAndACrowd" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="915712530" result="Passed" start-time="2026-10-06 23:46:28Z" end-time="2026-10-06 23:46:29Z" duration="0.222087" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="60000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+]]></output>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1148" name="B6r_RobustnessSeedsAreRecorded" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 23:46:29Z" end-time="2026-10-06 23:46:47Z" duration="18.533596" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                </properties>
+                <test-case id="1143" name="B6r_RobustnessSeedsAreRecorded(404)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6r_RobustnessSeedsAreRecorded(404)" methodname="B6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="481995744" result="Passed" start-time="2026-10-06 23:46:29Z" end-time="2026-10-06 23:46:32Z" duration="3.698718" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=404 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=404 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=11 flockAgl=32.2-44.9
+Wildlife: t=5 onNavMesh=15 moving=11
+B6 seed 404 unseen flushes 4/7: RobinPatch_2_Trail_Robin_1 t=91.8s d=13.5m social: out of view cone ; RobinPatch_1_Trail_Robin_2 t=134.0s d=12.0m social: out of view cone ; RobinPatch_5_Meadow_Robin_2 t=165.3s d=9.9m player: out of view cone ; RobinPatch_5_Meadow_Robin_1 t=165.8s d=10.0m player: out of view cone
+B6 seed 404 gating=False: {"flockInView":false,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":false} flockInView=26.4 % emptySky=30s first=16.5s met=9 (3.00/min) flushes=7 seen=43 % maxInView=15 ge15=0.6 % glide=64.0 % flapRule=98.3 % agl=27.7-44.9 crown=9.2 spacing=3.19 stalls=0 | birds=15 samples=1795 agl=27.7-44.9 gate=20-60 out=0 crownClear=9.1 belowCrown=0 minSpacing=3.18 low=0 meshOverlaps=0 flapRule=98.3 % of 26895 (misses 469: commute 238/9581 samples, within dwell 203) glideShare=64.1 % facingMin=100 %
+W-QA-1 bird sightline ROBUSTNESS seed 404: sightSaturations=0 sightMaxHits=1 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+B6r seed 404 (non-gating): placementError=none all=False
+]]></output>
+                </test-case>
+                <test-case id="1144" name="B6r_RobustnessSeedsAreRecorded(505)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6r_RobustnessSeedsAreRecorded(505)" methodname="B6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="2047084107" result="Passed" start-time="2026-10-06 23:46:32Z" end-time="2026-10-06 23:46:36Z" duration="3.649348" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=505 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=505 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=8 flockAgl=28.9-38.3
+Wildlife: t=5 onNavMesh=15 moving=12
+B6 seed 505 unseen flushes 9/10: RobinPatch_5_Meadow_Robin_1 t=32.2s d=9.9m player: out of view cone ; RobinPatch_5_Meadow_Robin_2 t=32.9s d=11.5m social: out of view cone ; RobinPatch_3_Trail_Robin_1 t=47.0s d=9.9m player: out of view cone ; RobinPatch_3_Trail_Robin_2 t=47.3s d=11.8m social: out of view cone ; RobinPatch_1_Trail_Robin_1 t=107.9s d=9.9m player: out of view cone ; RobinPatch_1_Trail_Robin_2 t=108.1s d=12.8m social: out of view cone ; RobinPatch_1_Trail_Robin_3 t=108.2s d=13.2m social: out of view cone ; RobinPatch_2_Trail_Robin_2 t=135.4s d=10.3m social: out of view cone ; RobinPatch_2_Trail_Robin_1 t=168.6s d=10.0m player: out of view cone
+B6 seed 505 gating=False: {"flockInView":false,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":false,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":false} flockInView=17.8 % emptySky=26s first=0s met=11 (3.67/min) flushes=10 seen=10 % maxInView=12 ge15=0.0 % glide=61.9 % flapRule=98.5 % agl=26.6-45.4 crown=8.8 spacing=3.53 stalls=0 | birds=15 samples=1795 agl=26.6-45.4 gate=20-60 out=0 crownClear=8.6 belowCrown=0 minSpacing=3.53 low=0 meshOverlaps=0 flapRule=98.5 % of 26895 (misses 398: commute 119/8629 samples, within dwell 164) glideShare=61.9 % facingMin=100 %
+W-QA-1 bird sightline ROBUSTNESS seed 505: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=1
+B6r seed 505 (non-gating): placementError=none all=False
+]]></output>
+                </test-case>
+                <test-case id="1145" name="B6r_RobustnessSeedsAreRecorded(606)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6r_RobustnessSeedsAreRecorded(606)" methodname="B6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="653676397" result="Passed" start-time="2026-10-06 23:46:36Z" end-time="2026-10-06 23:46:40Z" duration="3.785156" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=606 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=606 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=30.4-48.5
+Wildlife: t=5 onNavMesh=15 moving=8
+B6 seed 606 unseen flushes 2/7: RobinPatch_2_Trail_Robin_1 t=44.7s d=10.0m player: out of view cone ; RobinPatch_1_Trail_Robin_3 t=145.1s d=9.9m player: out of view cone
+B6 seed 606 gating=False: {"flockInView":true,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":true} flockInView=31.4 % emptySky=21s first=13s met=14 (4.67/min) flushes=7 seen=71 % maxInView=14 ge15=0.0 % glide=63.6 % flapRule=98.1 % agl=27.3-50.4 crown=7.6 spacing=3.42 stalls=0 | birds=15 samples=1795 agl=27.3-50.4 gate=20-60 out=0 crownClear=7.5 belowCrown=0 minSpacing=3.41 low=0 meshOverlaps=0 flapRule=98.1 % of 26895 (misses 505: commute 278/9198 samples, within dwell 219) glideShare=63.8 % facingMin=100 %
+W-QA-1 bird sightline ROBUSTNESS seed 606: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=1
+B6r seed 606 (non-gating): placementError=none all=True
+]]></output>
+                </test-case>
+                <test-case id="1146" name="B6r_RobustnessSeedsAreRecorded(707)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6r_RobustnessSeedsAreRecorded(707)" methodname="B6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="990239054" result="Passed" start-time="2026-10-06 23:46:40Z" end-time="2026-10-06 23:46:43Z" duration="3.705536" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=707 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=707 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=10 flockAgl=28.1-39.2
+Wildlife: t=5 onNavMesh=15 moving=8
+B6 seed 707 unseen flushes 6/12: RobinPatch_5_Meadow_Robin_1 t=8.3s d=10.0m player: out of view cone ; RobinPatch_5_Meadow_Robin_2 t=8.4s d=9.9m player: out of view cone ; RobinPatch_2_Trail_Robin_2 t=46.0s d=9.9m player: out of view cone ; RobinPatch_1_Trail_Robin_3 t=88.2s d=10.4m social: out of view cone ; RobinPatch_4_Meadow_Robin_3 t=124.2s d=14.6m social: out of view cone ; RobinPatch_4_Meadow_Robin_1 t=124.7s d=17.8m social: out of view cone
+B6 seed 707 gating=False: {"flockInView":false,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":false} flockInView=29.2 % emptySky=33s first=0s met=12 (4.00/min) flushes=12 seen=50 % maxInView=8 ge15=0.0 % glide=62.1 % flapRule=98.2 % agl=26.0-43.0 crown=7.5 spacing=3.07 stalls=0 | birds=15 samples=1795 agl=25.7-43.1 gate=20-60 out=0 crownClear=7.5 belowCrown=0 minSpacing=3.07 low=0 meshOverlaps=0 flapRule=98.2 % of 26895 (misses 491: commute 232/9475 samples, within dwell 277) glideShare=62.0 % facingMin=100 %
+W-QA-1 bird sightline ROBUSTNESS seed 707: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+B6r seed 707 (non-gating): placementError=none all=False
+]]></output>
+                </test-case>
+                <test-case id="1147" name="B6r_RobustnessSeedsAreRecorded(808)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6r_RobustnessSeedsAreRecorded(808)" methodname="B6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="1084443376" result="Passed" start-time="2026-10-06 23:46:43Z" end-time="2026-10-06 23:46:47Z" duration="3.692393" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=808 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=808 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=8 flockAgl=32.4-41.5
+Wildlife: t=5 onNavMesh=15 moving=7
+B6 seed 808 unseen flushes 5/9: RobinPatch_3_Trail_Robin_1 t=5.1s d=13.9m social: out of view cone ; RobinPatch_5_Meadow_Robin_2 t=73.4s d=9.9m player: foliage (DeadTree_2) ; RobinPatch_5_Meadow_Robin_1 t=73.7s d=10.0m player: out of view cone ; RobinPatch_1_Trail_Robin_1 t=105.5s d=10.0m player: out of view cone ; RobinPatch_1_Trail_Robin_3 t=106.0s d=12.0m social: out of view cone
+B6 seed 808 gating=False: {"flockInView":true,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":true} flockInView=38.9 % emptySky=19.5s first=0s met=12 (4.00/min) flushes=9 seen=44 % maxInView=16 ge15=0.6 % glide=62.1 % flapRule=97.9 % agl=26.4-44.3 crown=8.9 spacing=3.16 stalls=0 | birds=15 samples=1795 agl=26.4-44.3 gate=20-60 out=0 crownClear=8.9 belowCrown=0 minSpacing=3.16 low=0 meshOverlaps=0 flapRule=97.9 % of 26895 (misses 575: commute 180/6346 samples, within dwell 291) glideShare=62.1 % facingMin=100 %
+W-QA-1 bird sightline ROBUSTNESS seed 808: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+B6r seed 808 (non-gating): placementError=none all=True
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-case id="1150" name="B6v_VisibilityCatchesAWallFoliageAndRange" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6v_VisibilityCatchesAWallFoliageAndRange" methodname="B6v_VisibilityCatchesAWallFoliageAndRange" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="1833228475" result="Passed" start-time="2026-10-06 23:46:47Z" end-time="2026-10-06 23:46:47Z" duration="0.212803" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="60000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+B6v tree at (-360.26, 19.03, -1196.89): visible without foliage test=True (trunk/terrain may also block), with=False
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1208" name="WashedAshore.Tests.PlayMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.PlayMode.dll" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-10-06 23:46:47Z" end-time="2026-10-06 23:52:29Z" duration="341.391516" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="54644" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1209" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-10-06 23:46:47Z" end-time="2026-10-06 23:52:29Z" duration="341.390875" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1210" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-10-06 23:46:47Z" end-time="2026-10-06 23:52:29Z" duration="341.390351" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1211" name="PlayMode" fullname="WashedAshore.Tests.PlayMode" runstate="Runnable" testcasecount="33" result="Passed" start-time="2026-10-06 23:46:47Z" end-time="2026-10-06 23:52:29Z" duration="341.389855" total="33" passed="33" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1163" name="WaterFloatTests" fullname="WashedAshore.Tests.PlayMode.WaterFloatTests" classname="WashedAshore.Tests.PlayMode.WaterFloatTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-06 23:46:47Z" end-time="2026-10-06 23:46:48Z" duration="1.050335" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1164" name="Crate_BobsWithin5cmOfSurface" fullname="WashedAshore.Tests.PlayMode.WaterFloatTests.Crate_BobsWithin5cmOfSurface" methodname="Crate_BobsWithin5cmOfSurface" classname="WashedAshore.Tests.PlayMode.WaterFloatTests" runstate="Runnable" seed="131130036" result="Passed" start-time="2026-10-06 23:46:47Z" end-time="2026-10-06 23:46:48Z" duration="1.049484" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WaterFloatTests: crate at (-1002.5,1493.3) frames=1801 worst |crate - surface| = 0.0003 m, bob range 0.036 m, wave amplitude <= 0.028 m
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1165" name="WaterShaderReadbackTests" fullname="WashedAshore.Tests.PlayMode.WaterShaderReadbackTests" classname="WashedAshore.Tests.PlayMode.WaterShaderReadbackTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 23:46:48Z" end-time="2026-10-06 23:46:49Z" duration="0.922815" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1168" name="GpuHeight_MatchesCSharp_AtCornersAndOrigin" fullname="WashedAshore.Tests.PlayMode.WaterShaderReadbackTests.GpuHeight_MatchesCSharp_AtCornersAndOrigin" classname="WashedAshore.Tests.PlayMode.WaterShaderReadbackTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 23:46:48Z" end-time="2026-10-06 23:46:49Z" duration="0.921993" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="300000" />
+                </properties>
+                <test-case id="1166" name="GpuHeight_MatchesCSharp_AtCornersAndOrigin(0.0d)" fullname="WashedAshore.Tests.PlayMode.WaterShaderReadbackTests.GpuHeight_MatchesCSharp_AtCornersAndOrigin(0.0d)" methodname="GpuHeight_MatchesCSharp_AtCornersAndOrigin" classname="WashedAshore.Tests.PlayMode.WaterShaderReadbackTests" runstate="Runnable" seed="1440332329" result="Passed" start-time="2026-10-06 23:46:48Z" end-time="2026-10-06 23:46:49Z" duration="0.573684" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WaterShaderReadbackTests[clock+0s]: t=0.020 (-2067,-2472) max|gpu-cs|=0.02 mm (Z-flipped 31.60 mm); (1989,-2472) max|gpu-cs|=0.02 mm (Z-flipped 29.59 mm); (-2067,2608) max|gpu-cs|=0.01 mm (Z-flipped 29.95 mm); (1989,2608) max|gpu-cs|=0.01 mm (Z-flipped 33.45 mm); (10,10) max|gpu-cs|=0.00 mm (Z-flipped 27.65 mm); worst=0.02 mm (asserted <= 3 mm; W9 spec bar 50 mm)
+]]></output>
+                </test-case>
+                <test-case id="1167" name="GpuHeight_MatchesCSharp_AtCornersAndOrigin(259200.123d)" fullname="WashedAshore.Tests.PlayMode.WaterShaderReadbackTests.GpuHeight_MatchesCSharp_AtCornersAndOrigin(259200.123d)" methodname="GpuHeight_MatchesCSharp_AtCornersAndOrigin" classname="WashedAshore.Tests.PlayMode.WaterShaderReadbackTests" runstate="Runnable" seed="807066852" result="Passed" start-time="2026-10-06 23:46:49Z" end-time="2026-10-06 23:46:49Z" duration="0.347486" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WaterShaderReadbackTests[clock+259200s]: t=259200.143 (-2067,-2472) max|gpu-cs|=0.02 mm (Z-flipped 35.48 mm); (1989,-2472) max|gpu-cs|=0.02 mm (Z-flipped 35.39 mm); (-2067,2608) max|gpu-cs|=0.02 mm (Z-flipped 31.97 mm); (1989,2608) max|gpu-cs|=0.01 mm (Z-flipped 39.68 mm); (10,10) max|gpu-cs|=0.00 mm (Z-flipped 41.51 mm); worst=0.02 mm (asserted <= 3 mm; W9 spec bar 50 mm)
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestFixture" id="1169" name="WaterSwimAroundTests" fullname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" classname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-06 23:46:49Z" end-time="2026-10-06 23:48:05Z" duration="76.020093" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1175" name="Crate_PushedNorthPastEnds_IsSnapped" fullname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests.Crate_PushedNorthPastEnds_IsSnapped" classname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 23:46:49Z" end-time="2026-10-06 23:46:51Z" duration="1.524420" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                </properties>
+                <test-case id="1173" name="Crate_PushedNorthPastEnds_IsSnapped(West)" fullname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests.Crate_PushedNorthPastEnds_IsSnapped(West)" methodname="Crate_PushedNorthPastEnds_IsSnapped" classname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" runstate="Runnable" seed="2013659869" result="Passed" start-time="2026-10-06 23:46:49Z" end-time="2026-10-06 23:46:50Z" duration="0.835481" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsClamp: W8TestCrate was 0.01 m north of the line at (-1403.21, 7.41, 1986.71); snapped to (-1403.21, 7.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (-1403.21, 7.41, 1986.70); snapped to (-1403.21, 7.41, 1982.20).
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (-1403.21, 7.41, 1986.70); snapped to (-1403.21, 7.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (-1403.21, 7.41, 1986.70); snapped to (-1403.21, 7.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (-1403.21, 7.41, 1986.70); snapped to (-1403.21, 7.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (-1403.21, 7.41, 1986.70); snapped to (-1403.21, 7.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (-1403.21, 7.41, 1986.70); snapped to (-1403.21, 7.41, 1982.20).
+WaterSwimAroundTests[crate West]: snaps=7 worstNorthAfterClamp=-0.07 worstFloat=0.002
+]]></output>
+                </test-case>
+                <test-case id="1174" name="Crate_PushedNorthPastEnds_IsSnapped(East)" fullname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests.Crate_PushedNorthPastEnds_IsSnapped(East)" methodname="Crate_PushedNorthPastEnds_IsSnapped" classname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" runstate="Runnable" seed="430738065" result="Passed" start-time="2026-10-06 23:46:50Z" end-time="2026-10-06 23:46:51Z" duration="0.687783" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsClamp: W8TestCrate was 0.01 m north of the line at (600.11, 1.40, 1986.71); snapped to (600.11, 1.40, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (600.11, 1.41, 1986.70); snapped to (600.11, 1.41, 1982.20).
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (600.11, 1.42, 1986.70); snapped to (600.11, 1.42, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (600.11, 1.42, 1986.70); snapped to (600.11, 1.42, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (600.11, 1.41, 1986.70); snapped to (600.11, 1.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (600.11, 1.41, 1986.70); snapped to (600.11, 1.41, 1982.20).
+WorldBoundsClamp: W8TestCrate was 0.00 m north of the line at (600.11, 1.41, 1986.70); snapped to (600.11, 1.41, 1982.20).
+WaterSwimAroundTests[crate East]: snaps=7 worstNorthAfterClamp=-0.07 worstFloat=0.003
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1172" name="SwimAround_BothEnds_ZeroCrossings" fullname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests.SwimAround_BothEnds_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 23:46:51Z" end-time="2026-10-06 23:48:05Z" duration="74.494009" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="3600000" />
+                </properties>
+                <test-case id="1170" name="SwimAround_BothEnds_ZeroCrossings(West)" fullname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests.SwimAround_BothEnds_ZeroCrossings(West)" methodname="SwimAround_BothEnds_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" runstate="Runnable" seed="1192671961" result="Passed" start-time="2026-10-06 23:46:51Z" end-time="2026-10-06 23:47:30Z" duration="39.438472" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WaterSwimAroundTests[West]: corner=(-1413.2,1983.7) attempts=25 cornerRuns=3 crossings=0 playerSnaps=0 fallThroughs=0 short=0
+]]></output>
+                </test-case>
+                <test-case id="1171" name="SwimAround_BothEnds_ZeroCrossings(East)" fullname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests.SwimAround_BothEnds_ZeroCrossings(East)" methodname="SwimAround_BothEnds_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WaterSwimAroundTests" runstate="Runnable" seed="1277257508" result="Passed" start-time="2026-10-06 23:47:30Z" end-time="2026-10-06 23:48:05Z" duration="35.054317" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WaterSwimAroundTests[East]: corner=(587.1,1983.7) attempts=25 cornerRuns=3 crossings=0 playerSnaps=0 fallThroughs=0 short=0
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestFixture" id="1176" name="WaterSwimTests" fullname="WashedAshore.Tests.PlayMode.WaterSwimTests" classname="WashedAshore.Tests.PlayMode.WaterSwimTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-06 23:48:05Z" end-time="2026-10-06 23:48:25Z" duration="19.488375" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1178" name="BluffFaces_NotAnExit_DoNotTrap" fullname="WashedAshore.Tests.PlayMode.WaterSwimTests.BluffFaces_NotAnExit_DoNotTrap" methodname="BluffFaces_NotAnExit_DoNotTrap" classname="WashedAshore.Tests.PlayMode.WaterSwimTests" runstate="Runnable" seed="1597741715" result="Passed" start-time="2026-10-06 23:48:05Z" end-time="2026-10-06 23:48:10Z" duration="5.021373" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+              </test-case>
+              <test-case id="1179" name="BluffFaces_SwimmerNeverClimbs" fullname="WashedAshore.Tests.PlayMode.WaterSwimTests.BluffFaces_SwimmerNeverClimbs" methodname="BluffFaces_SwimmerNeverClimbs" classname="WashedAshore.Tests.PlayMode.WaterSwimTests" runstate="Runnable" seed="692760620" result="Passed" start-time="2026-10-06 23:48:10Z" end-time="2026-10-06 23:48:16Z" duration="5.449779" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+              </test-case>
+              <test-case id="1177" name="Exit_LowBankStations_ReachDryGround" fullname="WashedAshore.Tests.PlayMode.WaterSwimTests.Exit_LowBankStations_ReachDryGround" methodname="Exit_LowBankStations_ReachDryGround" classname="WashedAshore.Tests.PlayMode.WaterSwimTests" runstate="Runnable" seed="1795863199" result="Passed" start-time="2026-10-06 23:48:16Z" end-time="2026-10-06 23:48:21Z" duration="5.012819" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="1800000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WaterSwimTests[exits]: seed 20261006, 732 low-bank stations, running 12: station 219 (-991.3,1076.8); station 248 (-1010.4,931.6); station 779 (-344.6,-1568.8); station 148 (-973.8,1431.8); station 629 (-810.9,-965.0); station 392 (-980.1,207.0); station 451 (-989.6,-89.6); station 209 (-981.6,1126.1); station 918 (300.8,-1808.4); station 567 (-927.7,-682.7); station 1549 (580.8,465.1); station 31 (-1280.8,1920.7)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1183" name="SprintJumpIn_SettlesToSwimSpeed" fullname="WashedAshore.Tests.PlayMode.WaterSwimTests.SprintJumpIn_SettlesToSwimSpeed" classname="WashedAshore.Tests.PlayMode.WaterSwimTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-06 23:48:21Z" end-time="2026-10-06 23:48:22Z" duration="0.967948" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                </properties>
+                <test-case id="1181" name="SprintJumpIn_SettlesToSwimSpeed(True)" fullname="WashedAshore.Tests.PlayMode.WaterSwimTests.SprintJumpIn_SettlesToSwimSpeed(True)" methodname="SprintJumpIn_SettlesToSwimSpeed" classname="WashedAshore.Tests.PlayMode.WaterSwimTests" runstate="Runnable" seed="1278532720" result="Passed" start-time="2026-10-06 23:48:21Z" end-time="2026-10-06 23:48:21Z" duration="0.493145" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WaterSwimTests: open-water station station 1489 (791.2,244.4) bearing 0 (seed 20261006)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WaterSwimTests[sprint-jump sprintHeld=True]: landPeak=8.00 jumped=True firstStrokeMean=2.40 peak=2.88
+]]></output>
+                </test-case>
+                <test-case id="1182" name="SprintJumpIn_SettlesToSwimSpeed(False)" fullname="WashedAshore.Tests.PlayMode.WaterSwimTests.SprintJumpIn_SettlesToSwimSpeed(False)" methodname="SprintJumpIn_SettlesToSwimSpeed" classname="WashedAshore.Tests.PlayMode.WaterSwimTests" runstate="Runnable" seed="2140081393" result="Passed" start-time="2026-10-06 23:48:21Z" end-time="2026-10-06 23:48:22Z" duration="0.473715" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WaterSwimTests: open-water station station 1489 (791.2,244.4) bearing 0 (seed 20261006)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WaterSwimTests[sprint-jump sprintHeld=False]: landPeak=8.00 jumped=True firstStrokeMean=1.80 peak=2.16
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-case id="1180" name="WalkIn_Swim50m_AndBack" fullname="WashedAshore.Tests.PlayMode.WaterSwimTests.WalkIn_Swim50m_AndBack" methodname="WalkIn_Swim50m_AndBack" classname="WashedAshore.Tests.PlayMode.WaterSwimTests" runstate="Runnable" seed="1263835820" result="Passed" start-time="2026-10-06 23:48:22Z" end-time="2026-10-06 23:48:25Z" duration="3.034187" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="900000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WaterSwimTests: open-water station station 1489 (791.2,244.4) bearing 0 (seed 20261006)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WaterSwimTests[walk-in]: modes=Dry>Wade>Swim>Wade>Dry dry=5.00 at0.3=3.78 at1.0=2.50 swimStrokeMean=1.80 open=50.0 m in 27.8 s worstEye=0.000 groundedDeep=0 openFlips=0 fallThroughs=0
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1184" name="WorldBoundsClampTests" fullname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" classname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 23:48:25Z" end-time="2026-10-06 23:48:27Z" duration="2.377732" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1189" name="Clamp_PerFrameCost_UnderHalfAMillisecondWithTheVistaLoaded" fullname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests.Clamp_PerFrameCost_UnderHalfAMillisecondWithTheVistaLoaded" methodname="Clamp_PerFrameCost_UnderHalfAMillisecondWithTheVistaLoaded" classname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" runstate="Runnable" seed="874997978" result="Passed" start-time="2026-10-06 23:48:25Z" end-time="2026-10-06 23:48:26Z" duration="1.208787" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsClampTests: clamp LateUpdate 0.0015 ms/frame over 200 calls; terrain tree instances=101592, Rigidbodies=0
+]]></output>
+              </test-case>
+              <test-case id="1186" name="Player_TeleportedTenMetresNorth_IsSnappedBackWithinOneFrame" fullname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests.Player_TeleportedTenMetresNorth_IsSnappedBackWithinOneFrame" methodname="Player_TeleportedTenMetresNorth_IsSnappedBackWithinOneFrame" classname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" runstate="Runnable" seed="694003146" result="Passed" start-time="2026-10-06 23:48:26Z" end-time="2026-10-06 23:48:27Z" duration="0.715085" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1859 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+WorldBoundsClamp: Player was 10.00 m north of the line at (-400.71, 10.86, 1996.70); snapped to (-400.71, 10.86, 1982.20).
+WorldBoundsClampTests: player at (-400.71, 10.85, 1982.20), -4.50 m from the line after 1 frame(s)
+]]></output>
+              </test-case>
+              <test-case id="1188" name="Rigidbody_AmongOver1024StaticCollidersNorth_IsSnappedWithinOneFrame" fullname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests.Rigidbody_AmongOver1024StaticCollidersNorth_IsSnappedWithinOneFrame" methodname="Rigidbody_AmongOver1024StaticCollidersNorth_IsSnappedWithinOneFrame" classname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" runstate="Runnable" seed="283386214" result="Passed" start-time="2026-10-06 23:48:27Z" end-time="2026-10-06 23:48:27Z" duration="0.218444" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1859 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+WorldBoundsClamp: ClampTestBox was 10.00 m north of the line at (-400.71, 11.86, 1996.70); snapped to (-400.71, 11.86, 1982.20).
+WorldBoundsClampTests: 1500 static colliders north; Rigidbody at (-400.71, 11.86, 1982.20) after 1 frame(s), other clamp warnings=0
+]]></output>
+              </test-case>
+              <test-case id="1187" name="Rigidbody_DroppedTenMetresNorth_IsSnappedBackWithinOneFrame" fullname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests.Rigidbody_DroppedTenMetresNorth_IsSnappedBackWithinOneFrame" methodname="Rigidbody_DroppedTenMetresNorth_IsSnappedBackWithinOneFrame" classname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" runstate="Runnable" seed="1460788888" result="Passed" start-time="2026-10-06 23:48:27Z" end-time="2026-10-06 23:48:27Z" duration="0.231952" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1859 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+WorldBoundsClamp: ClampTestBox was 10.00 m north of the line at (-400.71, 11.86, 1996.70); snapped to (-400.71, 11.86, 1982.20).
+WorldBoundsClampTests: Rigidbody at (-400.71, 11.86, 1982.20) after 1 frame(s)
+]]></output>
+              </test-case>
+              <test-case id="1185" name="Rule_SnapsOnlyNorthOfLine" fullname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests.Rule_SnapsOnlyNorthOfLine" methodname="Rule_SnapsOnlyNorthOfLine" classname="WashedAshore.Tests.PlayMode.WorldBoundsClampTests" runstate="Runnable" seed="416368308" result="Passed" start-time="2026-10-06 23:48:27Z" end-time="2026-10-06 23:48:27Z" duration="0.001747" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1190" name="WorldBoundsSweepTests" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-06 23:48:27Z" end-time="2026-10-06 23:52:21Z" duration="234.238720" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1199" name="Sweep_FiftyPoints_ZeroCrossings" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-06 23:48:27Z" end-time="2026-10-06 23:51:53Z" duration="205.986199" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="3600000" />
+                </properties>
+                <test-case id="1191" name="Sweep_FiftyPoints_ZeroCrossings(Walk)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Walk)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="937436477" result="Passed" start-time="2026-10-06 23:48:27Z" end-time="2026-10-06 23:48:52Z" duration="24.601745" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Walk]: points=50 lineZ=1986.7 x=[-1308,543] runs=52 valid=50 skipped=0 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-20.58
+WorldBoundsSweepTests[Walk] skip table (index,x,case,reason,replacementX):
+0,-1307.7,Walk,"stopped at z=1947.0 by terrain slope (56 deg), 36.7 m short of the first face",-1295.7
+15,-740.7,Walk,"no start; no walkable point with >= 20 m run-up",-741.7
+49,543.3,Walk,"stopped at z=1963.0 by terrain slope (46 deg), 20.7 m short of the first face",545.3
+]]></output>
+                </test-case>
+                <test-case id="1192" name="Sweep_FiftyPoints_ZeroCrossings(Sprint)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Sprint)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="1416881020" result="Passed" start-time="2026-10-06 23:48:52Z" end-time="2026-10-06 23:49:09Z" duration="17.410757" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Sprint]: points=50 lineZ=1986.7 x=[-1308,543] runs=51 valid=50 skipped=0 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-20.60 sprintPeak min=8.01 median=8.01 m/s
+WorldBoundsSweepTests[Sprint] skip table (index,x,case,reason,replacementX):
+0,-1307.7,Sprint,"stopped at z=1947.0 by terrain slope (54 deg), 36.7 m short of the first face",-1295.7
+15,-740.7,Sprint,"no start; no walkable point with >= 20 m run-up",-741.7
+]]></output>
+                </test-case>
+                <test-case id="1193" name="Sweep_FiftyPoints_ZeroCrossings(SprintJump)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(SprintJump)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="1661670624" result="Passed" start-time="2026-10-06 23:49:09Z" end-time="2026-10-06 23:49:27Z" duration="17.684131" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[SprintJump]: points=50 lineZ=1986.7 x=[-1308,543] runs=51 valid=50 skipped=0 crossings=0 clampSnaps=0 jumps=50 worstNorthOfLine=-20.60 sprintPeak min=8.01 median=8.01 m/s
+WorldBoundsSweepTests[SprintJump] skip table (index,x,case,reason,replacementX):
+0,-1307.7,SprintJump,"stopped at z=1947.0 by terrain slope (54 deg), 36.7 m short of the first face",-1295.7
+15,-740.7,SprintJump,"no start; no walkable point with >= 20 m run-up",-741.7
+]]></output>
+                </test-case>
+                <test-case id="1194" name="Sweep_FiftyPoints_ZeroCrossings(Off30Left)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Off30Left)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="1620069171" result="Passed" start-time="2026-10-06 23:49:27Z" end-time="2026-10-06 23:49:54Z" duration="27.124130" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Off30Left]: points=50 lineZ=1986.7 x=[-1308,543] runs=52 valid=50 skipped=0 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-20.54
+WorldBoundsSweepTests[Off30Left] skip table (index,x,case,reason,replacementX):
+49,543.3,Off30Left,"stopped at z=1960.0 by terrain slope (45 deg), 27.6 m short of the first face",530.3
+]]></output>
+                </test-case>
+                <test-case id="1195" name="Sweep_FiftyPoints_ZeroCrossings(Off30Right)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Off30Right)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="1481325653" result="Passed" start-time="2026-10-06 23:49:54Z" end-time="2026-10-06 23:50:20Z" duration="26.276745" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Off30Right]: points=50 lineZ=1986.7 x=[-1308,543] runs=50 valid=49 skipped=1 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-20.56
+WorldBoundsSweepTests[Off30Right] skip table (index,x,case,reason,replacementX):
+0,-1307.7,Off30Right,"stopped at z=1951.7 by terrain slope (47 deg), 36.9 m short of the first face",none
+Off30Right: 1 points SKIPPED (not passes): #0 x=-1308 stopped at z=1951.7 by terrain slope (47 deg), 36.9 m short of the first face
+]]></output>
+                </test-case>
+                <test-case id="1196" name="Sweep_FiftyPoints_ZeroCrossings(Off60Left)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Off60Left)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="2143976455" result="Passed" start-time="2026-10-06 23:50:20Z" end-time="2026-10-06 23:51:07Z" duration="46.550518" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Off60Left]: points=50 lineZ=1986.7 x=[-1308,543] runs=56 valid=47 skipped=3 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-20.52
+WorldBoundsSweepTests[Off60Left] skip table (index,x,case,reason,replacementX):
+45,392.3,Off60Left,"stopped at z=1966.1 by terrain slope (47 deg), 47.6 m short of the first face",none
+46,430.3,Off60Left,"stopped at z=1966.1 by terrain slope (48 deg), 17.3 m short of the first face",none
+47,467.3,Off60Left,"stopped at z=1943.4 by terrain slope (37 deg), 81.4 m short of the first face",471.3
+49,543.3,Off60Left,"not above WaterLevelY at the 45 m start; no walkable point with >= 20 m run-up",none
+Off60Left: 3 points SKIPPED (not passes): #45 x=392 stopped at z=1966.1 by terrain slope (47 deg), 47.6 m short of the first face; #46 x=430 stopped at z=1966.1 by terrain slope (48 deg), 17.3 m short of the first face; #49 x=543 not above WaterLevelY at the 45 m start; no walkable point with >= 20 m run-up
+]]></output>
+                </test-case>
+                <test-case id="1197" name="Sweep_FiftyPoints_ZeroCrossings(Off60Right)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Off60Right)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="148774216" result="Passed" start-time="2026-10-06 23:51:07Z" end-time="2026-10-06 23:51:49Z" duration="42.195712" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Off60Right]: points=50 lineZ=1986.7 x=[-1308,543] runs=51 valid=48 skipped=2 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-20.52
+WorldBoundsSweepTests[Off60Right] skip table (index,x,case,reason,replacementX):
+0,-1307.7,Off60Right,"stopped at z=1960.7 by terrain slope (58 deg), 28.9 m short of the first face",none
+1,-1269.7,Off60Right,"stopped at z=1952.4 by terrain slope (48 deg), 62.7 m short of the first face",none
+2,-1231.7,Off60Right,"stopped at z=1943.1 by terrain slope (36 deg), 64.5 m short of the first face",-1217.7
+Off60Right: 2 points SKIPPED (not passes): #0 x=-1308 stopped at z=1960.7 by terrain slope (58 deg), 28.9 m short of the first face; #1 x=-1270 stopped at z=1952.4 by terrain slope (48 deg), 62.7 m short of the first face
+]]></output>
+                </test-case>
+                <test-case id="1198" name="Sweep_FiftyPoints_ZeroCrossings(Fast50)" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_FiftyPoints_ZeroCrossings(Fast50)" methodname="Sweep_FiftyPoints_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="203264735" result="Passed" start-time="2026-10-06 23:51:49Z" end-time="2026-10-06 23:51:53Z" duration="4.140656" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+WorldBoundsTestKit: barrier span x=[-1439,599] land samples=1852 (no slope pre-filter: steep approaches go through replace, skip and the caps)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[Fast50]: points=50 lineZ=1986.7 x=[-1308,543] runs=51 valid=50 skipped=0 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-3.45
+WorldBoundsSweepTests[Fast50] skip table (index,x,case,reason,replacementX):
+0,-1307.7,Fast50,"stopped at z=1959.0 by nothing within 3 m (slope 14 deg underfoot), 24.7 m short of the first face",-1295.7
+15,-740.7,Fast50,"no start; no walkable point with >= 20 m run-up",-741.7
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-case id="1200" name="Sweep_LakeBedAndWallEnds_ZeroCrossings" fullname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests.Sweep_LakeBedAndWallEnds_ZeroCrossings" methodname="Sweep_LakeBedAndWallEnds_ZeroCrossings" classname="WashedAshore.Tests.PlayMode.WorldBoundsSweepTests" runstate="Runnable" seed="971444203" result="Passed" start-time="2026-10-06 23:51:53Z" end-time="2026-10-06 23:52:21Z" duration="28.250909" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="3600000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldBoundsSweepTests: water placement: on (WaterBody present, SwimTuning set)
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+WorldBoundsSweepTests[LakeBedAndEnds]: west=[-1997,-1857,-1718,-1579,-1439] east=[599,929,1259,1589,1919] terrainX=[-2087,2009] runs=24 valid=24 skipped=0 crossings=0 clampSnaps=0 jumps=0 worstNorthOfLine=-3.42 sprintPeak min=2.88 median=2.89 m/s
+WorldBoundsSweepTests[LakeBedAndEnds] skip table (index,x,case,reason,replacementX):
+(none)
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1201" name="WorldWalkTests" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-06 23:52:21Z" end-time="2026-10-06 23:52:29Z" duration="7.290891" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1202" name="A_LoadsWorld" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.A_LoadsWorld" methodname="A_LoadsWorld" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="478544771" result="Passed" start-time="2026-10-06 23:52:21Z" end-time="2026-10-06 23:52:22Z" duration="0.209128" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+]]></output>
+              </test-case>
+              <test-case id="1203" name="B_HoldingWForTwoSecondsMovesPlayerAtLeastThreeMetres" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.B_HoldingWForTwoSecondsMovesPlayerAtLeastThreeMetres" methodname="B_HoldingWForTwoSecondsMovesPlayerAtLeastThreeMetres" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="1348498262" result="Passed" start-time="2026-10-06 23:52:22Z" end-time="2026-10-06 23:52:24Z" duration="2.226108" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldWalkTests: W held 2 s moved 9.38 m
+]]></output>
+              </test-case>
+              <test-case id="1204" name="C_PlayerIsGroundedAfterThreeSeconds" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.C_PlayerIsGroundedAfterThreeSeconds" methodname="C_PlayerIsGroundedAfterThreeSeconds" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="1667859083" result="Passed" start-time="2026-10-06 23:52:24Z" end-time="2026-10-06 23:52:27Z" duration="3.197257" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+]]></output>
+              </test-case>
+              <test-case id="1205" name="C2_PlayerSpawnsAtPlayerSpawnOnTheGround" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.C2_PlayerSpawnsAtPlayerSpawnOnTheGround" methodname="C2_PlayerSpawnsAtPlayerSpawnOnTheGround" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="1866177248" result="Passed" start-time="2026-10-06 23:52:27Z" end-time="2026-10-06 23:52:27Z" duration="0.235977" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldWalkTests: player at (-202.81, 15.94, -942.11), 0.00 m from PlayerSpawn (-202.81, 15.89, -942.11), ground 15.89, grounded=True
+]]></output>
+              </test-case>
+              <test-case id="1206" name="D_FrameCountAdvances" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.D_FrameCountAdvances" methodname="D_FrameCountAdvances" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="1574391046" result="Passed" start-time="2026-10-06 23:52:27Z" end-time="2026-10-06 23:52:29Z" duration="1.199853" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+WorldWalkTests: 1568 frames in 1 s realtime
+]]></output>
+              </test-case>
+              <test-case id="1207" name="E_MouseDeltaRotatesPlayer" fullname="WashedAshore.Tests.PlayMode.WorldWalkTests.E_MouseDeltaRotatesPlayer" methodname="E_MouseDeltaRotatesPlayer" classname="WashedAshore.Tests.PlayMode.WorldWalkTests" runstate="Runnable" seed="823026491" result="Passed" start-time="2026-10-06 23:52:29Z" end-time="2026-10-06 23:52:29Z" duration="0.220378" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+    <test-suite type="Assembly" id="1236" name="WashedAshore.Tests.Wildlife.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.Wildlife.dll" runstate="Runnable" testcasecount="18" result="Passed" start-time="2026-10-06 23:52:29Z" end-time="2026-10-06 23:53:09Z" duration="39.861170" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="54644" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1237" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="18" result="Passed" start-time="2026-10-06 23:52:29Z" end-time="2026-10-06 23:53:09Z" duration="39.860361" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1238" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="18" result="Passed" start-time="2026-10-06 23:52:29Z" end-time="2026-10-06 23:53:09Z" duration="39.859606" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1239" name="Wildlife" fullname="WashedAshore.Tests.Wildlife" runstate="Runnable" testcasecount="18" result="Passed" start-time="2026-10-06 23:52:29Z" end-time="2026-10-06 23:53:09Z" duration="39.858932" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1212" name="WildlifeBehaviourTests" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-06 23:52:29Z" end-time="2026-10-06 23:52:37Z" duration="7.795883" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1213" name="A0_AnimalsHaveNoBlockingCollidersAndStayOffTheSpawnLane" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A0_AnimalsHaveNoBlockingCollidersAndStayOffTheSpawnLane" methodname="A0_AnimalsHaveNoBlockingCollidersAndStayOffTheSpawnLane" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="1604397851" result="Passed" start-time="2026-10-06 23:52:29Z" end-time="2026-10-06 23:52:29Z" duration="0.221461" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+]]></output>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1217" name="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-06 23:52:29Z" end-time="2026-10-06 23:52:30Z" duration="1.331114" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                </properties>
+                <test-case id="1214" name="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds(101)" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds(101)" methodname="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="258596437" result="Passed" start-time="2026-10-06 23:52:29Z" end-time="2026-10-06 23:52:29Z" duration="0.479813" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                </test-case>
+                <test-case id="1215" name="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds(202)" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds(202)" methodname="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="917015845" result="Passed" start-time="2026-10-06 23:52:29Z" end-time="2026-10-06 23:52:30Z" duration="0.430604" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=202 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=12
+]]></output>
+                </test-case>
+                <test-case id="1216" name="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds(303)" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds(303)" methodname="A0b_EveryAgentIsOnTheNavMeshAtLoadAndAfterFiveSeconds" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="1719191561" result="Passed" start-time="2026-10-06 23:52:30Z" end-time="2026-10-06 23:52:30Z" duration="0.415474" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=303 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-case id="1218" name="A4_MovementMatchesAnimationAndGroundForSixtySeconds" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A4_MovementMatchesAnimationAndGroundForSixtySeconds" methodname="A4_MovementMatchesAnimationAndGroundForSixtySeconds" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="100626209" result="Passed" start-time="2026-10-06 23:52:30Z" end-time="2026-10-06 23:52:33Z" duration="2.674171" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="240000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+A4 Wolf_1_2: samples=300 moving=226 still=73 maxMismatch=0.00s maxClip=0.144m (run 0s) maxFloat=-0.069m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=225/226 (100 %, minDot 0.18) watch=0/0 (minDot 1.00) badFacing=[t+34.4s pos=(-227.0,-824.7) v=1.49 dot=0.18 slope=6deg motionVsDesired=0deg modelVsDesired=79deg angularSpeed=300 state=Wander nearestMate=4.0m nearestObstacle=>5m]
+A4 Deer_1_4: samples=300 moving=172 still=124 maxMismatch=0.00s maxClip=0.088m (run 0s) maxFloat=-0.051m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=173/173 (100 %, minDot 0.98) watch=0/0 (minDot 1.00)
+A4 Wolf_1_1: samples=300 moving=188 still=111 maxMismatch=0.00s maxClip=0.141m (run 0s) maxFloat=-0.066m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=186/188 (99 %, minDot 0.06) watch=0/0 (minDot 1.00) badFacing=[t+11.0s pos=(-205.6,-828.1) v=0.84 dot=0.51 slope=4deg motionVsDesired=0deg modelVsDesired=59deg angularSpeed=300 state=Wander nearestMate=7.7m nearestObstacle=>5m ; t+33.8s pos=(-224.1,-823.5) v=1.46 dot=0.06 slope=4deg motionVsDesired=0deg modelVsDesired=87deg angularSpeed=300 state=Wander nearestMate=3.5m nearestObstacle=>5m]
+A4 Fox_1_1: samples=300 moving=236 still=62 maxMismatch=0.00s maxClip=0.063m (run 0s) maxFloat=-0.031m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=236/237 (100 %, minDot 0.30) watch=0/0 (minDot 1.00) badFacing=[t+57.2s pos=(-90.2,-988.2) v=0.55 dot=0.30 slope=3deg motionVsDesired=0deg modelVsDesired=72deg angularSpeed=600 state=Wander nearestMate=115.0m nearestObstacle=>5m]
+A4 Stag_1_3: samples=300 moving=164 still=133 maxMismatch=0.00s maxClip=0.188m (run 0s) maxFloat=-0.037m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=164/165 (99 %, minDot 0.69) watch=45/45 (minDot 1.00) badFacing=[t+23.4s pos=(-42.9,-924.4) v=0.60 dot=0.69 slope=4deg motionVsDesired=-1deg modelVsDesired=-1deg angularSpeed=600 state=Calm nearestMate=12.7m nearestObstacle=>5m]
+A4 Deer_2_3: samples=300 moving=216 still=81 maxMismatch=0.00s maxClip=0.131m (run 0s) maxFloat=-0.046m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=217/217 (100 %, minDot 0.90) watch=0/0 (minDot 1.00)
+A4 Stag_1_2: samples=300 moving=180 still=117 maxMismatch=0.00s maxClip=0.177m (run 0s) maxFloat=-0.038m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=180/181 (99 %, minDot 0.68) watch=15/15 (minDot 1.00) badFacing=[t+23.4s pos=(-40.2,-936.8) v=0.60 dot=0.68 slope=3deg motionVsDesired=-1deg modelVsDesired=-1deg angularSpeed=600 state=Calm nearestMate=9.9m nearestObstacle=>5m]
+A4 Deer_1_1: samples=300 moving=177 still=119 maxMismatch=0.00s maxClip=0.072m (run 0s) maxFloat=-0.048m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=179/180 (99 %, minDot 0.70) watch=0/0 (minDot 1.00) badFacing=[t+49.2s pos=(-175.4,-730.9) v=0.57 dot=0.70 slope=3deg motionVsDesired=0deg modelVsDesired=46deg angularSpeed=720 state=Wander nearestMate=3.5m nearestObstacle=>5m]
+A4 Deer_2_2: samples=300 moving=184 still=109 maxMismatch=0.00s maxClip=0.124m (run 0s) maxFloat=-0.046m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=187/187 (100 %, minDot 0.99) watch=0/0 (minDot 1.00)
+A4 Deer_2_1: samples=300 moving=226 still=63 maxMismatch=0.00s maxClip=0.125m (run 0s) maxFloat=-0.054m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=232/232 (100 %, minDot 0.96) watch=0/0 (minDot 1.00)
+A4 Deer_2_4: samples=300 moving=171 still=122 maxMismatch=0.00s maxClip=0.081m (run 0s) maxFloat=-0.042m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=171/173 (99 %, minDot 0.22) watch=0/0 (minDot 1.00) badFacing=[t+1.2s pos=(-150.7,-1007.5) v=0.57 dot=0.26 slope=4deg motionVsDesired=0deg modelVsDesired=75deg angularSpeed=720 state=Wander nearestMate=4.4m nearestObstacle=>5m ; t+53.2s pos=(-152.2,-1029.5) v=0.67 dot=0.22 slope=5deg motionVsDesired=0deg modelVsDesired=77deg angularSpeed=720 state=Wander nearestMate=3.5m nearestObstacle=>5m]
+A4 Stag_1_1: samples=300 moving=175 still=122 maxMismatch=0.00s maxClip=0.128m (run 0s) maxFloat=-0.033m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=176/176 (100 %, minDot 0.79) watch=35/35 (minDot 1.00)
+A4 Deer_1_2: samples=300 moving=183 still=115 maxMismatch=0.00s maxClip=0.079m (run 0s) maxFloat=-0.050m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=183/183 (100 %, minDot 1.00) watch=0/0 (minDot 1.00)
+A4 Fox_2_1: samples=300 moving=215 still=81 maxMismatch=0.00s maxClip=0.057m (run 0s) maxFloat=-0.025m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=217/217 (100 %, minDot 1.00) watch=0/0 (minDot 1.00)
+A4 Deer_1_3: samples=300 moving=207 still=87 maxMismatch=0.00s maxClip=0.075m (run 0s) maxFloat=-0.055m (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=208/209 (100 %, minDot 0.07) watch=0/0 (minDot 1.00) badFacing=[t+17.6s pos=(-152.7,-725.3) v=0.57 dot=0.07 slope=5deg motionVsDesired=0deg modelVsDesired=86deg angularSpeed=720 state=Wander nearestMate=4.3m nearestObstacle=>5m]
+A4 (c) method: |transform.y - NavMesh.SamplePosition(transform.position, r=2 m).position.y|; transform.y is set to terrain height each frame; positive control: agent=Wolf_1_2 lifted1m=1.000 offEdge0.5m=0.365 rawNextPosVsTerrain=0.000
+A4 summary: agents=15 samples=4500 moving=2920 still=1519
+]]></output>
+              </test-case>
+              <test-case id="1222" name="A4c_FacingCheckCatchesAFlippedModel" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A4c_FacingCheckCatchesAFlippedModel" methodname="A4c_FacingCheckCatchesAFlippedModel" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="183793785" result="Passed" start-time="2026-10-06 23:52:33Z" end-time="2026-10-06 23:52:34Z" duration="0.763945" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=6
+A4c facing Deer_1_1: samples=54 moving=34 still=18 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=0/34 (0 %, minDot -1.00) watch=0/6 (minDot -1.00) badFacing=[t+1.8s pos=(-157.5,-738.4) v=1.27 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Wander nearestMate=5.2m nearestObstacle=>5m ; t+2.0s pos=(-157.5,-738.2) v=1.30 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Wander nearestMate=4.9m nearestObstacle=>5m ; t+2.2s pos=(-157.5,-737.9) v=1.30 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Wander nearestMate=4.7m nearestObstacle=>5m ; t+2.4s pos=(-157.5,-737.6) v=1.30 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Wander nearestMate=4.4m nearestObstacle=>5m ; t+2.6s pos=(-157.5,-737.4) v=1.25 dot=-1.00 slope=4deg motionVsDesired=-1deg modelVsDesired=-1deg angularSpeed=720 state=Alert nearestMate=4.2m nearestObstacle=>5m ; t+5.0s pos=(-157.4,-737.6) v=1.50 dot=-0.98 slope=4deg motionVsDesired=0deg modelVsDesired=168deg angularSpeed=720 state=Flee nearestMate=4.1m nearestObstacle=>5m ; t+5.2s pos=(-156.9,-738.3) v=3.90 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=176deg angularSpeed=720 state=Flee nearestMate=3.9m nearestObstacle=>5m ; t+5.4s pos=(-156.3,-739.3) v=6.30 dot=-1.00 slope=5deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Flee nearestMate=3.7m nearestObstacle=>5m ; t+5.6s pos=(-155.4,-740.8) v=8.53 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Flee nearestMate=3.6m nearestObstacle=>5m ; t+5.8s pos=(-154.4,-742.3) v=9.00 dot=-1.00 slope=4deg motionVsDesired=4deg modelVsDesired=172deg angularSpeed=720 state=Flee nearestMate=3.6m nearestObstacle=>5m ; t+6.0s pos=(-153.5,-743.9) v=9.00 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=177deg angularSpeed=720 state=Flee nearestMate=3.4m nearestObstacle=>5m ; t+6.2s pos=(-152.7,-745.5) v=9.00 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=176deg angularSpeed=720 state=Flee nearestMate=3.3m nearestObstacle=>5m ; t+6.4s pos=(-151.8,-747.1) v=9.00 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=176deg angularSpeed=720 state=Flee nearestMate=3.2m nearestObstacle=>5m ; t+6.6s pos=(-151.0,-748.6) v=9.00 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Flee nearestMate=3.0m nearestObstacle=>5m ; t+6.8s pos=(-150.1,-750.2) v=9.00 dot=-1.00 slope=5deg motionVsDesired=0deg modelVsDesired=174deg angularSpeed=720 state=Flee nearestMate=2.9m nearestObstacle=>5m ; t+7.0s pos=(-149.5,-751.9) v=8.94 dot=-1.00 slope=5deg motionVsDesired=7deg modelVsDesired=174deg angularSpeed=720 state=Flee nearestMate=3.2m nearestObstacle=>5m ; t+7.2s pos=(-149.0,-753.6) v=9.00 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Flee nearestMate=3.6m nearestObstacle=>5m ; t+7.4s pos=(-148.5,-755.4) v=9.00 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Flee nearestMate=3.9m nearestObstacle=>5m ; t+7.6s pos=(-148.1,-757.1) v=9.00 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=175deg angularSpeed=720 state=Flee nearestMate=4.2m nearestObstacle=>5m ; t+7.8s pos=(-147.6,-758.8) v=9.00 dot=-1.00 slope=5deg motionVsDesired=0deg modelVsDesired=174deg angularSpeed=720 state=Flee nearestMate=4.6m nearestObstacle=>5m ; t+8.0s pos=(-147.4,-760.6) v=8.81 dot=-1.00 slope=7deg motionVsDesired=24deg modelVsDesired=157deg angularSpeed=720 state=Flee nearestMate=5.0m nearestObstacle=>5m ; t+8.2s pos=(-147.6,-762.3) v=8.73 dot=-1.00 slope=13deg motionVsDesired=10deg modelVsDesired=171deg angularSpeed=720 state=Flee nearestMate=5.3m nearestObstacle=>5m ; t+8.4s pos=(-148.1,-764.0) v=8.97 dot=-1.00 slope=7deg motionVsDesired=0deg modelVsDesired=177deg angularSpeed=720 state=Flee nearestMate=5.7m nearestObstacle=>5m ; t+8.6s pos=(-148.6,-765.8) v=8.96 dot=-1.00 slope=12deg motionVsDesired=0deg modelVsDesired=177deg angularSpeed=720 state=Flee nearestMate=6.2m nearestObstacle=>5m ; t+8.8s pos=(-149.1,-767.5) v=8.97 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=178deg angularSpeed=720 state=Flee nearestMate=6.7m nearestObstacle=>5m ; t+9.0s pos=(-149.4,-769.2) v=8.78 dot=-0.99 slope=3deg motionVsDesired=31deg modelVsDesired=158deg angularSpeed=720 state=Flee nearestMate=7.1m nearestObstacle=>5m ; t+9.2s pos=(-149.3,-770.9) v=8.54 dot=-0.99 slope=4deg motionVsDesired=17deg modelVsDesired=172deg angularSpeed=720 state=Flee nearestMate=6.8m nearestObstacle=>5m ; t+9.4s pos=(-148.7,-772.6) v=8.84 dot=-1.00 slope=4deg motionVsDesired=3deg modelVsDesired=179deg angularSpeed=720 state=Flee nearestMate=6.1m nearestObstacle=>5m ; t+9.6s pos=(-148.1,-774.3) v=8.95 dot=-1.00 slope=5deg motionVsDesired=0deg modelVsDesired=180deg angularSpeed=720 state=Flee nearestMate=5.4m nearestObstacle=>5m ; t+9.8s pos=(-147.5,-775.9) v=8.95 dot=-1.00 slope=4deg motionVsDesired=0deg modelVsDesired=180deg angularSpeed=720 state=Flee nearestMate=4.9m nearestObstacle=>5m ; t+10.0s pos=(-147.0,-777.6) v=8.82 dot=-1.00 slope=4deg motionVsDesired=26deg modelVsDesired=159deg angularSpeed=720 state=Flee nearestMate=4.5m nearestObstacle=>5m ; t+10.2s pos=(-146.9,-779.4) v=8.65 dot=-1.00 slope=3deg motionVsDesired=12deg modelVsDesired=173deg angularSpeed=720 state=Flee nearestMate=4.6m nearestObstacle=>5m ; t+10.4s pos=(-147.2,-781.1) v=8.89 dot=-1.00 slope=5deg motionVsDesired=0deg modelVsDesired=177deg angularSpeed=720 state=Flee nearestMate=5.1m nearestObstacle=>5m ; t+10.6s pos=(-147.5,-782.9) v=8.90 dot=-1.00 slope=6deg motionVsDesired=0deg modelVsDesired=177deg angularSpeed=720 state=Flee nearestMate=5.6m nearestObstacle=>5m]
+A4c facing Deer_1_3: samples=54 moving=33 still=20 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=34/34 (100 %, minDot 0.98) watch=10/10 (minDot 1.00)
+A4c facing Deer_1_4: samples=54 moving=36 still=16 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=36/36 (100 %, minDot 0.87) watch=9/9 (minDot 1.00)
+A4c facing Deer_1_2: samples=54 moving=37 still=16 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=37/37 (100 %, minDot 0.96) watch=10/10 (minDot 1.00)
+]]></output>
+              </test-case>
+              <test-case id="1219" name="A5a_DeerHerdFleesAndDistanceGrows" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A5a_DeerHerdFleesAndDistanceGrows" methodname="A5a_DeerHerdFleesAndDistanceGrows" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="33013319" result="Passed" start-time="2026-10-06 23:52:34Z" end-time="2026-10-06 23:52:34Z" duration="0.739311" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=6
+A5 facing Deer_1_4: samples=54 moving=36 still=16 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=36/36 (100 %, minDot 0.87) watch=9/9 (minDot 1.00)
+A5 facing Deer_1_3: samples=54 moving=33 still=20 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=34/34 (100 %, minDot 0.98) watch=10/10 (minDot 1.00)
+A5 facing Deer_1_1: samples=54 moving=34 still=18 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=34/34 (100 %, minDot 0.98) watch=6/6 (minDot 1.00)
+A5 facing Deer_1_2: samples=54 moving=37 still=16 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=37/37 (100 %, minDot 0.96) watch=10/10 (minDot 1.00)
+A5 Deer: trigger=35 dAtTrigger=34.4 dEnd=53.2 minD=33.3 escaped=4/4 stalls=0 trace: [0s d=60.0 Graze v=0.0] [1s d=54.9 Wander v=1.3] [2s d=49.0 Wander v=1.3] [3s d=43.9 Alert v=0.0] [4s d=38.8 Alert v=0.0] [5s d=33.8 Flee v=1.4] [6s d=35.0 Flee v=9.0] [7s d=39.0 Flee v=9.0] [8s d=42.8 Flee v=9.0] [9s d=46.4 Flee v=9.1] [10s d=50.3 Flee v=9.2]
+]]></output>
+              </test-case>
+              <test-case id="1220" name="A5b_FoxFleesAndDistanceGrows" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A5b_FoxFleesAndDistanceGrows" methodname="A5b_FoxFleesAndDistanceGrows" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="798762419" result="Passed" start-time="2026-10-06 23:52:34Z" end-time="2026-10-06 23:52:35Z" duration="0.743571" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=9
+A5 facing Fox_1_1: samples=51 moving=38 still=11 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=38/39 (97 %, minDot 0.40) watch=5/5 (minDot 1.00) badFacing=[t+4.4s pos=(-86.7,-991.8) v=1.30 dot=0.40 slope=4deg motionVsDesired=0deg modelVsDesired=66deg angularSpeed=600 state=Flee nearestMate=122.1m nearestObstacle=>5m]
+A5 Fox: trigger=25 dAtTrigger=24.8 dEnd=28.5 minD=23.7 escaped=1/1 stalls=0 trace: [0s d=47.0 Graze v=0.0] [1s d=41.8 Wander v=1.2] [2s d=36.5 Wander v=1.2] [3s d=31.4 Alert v=0.0] [4s d=26.3 Alert v=0.0] [5s d=24.1 Flee v=7.0] [6s d=25.7 Flee v=7.0] [7s d=27.5 Flee v=7.0] [8s d=29.4 Flee v=7.0] [9s d=31.0 Flee v=7.0] [10s d=29.4 Alert v=0.0]
+]]></output>
+              </test-case>
+              <test-case id="1221" name="A5c_WolvesKeepTheirDistance" fullname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests.A5c_WolvesKeepTheirDistance" methodname="A5c_WolvesKeepTheirDistance" classname="WashedAshore.Tests.Wildlife.WildlifeBehaviourTests" runstate="Runnable" seed="866741095" result="Passed" start-time="2026-10-06 23:52:35Z" end-time="2026-10-06 23:52:37Z" duration="1.320239" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+A5 facing Wolf_1_2: samples=125 moving=86 still=39 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=83/86 (97 %, minDot -0.31) watch=12/12 (minDot 1.00) badFacing=[t+4.8s pos=(-198.8,-832.5) v=1.89 dot=-0.02 slope=7deg motionVsDesired=0deg modelVsDesired=91deg angularSpeed=300 state=KeepDistance nearestMate=7.5m nearestObstacle=>5m ; t+20.6s pos=(-148.5,-881.6) v=1.10 dot=-0.31 slope=4deg motionVsDesired=0deg modelVsDesired=108deg angularSpeed=300 state=KeepDistance nearestMate=28.4m nearestObstacle=>5m ; t+20.8s pos=(-148.1,-882.2) v=3.50 dot=0.63 slope=4deg motionVsDesired=0deg modelVsDesired=51deg angularSpeed=300 state=KeepDistance nearestMate=28.5m nearestObstacle=>5m]
+A5 facing Wolf_1_1: samples=125 moving=93 still=31 maxMismatch=0.00s maxClip=-Infinitym (run 0s) maxFloat=-Infinitym (run 0s) stuck=0 navMeshDeltaY=0.000m rootGroundErr=0.000m offNavMesh=0 facing=93/94 (99 %, minDot -0.13) watch=14/14 (minDot 1.00) badFacing=[t+4.8s pos=(-205.1,-828.4) v=1.90 dot=-0.13 slope=4deg motionVsDesired=0deg modelVsDesired=97deg angularSpeed=300 state=KeepDistance nearestMate=7.5m nearestObstacle=>5m]
+A5 Wolf: trigger=45 dAtTrigger=44.8 dEnd=47.1 minD=43.7 escaped=2/2 stalls=0 trace: [0s d=68.4 Graze v=0.0] [1s d=63.3 Graze v=0.0] [2s d=58.2 Graze v=0.0] [3s d=53.1 Graze v=0.0] [4s d=48.1 Alert v=0.0] [5s d=43.7 KeepDistance v=4.2] [6s d=44.5 KeepDistance v=6.0] [7s d=45.5 KeepDistance v=6.0] [8s d=46.4 KeepDistance v=6.0] [9s d=47.1 KeepDistance v=6.0] [10s d=47.7 KeepDistance v=6.0] [11s d=48.6 KeepDistance v=5.9] [12s d=49.4 KeepDistance v=5.5] [13s d=50.3 KeepDistance v=6.0] [14s d=51.2 KeepDistance v=6.0] [15s d=51.9 KeepDistance v=6.0] [16s d=52.1 KeepDistance v=5.8] [17s d=52.6 Calm v=3.8] [18s d=53.6 Alert v=0.0] [19s d=51.2 Alert v=0.0] [20s d=46.1 Alert v=0.0] [21s d=43.9 KeepDistance v=6.0] [22s d=44.8 KeepDistance v=6.0] [23s d=45.6 KeepDistance v=6.0] [24s d=46.6 KeepDistance v=6.0]
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1223" name="WildlifeSightingTests" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-06 23:52:37Z" end-time="2026-10-06 23:53:09Z" duration="32.062219" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1227" name="A6_SightingWalkLandsInsideTheBriefBands" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6_SightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-06 23:52:37Z" end-time="2026-10-06 23:52:46Z" duration="9.262945" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                </properties>
+                <test-case id="1224" name="A6_SightingWalkLandsInsideTheBriefBands(101)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6_SightingWalkLandsInsideTheBriefBands(101)" methodname="A6_SightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="907582989" result="Passed" start-time="2026-10-06 23:52:37Z" end-time="2026-10-06 23:52:40Z" duration="3.062556" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+A6 seed 101 gating=True: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=31.4 % gap=41s first=10.5s max=5 busy=0.3 % foliage=11.4 % draws=1 stalls=0
+W-QA-1 wildlife sightline GATING seed 101: sightSaturations=0 sightMaxHits=1
+]]></output>
+                </test-case>
+                <test-case id="1225" name="A6_SightingWalkLandsInsideTheBriefBands(202)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6_SightingWalkLandsInsideTheBriefBands(202)" methodname="A6_SightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="652472257" result="Passed" start-time="2026-10-06 23:52:40Z" end-time="2026-10-06 23:52:43Z" duration="3.095732" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=202 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=12
+A6 seed 202 gating=True: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=50.0 % gap=24s first=14s max=5 busy=3.3 % foliage=23.1 % draws=1 stalls=0
+W-QA-1 wildlife sightline GATING seed 202: sightSaturations=0 sightMaxHits=0
+]]></output>
+                </test-case>
+                <test-case id="1226" name="A6_SightingWalkLandsInsideTheBriefBands(303)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6_SightingWalkLandsInsideTheBriefBands(303)" methodname="A6_SightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="1424413326" result="Passed" start-time="2026-10-06 23:52:43Z" end-time="2026-10-06 23:52:46Z" duration="3.103466" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=303 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=14
+A6 seed 303 gating=True: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=50.6 % gap=23.5s first=0s max=5 busy=3.6 % foliage=29.4 % draws=1 stalls=0
+W-QA-1 wildlife sightline GATING seed 303: sightSaturations=0 sightMaxHits=0
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1235" name="A6f_Fidelity" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6f_Fidelity" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-06 23:52:46Z" end-time="2026-10-06 23:52:53Z" duration="7.610547" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="900000" />
+                </properties>
+                <test-case id="1234" name="A6f_Fidelity(&quot;101@1&quot;)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6f_Fidelity(&quot;101@1&quot;)" methodname="A6f_Fidelity" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="1653252318" result="Passed" start-time="2026-10-06 23:52:46Z" end-time="2026-10-06 23:52:53Z" duration="7.609096" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+A6 seed 101 gating=False: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=30.8 % gap=40.5s first=10.5s max=6 busy=1.4 % foliage=10.6 % draws=1 stalls=0
+W-QA-1 wildlife sightline FIDELITY seed 101: sightSaturations=0 sightMaxHits=1
+A6f seed 101 timeScale=1 (non-gating): rate=30.8 % all=True stalls=0 
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1233" name="A6r_RobustnessSeedsAreRecorded" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 23:52:53Z" end-time="2026-10-06 23:53:09Z" duration="15.187596" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                </properties>
+                <test-case id="1228" name="A6r_RobustnessSeedsAreRecorded(404)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6r_RobustnessSeedsAreRecorded(404)" methodname="A6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="1537456417" result="Passed" start-time="2026-10-06 23:52:53Z" end-time="2026-10-06 23:52:56Z" duration="3.056380" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=404 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=11
+A6 seed 404 gating=False: {"sightingRate":false,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":false} rate=65.3 % gap=17.5s first=0s max=7 busy=3.6 % foliage=37.2 % draws=1 stalls=0
+W-QA-1 wildlife sightline ROBUSTNESS seed 404: sightSaturations=0 sightMaxHits=0
+A6r seed 404 (non-gating): placementError=none all=False
+]]></output>
+                </test-case>
+                <test-case id="1229" name="A6r_RobustnessSeedsAreRecorded(505)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6r_RobustnessSeedsAreRecorded(505)" methodname="A6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="2043956641" result="Passed" start-time="2026-10-06 23:52:56Z" end-time="2026-10-06 23:53:00Z" duration="3.041361" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=505 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=12
+A6 seed 505 gating=False: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=38.3 % gap=28.5s first=0s max=6 busy=1.7 % foliage=19.4 % draws=2 stalls=0
+W-QA-1 wildlife sightline ROBUSTNESS seed 505: sightSaturations=0 sightMaxHits=1
+A6r seed 505 (non-gating): placementError=none all=True
+]]></output>
+                </test-case>
+                <test-case id="1230" name="A6r_RobustnessSeedsAreRecorded(606)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6r_RobustnessSeedsAreRecorded(606)" methodname="A6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="906084671" result="Passed" start-time="2026-10-06 23:53:00Z" end-time="2026-10-06 23:53:03Z" duration="2.985749" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=606 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=8
+A6 seed 606 gating=False: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=41.9 % gap=32s first=10.5s max=6 busy=4.7 % foliage=11.9 % draws=2 stalls=0
+W-QA-1 wildlife sightline ROBUSTNESS seed 606: sightSaturations=0 sightMaxHits=1
+A6r seed 606 (non-gating): placementError=none all=True
+]]></output>
+                </test-case>
+                <test-case id="1231" name="A6r_RobustnessSeedsAreRecorded(707)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6r_RobustnessSeedsAreRecorded(707)" methodname="A6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="399171289" result="Passed" start-time="2026-10-06 23:53:03Z" end-time="2026-10-06 23:53:06Z" duration="3.078036" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=707 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=8
+A6 seed 707 gating=False: {"sightingRate":true,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":true} rate=51.9 % gap=29s first=0s max=5 busy=3.3 % foliage=26.1 % draws=1 stalls=0
+W-QA-1 wildlife sightline ROBUSTNESS seed 707: sightSaturations=0 sightMaxHits=0
+A6r seed 707 (non-gating): placementError=none all=True
+]]></output>
+                </test-case>
+                <test-case id="1232" name="A6r_RobustnessSeedsAreRecorded(808)" fullname="WashedAshore.Tests.Wildlife.WildlifeSightingTests.A6r_RobustnessSeedsAreRecorded(808)" methodname="A6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Wildlife.WildlifeSightingTests" runstate="Runnable" seed="1719304191" result="Passed" start-time="2026-10-06 23:53:06Z" end-time="2026-10-06 23:53:09Z" duration="3.024689" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=808 agents=15 onNavMesh=15
+
+IgnoreFailingMessages:false
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=7
+A6 seed 808 gating=False: {"sightingRate":false,"longestGap":true,"firstSighting":true,"maxVisible":true,"busy":true,"perSpecies":true,"all":false} rate=55.3 % gap=15s first=0s max=5 busy=2.5 % foliage=35.3 % draws=1 stalls=0
+W-QA-1 wildlife sightline ROBUSTNESS seed 808: sightSaturations=0 sightMaxHits=0
+A6r seed 808 (non-gating): placementError=none all=False
+Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

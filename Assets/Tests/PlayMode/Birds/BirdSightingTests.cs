@@ -173,6 +173,10 @@ namespace WashedAshore.Tests.Birds
                 Time.timeScale = 1f;
             }
             run.stallRecoveries = walker.StallRecoveries;
+            run.sightSaturations = BirdPlacementRules.Site.SightSaturations;
+            run.sightMaxHits = BirdPlacementRules.Site.SightMaxHits;
+            run.wildlifeSightSaturations = WashedAshore.Wildlife.WildlifeRules.SightSaturations;
+            run.wildlifeSightMaxHits = WashedAshore.Wildlife.WildlifeRules.SightMaxHits;
             run.maxFlushesPerRobin = perRobinFlushes.Values.DefaultIfEmpty(0).Max();
             run.Score(tuning, met.Count, metNoFoliage.Count, check.RuleCompliance);
             foreach (var smp in run.perSample)
@@ -186,6 +190,8 @@ namespace WashedAshore.Tests.Birds
                       $"first={run.firstFlockSec}s met={run.groundMetCount} ({run.groundMetPerMin:F2}/min) flushes={run.flushEvents} seen={run.flushSeenPct:P0} " +
                       $"maxInView={run.maxBirdsInView} ge15={run.pctSamplesGe15:P1} glide={run.glideShare:P1} flapRule={run.flapRuleCompliance:P1} " +
                       $"agl={run.altitudeMinAGL:F1}-{run.altitudeMaxAGL:F1} crown={run.minCrownClearance:F1} spacing={run.minFlockSpacing:F2} stalls={run.stallRecoveries} | {check}");
+            Debug.Log($"W-QA-1 bird sightline {(gating ? "GATING" : "ROBUSTNESS")} seed {seed}: sightSaturations={run.sightSaturations} " +
+                      $"sightMaxHits={run.sightMaxHits} wildlifeSightSaturations={run.wildlifeSightSaturations} wildlifeSightMaxHits={run.wildlifeSightMaxHits}");
         }
 
         /// <summary>designer-2: why a robin was not visible at a flush check: out of the view cone, beyond the robin view distance,

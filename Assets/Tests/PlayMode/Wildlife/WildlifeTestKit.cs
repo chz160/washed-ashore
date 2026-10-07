@@ -32,6 +32,7 @@ namespace WashedAshore.Tests.Wildlife
         public static IEnumerator LoadWorld(int seed)
         {
             WildlifeRandom.OverrideSeed(seed);
+            WildlifeRules.ResetSightStats(); // the scene's re-plan runs on load (W-QA-1)
             SceneManager.LoadScene(WorldScene, LoadSceneMode.Single);
             yield return null;
             yield return null;
@@ -207,7 +208,7 @@ namespace WashedAshore.Tests.Wildlife
             int mask = 1 << LayerMask.NameToLayer("Default");
             var t = TerrainQuery.TileAtOrNearest(Vector3.zero); // every tile shares one layer
             if (t) mask |= 1 << t.gameObject.layer;
-            return mask;
+            return mask & ~WashedAshore.World.WorldLayers.NonGroundMask; // water and invisible fences never occlude (water W4)
         }
 
         public static bool IsVisible(Camera cam, Plane[] planes, WildlifeAgent a, float maxDistance, int mask, Transform player)

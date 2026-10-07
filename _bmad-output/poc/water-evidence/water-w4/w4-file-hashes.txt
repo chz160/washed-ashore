@@ -1,0 +1,36 @@
+9fb6553c5fffff1f7709bb9f0e2140f101214f2b8a71f057dd1466d05363d050 *Assets/Scripts/World/WorldLayers.cs
+36ec113b0a9d7999de04a83074e8145aa3c598995e88535a4d3fb6436c757cf2 *Assets/Scripts/World/WorldLayers.cs.meta
+c419d4d041539540abe6a8fb427e472afd478c772067f4f7b86f9e186ba1de26 *Assets/Editor/Level/WorldLayersTool.cs
+f28b4b8590154973453f65a2cc7475b98194207bfca9348db5cbdfec1ae11bec *Assets/Editor/Level/WorldLayersTool.cs.meta
+dd90e053dc6372851e1d17e2d964cc51133ae2037cb3930fcea42324dc9d24b2 *Assets/Tests/EditMode/LayerAuditTests.cs
+fce86ded1ee6e3281a69014eacd4e12cb833bb99f9fea394302d5d65fb4fea0a *Assets/Tests/EditMode/LayerAuditTests.cs.meta
+76d0354c0c1261e33368ff922f1543b09cc08c646cc7a2e792e88b0efd8e4198 *Assets/Editor/Level/BarrierBuilder.cs
+e939ec5af15e5d1a7b1979eb63c06f12ee0adf633deffbd38a2b0fd277c70453 *Assets/Editor/Wildlife/Level/WildlifePlacer.cs
+003f7398814a3b6bae9d65ea5ccaa1683d099a254da5489a7a77646cb3a89b9d *Assets/Scripts/Birds/BirdPlacementRules.cs
+144a9e79a9488c57fd9a3f95daaff368d9e12df7c4b95b8d114184fe52277af7 *Assets/Scripts/Birds/RobinFlightPlanner.cs
+41b3eb35ebbff107d8693fb6ba88c649c056bf2a03b77fef050cebacf427fe7a *Assets/Scripts/Wildlife/WildlifeRules.cs
+fc0df73de8f702275958178983cfb006a6bb3b2a52c17fa462480b1d1ade51d4 *Assets/Tests/PlayMode/Wildlife/WildlifeA4Probe.cs
+df556d340340e3361a5e9808d53033eb718237b5f3ff380fb6d7d99c6b952c68 *Assets/Tests/PlayMode/Wildlife/WildlifeTestKit.cs
+6a2d4e6b1a337044744e1dba80773ca29735e7cae454e145a05427ec9345a9ba *Assets/Scripts/Gameplay/WashedAshore.Gameplay.asmdef
+d0dcea9367cbe124e5c35befcf7f4eecc053653d86b0c83c7b32c29459c9750f *Assets/Tests/EditMode/WashedAshore.Tests.EditMode.asmdef
+cd7664a5e551dd2e7de59bd69de59f2930856c289cd625c9c7e93efe47b80231 *Assets/Scenes/World.unity
+# ProjectSettings/ProjectSettings.asset: Unity batchmode re-serialise during the birds run (22:30:59Z), CRLF->LF only, content equals HEAD, no setting changed
+806535068fe009385c6e6e31dc060d3dd51bc49fb671622a20f87d9dc2d5a1aa *ProjectSettings/ProjectSettings.asset
+# slot #3 (2026-10-06): LayerAuditTests.cs updated to match only the top-level 'Water' root
+50492c172662ec79276873d72896925f1d99ce02a6d42f59ec9fead6d30cb8ba *Assets/Tests/EditMode/LayerAuditTests.cs
+# slot #7 (2026-10-06): W-QA-1 counters + player look shots. Runtime files before (W4) -> after:
+#   WildlifeRules.cs 41b3eb35ebbff107d8693fb6ba88c649c056bf2a03b77fef050cebacf427fe7a -> see below; BirdPlacementRules.cs 003f7398814a3b6bae9d65ea5ccaa1683d099a254da5489a7a77646cb3a89b9d -> see below
+#   W4 versions reconstructed byte-exact in support/*.w4 (they were CRLF; slot #7 files are LF, the repo's original EOL). Review diff: w4s4-runtime.diff (EOL-insensitive).
+8271781060d99a7211bde173c4e6a8018bd8f0b00a6e5163b72df8686f73dbb2 *Assets/Scripts/Wildlife/WildlifeRules.cs
+fd750ac892dc15f8564fc1c86f95166e540f3efb18379f3d0a3b29238b1546a3 *Assets/Scripts/Birds/BirdPlacementRules.cs
+f02e07ae6bc255e806e682e7ff51a42e8e7fd45d1695adb137d2bde36c3b4a15 *Assets/Tests/PlayMode/Wildlife/WildlifeTestKit.cs
+4320c831d04671513409d9b9d8e8f24fb9c2822a566e80d5b158b6ed84ef02ce *Assets/Tests/PlayMode/Wildlife/WildlifeSightingTests.cs
+6bede34b7ebaf574d743a949b860390622b01b7fe6d8e3ebc79c635e4b04beaa *Assets/Tests/PlayMode/Birds/BirdSightingRun.cs
+45ac2093ac431732519f04fafc4fb650c7336447482689150e3f3d5dd63b1aee *Assets/Tests/PlayMode/Birds/BirdSightingTests.cs
+9697eb45dd14118a349b3890046843d52b796e3e4098ccbece17a25a2846468b *Assets/Tests/PlayMode/Birds/BirdTestKit.cs
+444b16473e8ed72804f4c1fae7da3f7bc1865840dcbe2c103d63e741f5ffbe07 *Assets/Scripts/Perf/BellsBendFpsWalk.cs
+af01bee5d1d7d09eff33ca19ba63747e1fc792b14b6f77a93d238817f576cdf2 *Assets/Scripts/Perf/WaterLookShots.cs
+13395c63a5829cc00fafcd81697be8bd8cf992a0ae83c768268cbcc2682f7e84 *Assets/Scripts/Perf/WaterLookShots.cs.meta
+# slot #13 (2026-10-06): shore route + alpha fix
+7f0bc0ebc2912993369a4b87d9fca5002b4506104e41f9baa9c2cac7d295fd18 *Assets/Scripts/Perf/BellsBendFpsWalk.cs
+cad94074d0842faed8b40d0787d2e2f92e955edc9b8e64ff1efbdea422632093 *Assets/Scripts/Perf/WaterLookShots.cs

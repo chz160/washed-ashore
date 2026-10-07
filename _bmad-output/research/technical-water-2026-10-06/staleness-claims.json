@@ -1,0 +1,11 @@
+{"claims":[
+{"claim":"URP Compatibility Mode removed (Render Graph only) on 6.4+","class":"version-compat","pub_date":"2026-10"},
+{"claim":"URP SSR is preview only (6.7 target)","class":"version-compat","pub_date":"2026-05"},
+{"claim":"WebGPU out of experimental in 6000.6","class":"version-compat","pub_date":"2026-08"},
+{"claim":"Crest URP edition paid; GitHub edition built-in only","class":"ecosystem","pub_date":"2026-10"},
+{"claim":"Uber-Stylized-Water MIT, no height query, depth texture mandatory","class":"ecosystem","pub_date":"2026-10"},
+{"claim":"boat-attack-water open Unity 6 compile error","class":"ecosystem","pub_date":"2024-12"},
+{"claim":"Scene Depth returns 0.5 when Depth Texture off","class":"version-compat","pub_date":"2026-10"},
+{"claim":"Vertical-only sines give exact height without inversion","class":"patterns","pub_date":"2026"},
+{"claim":"Server sync = same function + server time","class":"patterns","pub_date":"2025"}
+]}

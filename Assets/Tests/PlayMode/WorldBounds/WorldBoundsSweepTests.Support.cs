@@ -52,6 +52,14 @@ namespace WashedAshore.Tests.PlayMode
             return true;
         }
 
+        /// <summary>qa (water pass): ground below WaterLevelY anywhere from the start to the first face, sampled every 2 m.</summary>
+        bool PathIsWet(Vector3 start, Vector3 dir, float faceAhead)
+        {
+            for (float d = 0f; d <= faceAhead + 0.01f; d += 2f)
+                if (!TerrainQuery.TryGroundHeight(start + dir * d, out float h) || h < water) return true;
+            return false;
+        }
+
         bool Walkable(Vector3 p, out string why)
         {
             why = null;
@@ -124,7 +132,7 @@ namespace WashedAshore.Tests.PlayMode
 
         static string PathOf(Transform t) => t.parent == null ? t.name : PathOf(t.parent) + "/" + t.name;
 
-        /// <summary>Skip table (qa-2) to bb-b5-skips.csv and every run to bb-b5-runs.csv; both are appended, never deleted.</summary>
+        /// <summary>Skip table (qa-2) to bb-b5-skips.csv and every run to bb-b5-runs-water.csv; both are appended, never deleted.</summary>
         void WriteCsv(string testCase, Tally tally)
         {
             Debug.Log($"WorldBoundsSweepTests[{testCase}] skip table (index,x,case,reason,replacementX):\n" +
@@ -133,7 +141,8 @@ namespace WashedAshore.Tests.PlayMode
             Directory.CreateDirectory(dir);
             string lineZ = rule.LineZAt(0f).ToString("F1");
             Append(Path.Combine(dir, "bb-b5-skips.csv"), "lineZ,index,x,case,reason,replacementX", lineZ, tally.skipRows);
-            Append(Path.Combine(dir, "bb-b5-runs.csv"), "lineZ,case,index,x,valid,validity,maxZ,stopper,faceAhead,travel,clampSnaps,peakSpeed", lineZ, tally.runRows);
+            // Water pass: new file, since the wet column doesn't fit the old bb-b5-runs.csv header (qa: sprint-peak bar on dry runs only).
+            Append(Path.Combine(dir, "bb-b5-runs-water.csv"), "lineZ,case,index,x,valid,validity,maxZ,stopper,faceAhead,travel,clampSnaps,peakSpeed,wet", lineZ, tally.runRows);
         }
 
         static void Append(string path, string header, string lineZ, System.Collections.Generic.List<string> rows)

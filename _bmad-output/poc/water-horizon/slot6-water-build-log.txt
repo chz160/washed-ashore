@@ -1,0 +1,7 @@
+water guard ok: lakeMask=8f8a637cd4657d82 northLineZ=1986.7 data=1986.72
+water: 20 quads 1024 m at y=WaterLevelY=1.610002 layer=4 extent X[-2087,2009] Z[-2492,2628] lakeMask=8f8a637cd4657d82
+water: WaterBody configured with Assets/World/Water/WaterMotion.asset
+water: WaterMaps WaterMaps 2048x2560 @2 m RG8 wetCells=3017559 uncovered=0 W=1.610 northLineZ=1986.7 neckX=-414.1 ripple=kept material=updated 1144 ms
+water: scene saved Assets/Scenes/World.unity
+seam corner (-1063,-444) top=E:\GitHub\washed-ashore\_bmad-output\poc\water-seam-top.png oblique=E:\GitHub\washed-ashore\_bmad-output\poc\water-seam-oblique.png
+done

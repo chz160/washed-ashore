@@ -1,0 +1,9 @@
+water look shots (WindowsPlayer, Direct3D11, 1920x1080, fov 60):
+water-look-bank.png: 1920x1080 eye (-980.9,5.35,514.0) -> (-1026.5,1.61,508.3) targetPatch64px RGB=(0.440,0.452,0.444) blueOverGreen=0.981
+water-look-bluff-top.png: 1920x1080 eye (413.8,28.19,1793.2) -> (457.2,1.61,1768.3) targetPatch64px RGB=(0.211,0.282,0.127) blueOverGreen=0.450
+water-look-water-level.png: 1920x1080 eye (-1001.7,1.76,511.4) -> (-1001.2,1.91,571.9) targetPatch64px RGB=(0.515,0.494,0.436) blueOverGreen=0.881
+water-look-shallow-edge.png: 1920x1080 eye (1159.2,6.61,-1416.5) -> (1164.7,1.61,-1418.9) targetPatch64px RGB=(0.435,0.413,0.310) blueOverGreen=0.751
+water-look-lip.png: 1920x1080 eye (1170.2,2.21,-1421.3) -> (1162.9,1.81,-1418.1) targetPatch64px RGB=(0.671,0.601,0.481) blueOverGreen=0.800
+water-look-west-neck-step.png: 1920x1080 eye (-1448.9,3.61,1970.1) -> (-1419.5,2.61,1986.0) targetPatch64px RGB=(0.483,0.449,0.382) blueOverGreen=0.850
+water-look-north-line-east-channel.png: 1920x1080 eye (584.9,9.54,1986.4) -> (681.3,1.61,1986.7) targetPatch64px RGB=(0.458,0.472,0.465) blueOverGreen=0.984
+done

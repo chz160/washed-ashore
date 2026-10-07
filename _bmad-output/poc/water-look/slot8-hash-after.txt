@@ -1,0 +1,13 @@
+RenderSettings sha256: e87b002e932aba07 (29 lines)
+file sha256_16: 1f82240cab5c8c5d E:\GitHub\washed-ashore\Assets\Scenes\World.unity
+file sha256_16: fbc909812f204ac5 E:\GitHub\washed-ashore\Assets\World\BellsBend\Water\WaterTile.asset
+file sha256_16: e5ac4e9dd97f0aca E:\GitHub\washed-ashore\Assets\World\BellsBend\Water\WaterRipple.png
+file sha256_16: d34968e44e76ec1a E:\GitHub\washed-ashore\Assets\World\BellsBend\Water\WaterMaps.png
+  m_Fog: 1
+  m_FogColor: {r: 0.8437313, g: 0.90869606, b: 0.8847471, a: 1}
+  m_FogMode: 1
+  m_FogDensity: 0.01
+  m_LinearFogStart: 120
+  m_LinearFogEnd: 520
+  m_SkyboxMaterial: {fileID: 2100000, guid: 465d328c0d14fe34b8b17f6865b54838, type: 2}
+  m_DefaultReflectionMode: 0

@@ -1,0 +1,587 @@
+{
+ "webDataBytes": 59855830,
+ "container": [
+  {
+   "name": "data.unity3d",
+   "size": 75478961
+  },
+  {
+   "name": "RuntimeInitializeOnLoads.json",
+   "size": 4937
+  },
+  {
+   "name": "ScriptingAssemblies.json",
+   "size": 4828
+  },
+  {
+   "name": "boot.config",
+   "size": 114
+  },
+  {
+   "name": "Il2CppData/Metadata/global-metadata.dat",
+   "size": 7879266
+  },
+  {
+   "name": "Resources/unity default resources",
+   "size": 1631680
+  }
+ ],
+ "dataUnity3dShippedBytes": 57736035,
+ "otherContainerEntriesShipped": 2119795,
+ "bundleUnpacked": 365603492,
+ "bundleLz4": 75470529,
+ "objects": 10529,
+ "byType": {
+  "20": {
+   "count": 1,
+   "bytes": 184,
+   "lz4": 32,
+   "brotli": 24
+  },
+  "65": {
+   "count": 1026,
+   "bytes": 69768,
+   "lz4": 9329,
+   "brotli": 6091
+  },
+  "72": {
+   "count": 10,
+   "bytes": 381112,
+   "lz4": 46690,
+   "brotli": 33516
+  },
+  "81": {
+   "count": 1,
+   "bytes": 16,
+   "lz4": 3,
+   "brotli": 2
+  },
+  "89": {
+   "count": 1,
+   "bytes": 524492,
+   "lz4": 128008,
+   "brotli": 87424
+  },
+  "90": {
+   "count": 2,
+   "bytes": 21208,
+   "lz4": 6947,
+   "brotli": 4958
+  },
+  "95": {
+   "count": 21,
+   "bytes": 1176,
+   "lz4": 234,
+   "brotli": 183
+  },
+  "102": {
+   "count": 2,
+   "bytes": 164,
+   "lz4": 35,
+   "brotli": 26
+  },
+  "104": {
+   "count": 1,
+   "bytes": 333,
+   "lz4": 71,
+   "brotli": 52
+  },
+  "108": {
+   "count": 1,
+   "bytes": 280,
+   "lz4": 60,
+   "brotli": 44
+  },
+  "135": {
+   "count": 9,
+   "bytes": 540,
+   "lz4": 117,
+   "brotli": 81
+  },
+  "136": {
+   "count": 20,
+   "bytes": 1360,
+   "lz4": 300,
+   "brotli": 220
+  },
+  "137": {
+   "count": 21,
+   "bytes": 17644,
+   "lz4": 3511,
+   "brotli": 2650
+  },
+  "143": {
+   "count": 1,
+   "bytes": 80,
+   "lz4": 17,
+   "brotli": 12
+  },
+  "150": {
+   "count": 2,
+   "bytes": 758,
+   "lz4": 119,
+   "brotli": 82
+  },
+  "154": {
+   "count": 20,
+   "bytes": 1140,
+   "lz4": 240,
+   "brotli": 180
+  },
+  "157": {
+   "count": 1,
+   "bytes": 80,
+   "lz4": 17,
+   "brotli": 12
+  },
+  "195": {
+   "count": 19,
+   "bytes": 1216,
+   "lz4": 250,
+   "brotli": 186
+  },
+  "196": {
+   "count": 1,
+   "bytes": 12,
+   "lz4": 3,
+   "brotli": 2
+  },
+  "205": {
+   "count": 29,
+   "bytes": 2352,
+   "lz4": 446,
+   "brotli": 341
+  },
+  "218": {
+   "count": 20,
+   "bytes": 4000,
+   "lz4": 860,
+   "brotli": 620
+  },
+  "1953259897": {
+   "count": 7,
+   "bytes": 1160,
+   "lz4": 189,
+   "brotli": 157
+  },
+  "Texture2D": {
+   "count": 132,
+   "bytes": 278395016,
+   "lz4": 36508794,
+   "brotli": 30189368
+  },
+  "TerrainData": {
+   "count": 20,
+   "bytes": 52972872,
+   "lz4": 20615692,
+   "brotli": 14890184
+  },
+  "Shader": {
+   "count": 65,
+   "bytes": 13109732,
+   "lz4": 8562743,
+   "brotli": 6811789
+  },
+  "Mesh": {
+   "count": 204,
+   "bytes": 16085980,
+   "lz4": 7863762,
+   "brotli": 4365538
+  },
+  "AnimationClip": {
+   "count": 41,
+   "bytes": 1705052,
+   "lz4": 987023,
+   "brotli": 791947
+  },
+  "NavMeshData": {
+   "count": 1,
+   "bytes": 530732,
+   "lz4": 281678,
+   "brotli": 222019
+  },
+  "MonoScript": {
+   "count": 1936,
+   "bytes": 249288,
+   "lz4": 44910,
+   "brotli": 33520
+  },
+  "Transform": {
+   "count": 2866,
+   "bytes": 228824,
+   "lz4": 41486,
+   "brotli": 31644
+  },
+  "GameObject": {
+   "count": 2866,
+   "bytes": 139718,
+   "lz4": 27006,
+   "brotli": 17030
+  },
+  "MeshRenderer": {
+   "count": 510,
+   "bytes": 88464,
+   "lz4": 12485,
+   "brotli": 9003
+  },
+  "Material": {
+   "count": 81,
+   "bytes": 133720,
+   "lz4": 12718,
+   "brotli": 8607
+  },
+  "MonoBehaviour": {
+   "count": 74,
+   "bytes": 25284,
+   "lz4": 5194,
+   "brotli": 3558
+  },
+  "AnimatorController": {
+   "count": 6,
+   "bytes": 11124,
+   "lz4": 3643,
+   "brotli": 2599
+  },
+  "MeshFilter": {
+   "count": 508,
+   "bytes": 12192,
+   "lz4": 1555,
+   "brotli": 1047
+  },
+  "TextAsset": {
+   "count": 2,
+   "bytes": 3152,
+   "lz4": 676,
+   "brotli": 492
+  },
+  "Sprite": {
+   "count": 1,
+   "bytes": 432,
+   "lz4": 91,
+   "brotli": 60
+  }
+ },
+ "topByShipped": [
+  {
+   "file": "sharedassets0.assets",
+   "type": "Shader",
+   "name": "",
+   "bytes": 3725716,
+   "lz4": 2922422,
+   "brotli": 2322217
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "T_RedBrick_Normal",
+   "bytes": 2796348,
+   "lz4": 2423873,
+   "brotli": 2037128
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "TerrainData",
+   "name": "TD_1_4",
+   "bytes": 2967124,
+   "lz4": 2466798,
+   "brotli": 1795115
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "TerrainData",
+   "name": "TD_2_1",
+   "bytes": 3509672,
+   "lz4": 2366401,
+   "brotli": 1639741
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "TerrainData",
+   "name": "TD_1_3",
+   "bytes": 3435212,
+   "lz4": 2187376,
+   "brotli": 1637395
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "TerrainData",
+   "name": "TD_2_2",
+   "bytes": 3267672,
+   "lz4": 2194091,
+   "brotli": 1636474
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "TerrainData",
+   "name": "TD_1_2",
+   "bytes": 3462244,
+   "lz4": 2195083,
+   "brotli": 1584600
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "T_Concrete_Normal",
+   "bytes": 2796348,
+   "lz4": 1800271,
+   "brotli": 1489962
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "T_MetalConcrete_Normal",
+   "bytes": 2796352,
+   "lz4": 1752950,
+   "brotli": 1422527
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "TerrainData",
+   "name": "TD_2_4",
+   "bytes": 2733696,
+   "lz4": 1937362,
+   "brotli": 1387342
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "Grass001_1K-JPG_NormalGL",
+   "bytes": 1398264,
+   "lz4": 1305729,
+   "brotli": 1178561
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "Ground054_1K-JPG_NormalGL",
+   "bytes": 1398268,
+   "lz4": 1305454,
+   "brotli": 1178545
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "Ground037_1K-JPG_NormalGL",
+   "bytes": 1398268,
+   "lz4": 1297844,
+   "brotli": 1171708
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "Rock051_1K-JPG_NormalGL",
+   "bytes": 1398264,
+   "lz4": 1299804,
+   "brotli": 1171535
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "TerrainData",
+   "name": "TD_1_1",
+   "bytes": 3147904,
+   "lz4": 1695968,
+   "brotli": 1170825
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "Ground023_1K-JPG_NormalGL",
+   "bytes": 1398268,
+   "lz4": 1290402,
+   "brotli": 1165326
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "Asphalt026C_1K-JPG_NormalGL",
+   "bytes": 1398268,
+   "lz4": 1266340,
+   "brotli": 1141269
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "TerrainData",
+   "name": "TD_0_4",
+   "bytes": 2562372,
+   "lz4": 1497259,
+   "brotli": 1119471
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Shader",
+   "name": "",
+   "bytes": 2419388,
+   "lz4": 1402919,
+   "brotli": 1115809
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Shader",
+   "name": "",
+   "bytes": 2473660,
+   "lz4": 1399347,
+   "brotli": 1106071
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Shader",
+   "name": "",
+   "bytes": 1754476,
+   "lz4": 1359333,
+   "brotli": 1090961
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "TerrainData",
+   "name": "TD_3_4",
+   "bytes": 2494032,
+   "lz4": 1359431,
+   "brotli": 961470
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Shader",
+   "name": "",
+   "bytes": 1893248,
+   "lz4": 1108246,
+   "brotli": 880808
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "SplatAlpha 0",
+   "bytes": 5592528,
+   "lz4": 963585,
+   "brotli": 772017
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "T_RedBrick_BaseColor",
+   "bytes": 2796348,
+   "lz4": 865551,
+   "brotli": 679626
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "SplatAlpha 0",
+   "bytes": 5592528,
+   "lz4": 847823,
+   "brotli": 679459
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "SplatAlpha 0",
+   "bytes": 5592528,
+   "lz4": 803823,
+   "brotli": 653798
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "TerrainData",
+   "name": "TD_2_3",
+   "bytes": 2659068,
+   "lz4": 885595,
+   "brotli": 650658
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "T_MetalConcrete_BaseColor",
+   "bytes": 2796356,
+   "lz4": 771015,
+   "brotli": 620767
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "SplatAlpha 0",
+   "bytes": 5592528,
+   "lz4": 780554,
+   "brotli": 608709
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "Ground037_1K-JPG_Color",
+   "bytes": 699200,
+   "lz4": 698032,
+   "brotli": 605834
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "SplatAlpha 0",
+   "bytes": 5592528,
+   "lz4": 714159,
+   "brotli": 570927
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "Ground078_1K-JPG_NormalGL",
+   "bytes": 699228,
+   "lz4": 631095,
+   "brotli": 566951
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "Ground023_1K-JPG_Color",
+   "bytes": 699200,
+   "lz4": 644336,
+   "brotli": 558564
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "Rock051_1K-JPG_Color",
+   "bytes": 699196,
+   "lz4": 648544,
+   "brotli": 555002
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "SplatAlpha 0",
+   "bytes": 5592528,
+   "lz4": 679850,
+   "brotli": 550094
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "Grass001_1K-JPG_Color",
+   "bytes": 699200,
+   "lz4": 645266,
+   "brotli": 545334
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Texture2D",
+   "name": "Ground054_1K-JPG_Color",
+   "bytes": 699200,
+   "lz4": 587650,
+   "brotli": 506819
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "TerrainData",
+   "name": "TD_2_0",
+   "bytes": 2556584,
+   "lz4": 656603,
+   "brotli": 485451
+  },
+  {
+   "file": "sharedassets0.assets",
+   "type": "Mesh",
+   "name": "TwistedTree_1",
+   "bytes": 788176,
+   "lz4": 592777,
+   "brotli": 473117
+  }
+ ]
+}
+exit 0

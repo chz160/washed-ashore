@@ -111,6 +111,8 @@ namespace WashedAshore.Tests.Birds
         public List<string> redraws = new List<string>();
         public string placementError;
         public int stallRecoveries;
+        public int sightSaturations, sightMaxHits; // BirdPlacementRules sightline buffer, since this run's load (W-QA-1)
+        public int wildlifeSightSaturations, wildlifeSightMaxHits;
         public BirdPass pass = new BirdPass();
         public SkyDiagnostics sky = new SkyDiagnostics();
         public List<BirdSample> perSample = new List<BirdSample>();

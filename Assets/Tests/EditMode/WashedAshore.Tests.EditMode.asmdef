@@ -5,7 +5,13 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "WashedAshore.Gameplay",
-        "WashedAshore.Wildlife.Editor"
+        "WashedAshore.Wildlife.Editor",
+        "WashedAshore.World",
+        "WashedAshore.Birds",
+        "WashedAshore.Wildlife",
+        "WashedAshore.Level.Editor",
+        "WashedAshore.Wildlife.Level.Editor",
+        "Unity.AI.Navigation"
     ],
     "includePlatforms": [
         "Editor"

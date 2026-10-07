@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="17" result="Passed" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-06 23:17:29Z" end-time="2026-10-06 23:18:09Z" duration="39.8909019">
+  <test-suite type="TestSuite" id="1120" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="74" result="Passed" start-time="2026-10-06 23:17:29Z" end-time="2026-10-06 23:18:09Z" duration="39.890902" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1151" name="WashedAshore.Tests.Birds.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.Birds.dll" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-06 23:17:29Z" end-time="2026-10-06 23:18:09Z" duration="39.885481" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="55424" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1152" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-06 23:17:29Z" end-time="2026-10-06 23:18:09Z" duration="39.885094" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1153" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-06 23:17:29Z" end-time="2026-10-06 23:18:09Z" duration="39.884887" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1154" name="Birds" fullname="WashedAshore.Tests.Birds" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-10-06 23:17:29Z" end-time="2026-10-06 23:18:09Z" duration="39.884701" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1130" name="BirdBehaviourTests" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-06 23:17:29Z" end-time="2026-10-06 23:17:38Z" duration="8.965568" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1131" name="B3_RobinsCycleGroundClipsOutOfStepWithNeighbours" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B3_RobinsCycleGroundClipsOutOfStepWithNeighbours" methodname="B3_RobinsCycleGroundClipsOutOfStepWithNeighbours" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="1500314157" result="Passed" start-time="2026-10-06 23:17:29Z" end-time="2026-10-06 23:17:32Z" duration="2.515464" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B3 robins=16 samples=600 neighbourPairSamples=4800 coincidentSamples=23 maxLockstep=0.3s minDistinct=12 minRouteDistance=3.00m
+B3 RobinPatch_1_Trail_Robin_1: A_Hop_02,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_1_Trail_Robin_2: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_01,A_ScratchGround_02
+B3 RobinPatch_1_Trail_Robin_3: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_02,A_ScratchGround_01,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_2_Trail_Robin_1: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_03,A_ScratchGround_01,A_ScratchGround_02
+B3 RobinPatch_2_Trail_Robin_2: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_01,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_3_Trail_Robin_1: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_ScratchGround_01
+B3 RobinPatch_3_Trail_Robin_2: A_Hop_01,A_Hop_02,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_01
+B3 RobinPatch_4_Meadow_Robin_1: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_ScratchGround_01,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_4_Meadow_Robin_2: A_Hop_01,A_Hop_02,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_ScratchGround_01,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_4_Meadow_Robin_3: A_Hop_01,A_Hop_02,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_5_Meadow_Robin_1: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_01,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_5_Meadow_Robin_2: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_ScratchGround_01,A_ScratchGround_03
+B3 RobinPatch_6_Meadow_Robin_1: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_6_Meadow_Robin_2: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_02,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_7_Meadow_Robin_1: A_Hop_01,A_Hop_02,A_Idle_01,A_Idle_02,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_02,A_Preen_03,A_ScratchGround_02,A_ScratchGround_03
+B3 RobinPatch_7_Meadow_Robin_2: A_Hop_01,A_Hop_02,A_Hop_03,A_Idle_01,A_Idle_03,A_PeckGround_01,A_PeckGround_02,A_PeckGround_03,A_Preen_01,A_Preen_03,A_ScratchGround_01,A_ScratchGround_02
+]]></output>
+              </test-case>
+              <test-case id="1132" name="B3c_GroundCheckCatchesLockstepASingleClipAndTheTrail" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B3c_GroundCheckCatchesLockstepASingleClipAndTheTrail" methodname="B3c_GroundCheckCatchesLockstepASingleClipAndTheTrail" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="407969715" result="Passed" start-time="2026-10-06 23:17:32Z" end-time="2026-10-06 23:17:33Z" duration="0.824836" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="120000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=7 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B3c robins=16 samples=200 neighbourPairSamples=1600 coincidentSamples=84 maxLockstep=0.5s minDistinct=1 minRouteDistance=0.00m
+]]></output>
+              </test-case>
+              <test-case id="1133" name="B4_RobinFlushesClimbsAwayAndLandsClear" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B4_RobinFlushesClimbsAwayAndLandsClear" methodname="B4_RobinFlushesClimbsAwayAndLandsClear" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="906708835" result="Passed" start-time="2026-10-06 23:17:33Z" end-time="2026-10-06 23:17:33Z" duration="0.541161" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=15 distinctClips=10 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B4 target RobinPatch_4_Meadow_Robin_1: flushed=True social=False trigger=9.97 dFlush=10.0 d2s=10.9 dEnd=27.7 gain=5.4 landed=True land=32.6 landRoute=19.7 despawned=False frames=330 overlaps=0 terrain=0 crown=0 facing 248/248 (100 %, min dot 0.99)
+]]></output>
+              </test-case>
+              <test-case id="1134" name="B4c_FlightCheckCatchesFacingOverlapCrownAndTrigger" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B4c_FlightCheckCatchesFacingOverlapCrownAndTrigger" methodname="B4c_FlightCheckCatchesFacingOverlapCrownAndTrigger" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="1148980601" result="Passed" start-time="2026-10-06 23:17:33Z" end-time="2026-10-06 23:17:34Z" duration="0.501961" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=15 distinctClips=10 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B4c RobinPatch_4_Meadow_Robin_1: flushed=True social=False trigger=9.97 dFlush=10.0 d2s=10.9 dEnd=27.7 gain=5.4 landed=True land=32.6 landRoute=19.7 despawned=False frames=330 overlaps=15 terrain=0 crown=19 facing 0/248 (0 %, min dot -1.00)
+]]></output>
+              </test-case>
+              <test-case id="1135" name="B4d_FlightCheckCatchesARobinThatNeverFlies" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B4d_FlightCheckCatchesARobinThatNeverFlies" methodname="B4d_FlightCheckCatchesARobinThatNeverFlies" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="673664457" result="Passed" start-time="2026-10-06 23:17:34Z" end-time="2026-10-06 23:17:34Z" duration="0.575794" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B4d RobinPatch_4_Meadow_Robin_1: flushed=False social=False trigger=-1.00 dFlush=0.0 d2s=-1.0 dEnd=0.0 gain=0.0 landed=False land=-1.0 landRoute=-1.0 despawned=False frames=0 overlaps=0 terrain=0 crown=0 facing 0/0 (100 %, min dot 1.00)
+]]></output>
+              </test-case>
+              <test-case id="1136" name="B5_FlocksHoldTheBandSpacingAndWingRule" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B5_FlocksHoldTheBandSpacingAndWingRule" methodname="B5_FlocksHoldTheBandSpacingAndWingRule" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="4270492" result="Passed" start-time="2026-10-06 23:17:34Z" end-time="2026-10-06 23:17:36Z" duration="2.293984" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B5 birds=15 samples=600 agl=29.0-47.5 gate=20-60 out=0 crownClear=10.0 belowCrown=0 minSpacing=3.17 low=0 meshOverlaps=0 flapRule=99.1 % of 8970 (misses 84: commute 35/3081 samples, within dwell 41) glideShare=64.1 % facingMin=100 %
+]]></output>
+              </test-case>
+              <test-case id="1137" name="B5c_FlockCheckCatchesSpacingWingsFacingBandAndCrown" fullname="WashedAshore.Tests.Birds.BirdBehaviourTests.B5c_FlockCheckCatchesSpacingWingsFacingBandAndCrown" methodname="B5c_FlockCheckCatchesSpacingWingsFacingBandAndCrown" classname="WashedAshore.Tests.Birds.BirdBehaviourTests" runstate="Runnable" seed="524872178" result="Passed" start-time="2026-10-06 23:17:36Z" end-time="2026-10-06 23:17:38Z" duration="1.703764" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="180000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=-0.2-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B5c birds=6 samples=450 agl=-0.8-8.1 gate=20-60 out=2700 crownClear=-9983.3 belowCrown=2658 minSpacing=0.00 low=6737 meshOverlaps=2656 flapRule=24.5 % of 2688 (misses 2030: commute 582/804 samples, within dwell 191) glideShare=60.4 % facingMin=0 %
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1138" name="BirdSightingTests" fullname="WashedAshore.Tests.Birds.BirdSightingTests" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-10-06 23:17:38Z" end-time="2026-10-06 23:18:09Z" duration="30.918278" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1142" name="B6_BirdSightingWalkLandsInsideTheBriefBands" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6_BirdSightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-06 23:17:38Z" end-time="2026-10-06 23:17:50Z" duration="11.583635" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                </properties>
+                <test-case id="1139" name="B6_BirdSightingWalkLandsInsideTheBriefBands(101)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6_BirdSightingWalkLandsInsideTheBriefBands(101)" methodname="B6_BirdSightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="622728396" result="Passed" start-time="2026-10-06 23:17:38Z" end-time="2026-10-06 23:17:42Z" duration="3.848792" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+B6 seed 101 unseen flushes 7/12: RobinPatch_5_Meadow_Robin_1 t=32.8s d=9.9m player: out of view cone ; RobinPatch_5_Meadow_Robin_2 t=33.2s d=12.6m social: out of view cone ; RobinPatch_1_Trail_Robin_3 t=46.5s d=9.9m player: out of view cone ; RobinPatch_1_Trail_Robin_1 t=46.6s d=10.0m player: out of view cone ; RobinPatch_1_Trail_Robin_2 t=47.3s d=9.9m player: out of view cone ; RobinPatch_2_Trail_Robin_1 t=122.0s d=9.9m player: out of view cone ; RobinPatch_2_Trail_Robin_2 t=122.7s d=13.3m social: out of view cone
+B6 seed 101 gating=True: {"flockInView":true,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":true} flockInView=39.7 % emptySky=18.5s first=0s met=10 (3.33/min) flushes=12 seen=42 % maxInView=14 ge15=0.0 % glide=63.0 % flapRule=98.5 % agl=29.0-47.6 crown=10.5 spacing=3.15 stalls=0 | birds=15 samples=1795 agl=29.0-47.7 gate=20-60 out=0 crownClear=10.4 belowCrown=0 minSpacing=3.15 low=0 meshOverlaps=0 flapRule=98.5 % of 26895 (misses 398: commute 230/10846 samples, within dwell 164) glideShare=62.8 % facingMin=100 %
+W-QA-1 bird sightline GATING seed 101: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+]]></output>
+                </test-case>
+                <test-case id="1140" name="B6_BirdSightingWalkLandsInsideTheBriefBands(202)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6_BirdSightingWalkLandsInsideTheBriefBands(202)" methodname="B6_BirdSightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="1412818688" result="Passed" start-time="2026-10-06 23:17:42Z" end-time="2026-10-06 23:17:46Z" duration="3.823263" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=202 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=202 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=10 flockAgl=32.4-44.2
+Wildlife: t=5 onNavMesh=15 moving=12
+B6 seed 202 unseen flushes 4/10: RobinPatch_3_Trail_Robin_1 t=7.2s d=10.0m player: out of view cone ; RobinPatch_3_Trail_Robin_2 t=7.8s d=10.0m player: out of view cone ; RobinPatch_4_Meadow_Robin_1 t=46.5s d=9.9m player: out of view cone ; RobinPatch_3_Trail_Robin_1 t=167.4s d=10.0m player: out of view cone
+B6 seed 202 gating=True: {"flockInView":true,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":true} flockInView=30.3 % emptySky=37s first=5.5s met=14 (4.67/min) flushes=10 seen=60 % maxInView=13 ge15=0.0 % glide=60.3 % flapRule=97.8 % agl=29.8-48.8 crown=13.2 spacing=3.21 stalls=0 | birds=15 samples=1795 agl=29.8-48.8 gate=20-60 out=0 crownClear=13.1 belowCrown=0 minSpacing=3.21 low=0 meshOverlaps=0 flapRule=97.8 % of 26895 (misses 589: commute 274/8169 samples, within dwell 318) glideShare=60.2 % facingMin=100 %
+W-QA-1 bird sightline GATING seed 202: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+]]></output>
+                </test-case>
+                <test-case id="1141" name="B6_BirdSightingWalkLandsInsideTheBriefBands(303)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6_BirdSightingWalkLandsInsideTheBriefBands(303)" methodname="B6_BirdSightingWalkLandsInsideTheBriefBands" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="721388274" result="Passed" start-time="2026-10-06 23:17:46Z" end-time="2026-10-06 23:17:50Z" duration="3.909472" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=303 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=303 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=35.9-45.7
+Wildlife: t=5 onNavMesh=15 moving=14
+B6 seed 303 unseen flushes 2/9: RobinPatch_3_Trail_Robin_2 t=47.7s d=9.8m player: out of view cone ; RobinPatch_6_Meadow_Robin_2 t=166.2s d=13.7m social: out of view cone
+B6 seed 303 gating=True: {"flockInView":true,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":true} flockInView=36.9 % emptySky=32.5s first=0s met=10 (3.33/min) flushes=9 seen=78 % maxInView=13 ge15=0.0 % glide=63.9 % flapRule=98.0 % agl=30.9-48.7 crown=12.8 spacing=3.39 stalls=0 | birds=15 samples=1795 agl=30.9-48.8 gate=20-60 out=0 crownClear=12.8 belowCrown=0 minSpacing=3.36 low=0 meshOverlaps=0 flapRule=98.0 % of 26895 (misses 540: commute 138/8317 samples, within dwell 286) glideShare=63.8 % facingMin=100 %
+W-QA-1 bird sightline GATING seed 303: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-case id="1149" name="B6c_ScoringFailsAnEmptySkyAndACrowd" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6c_ScoringFailsAnEmptySkyAndACrowd" methodname="B6c_ScoringFailsAnEmptySkyAndACrowd" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="99191824" result="Passed" start-time="2026-10-06 23:17:50Z" end-time="2026-10-06 23:17:50Z" duration="0.234766" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="60000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+]]></output>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1148" name="B6r_RobustnessSeedsAreRecorded" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-06 23:17:50Z" end-time="2026-10-06 23:18:09Z" duration="18.895771" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="600000" />
+                </properties>
+                <test-case id="1143" name="B6r_RobustnessSeedsAreRecorded(404)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6r_RobustnessSeedsAreRecorded(404)" methodname="B6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="1472612412" result="Passed" start-time="2026-10-06 23:17:50Z" end-time="2026-10-06 23:17:54Z" duration="3.710691" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=404 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=404 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=11 flockAgl=32.2-44.9
+Wildlife: t=5 onNavMesh=15 moving=11
+B6 seed 404 unseen flushes 4/7: RobinPatch_2_Trail_Robin_1 t=91.8s d=13.5m social: out of view cone ; RobinPatch_1_Trail_Robin_2 t=134.0s d=12.0m social: out of view cone ; RobinPatch_5_Meadow_Robin_2 t=165.3s d=9.9m player: out of view cone ; RobinPatch_5_Meadow_Robin_1 t=165.8s d=10.0m player: out of view cone
+B6 seed 404 gating=False: {"flockInView":false,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":false} flockInView=26.4 % emptySky=30s first=16.5s met=9 (3.00/min) flushes=7 seen=43 % maxInView=15 ge15=0.6 % glide=64.0 % flapRule=98.3 % agl=27.7-44.9 crown=9.2 spacing=3.19 stalls=0 | birds=15 samples=1795 agl=27.7-44.9 gate=20-60 out=0 crownClear=9.1 belowCrown=0 minSpacing=3.18 low=0 meshOverlaps=0 flapRule=98.3 % of 26895 (misses 469: commute 238/9581 samples, within dwell 203) glideShare=64.1 % facingMin=100 %
+W-QA-1 bird sightline ROBUSTNESS seed 404: sightSaturations=0 sightMaxHits=1 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+B6r seed 404 (non-gating): placementError=none all=False
+]]></output>
+                </test-case>
+                <test-case id="1144" name="B6r_RobustnessSeedsAreRecorded(505)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6r_RobustnessSeedsAreRecorded(505)" methodname="B6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="1205473860" result="Passed" start-time="2026-10-06 23:17:54Z" end-time="2026-10-06 23:17:57Z" duration="3.601553" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=505 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=505 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=8 flockAgl=28.9-38.3
+Wildlife: t=5 onNavMesh=15 moving=12
+B6 seed 505 unseen flushes 9/10: RobinPatch_5_Meadow_Robin_1 t=32.2s d=9.9m player: out of view cone ; RobinPatch_5_Meadow_Robin_2 t=32.9s d=11.5m social: out of view cone ; RobinPatch_3_Trail_Robin_1 t=47.0s d=9.9m player: out of view cone ; RobinPatch_3_Trail_Robin_2 t=47.3s d=11.8m social: out of view cone ; RobinPatch_1_Trail_Robin_1 t=107.9s d=9.9m player: out of view cone ; RobinPatch_1_Trail_Robin_2 t=108.1s d=12.8m social: out of view cone ; RobinPatch_1_Trail_Robin_3 t=108.2s d=13.2m social: out of view cone ; RobinPatch_2_Trail_Robin_2 t=135.4s d=10.3m social: out of view cone ; RobinPatch_2_Trail_Robin_1 t=168.6s d=10.0m player: out of view cone
+B6 seed 505 gating=False: {"flockInView":false,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":false,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":false} flockInView=17.8 % emptySky=26s first=0s met=11 (3.67/min) flushes=10 seen=10 % maxInView=12 ge15=0.0 % glide=61.9 % flapRule=98.5 % agl=26.6-45.4 crown=8.8 spacing=3.53 stalls=0 | birds=15 samples=1795 agl=26.6-45.4 gate=20-60 out=0 crownClear=8.6 belowCrown=0 minSpacing=3.53 low=0 meshOverlaps=0 flapRule=98.5 % of 26895 (misses 398: commute 119/8629 samples, within dwell 164) glideShare=61.9 % facingMin=100 %
+W-QA-1 bird sightline ROBUSTNESS seed 505: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=1
+B6r seed 505 (non-gating): placementError=none all=False
+]]></output>
+                </test-case>
+                <test-case id="1145" name="B6r_RobustnessSeedsAreRecorded(606)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6r_RobustnessSeedsAreRecorded(606)" methodname="B6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="766932368" result="Passed" start-time="2026-10-06 23:17:57Z" end-time="2026-10-06 23:18:01Z" duration="3.855814" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=606 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=606 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=30.4-48.5
+Wildlife: t=5 onNavMesh=15 moving=8
+B6 seed 606 unseen flushes 2/7: RobinPatch_2_Trail_Robin_1 t=44.7s d=10.0m player: out of view cone ; RobinPatch_1_Trail_Robin_3 t=145.1s d=9.9m player: out of view cone
+B6 seed 606 gating=False: {"flockInView":true,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":true} flockInView=31.4 % emptySky=21s first=13s met=14 (4.67/min) flushes=7 seen=71 % maxInView=14 ge15=0.0 % glide=63.6 % flapRule=98.1 % agl=27.3-50.4 crown=7.6 spacing=3.42 stalls=0 | birds=15 samples=1795 agl=27.3-50.4 gate=20-60 out=0 crownClear=7.5 belowCrown=0 minSpacing=3.41 low=0 meshOverlaps=0 flapRule=98.1 % of 26895 (misses 505: commute 278/9198 samples, within dwell 219) glideShare=63.8 % facingMin=100 %
+W-QA-1 bird sightline ROBUSTNESS seed 606: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=1
+B6r seed 606 (non-gating): placementError=none all=True
+]]></output>
+                </test-case>
+                <test-case id="1146" name="B6r_RobustnessSeedsAreRecorded(707)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6r_RobustnessSeedsAreRecorded(707)" methodname="B6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="1419095418" result="Passed" start-time="2026-10-06 23:18:01Z" end-time="2026-10-06 23:18:05Z" duration="3.814734" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=707 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=707 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=10 flockAgl=28.1-39.2
+Wildlife: t=5 onNavMesh=15 moving=8
+B6 seed 707 unseen flushes 6/12: RobinPatch_5_Meadow_Robin_1 t=8.3s d=10.0m player: out of view cone ; RobinPatch_5_Meadow_Robin_2 t=8.4s d=9.9m player: out of view cone ; RobinPatch_2_Trail_Robin_2 t=46.0s d=9.9m player: out of view cone ; RobinPatch_1_Trail_Robin_3 t=88.2s d=10.4m social: out of view cone ; RobinPatch_4_Meadow_Robin_3 t=124.2s d=14.6m social: out of view cone ; RobinPatch_4_Meadow_Robin_1 t=124.7s d=17.8m social: out of view cone
+B6 seed 707 gating=False: {"flockInView":false,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":false} flockInView=29.2 % emptySky=33s first=0s met=12 (4.00/min) flushes=12 seen=50 % maxInView=8 ge15=0.0 % glide=62.1 % flapRule=98.2 % agl=26.0-43.0 crown=7.5 spacing=3.07 stalls=0 | birds=15 samples=1795 agl=25.7-43.1 gate=20-60 out=0 crownClear=7.5 belowCrown=0 minSpacing=3.07 low=0 meshOverlaps=0 flapRule=98.2 % of 26895 (misses 491: commute 232/9475 samples, within dwell 277) glideShare=62.0 % facingMin=100 %
+W-QA-1 bird sightline ROBUSTNESS seed 707: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+B6r seed 707 (non-gating): placementError=none all=False
+]]></output>
+                </test-case>
+                <test-case id="1147" name="B6r_RobustnessSeedsAreRecorded(808)" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6r_RobustnessSeedsAreRecorded(808)" methodname="B6r_RobustnessSeedsAreRecorded" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="841070428" result="Passed" start-time="2026-10-06 23:18:05Z" end-time="2026-10-06 23:18:09Z" duration="3.910410" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=808 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=808 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=8 flockAgl=32.4-41.5
+Wildlife: t=5 onNavMesh=15 moving=7
+B6 seed 808 unseen flushes 5/9: RobinPatch_3_Trail_Robin_1 t=5.1s d=13.9m social: out of view cone ; RobinPatch_5_Meadow_Robin_2 t=73.4s d=9.9m player: foliage (DeadTree_2) ; RobinPatch_5_Meadow_Robin_1 t=73.7s d=10.0m player: out of view cone ; RobinPatch_1_Trail_Robin_1 t=105.5s d=10.0m player: out of view cone ; RobinPatch_1_Trail_Robin_3 t=106.0s d=12.0m social: out of view cone
+B6 seed 808 gating=False: {"flockInView":true,"emptySky":true,"firstFlock":true,"groundMet":true,"flushes":true,"flushSeen":true,"maxInView":true,"busy":true,"glideShare":true,"altitude":true,"crown":true,"fidBand":true,"all":true} flockInView=38.9 % emptySky=19.5s first=0s met=12 (4.00/min) flushes=9 seen=44 % maxInView=16 ge15=0.6 % glide=62.1 % flapRule=97.9 % agl=26.4-44.3 crown=8.9 spacing=3.16 stalls=0 | birds=15 samples=1795 agl=26.4-44.3 gate=20-60 out=0 crownClear=8.9 belowCrown=0 minSpacing=3.16 low=0 meshOverlaps=0 flapRule=97.9 % of 26895 (misses 575: commute 180/6346 samples, within dwell 291) glideShare=62.1 % facingMin=100 %
+W-QA-1 bird sightline ROBUSTNESS seed 808: sightSaturations=0 sightMaxHits=0 wildlifeSightSaturations=0 wildlifeSightMaxHits=0
+B6r seed 808 (non-gating): placementError=none all=True
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-case id="1150" name="B6v_VisibilityCatchesAWallFoliageAndRange" fullname="WashedAshore.Tests.Birds.BirdSightingTests.B6v_VisibilityCatchesAWallFoliageAndRange" methodname="B6v_VisibilityCatchesAWallFoliageAndRange" classname="WashedAshore.Tests.Birds.BirdSightingTests" runstate="Runnable" seed="2006248463" result="Passed" start-time="2026-10-06 23:18:09Z" end-time="2026-10-06 23:18:09Z" duration="0.202313" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="Timeout" value="60000" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[WildlifeTestKit: captureFramerate=60 (WA_TEST_CAPTURE_FPS=unset)
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+B6v tree at (-360.26, 19.03, -1196.89): visible without foliage test=True (trunk/terrain may also block), with=False
+Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

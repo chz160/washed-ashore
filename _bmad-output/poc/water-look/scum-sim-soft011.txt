@@ -1,0 +1,2 @@
+noise B k(9, 14) A k(8, 13), tiles (13.0, 16.0) m, rot 37.0 deg, coverage 0.33, edge +-0.11, seeds 12
+stretch 4.0: coverage 0.33 | length m 1.02 (0.50-2.42) | width m 0.15 (0.09-0.24) | moment axis 4.57 (2.19-10.18) | length/width 6.78 (3.50-15.72)

@@ -1,0 +1,7 @@
+W10 web attempt (team-lead), 2026-10-07 ~03:05Z
+Served: local only, python http.server 127.0.0.1:8090 -d Builds\Web; no deploy, nothing uploaded. Server stopped afterwards.
+Web data sha256: D8F5FAF9965901504D5019CF5733BFDF9A4F0E138079C75A8F4548A1EB53CF25
+Browser: Chrome 154.0.0.0 (Windows 10 x64). WebGL: WebGL 2.0 (OpenGL ES 3.0 Chromium), ANGLE (NVIDIA GeForce RTX 4060 Ti, D3D11).
+Result: build loads and renders the park scene; no console errors.
+FPS: NOT MEASURED. document.visibilityState = "hidden" (Noah away; window occluded or display off), so requestAnimationFrame delivered 0 frames in 2 s. Canvas was capped at 1436x949 by the window size.
+Status: W10 web FPS and the web blue-tint check are PENDING, to be run with Noah at the PC.

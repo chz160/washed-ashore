@@ -6,9 +6,10 @@ namespace WashedAshore.Gameplay
     /// <summary>
     /// Grounded first-person walk on a CharacterController. Tuning defaults come from
     /// _bmad-output/poc/controller-tuning.md; every number is a serialized field.
+    /// Wading and swimming live in PlayerController.Water.cs.
     /// </summary>
     [RequireComponent(typeof(CharacterController))]
-    public class PlayerController : MonoBehaviour
+    public partial class PlayerController : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] Transform cameraPivot;
@@ -73,6 +74,7 @@ namespace WashedAshore.Gameplay
             sprintAction.AddBinding("<Gamepad>/leftStickPress");
             jumpAction = new InputAction("Jump", InputActionType.Button, "<Keyboard>/space");
             jumpAction.AddBinding("<Gamepad>/buttonSouth");
+            SetupWater();
         }
 
         void OnEnable()
@@ -152,6 +154,7 @@ namespace WashedAshore.Gameplay
             controller.enabled = true;
             horizontalVelocity = Vector3.zero;
             verticalVelocity = 0f;
+            waterMode = WaterMode.Dry; // the next frame's depth decides (spec §2: no stale state)
         }
 
         void Update()
@@ -182,13 +185,15 @@ namespace WashedAshore.Gameplay
 
         void Move(float dt)
         {
+            UpdateWater();
             Vector2 input = Vector2.ClampMagnitude(moveAction.ReadValue<Vector2>(), 1f);
-            float speed = sprintAction.IsPressed() ? sprintSpeed : walkSpeed;
-            Vector3 target = (transform.forward * input.y + transform.right * input.x) * speed;
-            float rate = input.sqrMagnitude > 0f ? acceleration : deceleration;
+            Vector3 target = MoveTarget(input, sprintAction.IsPressed(), dt);
+            float rate = MoveRate(target, input.sqrMagnitude > 0f);
             horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, target, rate * dt);
 
-            if (controller.isGrounded && jumpAction.WasPressedThisFrame())
+            if (waterMode == WaterMode.Swim)
+                verticalVelocity = SwimVerticalVelocity(dt);
+            else if (controller.isGrounded && CanJump && jumpAction.WasPressedThisFrame())
                 verticalVelocity = Mathf.Sqrt(2f * jumpHeight * -gravity);
             else if (controller.isGrounded && verticalVelocity < 0f)
                 verticalVelocity = groundedStickVelocity;

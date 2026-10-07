@@ -1,0 +1,28 @@
+shader WashedAshore/BellsBendWater: hasError=False
+  variants compiled: 16/16 (D3D + GLES3x/WebGL)
+material: 35 look values set from WashedAshore/BellsBendWater defaults
+ripple determinism: generator run1=c119bbc12473f9a2 run2=c119bbc12473f9a2 identical; WaterRipple.png on disk sha256_16=e5ac4e9dd97f0aca
+flow sign: _FlowSign=1; 80/80 inner-bank stations (10 m out, south of the line) drift downstream along the bank (Cumberland clockwise round Bells Bend: south down the east side, north up the west; OSM way 40806685, USGS 03431500)
+look shots (fog on, editor camera, no player):
+  w5-bank.png: eye (-980.9,5.36,514.0) -> (-1026.5,1.61,508.3)
+  w5-bluff-top.png: eye (413.8,28.17,1793.2) -> (457.2,1.61,1768.3)
+  w5-water-level.png: eye (-1001.7,1.76,511.4) -> (-1001.2,1.91,571.9)
+  w5-shallow-edge.png: eye (1159.2,6.61,-1416.5) -> (1164.7,1.61,-1418.9)
+  w5-shallow-edge-stretch3.6.png: eye (1159.2,6.61,-1416.5) -> (1164.7,1.61,-1418.9)
+  w5-shallow-edge-stretch4.2.png: eye (1159.2,6.61,-1416.5) -> (1164.7,1.61,-1418.9)
+  _FoamStretch restored to 4
+  w5-lip.png: eye (1170.2,2.21,-1421.3) -> (1162.9,1.81,-1418.1)
+  w5-west-neck-step.png: eye (-1448.9,3.61,1970.1) -> (-1419.5,2.61,1986.0)
+  w5-north-line-east-channel.png: eye (584.9,9.56,1986.4) -> (681.3,1.61,1986.7)
+  w5-haze-climb-2m.png: eye (431.4,3.61,1783.6) -> (947.0,1.61,1476.7)
+  w5-haze-climb-8m.png: eye (427.1,9.61,1786.0) -> (947.0,1.61,1476.7)
+  w5-haze-climb-16m.png: eye (421.4,17.61,1789.1) -> (947.0,1.61,1476.7)
+  w5-haze-climb-27m.png: eye (413.8,28.17,1793.2) -> (947.0,1.61,1476.7)
+  w5-haze-pan-12.png: eye (-980.9,5.36,514.0) -> (-1029.4,-5.04,507.9)
+  w5-haze-pan-4.png: eye (-980.9,5.36,514.0) -> (-1030.4,1.87,507.8)
+  w5-haze-pan+4.png: eye (-980.9,5.36,514.0) -> (-1030.4,8.85,507.8)
+  w5-drift-phase0.10.png: eye (312.0,5.61,1566.3) -> (312.0,1.61,1567.3)
+  w5-drift-phase0.25.png: eye (312.0,5.61,1566.3) -> (312.0,1.61,1567.3)
+  w5-drift-phase0.40.png: eye (312.0,5.61,1566.3) -> (312.0,1.61,1567.3)
+
+done

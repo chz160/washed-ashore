@@ -1,0 +1,3 @@
+The build succeeded, but the Editor log reported the following errors:
+  [license] [Licensing::Module] LicensingClient has failed validation; ignoring
+exit 0
