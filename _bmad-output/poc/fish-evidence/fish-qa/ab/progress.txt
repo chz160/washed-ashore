@@ -1,0 +1,16 @@
+native WA_FISH_OFF switch present; temp fixture not landed
+00:54:15Z start on1
+01:01:09Z end on1 exit 0
+01:01:09Z start off1
+01:06:36Z end off1 exit 8
+01:06:36Z start on2
+01:13:21Z end on2 exit 0
+01:13:21Z start on3
+01:20:13Z end on3 exit 0
+01:20:13Z start edit
+01:20:49Z end edit exit 8
+01:20:49Z start full1
+01:37:38Z end full1 exit 8
+on1 canary: result="Passed"
+off1 canary: result="Failed"
+01:37:38Z ALL DONE

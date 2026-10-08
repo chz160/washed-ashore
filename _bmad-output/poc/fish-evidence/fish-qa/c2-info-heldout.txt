@@ -1,0 +1,10 @@
+f-qa: held-out info run (404/505/606, F16 setup) from probe dumps; information only. Columns: in-view spontaneous signs/min (terrain-only occlusion, no floor) and with the rev 4.1 proxy floor
+fish-probe-info-shore-404.jsonl {'seconds': 180.3, 'spontPerMinInView': 1.33, 'spontPerMinFloor': 0.33}
+fish-probe-info-shore-505.jsonl {'seconds': 180.2, 'spontPerMinInView': 1.0, 'spontPerMinFloor': 0.33}
+fish-probe-info-shore-606.jsonl {'seconds': 180.2, 'spontPerMinInView': 0.67, 'spontPerMinFloor': 0.0}
+fish-probe-info-bluff-mccord-404.jsonl {'seconds': 180.0, 'spontPerMinInView': 2.33, 'spontPerMinFloor': 1.0}
+fish-probe-info-bluff-mccord-505.jsonl {'seconds': 180.0, 'spontPerMinInView': 2.0, 'spontPerMinFloor': 0.0}
+fish-probe-info-bluff-mccord-606.jsonl {'seconds': 180.0, 'spontPerMinInView': 1.67, 'spontPerMinFloor': 0.0}
+fish-probe-info-bluff-buzzard-404.jsonl {'seconds': 180.0, 'spontPerMinInView': 0.67, 'spontPerMinFloor': 0.0}
+fish-probe-info-bluff-buzzard-505.jsonl {'seconds': 180.0, 'spontPerMinInView': 2.0, 'spontPerMinFloor': 0.0}
+fish-probe-info-bluff-buzzard-606.jsonl {'seconds': 179.8, 'spontPerMinInView': 2.67, 'spontPerMinFloor': 0.33}

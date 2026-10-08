@@ -1,0 +1,19 @@
+f-qa AF1 (placing fish before Phase 0 approval) - check at PHASE 1 OPEN (broadcast received ~20:15Z by f-producer's clock; qa clock 20:13Z)
+Gate records (studio:decisions / studio:design, createdAt UTC), all before the broadcast:
+  greenlight/fish                      before 19:27Z (director greenlight with notes; existed when the pre-gate baseline was taken)
+  gate/fish-technique                  19:32:29Z (f-td technique APPROVED)
+  gate/fish-technique-addendum-1       19:34:13Z (f-td)
+  ruling/fish-visibility-tiers         19:48:30Z (director)
+  studio:design fish/targets           19:51:37Z (f-designer numbers rev F1; current file rev F5 per fish/targets-rev 20:11:55Z)
+  ruling/fish-roster-look              20:11:25Z (director: roster + look APPROVED with conditions L1-L5; carp OUT)
+Tree vs pre-gate baseline (pregate-baseline.sha256, 1353 files, 19:27:09Z), checked 20:12:26Z:
+  changed: Assets/Editor/Wildlife/ModelFacingPostprocessor.cs ("face" HeadNames entry, approved in addendum 1),
+           Assets/Tests/EditMode/ModelFacingDetectionTests.cs (the addendum's required EditMode case)
+  new:     Assets/ThirdParty/Quaternius/AnimatedFishPack/{FBX/Fish1.fbx, FBX/Fish2.fbx, License.txt}(+.meta) - byte-identical to the vendor zip; CC0
+           Assets/Editor/Fish/{FishImportCheck, FishImportSettings, FishLookDev, FishLookDev.Helpers}.cs + WashedAshore.Fish.Editor.asmdef (import/facing + look-dev tooling)
+           Assets/Scenes/LookDev/FishLookDev.unity (isolated look-dev scene)
+           Assets/World/Fish/Art/{FishRing, FishUnderwater}.shader (prototype shaders, allowed pre-gate for the look-dev scene only, addendum 1)
+  unchanged: Assets/Scenes/World.unity sha256 3740690b... (0 occurrences of "Fish"); ProjectSettings/EditorBuildSettings.asset b2c7c16c... (build list = World.unity only; LookDev scene not in it)
+  no files newer than 20:15Z under Assets/Packages/ProjectSettings at 20:13Z.
+Marine models: only Fish1/Fish2 FBX under Assets (no Fish3/Shark/Whale/Dolphin/Manta).
+VERDICT AF1: CLEAR. AF2 (pre-gate part): CLEAR.

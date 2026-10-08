@@ -1,0 +1,285 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a0144fa7e74cf4896583dee192c63d, type: 3}
+  m_Name: FishRenderSet
+  m_EditorClassIdentifier: WashedAshore.Fish.Rendering::WashedAshore.Fish.Rendering.FishRenderSet
+  models:
+  - name: Fish1
+    mesh: {fileID: 4300000, guid: 1045d4df52db03e4c9912633df7a9643, type: 2}
+    material: {fileID: 2100000, guid: 104d480525723634bbd5d5bb8d680f13, type: 2}
+  - name: Fish2
+    mesh: {fileID: 4300000, guid: d8f1881e736f3ac498ca2108b465afed, type: 2}
+    material: {fileID: 2100000, guid: 42ef3aa7f5a80f34ca818cbee6d3d58c, type: 2}
+  footprints:
+  - kind: 1
+    coreRadius: 0.05
+    ringSpeed: 0.23
+    maxRingRadius: 0.35
+    armLength: 0
+    armSeconds: 0
+    lifeSec: {x: 1.5, y: 1.5}
+    patchDiameter: {x: 0, y: 0}
+  - kind: 11
+    coreRadius: 0.1
+    ringSpeed: 0.23
+    maxRingRadius: 0.46
+    armLength: 0
+    armSeconds: 0
+    lifeSec: {x: 2, y: 2}
+    patchDiameter: {x: 0, y: 0}
+  - kind: 2
+    coreRadius: 0.3
+    ringSpeed: 0.23
+    maxRingRadius: 0.46
+    armLength: 0
+    armSeconds: 0
+    lifeSec: {x: 2, y: 2}
+    patchDiameter: {x: 0, y: 0}
+  - kind: 3
+    coreRadius: 0.5
+    ringSpeed: 0.23
+    maxRingRadius: 0.58
+    armLength: 0
+    armSeconds: 0
+    lifeSec: {x: 2.5, y: 2.5}
+    patchDiameter: {x: 0, y: 0}
+  - kind: 4
+    coreRadius: 0.5
+    ringSpeed: 0.23
+    maxRingRadius: 0.58
+    armLength: 0
+    armSeconds: 0
+    lifeSec: {x: 2.5, y: 2.5}
+    patchDiameter: {x: 0, y: 0}
+  - kind: 5
+    coreRadius: 0.15
+    ringSpeed: 0.23
+    maxRingRadius: 0.35
+    armLength: 0
+    armSeconds: 0
+    lifeSec: {x: 1.5, y: 1.5}
+    patchDiameter: {x: 0, y: 0}
+  - kind: 7
+    coreRadius: 0
+    ringSpeed: 0
+    maxRingRadius: 0
+    armLength: 0
+    armSeconds: 3
+    lifeSec: {x: 3, y: 3}
+    patchDiameter: {x: 0, y: 0}
+  - kind: 10
+    coreRadius: 0
+    ringSpeed: 0
+    maxRingRadius: 0
+    armLength: 0
+    armSeconds: 3
+    lifeSec: {x: 3, y: 3}
+    patchDiameter: {x: 0, y: 0}
+  - kind: 8
+    coreRadius: 0
+    ringSpeed: 0
+    maxRingRadius: 0
+    armLength: 0
+    armSeconds: 0
+    lifeSec: {x: 4, y: 8}
+    patchDiameter: {x: 3, y: 6}
+  - kind: 9
+    coreRadius: 0.4
+    ringSpeed: 0.23
+    maxRingRadius: 0.46
+    armLength: 0
+    armSeconds: 0
+    lifeSec: {x: 2, y: 2}
+    patchDiameter: {x: 0, y: 0}
+  - kind: 6
+    coreRadius: 0
+    ringSpeed: 0
+    maxRingRadius: 0
+    armLength: 0
+    armSeconds: 0
+    lifeSec: {x: 4, y: 8}
+    patchDiameter: {x: 3, y: 6}
+  footprintsSource: _bmad-output/poc/fish-targets.json (F18) sha256 02319b3dbf5cb70caf3638b56b710af2e7000db17cecfaed7bb40830cfb07670
+  footprintsSha: 42b4367b7d5aea576753c2a25b8638f90e7da593b918a08518d492abdf7f808f
+  footprintsRev: F18
+  variants:
+  - id: Bluegill
+    model: 1
+    axisScale: {x: 1, y: 0.94, z: 1}
+    back: {r: 0.30980393, g: 0.3529412, b: 0.28235295, a: 1}
+    belly: {r: 0.627451, g: 0.56078434, b: 0.3764706, a: 1}
+    fins: {r: 0.2901961, g: 0.30588236, b: 0.2509804, a: 1}
+    mottle: 0.1
+  - id: LongearSunfish
+    model: 1
+    axisScale: {x: 1, y: 0.94, z: 1}
+    back: {r: 0.3254902, g: 0.36862746, b: 0.29803923, a: 1}
+    belly: {r: 0.65882355, g: 0.5882353, b: 0.39607844, a: 1}
+    fins: {r: 0.30588236, g: 0.32156864, b: 0.2627451, a: 1}
+    mottle: 0.1
+  - id: RedearSunfish
+    model: 1
+    axisScale: {x: 1, y: 0.94, z: 1}
+    back: {r: 0.29411766, g: 0.3372549, b: 0.26666668, a: 1}
+    belly: {r: 0.59607846, g: 0.53333336, b: 0.36078432, a: 1}
+    fins: {r: 0.27450982, g: 0.2901961, b: 0.23921569, a: 1}
+    mottle: 0.1
+  - id: LargemouthBass
+    model: 0
+    axisScale: {x: 1.1, y: 1.2, z: 1}
+    back: {r: 0.36078432, g: 0.39215687, b: 0.2509804, a: 1}
+    belly: {r: 0.7882353, g: 0.76862746, b: 0.627451, a: 1}
+    fins: {r: 0.41568628, g: 0.41568628, b: 0.28235295, a: 1}
+    mottle: 0.2
+  - id: SpottedBass
+    model: 0
+    axisScale: {x: 1.05, y: 1.15, z: 1}
+    back: {r: 0.39215687, g: 0.3764706, b: 0.2509804, a: 1}
+    belly: {r: 0.78431374, g: 0.7529412, b: 0.627451, a: 1}
+    fins: {r: 0.39215687, g: 0.3764706, b: 0.2901961, a: 1}
+    mottle: 0.25
+  - id: SmallmouthBass
+    model: 0
+    axisScale: {x: 1.05, y: 1.15, z: 1}
+    back: {r: 0.43137255, g: 0.3764706, b: 0.25882354, a: 1}
+    belly: {r: 0.7607843, g: 0.7058824, b: 0.5568628, a: 1}
+    fins: {r: 0.41568628, g: 0.3529412, b: 0.2509804, a: 1}
+    mottle: 0.25
+  - id: WhiteCrappie
+    model: 1
+    axisScale: {x: 0.9, y: 0.83, z: 1}
+    back: {r: 0.36862746, g: 0.4, b: 0.3372549, a: 1}
+    belly: {r: 0.7254902, g: 0.7372549, b: 0.69803923, a: 1}
+    fins: {r: 0.3529412, g: 0.36862746, b: 0.32156864, a: 1}
+    mottle: 0.3
+  - id: BlackCrappie
+    model: 1
+    axisScale: {x: 0.9, y: 0.83, z: 1}
+    back: {r: 0.34901962, g: 0.38039216, b: 0.32156864, a: 1}
+    belly: {r: 0.6901961, g: 0.7019608, b: 0.6627451, a: 1}
+    fins: {r: 0.3372549, g: 0.34901962, b: 0.30588236, a: 1}
+    mottle: 0.3
+  - id: ChannelCatfish
+    model: 0
+    axisScale: {x: 1.2, y: 0.86, z: 1}
+    back: {r: 0.3529412, g: 0.3764706, b: 0.32156864, a: 1}
+    belly: {r: 0.72156864, g: 0.7058824, b: 0.6117647, a: 1}
+    fins: {r: 0.30588236, g: 0.3137255, b: 0.28235295, a: 1}
+    mottle: 0.1
+  - id: FlatheadCatfish
+    model: 0
+    axisScale: {x: 1.4, y: 0.8, z: 1}
+    back: {r: 0.41960785, g: 0.35686275, b: 0.25490198, a: 1}
+    belly: {r: 0.70980394, g: 0.654902, b: 0.5137255, a: 1}
+    fins: {r: 0.3529412, g: 0.29803923, b: 0.21176471, a: 1}
+    mottle: 0.35
+  - id: BlueCatfish
+    model: 0
+    axisScale: {x: 1.2, y: 0.95, z: 1}
+    back: {r: 0.36862746, g: 0.4, b: 0.4392157, a: 1}
+    belly: {r: 0.7607843, g: 0.76862746, b: 0.74509805, a: 1}
+    fins: {r: 0.3372549, g: 0.36078432, b: 0.38431373, a: 1}
+    mottle: 0
+  - id: FreshwaterDrum
+    model: 0
+    axisScale: {x: 1.15, y: 1.4, z: 1}
+    back: {r: 0.43137255, g: 0.44705883, b: 0.4392157, a: 1}
+    belly: {r: 0.74509805, g: 0.74509805, b: 0.7058824, a: 1}
+    fins: {r: 0.41568628, g: 0.42352942, b: 0.40784314, a: 1}
+    mottle: 0
+  - id: SmallmouthBuffalo
+    model: 0
+    axisScale: {x: 1.2, y: 1.55, z: 1}
+    back: {r: 0.36862746, g: 0.3529412, b: 0.28235295, a: 1}
+    belly: {r: 0.6901961, g: 0.6666667, b: 0.57254905, a: 1}
+    fins: {r: 0.3372549, g: 0.32156864, b: 0.2901961, a: 1}
+    mottle: 0.05
+  - id: BigmouthBuffalo
+    model: 0
+    axisScale: {x: 1.2, y: 1.55, z: 1}
+    back: {r: 0.3882353, g: 0.36862746, b: 0.29803923, a: 1}
+    belly: {r: 0.7254902, g: 0.69803923, b: 0.6, a: 1}
+    fins: {r: 0.3529412, g: 0.3372549, b: 0.30588236, a: 1}
+    mottle: 0.05
+  - id: CommonCarp
+    model: 0
+    axisScale: {x: 1.2, y: 1.4, z: 1}
+    back: {r: 0.42352942, g: 0.38431373, b: 0.25490198, a: 1}
+    belly: {r: 0.72156864, g: 0.64705884, b: 0.4392157, a: 1}
+    fins: {r: 0.41568628, g: 0.3372549, b: 0.2509804, a: 1}
+    mottle: 0.1
+  - id: LongnoseGar
+    model: 0
+    axisScale: {x: 0.6, y: 0.43, z: 1}
+    back: {r: 0.36862746, g: 0.3529412, b: 0.24313726, a: 1}
+    belly: {r: 0.7019608, g: 0.6627451, b: 0.5254902, a: 1}
+    fins: {r: 0.3529412, g: 0.32941177, b: 0.21960784, a: 1}
+    mottle: 0.4
+  - id: SpottedGar
+    model: 0
+    axisScale: {x: 0.6, y: 0.43, z: 1}
+    back: {r: 0.3882353, g: 0.36862746, b: 0.25490198, a: 1}
+    belly: {r: 0.7372549, g: 0.69411767, b: 0.5529412, a: 1}
+    fins: {r: 0.36862746, g: 0.34509805, b: 0.23137255, a: 1}
+    mottle: 0.4
+  - id: ShortnoseGar
+    model: 0
+    axisScale: {x: 0.6, y: 0.43, z: 1}
+    back: {r: 0.34901962, g: 0.3372549, b: 0.23137255, a: 1}
+    belly: {r: 0.6666667, g: 0.6313726, b: 0.49803922, a: 1}
+    fins: {r: 0.3372549, g: 0.3137255, b: 0.20784314, a: 1}
+    mottle: 0.4
+  - id: Sauger
+    model: 0
+    axisScale: {x: 0.9, y: 0.8, z: 1}
+    back: {r: 0.4, g: 0.3764706, b: 0.24313726, a: 1}
+    belly: {r: 0.8117647, g: 0.78431374, b: 0.6666667, a: 1}
+    fins: {r: 0.41568628, g: 0.39215687, b: 0.28235295, a: 1}
+    mottle: 0.35
+  - id: WhiteBass
+    model: 0
+    axisScale: {x: 1.1, y: 1.4, z: 1}
+    back: {r: 0.41568628, g: 0.4392157, b: 0.41568628, a: 1}
+    belly: {r: 0.76862746, g: 0.7764706, b: 0.74509805, a: 1}
+    fins: {r: 0.39215687, g: 0.40784314, b: 0.38431373, a: 1}
+    mottle: 0
+  - id: Paddlefish
+    model: 0
+    axisScale: {x: 1, y: 0.9, z: 1}
+    back: {r: 0.36862746, g: 0.39215687, b: 0.40784314, a: 1}
+    belly: {r: 0.7058824, g: 0.7137255, b: 0.69803923, a: 1}
+    fins: {r: 0.34509805, g: 0.36862746, b: 0.38431373, a: 1}
+    mottle: 0
+  - id: GizzardShad
+    model: 1
+    axisScale: {x: 0.8, y: 0.75, z: 1}
+    back: {r: 0.39215687, g: 0.42352942, b: 0.40784314, a: 1}
+    belly: {r: 0.7764706, g: 0.78431374, b: 0.7529412, a: 1}
+    fins: {r: 0.3764706, g: 0.39215687, b: 0.36862746, a: 1}
+    mottle: 0
+  - id: ThreadfinShad
+    model: 1
+    axisScale: {x: 0.8, y: 0.75, z: 1}
+    back: {r: 0.4117647, g: 0.44313726, b: 0.42745098, a: 1}
+    belly: {r: 0.8117647, g: 0.81960785, b: 0.7882353, a: 1}
+    fins: {r: 0.39607844, g: 0.4117647, b: 0.3882353, a: 1}
+    mottle: 0
+  - id: SkipjackHerring
+    model: 0
+    axisScale: {x: 0.85, y: 1.15, z: 1}
+    back: {r: 0.3372549, g: 0.41568628, b: 0.4, a: 1}
+    belly: {r: 0.78431374, g: 0.8, b: 0.76862746, a: 1}
+    fins: {r: 0.36862746, g: 0.39215687, b: 0.38431373, a: 1}
+    mottle: 0
+  water: {fileID: 2100000, guid: 13fb35b5fc86f6c42893bac7f081b571, type: 2}
+  ring: {fileID: 2100000, guid: b0da98f25e984cc45bbb496db29a6844, type: 2}
+  ringMesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}

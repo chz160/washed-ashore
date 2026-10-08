@@ -121,6 +121,18 @@ namespace WashedAshore.Tests.EditMode
         }
 
         [Test]
+        public void FaceBoneWithoutLeftRight_FallsBackToHead([Values(-1f, 1f)] float headZ)
+        {
+            // The Quaternius fish rigs name their head bone "Face" and have no L/R bones (Fish1).
+            var root = Rig(0, new Vector3(0f, 0.3f, headZ));
+            root.Find("Armature/Hips/Head").name = "Face";
+            var r = ModelFacingPostprocessor.Detect(root);
+            Assert.AreEqual(headZ < 0f ? Decision.Flip : Decision.Keep, r.Value, ModelFacingPostprocessor.Describe(r));
+            Assert.AreEqual("head", r.decidedBy);
+            Assert.AreEqual("Face", r.headBone);
+        }
+
+        [Test]
         public void LeftRightWinsOverADisagreeingHead()
         {
             // L bones at +X say -Z (flip); the head at +Z says keep. L/R decides, and the reason records the clash.

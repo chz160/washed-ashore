@@ -1,0 +1,9 @@
+19:32:01Z start filt1
+19:37:33Z end filt1 exit 0
+19:37:33Z start filt2
+19:42:45Z end filt2 exit 0
+19:42:45Z start full1
+19:53:55Z end full1 exit 8
+19:53:55Z start filt3
+19:59:29Z end filt3 exit 0
+19:59:29Z ALL DONE

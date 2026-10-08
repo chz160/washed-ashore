@@ -1,0 +1,23 @@
+f-qa F9 Windows FPS (team-lead/Noah OK), Builds/Windows-BellsBend (F18), shore route 2,613 m, 1920x1080 windowed, vsync 0, wildlife+birds on, RTX 4060 Ti / i9-14900K
+Launches: fish-on PID 80988 02:15:52-02:24:43Z; fish-off (-bbFishOff) PID 4080 02:25:12-02:34:05Z; Get-Process WashedAshorePOC empty before and after each; console session active; one 'Initialize engine version' per Player.log
+build: WindowsPlayer dev=False NVIDIA GeForce RTX 4060 Ti 1920x1080 Windowed vsync=0 route=shore 2613 m wildlife=True birds=True
+shore walk (whole route): samples 86997 duration 522.7 s median 5.76 ms (173.6 fps) p95 8.57 p99 9.96 max 150.91 share>=60 0.9997 -> PASS (spec bar: median >= 60 fps, >= 90% >= 60)
+  validity: samples 86997 vs duration/median 90747 (ratio 0.96; ~0.8-1.2 expected for one instance)
+shore leg: samples 35325 duration 208.7 s median 5.75 ms (173.8 fps) p95 7.31 p99 9.01 max 150.91 share>=60 0.9995 -> PASS (spec bar: median >= 60 fps, >= 90% >= 60)
+  validity: samples 35325 vs duration/median 36296 (ratio 0.97; ~0.8-1.2 expected for one instance)
+shore p99 bar: whole 9.96 / leg 9.01 (< 16.6) -> PASS; median 5.76 ms reported for the record (no pre-water baseline)
+W10 Windows FPS: PASS
+--- fish off
+build: WindowsPlayer dev=False NVIDIA GeForce RTX 4060 Ti 1920x1080 Windowed vsync=0 route=shore 2613 m wildlife=True birds=True
+shore walk (whole route): samples 85502 duration 522.7 s median 5.93 ms (168.6 fps) p95 8.66 p99 9.99 max 46.53 share>=60 1.0000 -> PASS (spec bar: median >= 60 fps, >= 90% >= 60)
+  validity: samples 85502 vs duration/median 88145 (ratio 0.97; ~0.8-1.2 expected for one instance)
+shore leg: samples 33975 duration 208.7 s median 6.01 ms (166.5 fps) p95 7.84 p99 9.25 max 46.53 share>=60 0.9999 -> PASS (spec bar: median >= 60 fps, >= 90% >= 60)
+  validity: samples 33975 vs duration/median 34725 (ratio 0.98; ~0.8-1.2 expected for one instance)
+shore p99 bar: whole 9.99 / leg 9.25 (< 16.6) -> PASS; median 5.93 ms reported for the record (no pre-water baseline)
+W10 Windows FPS: PASS
+Fish cost (on - off): median -0.17 ms, p99 -0.03 ms; shore leg median -0.26 ms, p99 -0.24 ms -> within run-to-run noise (no measurable cost)
+fishLiveMax 127 (on) / 0 (off); fishDrawnMax 0 in BOTH: BellsBendFpsWalk.CountFish reads DrawModes after 'yield return null' (before FishRenderer.LateUpdate), and FishPopulation clears DrawModes when it rewrites States, so the counter reads 0 by construction (same frame-order trap as the old F7 test). Rendering in the build is to be confirmed from the F8 -fishProbe dumps (FishProbe runs after the renderer).
+d240da8c9118af2974bd17993507e6d4f65baee34cff347f4da2402316a1e331 *win-fishon/Player.log
+413703676d2796b566f4ecfb06242a5c80b3277297ef4904916b9ecef8553e2a *win-fishon/bells-bend-fps-shore.json
+6e2febcc66b116250a1132a527374e1d9b994369bbd6957b268c553a710e5e58 *win-fishoff/Player.log
+f6a46830f290cd1b93a665ee3ed92cae0360ad04d28e307ce287b94d7b852267 *win-fishoff/bells-bend-fps-shore-nofish.json

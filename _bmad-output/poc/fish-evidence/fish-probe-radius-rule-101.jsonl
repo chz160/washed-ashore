@@ -1,0 +1,4 @@
+{"probe":"fish","seed":101,"brief":"F18","briefSha16":"02319b3dbf5cb70c","interval":0.25}
+{"t":3441.935,"water":0.017,"cam":[401.763,29.299,717.566],"camFwd":[0.739,-0.399,0.543],"fov":70,"player":[401.763,27.599,717.566],"playerMode":"Dry","fish":[]}
+{"event":"Swirl","id":-1,"sp":0,"x":484.851,"y":1.624,"z":842.151,"start":0.033,"dur":3,"spontaneous":true,"far":false,"bask":false,"bodySize":0.5,"quadM":1.058,"t":3441.951}
+{"signDrawn":true,"event":"Swirl:-1:0.033","fxActive":true,"fxDrawnLastFrame":1,"t":3441.951}

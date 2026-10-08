@@ -1,0 +1,83 @@
+StructureAnchors 17 anchors src=9d8b1e60c55a7e0a -> Assets/World/BellsBend/StructureAnchors.asset
+HollowMouth 'Hollow mouth at station 20' st 16-24 len 40.0 m from (-1345.3,1956.0) to (-1308.2,1941.0)
+HollowMouth 'Hollow mouth at station 56' st 52-60 len 43.9 m from (-1209.4,1836.5) to (-1180.0,1804.4)
+HollowMouth 'Hollow mouth at station 111' st 107-115 len 40.1 m from (-1031.4,1621.9) to (-1007.0,1590.1)
+FerryLanding 'Cleeces Ferry landing (closed 1990)' st 327-337 len 50.6 m from (-991.5,536.3) to (-985.3,486.3)
+Slipway 'Boat slipway (east bank)' st 1116-1126 len 50.7 m from (1152.1,-1442.9) to (1171.3,-1396.0)
+ChuteMouth 'Robertson Island south chute mouth' st 1403-1411 len 40.8 m from (1104.3,-74.4) to (1079.6,-41.9)
+ChuteMouth 'Robertson Island north chute mouth' st 1519-1527 len 43.8 m from (669.9,337.5) to (642.8,371.4)
+HollowMouth 'Hollow mouth at station 1547' st 1543-1551 len 40.4 m from (596.4,439.1) to (576.1,473.9)
+HollowMouth 'Hollow mouth at station 1673' st 1669-1677 len 40.5 m from (257.6,978.4) to (241.7,1015.6)
+Bluff 'Unnamed bluff face 1' st 65-92 len 136.0 m from (-1173.2,1777.9) to (-1077.3,1681.5)
+IslandFace 'Robertson Island river face' st 1407-1523 len 602.6 m from (1091.9,-58.1) to (655.9,352.2)
+Bluff 'McCord Bluff face' st 1562-1644 len 414.8 m from (550.6,522.8) to (317.3,863.3)
+Bluff 'Unnamed bluff face 2' st 1681-1693 len 61.0 m from (233.8,1034.2) to (217.9,1092.3)
+Bluff 'Unnamed bluff face 3' st 1709-1723 len 70.8 m from (211.2,1173.9) to (213.1,1244.4)
+Bluff 'Unnamed bluff face 4' st 1739-1753 len 70.0 m from (221.9,1324.1) to (238.4,1392.0)
+Bluff 'Buzzard Bluff face' st 1763-1868 len 542.7 m from (253.6,1439.6) to (519.0,1910.7)
+Bluff 'Unnamed bluff face 5' st 1879-1888 len 45.2 m from (555.1,1952.7) to (587.7,1984.0)
+
+PASS deterministic: two builds serialize identically (47616 chars)
+PASS 17 anchors (got 17)
+PASS Bluff count 7 == 7
+PASS FerryLanding count 1 == 1
+PASS Slipway count 1 == 1
+PASS HollowMouth count 5 == 5
+PASS ChuteMouth count 2 == 2
+PASS IslandFace count 1 == 1
+PASS points/normals present and paired
+PASS normals are unit length
+PASS reach 20 m, positive length
+PASS bounds contain every point
+PASS 'Hollow mouth at station 20' 10 m out -> Hollow mouth at station 20 d=10.0
+PASS 'Hollow mouth at station 20' 10 m inland -> none
+PASS 'Hollow mouth at station 20' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Hollow mouth at station 56' 10 m out -> Hollow mouth at station 56 d=10.0
+PASS 'Hollow mouth at station 56' 10 m inland -> none
+PASS 'Hollow mouth at station 56' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Hollow mouth at station 111' 10 m out -> Hollow mouth at station 111 d=10.0
+PASS 'Hollow mouth at station 111' 10 m inland -> none
+PASS 'Hollow mouth at station 111' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Cleeces Ferry landing (closed 1990)' 10 m out -> Cleeces Ferry landing (closed 1990) d=9.9
+PASS 'Cleeces Ferry landing (closed 1990)' 10 m inland -> none
+PASS 'Cleeces Ferry landing (closed 1990)' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Boat slipway (east bank)' 10 m out -> Boat slipway (east bank) d=10.0
+PASS 'Boat slipway (east bank)' 10 m inland -> none
+PASS 'Boat slipway (east bank)' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Robertson Island south chute mouth' 10 m out -> Robertson Island south chute mouth d=10.0
+PASS 'Robertson Island south chute mouth' 10 m inland -> none
+PASS 'Robertson Island south chute mouth' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Robertson Island north chute mouth' 10 m out -> Robertson Island north chute mouth d=10.0
+PASS 'Robertson Island north chute mouth' 10 m inland -> none
+PASS 'Robertson Island north chute mouth' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Hollow mouth at station 1547' 10 m out -> Hollow mouth at station 1547 d=10.0
+PASS 'Hollow mouth at station 1547' 10 m inland -> none
+PASS 'Hollow mouth at station 1547' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Hollow mouth at station 1673' 10 m out -> Hollow mouth at station 1673 d=10.0
+PASS 'Hollow mouth at station 1673' 10 m inland -> none
+PASS 'Hollow mouth at station 1673' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Unnamed bluff face 1' 10 m out -> Unnamed bluff face 1 d=10.0
+PASS 'Unnamed bluff face 1' 10 m inland -> none
+PASS 'Unnamed bluff face 1' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Robertson Island river face' 10 m out -> Robertson Island river face d=10.0
+PASS 'Robertson Island river face' 10 m inland -> none
+PASS 'Robertson Island river face' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'McCord Bluff face' 10 m out -> McCord Bluff face d=9.9
+PASS 'McCord Bluff face' 10 m inland -> none
+PASS 'McCord Bluff face' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Unnamed bluff face 2' 10 m out -> Unnamed bluff face 2 d=10.0
+PASS 'Unnamed bluff face 2' 10 m inland -> none
+PASS 'Unnamed bluff face 2' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Unnamed bluff face 3' 10 m out -> Unnamed bluff face 3 d=10.0
+PASS 'Unnamed bluff face 3' 10 m inland -> none
+PASS 'Unnamed bluff face 3' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Unnamed bluff face 4' 10 m out -> Unnamed bluff face 4 d=10.0
+PASS 'Unnamed bluff face 4' 10 m inland -> none
+PASS 'Unnamed bluff face 4' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Buzzard Bluff face' 10 m out -> Buzzard Bluff face d=10.0
+PASS 'Buzzard Bluff face' 10 m inland -> none
+PASS 'Buzzard Bluff face' 30 m out -> none (mouths may sit in a neighbour's reach)
+PASS 'Unnamed bluff face 5' 10 m out -> Unnamed bluff face 5 d=10.0
+PASS 'Unnamed bluff face 5' 10 m inland -> none
+PASS 'Unnamed bluff face 5' 30 m out -> none (mouths may sit in a neighbour's reach)
+RESULT PASS

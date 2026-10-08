@@ -1,0 +1,48 @@
+{
+    "scene": "World (play mode, not saved)",
+    "pose": "eye (-986.2,3.79,-4.8) looking (-0.71,0.71), rise at (-997.5,6.5)",
+    "setAssigned": true,
+    "ringAssigned": true,
+    "meshAssigned": true,
+    "waterQueue": 3000,
+    "fishQueue": 3010,
+    "ringQueue": 3020,
+    "ringLayer": 0,
+    "cameraCullingMask": -1,
+    "layerInCullingMask": true,
+    "worldBounds": "Center: (-1000.81, 1.61, 12.63), Extents: (4.14, 0.05, 6.97)",
+    "renderingLayerMask": 1,
+    "motionVectorMode": "Camera",
+    "shadowCastingMode": "Off",
+    "urpTransparentLayerMask": -1,
+    "urpOpaqueLayerMask": -1,
+    "layerInUrpTransparentMask": true,
+    "drawCallsBefore": 0,
+    "drawCallsAfter": 4,
+    "rise": {
+        "kind": "Rise",
+        "position": {
+            "x": -997.5066528320313,
+            "y": 1.6178489923477173,
+            "z": 6.506601810455322
+        },
+        "quadM": 1.0579999685287476,
+        "changedInBounds": 143,
+        "changedOutside": 0,
+        "drawnLastFrame": 1,
+        "boundsPx": "x 892-1027, y 530-548 (bottom-left origin)"
+    },
+    "patch": {
+        "kind": "NervousWaterOrFlip",
+        "position": {
+            "x": -1001.749267578125,
+            "y": 1.6087721586227417,
+            "z": 16.406095504760742
+        },
+        "quadM": 4.0,
+        "changedInBounds": 257,
+        "changedOutside": 0,
+        "drawnLastFrame": 2,
+        "boundsPx": "x 919-1237, y 563-590 (bottom-left origin)"
+    }
+}

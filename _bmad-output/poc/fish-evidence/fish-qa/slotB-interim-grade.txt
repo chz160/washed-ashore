@@ -1,0 +1,18 @@
+f-qa interim grade of slot B evidence (brief F12 b14fb8c4fcc32aa5, as carried by every probe header) - 2026-10-07 ~21:20Z
+Independent grader: scratchpad fqa/fish_grade.py (surface from WaterMotion.asset waves; bed from raw terrain tiles, calibrated
+against qa's in-engine TryGroundHeight at 400 seeded points: median |err| 1.5 mm, max 8.6 cm -> bed tolerance 0.09 m).
+
+F4 (dumps f4f5/f6/f7/f7bluff, all seeds, every fish every 0.25 s; 452k samples): bed (tol 0.09) 0, surface 0, land/no tile 0,
+   north of line 0. "bedStrict" (no tolerance) 7-15% of samples: fish clamped at bed+clearance vs qa's +/-cm terrain estimate,
+   not graded. -> F4 CONFIRMED on the dumps (pod claim 0 violations), within qa's terrain accuracy.
+Tier rules (renderer DrawModes in dumps): V1 Body deeper than 0.6 m 0; V2 Body 0 (V2 only Shadow); V3 drawn 0 (outside events);
+   drawn beyond 25 m 0. -> these hold IN THE DUMPS (0.25 s sampling); the pod's per-frame F7 test reports V3/V2 Body and
+   beyond-range draws; the discrepancy (per-frame test counters vs DrawModes) must be resolved in slot C before grading.
+F7 cap: bodies per sample reach 5 (seeds 101/202/303: 2/9/3 samples at 5); > 3 in 2.2% / 2.8% / 2.1% of samples
+   -> FAIL (hard cap 4, soft <= 3 in >= 99%). Bluff: 0 drawn in all 241 samples (N2 holds; event rate not yet graded).
+Pop-in: in-frustum group spawns at 19-24 m exist, but none was drawable at spawn; 1 faint Body (vis 0.028) 0.82 s after a spawn
+   (inside the 1 s fade-in) -> no N7 violation found.
+F2 sizes (all fish in all dumps): 100% <= lengthTailMax, 0 < lengthMin for all 16 species seen; share inside [min,max] 0.86-1.00;
+   the >= 92% bar needs the 1,000-sample / census-pool data (Flathead n=15 0.867, SpottedBass n=36 0.861 are not conclusive).
+Regression: birds 42/60/78 exact; wildlife seed 303 sightingRate 185 vs pre-fish 182 (gate 181-183) -> open, A/B after slot C.
+Shore guard (qa probe run 3): under-read admits 0 -> PASS; over-reads 57,966 cells (= pod's count); lost open area 38,580 m2.

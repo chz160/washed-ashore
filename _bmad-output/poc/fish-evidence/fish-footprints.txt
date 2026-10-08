@@ -1,0 +1,14 @@
+footprints from _bmad-output/poc/fish-targets.json (F18) sha256 02319b3dbf5cb70caf3638b56b710af2e7000db17cecfaed7bb40830cfb07670:
+  Dimple: core 0.05 m, speed 0.23 m/s, max ring 0.35 m, arm 0 m / 0 s x burst, life 1.5-1.5 s, patch 0-0 m
+  Rise: core 0.1 m, speed 0.23 m/s, max ring 0.46 m, arm 0 m / 0 s x burst, life 2-2 s, patch 0-0 m
+  Swirl: core 0.3 m, speed 0.23 m/s, max ring 0.46 m, arm 0 m / 0 s x burst, life 2-2 s, patch 0-0 m
+  Roll: core 0.5 m, speed 0.23 m/s, max ring 0.58 m, arm 0 m / 0 s x burst, life 2.5-2.5 s, patch 0-0 m
+  RollOrTail: core 0.5 m, speed 0.23 m/s, max ring 0.58 m, arm 0 m / 0 s x burst, life 2.5-2.5 s, patch 0-0 m
+  GarGulpOrBask: core 0.15 m, speed 0.23 m/s, max ring 0.35 m, arm 0 m / 0 s x burst, life 1.5-1.5 s, patch 0-0 m
+  GarBask: no ring sign, skipped
+  Wake: core 0 m, speed 0 m/s, max ring 0 m, arm 0 m / 3 s x burst, life 3-3 s, patch 0-0 m
+  FleeWake: core 0 m, speed 0 m/s, max ring 0 m, arm 0 m / 3 s x burst, life 3-3 s, patch 0-0 m
+  NervousWaterOrFlip: core 0 m, speed 0 m/s, max ring 0 m, arm 0 m / 0 s x burst, life 4-8 s, patch 3-6 m
+  Jump: core 0.4 m, speed 0.23 m/s, max ring 0.46 m, arm 0 m / 0 s x burst, life 2-2 s, patch 0-0 m
+  Busting: core 0 m, speed 0 m/s, max ring 0 m, arm 0 m / 0 s x burst, life 4-8 s, patch 3-6 m
+done

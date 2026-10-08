@@ -1,0 +1,5 @@
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 36736)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 56260)
+VBCSCompiler prewarm took 8.04 ms
+Error: Tests failed: Unity process exited with code 2.
+exit 8

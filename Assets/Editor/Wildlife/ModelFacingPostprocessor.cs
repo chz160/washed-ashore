@@ -29,7 +29,8 @@ namespace WashedAshore.Wildlife.Editor
         // Side measure must clear this share of the skeleton's horizontal width (spec Amendment 3).
         public const float SideEpsilonRatio = 0.05f;
         // Head-bone and hip-bone candidates, best first, compared after NormaliseBoneName.
-        public static readonly string[] HeadNames = { "head", "head_jnt", "headjoint", "neck" };
+        // "face" last: the Quaternius fish rigs (Fish1/Fish2) have no head or neck bone, only Face.
+        public static readonly string[] HeadNames = { "head", "head_jnt", "headjoint", "neck", "face" };
         public static readonly string[] HipNames = { "hips", "pelvis", "body", "spine" };
         public const float FlipBelowZ = -0.5f;
         public const float KeepAboveZ = 0.5f;

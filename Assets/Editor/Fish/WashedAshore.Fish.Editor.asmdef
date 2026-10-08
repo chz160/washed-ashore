@@ -1,0 +1,26 @@
+{
+    "name": "WashedAshore.Fish.Editor",
+    "rootNamespace": "WashedAshore.Fish.Editor",
+    "references": [
+        "WashedAshore.World",
+        "WashedAshore.Gameplay",
+        "WashedAshore.Wildlife.Editor",
+
+        "WashedAshore.Level",
+
+        "WashedAshore.Level.Editor",
+        "WashedAshore.Fish",
+        "WashedAshore.Fish.Rendering"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
