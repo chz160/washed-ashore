@@ -1,0 +1,931 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ca8b496b3c8254c982a77bb764495b, type: 3}
+  m_Name: FishTuning
+  m_EditorClassIdentifier: WashedAshore.Fish::WashedAshore.Fish.FishTuning
+  briefRevision: F18
+  briefSha16: 02319b3dbf5cb70c
+  bakedSeed: 101
+  simHz: 15
+  maxTurnPerFrame: 45
+  cellSize: 32
+  simRadiusIn: 50
+  simRadiusOut: 60
+  eventRadius: 150
+  bodyDrawDistance: 25
+  jumpBodyDrawRadius: 40
+  personalSpace: 2.5
+  maxCellPlansPerFrame: 2
+  blockedRetrySeconds: 1
+  maxIndividuals: 48
+  maxSchoolMembers: 80
+  maxDrawn: 64
+  maxSurfaceEvents: 6
+  maxJumpsPerMin: 0.25
+  accelCruise: 0.5
+  accelBurst: 5
+  lengthTailShare: 0.05
+  surfaceEventMultiplier: 1
+  signSeconds:
+  - {x: 0, y: 0}
+  - {x: 1.5, y: 1.5}
+  - {x: 2, y: 2}
+  - {x: 2.5, y: 2.5}
+  - {x: 2.5, y: 2.5}
+  - {x: 1.5, y: 1.5}
+  - {x: 4, y: 8}
+  - {x: 3, y: 3}
+  - {x: 4, y: 8}
+  - {x: 2, y: 2}
+  - {x: 3, y: 3}
+  - {x: 2, y: 2}
+  baskSeconds: {x: 20, y: 60}
+  jumpHeightBodyLengths: {x: 0.3, y: 1}
+  garGulpShare: 0.7
+  restSpeed: 0.05
+  idleAnimRate: 0.25
+  strideBodyLengths: 0.7
+  maxAnimRate: 12.5
+  amplitudeIdle: 0.25
+  visibilityFloor: 0.02
+  bodyTierDepth: 0.6
+  southOfNorthLineOnly: 1
+  bands:
+  - name: Shelf
+    bedDepth: {x: 0, y: 2}
+    nominalWidth: 7
+    maxShoreDistance: 0
+    fishPer100m: 10
+    surfaceEventsPerMinPer100m: 0.7
+    farSignsPerM2PerMin: 0
+  - name: Ramp
+    bedDepth: {x: 2, y: 9.9}
+    nominalWidth: 13
+    maxShoreDistance: 0
+    fishPer100m: 8
+    surfaceEventsPerMinPer100m: 0.2
+    farSignsPerM2PerMin: 0
+  - name: Open
+    bedDepth: {x: 9.9, y: 99}
+    nominalWidth: 30
+    maxShoreDistance: 50
+    fishPer100m: 5.35
+    surfaceEventsPerMinPer100m: 0.2
+    farSignsPerM2PerMin: 0.0000667
+  species:
+  - name: Bluegill
+    tier: 0
+    neverDrawBody: 0
+    variants: 000000000100000002000000i
+    lengthRange: {x: 0.13, y: 0.24}
+    lengthTailMax: 0.27
+    per100mByBand:
+    - 6
+    - 0
+    - 0
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 0.35
+    depthMode: 0
+    depthRange: {x: 0.3, y: 1.5}
+    bedOffset: {x: 0, y: 0}
+    bedClearance: 0.08
+    surfaceMargin: 0.05
+    grouping: 1
+    groupSize: {x: 3, y: 8}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 15
+    cruiseSpeed: 0.15
+    burstSpeed: 1.1
+    turnRateCruise: 120
+    turnRateBurst: 360
+    idleShare: 0.3
+    holdSeconds: {x: 4, y: 12}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 0
+    surfaceEvent: 1
+    surfaceEventsPerFishPerMin: 0.05
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: LargemouthBass
+    tier: 0
+    neverDrawBody: 0
+    variants: 03000000i
+    lengthRange: {x: 0.25, y: 0.5}
+    lengthTailMax: 0.61
+    per100mByBand:
+    - 1.5
+    - 0.5
+    - 0
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 0.45
+    depthMode: 0
+    depthRange: {x: 0.4, y: 3}
+    bedOffset: {x: 0, y: 0}
+    bedClearance: 0.08
+    surfaceMargin: 0.05
+    grouping: 0
+    groupSize: {x: 1, y: 2}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 15
+    cruiseSpeed: 0.22
+    burstSpeed: 2.12
+    turnRateCruise: 90
+    turnRateBurst: 360
+    idleShare: 0.4
+    holdSeconds: {x: 4, y: 12}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 0
+    surfaceEvent: 2
+    surfaceEventsPerFishPerMin: 0.02
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: SpottedBass
+    tier: 1
+    neverDrawBody: 0
+    variants: 04000000i
+    lengthRange: {x: 0.25, y: 0.43}
+    lengthTailMax: 0.51
+    per100mByBand:
+    - 0.3
+    - 1
+    - 0
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 1.3
+    depthMode: 0
+    depthRange: {x: 1, y: 6}
+    bedOffset: {x: 0, y: 0}
+    bedClearance: 0.15
+    surfaceMargin: 0.1
+    grouping: 1
+    groupSize: {x: 2, y: 4}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 15
+    cruiseSpeed: 0.2
+    burstSpeed: 2.12
+    turnRateCruise: 90
+    turnRateBurst: 360
+    idleShare: 0.35
+    holdSeconds: {x: 4, y: 12}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 0
+    surfaceEvent: 2
+    surfaceEventsPerFishPerMin: 0.01
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: SmallmouthBass
+    tier: 1
+    neverDrawBody: 0
+    variants: 05000000i
+    lengthRange: {x: 0.25, y: 0.5}
+    lengthTailMax: 0.56
+    per100mByBand:
+    - 0
+    - 0.2
+    - 0
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 1
+    depthMode: 0
+    depthRange: {x: 1, y: 5}
+    bedOffset: {x: 0, y: 0}
+    bedClearance: 0.15
+    surfaceMargin: 0.1
+    grouping: 0
+    groupSize: {x: 1, y: 1}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 15
+    cruiseSpeed: 0.22
+    burstSpeed: 2.12
+    turnRateCruise: 90
+    turnRateBurst: 360
+    idleShare: 0.35
+    holdSeconds: {x: 4, y: 12}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 0
+    surfaceEvent: 2
+    surfaceEventsPerFishPerMin: 0.01
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: WhiteCrappie
+    tier: 1
+    neverDrawBody: 0
+    variants: 0600000007000000i
+    lengthRange: {x: 0.23, y: 0.38}
+    lengthTailMax: 0.4
+    per100mByBand:
+    - 0.5
+    - 1.5
+    - 0
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 1
+    depthMode: 0
+    depthRange: {x: 1.5, y: 4}
+    bedOffset: {x: 0, y: 0}
+    bedClearance: 0.08
+    surfaceMargin: 0.05
+    grouping: 2
+    groupSize: {x: 5, y: 12}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 15
+    cruiseSpeed: 0.15
+    burstSpeed: 1.8
+    turnRateCruise: 90
+    turnRateBurst: 300
+    idleShare: 0.4
+    holdSeconds: {x: 4, y: 12}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 0
+    surfaceEvent: 1
+    surfaceEventsPerFishPerMin: 0.005
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: ChannelCatfish
+    tier: 2
+    neverDrawBody: 1
+    variants: 08000000i
+    lengthRange: {x: 0.3, y: 0.8}
+    lengthTailMax: 1
+    per100mByBand:
+    - 0.2
+    - 1.5
+    - 1
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 1
+    depthMode: 1
+    depthRange: {x: 0, y: 0}
+    bedOffset: {x: 0.2, y: 0.6}
+    bedClearance: 0.15
+    surfaceMargin: 0.1
+    grouping: 0
+    groupSize: {x: 1, y: 3}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 20
+    cruiseSpeed: 0.17
+    burstSpeed: 1.5
+    turnRateCruise: 60
+    turnRateBurst: 240
+    idleShare: 0.6
+    holdSeconds: {x: 10, y: 30}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 1
+    surfaceEvent: 0
+    surfaceEventsPerFishPerMin: 0
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: FlatheadCatfish
+    tier: 2
+    neverDrawBody: 1
+    variants: 09000000i
+    lengthRange: {x: 0.38, y: 1.14}
+    lengthTailMax: 1.3
+    per100mByBand:
+    - 0
+    - 0
+    - 0
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 1
+    depthMode: 1
+    depthRange: {x: 0, y: 0}
+    bedOffset: {x: 0.1, y: 0.4}
+    bedClearance: 0.15
+    surfaceMargin: 0.1
+    grouping: 0
+    groupSize: {x: 1, y: 1}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 20
+    cruiseSpeed: 0.15
+    burstSpeed: 1.2
+    turnRateCruise: 45
+    turnRateBurst: 200
+    idleShare: 0.75
+    holdSeconds: {x: 10, y: 30}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 1
+    surfaceEvent: 0
+    surfaceEventsPerFishPerMin: 0
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: BlueCatfish
+    tier: 2
+    neverDrawBody: 1
+    variants: 0a000000i
+    lengthRange: {x: 0.5, y: 1.12}
+    lengthTailMax: 1.3
+    per100mByBand:
+    - 0
+    - 0
+    - 0.4
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 2
+    depthMode: 1
+    depthRange: {x: 0, y: 0}
+    bedOffset: {x: 0.3, y: 1}
+    bedClearance: 0.15
+    surfaceMargin: 0.1
+    grouping: 0
+    groupSize: {x: 1, y: 1}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 20
+    cruiseSpeed: 0.24
+    burstSpeed: 1.5
+    turnRateCruise: 60
+    turnRateBurst: 240
+    idleShare: 0.5
+    holdSeconds: {x: 10, y: 30}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 1
+    surfaceEvent: 0
+    surfaceEventsPerFishPerMin: 0
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: FreshwaterDrum
+    tier: 2
+    neverDrawBody: 1
+    variants: 0b000000i
+    lengthRange: {x: 0.3, y: 0.5}
+    lengthTailMax: 0.75
+    per100mByBand:
+    - 0
+    - 1.5
+    - 1.5
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 1
+    depthMode: 1
+    depthRange: {x: 0, y: 0}
+    bedOffset: {x: 0.2, y: 1}
+    bedClearance: 0.15
+    surfaceMargin: 0.1
+    grouping: 1
+    groupSize: {x: 2, y: 6}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 20
+    cruiseSpeed: 0.16
+    burstSpeed: 1.5
+    turnRateCruise: 60
+    turnRateBurst: 240
+    idleShare: 0.5
+    holdSeconds: {x: 10, y: 30}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 1
+    surfaceEvent: 0
+    surfaceEventsPerFishPerMin: 0
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: SmallmouthBuffalo
+    tier: 1
+    neverDrawBody: 0
+    variants: 0c0000000d000000i
+    lengthRange: {x: 0.38, y: 0.76}
+    lengthTailMax: 0.95
+    per100mByBand:
+    - 0
+    - 1
+    - 1.5
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 1
+    depthMode: 1
+    depthRange: {x: 0, y: 0}
+    bedOffset: {x: 0.3, y: 1.5}
+    bedClearance: 0.15
+    surfaceMargin: 0.1
+    grouping: 2
+    groupSize: {x: 3, y: 8}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 20
+    cruiseSpeed: 0.23
+    burstSpeed: 1.5
+    turnRateCruise: 60
+    turnRateBurst: 240
+    idleShare: 0.45
+    holdSeconds: {x: 10, y: 30}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 1
+    surfaceEvent: 3
+    surfaceEventsPerFishPerMin: 0.005
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: CommonCarp
+    tier: 0
+    neverDrawBody: 0
+    variants: 0e000000i
+    lengthRange: {x: 0.3, y: 0.64}
+    lengthTailMax: 0.8
+    per100mByBand:
+    - 1
+    - 0.4
+    - 0
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 0.55
+    depthMode: 0
+    depthRange: {x: 0.3, y: 3}
+    bedOffset: {x: 0, y: 0}
+    bedClearance: 0.08
+    surfaceMargin: 0.05
+    grouping: 1
+    groupSize: {x: 2, y: 4}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 15
+    cruiseSpeed: 0.23
+    burstSpeed: 2
+    turnRateCruise: 75
+    turnRateBurst: 300
+    idleShare: 0.3
+    holdSeconds: {x: 4, y: 12}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 0
+    surfaceEvent: 4
+    surfaceEventsPerFishPerMin: 0.03
+    canJump: 1
+    airborneBodyAllowed: 1
+    jumpsPerFishPerMin: 0.01
+    schoolEventsPerMin: 0
+  - name: LongnoseGar
+    tier: 1
+    neverDrawBody: 0
+    variants: 0f0000001000000011000000i
+    lengthRange: {x: 0.6, y: 1.2}
+    lengthTailMax: 1.5
+    per100mByBand:
+    - 0.5
+    - 0
+    - 0
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 0.4
+    depthMode: 2
+    depthRange: {x: 0, y: 1}
+    bedOffset: {x: 0, y: 0}
+    bedClearance: 0.08
+    surfaceMargin: 0.03
+    grouping: 1
+    groupSize: {x: 1, y: 3}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 15
+    cruiseSpeed: 0.18
+    burstSpeed: 2
+    turnRateCruise: 45
+    turnRateBurst: 300
+    idleShare: 0.6
+    holdSeconds: {x: 4, y: 12}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 0
+    surfaceEvent: 5
+    surfaceEventsPerFishPerMin: 0.1
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: Sauger
+    tier: 2
+    neverDrawBody: 1
+    variants: 12000000i
+    lengthRange: {x: 0.3, y: 0.38}
+    lengthTailMax: 0.45
+    per100mByBand:
+    - 0
+    - 0.4
+    - 0.3
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 1
+    depthMode: 1
+    depthRange: {x: 0, y: 0}
+    bedOffset: {x: 0.1, y: 0.5}
+    bedClearance: 0.15
+    surfaceMargin: 0.1
+    grouping: 1
+    groupSize: {x: 2, y: 4}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 20
+    cruiseSpeed: 0.14
+    burstSpeed: 1.8
+    turnRateCruise: 75
+    turnRateBurst: 300
+    idleShare: 0.55
+    holdSeconds: {x: 10, y: 30}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 1
+    surfaceEvent: 0
+    surfaceEventsPerFishPerMin: 0
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: WhiteBass
+    tier: 2
+    neverDrawBody: 1
+    variants: 13000000i
+    lengthRange: {x: 0.23, y: 0.38}
+    lengthTailMax: 0.43
+    per100mByBand:
+    - 0
+    - 0
+    - 0.6
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 2
+    depthMode: 0
+    depthRange: {x: 0.5, y: 4}
+    bedOffset: {x: 0, y: 0}
+    bedClearance: 0.15
+    surfaceMargin: 0.1
+    grouping: 3
+    groupSize: {x: 8, y: 20}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 25
+    cruiseSpeed: 0.24
+    burstSpeed: 1.96
+    turnRateCruise: 120
+    turnRateBurst: 360
+    idleShare: 0
+    holdSeconds: {x: 4, y: 12}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 0
+    surfaceEvent: 6
+    surfaceEventsPerFishPerMin: 0
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0.2
+  - name: Paddlefish
+    tier: 2
+    neverDrawBody: 1
+    variants: 14000000i
+    lengthRange: {x: 1, y: 1.8}
+    lengthTailMax: 2.1
+    per100mByBand:
+    - 0
+    - 0
+    - 0.05
+    schoolUnit: 0
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0
+    minBedDepth: 3
+    depthMode: 2
+    depthRange: {x: 0.5, y: 3}
+    bedOffset: {x: 0, y: 0}
+    bedClearance: 0.15
+    surfaceMargin: 0.1
+    grouping: 0
+    groupSize: {x: 1, y: 1}
+    spacingBodyLengths: {x: 0.6, y: 1.5}
+    groupRadius: 3
+    homeRadius: 30
+    cruiseSpeed: 0.42
+    burstSpeed: 1.5
+    turnRateCruise: 30
+    turnRateBurst: 120
+    idleShare: 0
+    holdSeconds: {x: 4, y: 12}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 0
+    surfaceEvent: 7
+    surfaceEventsPerFishPerMin: 0.01
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0
+  - name: GizzardShad
+    tier: 2
+    neverDrawBody: 1
+    variants: 1500000016000000i
+    lengthRange: {x: 0.1, y: 0.36}
+    lengthTailMax: 0.36
+    per100mByBand:
+    - 0
+    - 0
+    - 0
+    schoolUnit: 1
+    schoolsPer100mByBand:
+    - 0.5
+    - 0.5
+    - 0.5
+    minBedDepth: 1
+    depthMode: 0
+    depthRange: {x: 0.3, y: 3}
+    bedOffset: {x: 0, y: 0}
+    bedClearance: 0.1
+    surfaceMargin: 0.05
+    grouping: 3
+    groupSize: {x: 15, y: 40}
+    spacingBodyLengths: {x: 0.6, y: 1}
+    groupRadius: 3
+    homeRadius: 25
+    cruiseSpeed: 0.23
+    burstSpeed: 0.85
+    turnRateCruise: 120
+    turnRateBurst: 360
+    idleShare: 0
+    holdSeconds: {x: 4, y: 12}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 0
+    surfaceEvent: 8
+    surfaceEventsPerFishPerMin: 0
+    canJump: 0
+    airborneBodyAllowed: 0
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0.25
+  - name: SkipjackHerring
+    tier: 2
+    neverDrawBody: 1
+    variants: 17000000i
+    lengthRange: {x: 0.3, y: 0.41}
+    lengthTailMax: 0.41
+    per100mByBand:
+    - 0
+    - 0
+    - 0
+    schoolUnit: 1
+    schoolsPer100mByBand:
+    - 0
+    - 0
+    - 0.2
+    minBedDepth: 1
+    depthMode: 0
+    depthRange: {x: 0.3, y: 3}
+    bedOffset: {x: 0, y: 0}
+    bedClearance: 0.1
+    surfaceMargin: 0.05
+    grouping: 3
+    groupSize: {x: 6, y: 15}
+    spacingBodyLengths: {x: 0.6, y: 1}
+    groupRadius: 4
+    homeRadius: 25
+    cruiseSpeed: 0.35
+    burstSpeed: 1.2
+    turnRateCruise: 120
+    turnRateBurst: 360
+    idleShare: 0
+    holdSeconds: {x: 4, y: 12}
+    wanderSeconds: {x: 5, y: 15}
+    bottom: 0
+    surfaceEvent: 9
+    surfaceEventsPerFishPerMin: 0
+    canJump: 1
+    airborneBodyAllowed: 1
+    jumpsPerFishPerMin: 0
+    schoolEventsPerMin: 0.2
+  structures:
+  - kind: BluffFace
+    bandMultiplier:
+    - 1.3
+    - 1.3
+    - 1
+    levelKinds:
+    - Bluff
+    prefs:
+    - 0.5
+    - 1
+    - 3
+    - 4
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1.5
+    - 1
+    - 0.5
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    extraSpecies: 6
+    extraPer100mShore: 1
+    extraSchoolSpecies: -1
+    extraSchoolsPerAnchor: 0
+    reachOut: 20
+  - kind: HollowMouth
+    bandMultiplier:
+    - 2
+    - 2
+    - 1
+    levelKinds:
+    - HollowMouth
+    prefs:
+    - 1
+    - 1.5
+    - 1
+    - 1
+    - 2
+    - 2
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 2
+    - 2
+    - 1
+    - 1
+    - 1
+    - 1
+    extraSpecies: 6
+    extraPer100mShore: 2.5
+    extraSchoolSpecies: 15
+    extraSchoolsPerAnchor: 1
+    reachOut: 20
+  - kind: LandingOrSlipway
+    bandMultiplier:
+    - 1.5
+    - 1.5
+    - 1
+    levelKinds:
+    - FerryLanding
+    - Slipway
+    prefs:
+    - 1.5
+    - 1.5
+    - 1
+    - 1
+    - 2
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    extraSpecies: -1
+    extraPer100mShore: 0
+    extraSchoolSpecies: -1
+    extraSchoolsPerAnchor: 0
+    reachOut: 20
+  - kind: IslandFace
+    bandMultiplier:
+    - 1.2
+    - 1.2
+    - 1
+    levelKinds:
+    - IslandFace
+    prefs:
+    - 1
+    - 1
+    - 1
+    - 2
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1.5
+    - 1.5
+    - 1.5
+    - 1.5
+    - 1
+    - 1
+    - 1
+    - 1
+    extraSpecies: -1
+    extraPer100mShore: 0
+    extraSchoolSpecies: -1
+    extraSchoolsPerAnchor: 0
+    reachOut: 20
+  - kind: IslandChuteMouth
+    bandMultiplier:
+    - 2
+    - 2
+    - 1
+    levelKinds:
+    - ChuteMouth
+    prefs:
+    - 1
+    - 1.5
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 2
+    - 2
+    - 3
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    extraSpecies: 6
+    extraPer100mShore: 1.25
+    extraSchoolSpecies: 15
+    extraSchoolsPerAnchor: 0.5
+    reachOut: 20
+  scatter:
+    triggerWading: 4
+    triggerSwimming: 6
+    triggerBankWalk: 2.5
+    bankWalkLipDistance: 2
+    bottomTriggerSwim3D: 4
+    reactionSeconds: {x: 0.2, y: 0.4}
+    burstSpeed: {x: 1.5, y: 2.5}
+    burstSeconds: {x: 1, y: 2}
+    fleeCruiseSpeed: 0.6
+    fleeDistance: {x: 8, y: 15}
+    fleeSurfaceSignDepth: 0.6
+    returnStartSeconds: 20
+    reactionTurnRate: 720
+    settleSeconds: 45

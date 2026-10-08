@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-07 21:20:26Z" end-time="2026-10-07 21:20:29Z" duration="2.8220858">
+  <test-suite type="TestSuite" id="1000" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="147" result="Failed" site="Child" start-time="2026-10-07 21:20:26Z" end-time="2026-10-07 21:20:29Z" duration="2.822086" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1184" name="WashedAshore.Tests.Fish.EditMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.Fish.EditMode.dll" runstate="Runnable" testcasecount="44" result="Failed" site="Child" start-time="2026-10-07 21:20:26Z" end-time="2026-10-07 21:20:29Z" duration="2.815759" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="71592" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1185" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="44" result="Failed" site="Child" start-time="2026-10-07 21:20:26Z" end-time="2026-10-07 21:20:29Z" duration="2.815235" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1186" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="44" result="Failed" site="Child" start-time="2026-10-07 21:20:26Z" end-time="2026-10-07 21:20:29Z" duration="2.814888" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1187" name="EditMode" fullname="WashedAshore.Tests.EditMode" runstate="Runnable" testcasecount="44" result="Failed" site="Child" start-time="2026-10-07 21:20:26Z" end-time="2026-10-07 21:20:29Z" duration="2.814579" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestSuite" id="1188" name="Fish" fullname="WashedAshore.Tests.EditMode.Fish" runstate="Runnable" testcasecount="44" result="Failed" site="Child" start-time="2026-10-07 21:20:26Z" end-time="2026-10-07 21:20:29Z" duration="2.814249" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="TestFixture" id="1160" name="FishSimWorldTests" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" testcasecount="10" result="Failed" site="Child" start-time="2026-10-07 21:20:26Z" end-time="2026-10-07 21:20:29Z" duration="2.813005" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1164" name="F5_Groupmates_NeverOverlap" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.F5_Groupmates_NeverOverlap" methodname="F5_Groupmates_NeverOverlap" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" seed="395601684" result="Failed" start-time="2026-10-07 21:20:26Z" end-time="2026-10-07 21:20:29Z" duration="2.803283" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  t=21.433 6577393340166528398/7104762428723811585 groups 3/3 modes Scatter/Scatter p (22.292, -9.823, -0.813)/(22.202, -9.778, -0.646) fwd (0.25, 0.00, -0.97)/(0.25, 0.00, -0.97) scale 0.270/0.213 y -9.850--9.796/-9.799--9.756
+  Expected: 0
+  But was:  95
+]]></message>
+                    <stack-trace><![CDATA[at WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.F5_Groupmates_NeverOverlap () [0x00082] in E:\GitHub\washed-ashore\Assets\Tests\EditMode\Fish\FishSimWorldTests.cs:192
+]]></stack-trace>
+                  </failure>
+                  <output><![CDATA[Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

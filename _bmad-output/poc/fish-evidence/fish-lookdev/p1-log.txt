@@ -1,0 +1,31 @@
+FishLookDev phase 1 2026-10-07T21:08:28Z
+shader WashedAshore/FishRing: hasError=False, variants compiled 12/12 (D3D + GLES3x/WebGL)
+shader WashedAshore/FishUnderwater: hasError=False, variants compiled 12/12 (D3D + GLES3x/WebGL)
+scene Assets/Scenes/LookDev/FishLookDev.unity: copied 4 terrain tiles, 6 water quads, 1 directional lights, 1 sky roots from Assets/Scenes/World.unity (closed unsaved); fog Linear 120-520, skybox BellsBendSky, sun Sun
+water globals at t=0.6: W=1.610; copied from BellsBendWater: _Extinction (2.20, 2.40, 3.20, 0.00), _ScatterColor RGBA(0.290, 0.290, 0.180, 1.000), _MinCosView 0.15, _F0 0.02
+tint check (f-td 5.4 f, Phase 1): 4 VAT instances via RenderMeshInstanced, per-region px 63001/9562/2679/75189 (> 400 each), mean RGB 74,82,42 | 65,61,57 | 81,83,85 | 71,78,43; distinct True -> PASS (p1-tint-check.png)
+  p1-L3-largemouth-dry-close.png: eye (-991.0,2.16,512.7) -> (-989.8,2.11,512.8) fov 30, 1 fish, 0 signs
+  LargemouthBass length 0.38 m, top 0.30 m down, 1.9 m out, bed 0.51 m
+  p1-L3-largemouth-d0.3-shore-fov20.png: eye (-985.8,3.74,513.3) -> (-988.7,1.24,513.0) fov 20, 1 fish, 0 signs
+  p1-normals-vat-rest.png: eye (-991.0,2.16,512.7) -> (-989.8,2.11,512.8) fov 30, 1 fish, 0 signs
+  p1-normals-mesh-rest.png: the LargemouthBass census prefab (mesh path, skinned normals, bind pose) at the same root/heading as p1-normals-vat-rest.png; prefab length 0.375 m vs VAT 0.375 m
+  mesh-path diag (p1-meshpath-diag.png, left to right: census body mat, VAT mat with _UseVat 0, URP Lit):
+    LargemouthBass_Body: shader WashedAshore/FishUnderwater supported True queue 3010 instancing False keywords [] _UseVat 0 _BackColor RGBA(0.361, 0.392, 0.251, 1.000) passes 1
+    Fish1_VAT: shader WashedAshore/FishUnderwater supported True queue 3010 instancing True keywords [] _UseVat 0 _BackColor RGBA(0.360, 0.390, 0.250, 1.000) passes 1
+    Universal Render Pipeline/Lit: shader Universal Render Pipeline/Lit supported True queue 2000 instancing False keywords [] _UseVat -1 _BackColor - passes 9
+    census prefab SMR: enabled True active True mesh Fish materials [LargemouthBass_Body,LargemouthBass_Body,LargemouthBass_Fins] rootBone Root localBounds Center: (0.00, 0.01, -0.01), Extents: (0.01, 0.01, 0.04) world bounds Center: (-989.80, 2.13, 512.80), Extents: (0.06, 0.09, 0.19) in frustum True lossyScale (0.05, 0.06, 0.05)
+    census prefab offscreen: as shipped 10378 px changed vs empty; with URP Lit 10381 px
+  LongnoseGar length 0.90 m, top 0.05 m down, 1.2 m out, bed 0.23 m
+  p1-L1-gar-shadow-d0.05-shore-fov20.png: eye (-985.8,3.74,513.3) -> (-988.2,1.50,514.6) fov 20, 1 fish, 0 signs
+  p1-L1-gar-shadow-d0.05-shore-fov60.png: eye (-985.8,3.74,513.3) -> (-988.2,1.50,514.6) fov 60, 1 fish, 0 signs
+  LongnoseGar length 0.90 m, top 0.30 m down, 2.0 m out, bed 0.49 m
+  p1-L1-gar-shadow-d0.30-shore-fov20.png: eye (-985.8,3.74,513.3) -> (-989.0,1.25,514.5) fov 20, 1 fish, 0 signs
+  p1-L1-gar-shadow-d0.30-shore-fov60.png: eye (-985.8,3.74,513.3) -> (-989.0,1.25,514.5) fov 60, 1 fish, 0 signs
+  p1-L4-dimple-age0.15-shore-fov20.png: eye (-985.8,3.74,513.3) -> (-989.8,1.61,512.8) fov 20, 0 fish, 1 signs
+  p1-L4-dimple-age0.45-shore-fov20.png: eye (-985.8,3.74,513.3) -> (-989.8,1.61,512.8) fov 20, 0 fish, 1 signs
+  p1-L4-dimple-age0.80-shore-fov20.png: eye (-985.8,3.74,513.3) -> (-989.8,1.61,512.8) fov 20, 0 fish, 1 signs
+  p1-L4-signs-shore-fov60.png: eye (-985.8,3.74,513.3) -> (-991.8,1.61,512.6) fov 60, 0 fish, 4 signs
+  p1-L4-signs-shore-fov30.png: eye (-985.8,3.74,513.3) -> (-991.8,1.61,512.6) fov 30, 0 fish, 4 signs
+  p1-L4-modes-top.png: eye (-992.8,5.61,512.5) -> (-992.8,1.61,512.5) fov 60, 0 fish, 4 signs
+
+done

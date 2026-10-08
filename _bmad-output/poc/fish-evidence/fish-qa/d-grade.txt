@@ -1,0 +1,13 @@
+f-qa grade of slot D (brief F16 7e5e23c461769436 in every JSON/probe header; footprints rendered = F17 draft 4f762c57 for bodies' sake only, signs still undrawn in World until the FishSurfaceFx wiring fix) - 2026-10-07 ~23:15Z, plan rev 5.0.
+Fish PlayMode 11/20 (fish/slotD-playmode-final.xml), EditMode 92/92.
+F3: band densities pass at all seeds on the census's own area (shelf 0.0147/0.0141/0.0159 vs 0.014286; ramp 0.0059/0.0055/0.0066 vs 0.006154; open 0.0019/0.0017/0.0019 vs 0.001783).
+   Area reconciliation: ramp 117,988-118,072 vs qa 118,360 (-0.3%, OK); open ~302,500 vs qa 303,556 (-0.3%, OK); shelf 65,336-65,464 vs qa 68,808 (-4.9%, unresolved). Non-material: re-dividing on qa's shelf area lowers shelf density ~5% (worst 0.0134, -6%), still inside +/-25%.
+   Species mix (agreed rule: per seed where expected groups/seed >= 10): FAIL - shelf CommonCarp (98/74/52 vs 66), ramp LargemouthBass, SpottedBass, SmallmouthBass, WhiteCrappie, SmallmouthBuffalo, open ChannelCatfish, FreshwaterDrum, SmallmouthBuffalo.
+   Structure (pooled per type x band, +/-25%): FAIL - LandingOrSlipway/Ramp +27%, IslandFace/Shelf +35%, IslandFace/Ramp +36%, IslandChuteMouth/Ramp -32%.
+   -> F3 FAIL (mix and structure; bands pass).
+F4: 0 violations (pod) at all seeds; qa grader on all D dumps (f4f5, f6, f7, both bluffs, 3 seeds; ~1.13M fish samples): 0 bed/surface/land/north, 0 tier violations -> PASS (fish-qa/d-grade-f4-tiers.jsonl).
+F5: 101/202 pass (turn 11.25 deg/frame, r 0.997-0.999, speed CV 1.4-1.7, rule share >= 99.1%, spacing >= 1.003, 0 box overlaps). 303 FAIL on f-td's stuck bar (a SchoolFollow shad frozen 5.07 s; stuckLongest 6.5 s).
+F6: 202 PASS; 101 FAIL (swim fish first-away 1.40 s > 0.4); 303 FAIL (wade fish not back in band at 90 s).
+F7: body sightings 7.65 / 15.97 / 11.31 per min vs 1.4-2.8 -> FAIL (counter per definition; per-group info 13/27/20). Sign counts VOID (FishSurfaceFx never drew; plan rev 5.0). Body cap, tiers, visibility as in C2 (pass).
+Guard: admittedBeyondEdge 0 / 2,979,104 wet cells -> PASS (under-reads 10 reported only).
+Evidence loss: the C2 info-run dumps (fish-probe-info-*-{404,505,606}) and calib dumps were overwritten at 23:00Z by D-code runs (explicit tests run by a namespace filter); qa's numbers from the C2 originals survive in fish-qa/c2-info-heldout.txt and calib-check.txt (both information only).

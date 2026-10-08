@@ -1,0 +1,10 @@
+brief F18
+fish-probe-f7-101.jsonl: 180 s; spontaneous in view 3; legible 0 = 0.00/min; legible but undrawn 0; drawn-flag joins 15
+fish-probe-f7-202.jsonl: 180 s; spontaneous in view 3; legible 0 = 0.00/min; legible but undrawn 0; drawn-flag joins 17
+fish-probe-f7-303.jsonl: 180 s; spontaneous in view 1; legible 0 = 0.00/min; legible but undrawn 0; drawn-flag joins 13
+fish-probe-f7bluff-mccord-101.jsonl: 180 s; spontaneous in view 5; legible 0 = 0.00/min; legible but undrawn 0; drawn-flag joins 14
+fish-probe-f7bluff-mccord-202.jsonl: 180 s; spontaneous in view 11; legible 5 = 1.67/min; legible but undrawn 0; drawn-flag joins 19
+fish-probe-f7bluff-mccord-303.jsonl: 180 s; spontaneous in view 4; legible 1 = 0.33/min; legible but undrawn 0; drawn-flag joins 10
+fish-probe-f7bluff-buzzard-101.jsonl: 180 s; spontaneous in view 4; legible 0 = 0.00/min; legible but undrawn 0; drawn-flag joins 7
+fish-probe-f7bluff-buzzard-202.jsonl: 180 s; spontaneous in view 8; legible 2 = 0.67/min; legible but undrawn 0; drawn-flag joins 10
+fish-probe-f7bluff-buzzard-303.jsonl: 180 s; spontaneous in view 7; legible 1 = 0.33/min; legible but undrawn 0; drawn-flag joins 16

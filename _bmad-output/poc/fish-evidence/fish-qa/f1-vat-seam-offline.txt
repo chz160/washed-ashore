@@ -1,0 +1,28 @@
+brief F11 ; max drawn scale per model (axis x max length / nose-to-tail): {'Fish2': (0.04002, 'WhiteCrappie'), 'Fish1': (0.18713, 'LongnoseGar')}
+Fish1: 950 vertices x 31 frames (rest row skipped), sha256 31898d2c80d3eb2d; scale 0.18713
+  wrap step max 13.102 mm world; max step anywhere 17.397 mm; ratio-pass 854/950; floor-only pass 59; FAIL 37
+  worst v565: wrap 13.061 prev 15.974 next 10.906 mm; ratios 0.82/1.20
+  worst v627: wrap 13.061 prev 15.974 next 10.906 mm; ratios 0.82/1.20
+  worst v567: wrap 13.066 prev 15.902 next 10.895 mm; ratios 0.82/1.20
+  local step irregularity (|step - mean of neighbours|, max over vertices): near wrap 2.442 mm, elsewhere 3.732 mm
+  SEAM Fish1: FAIL
+Fish2: 830 vertices x 31 frames (rest row skipped), sha256 ec054d74189c9ac7; scale 0.04002
+  wrap step max 7.843 mm world; max step anywhere 10.029 mm; ratio-pass 721/830; floor-only pass 109; FAIL 0
+  worst v90: wrap 7.843 prev 9.357 next 6.925 mm; ratios 0.84/1.13
+  worst v85: wrap 7.843 prev 9.357 next 6.925 mm; ratios 0.84/1.13
+  worst v214: wrap 7.843 prev 9.357 next 6.925 mm; ratios 0.84/1.13
+  local step irregularity (|step - mean of neighbours|, max over vertices): near wrap 1.141 mm, elsewhere 1.662 mm
+  SEAM Fish2: PASS
+--- per-frame control: the same ratio+floor test applied at every step, not just the wrap (counts of failing vertices)
+Fish1: failing vertices per step (step F-1 = wrap): [0, 5, 0, 0, 35, 182, 165, 168, 182, 182, 87, 54, 71, 68, 212, 109, 33, 135, 51, 0, 0, 208, 236, 233, 225, 250, 213, 0, 0, 0, 37]
+  wrap 37; median over non-wrap steps 79; max non-wrap 250
+  wrap-fail v75: prev 4.011 wrap 3.036 next 1.965 mm
+  wrap-fail v78: prev 3.893 wrap 3.014 next 1.931 mm
+  wrap-fail v80: prev 4.011 wrap 3.036 next 1.965 mm
+  wrap-fail v81: prev 3.893 wrap 3.014 next 1.931 mm
+  wrap-fail v213: prev 3.893 wrap 3.014 next 1.931 mm
+Fish2: failing vertices per step (step F-1 = wrap): [0, 0, 0, 0, 0, 114, 114, 111, 114, 114, 109, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 114, 114, 114, 141, 141, 120, 0, 0, 0, 0]
+  wrap 0; median over non-wrap steps 0; max non-wrap 141
+--- envelope test (qa rev 3.1): wrap step within [0.5 x min(prev,next), 1.5 x max(prev,next)] or the 1 mm floor; applied at every step as control
+Fish1: failing vertices per step: [0, 0, 0, 0, 0, 0, 0, 121, 0, 0, 0, 0, 0, 0, 40, 8, 8, 0, 0, 0, 0, 0, 0, 130, 0, 0, 0, 0, 0, 0, 0]; wrap 0 -> SEAM PASS
+Fish2: failing vertices per step: [0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 0]; wrap 0 -> SEAM PASS

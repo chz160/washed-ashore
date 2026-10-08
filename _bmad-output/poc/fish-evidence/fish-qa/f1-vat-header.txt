@@ -1,0 +1,2 @@
+Assets/World/Fish/Art/Fish1_VatPos.asset: 950x32 RGBAHalf filter Point bytes 243200
+Assets/World/Fish/Art/Fish2_VatPos.asset: 830x32 RGBAHalf filter Point bytes 212480

@@ -30783,6 +30783,85 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.7, y: 9.5824585, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &705674297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 705674301}
+  - component: {fileID: 705674300}
+  - component: {fileID: 705674299}
+  - component: {fileID: 705674298}
+  m_Layer: 0
+  m_Name: Fish
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &705674298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705674297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ccec0ced524af44f900a680a2c88b3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WashedAshore.Fish.Rendering::WashedAshore.Fish.Rendering.FishSurfaceFx
+  set: {fileID: 11400000, guid: a75a42299f713584580c33c1f0cadbf7, type: 2}
+--- !u!114 &705674299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705674297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddba1fdb734883846a09df8d9ec8ea94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WashedAshore.Fish.Rendering::WashedAshore.Fish.Rendering.FishRenderer
+  set: {fileID: 11400000, guid: a75a42299f713584580c33c1f0cadbf7, type: 2}
+--- !u!114 &705674300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705674297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01bfb8a98bda0e64e8a984b06f961f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WashedAshore.Fish::WashedAshore.Fish.FishPopulation
+  tuning: {fileID: 11400000, guid: 441a6e82768cd9a4e9466a75fcb0a028, type: 2}
+  bodies: {fileID: 11400000, guid: 41b9aabe12ef1734db254801980aba86, type: 2}
+  map: {fileID: 11400000, guid: e3b83b29acdb473db29f731c93794f92, type: 2}
+  waterMaterial: {fileID: 2100000, guid: 13fb35b5fc86f6c42893bac7f081b571, type: 2}
+  waterMotion: {fileID: 11400000, guid: 609dda6aa9ab457b95a25121d585c1c6, type: 2}
+  anchors: {fileID: 11400000, guid: 6f0b76003ebd0ad4ba22bd49e4253028, type: 2}
+  levelMaps: {fileID: 11400000, guid: 276b571f4d06981458d6e44cf65dc337, type: 2}
+--- !u!4 &705674301
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705674297}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705901685
 GameObject:
   m_ObjectHideFlags: 0
@@ -100354,3 +100433,4 @@ SceneRoots:
   - {fileID: 658601890}
   - {fileID: 981621744}
   - {fileID: 387424561}
+  - {fileID: 705674301}

@@ -1,0 +1,3108 @@
+{
+    "generated": "2026-10-07T17:23:17.5148968-05:00",
+    "brief": "_bmad-output/poc/wildlife-density-brief.md sections 3.4-3.6",
+    "notes": "Non-gating fidelity check (wl-qa): same walk and scoring as A6. 101 at timeScale 1, and the gating seeds replayed at timeScale 3 with the walker stall log. wildlife-sightings.json is not touched.",
+    "bands": {
+        "seeds": [
+            101,
+            202,
+            303
+        ],
+        "sampleInterval": 0.5,
+        "walkSeconds": 180.0,
+        "startDelayAfterGrounded": 1.0,
+        "viewDistance": 80.0,
+        "walkSpeed": 5.0,
+        "scanAmplitudeDegrees": 25.0,
+        "scanPeriodSeconds": 10.0,
+        "routeOffsets": [
+            {
+                "x": 0.0,
+                "y": 0.0
+            },
+            {
+                "x": 40.0,
+                "y": 40.0
+            },
+            {
+                "x": 120.0,
+                "y": 30.0
+            },
+            {
+                "x": 170.0,
+                "y": 100.0
+            },
+            {
+                "x": 110.0,
+                "y": 170.0
+            },
+            {
+                "x": 30.0,
+                "y": 180.0
+            },
+            {
+                "x": -40.0,
+                "y": 120.0
+            },
+            {
+                "x": -50.0,
+                "y": 30.0
+            },
+            {
+                "x": 20.0,
+                "y": -40.0
+            },
+            {
+                "x": 110.0,
+                "y": -30.0
+            },
+            {
+                "x": 0.0,
+                "y": 0.0
+            }
+        ],
+        "sightingRateMin": 0.25,
+        "sightingRateMax": 0.550000011920929,
+        "maxGapSeconds": 45.0,
+        "maxFirstSightingSeconds": 30.0,
+        "maxVisibleMin": 3,
+        "maxVisibleMax": 8,
+        "busyCount": 5,
+        "busySampleShareMax": 0.10000000149011612,
+        "perSpeciesMinConsecutive": 2
+    },
+    "runs": [
+        {
+            "seed": 101,
+            "gating": false,
+            "fidelity": true,
+            "ranAt": "2026-10-07T17:23:12.1540095-05:00",
+            "briefRevision": "R1",
+            "placementError": "",
+            "validAssignments": 48,
+            "assignmentDraws": 1,
+            "redraws": [],
+            "finalAssignment": [
+                2,
+                4,
+                3,
+                0,
+                5,
+                1
+            ],
+            "replanDeterministic": true,
+            "plannedAnchorsMatchScene": true,
+            "samples": 360,
+            "timeScale": 1.0,
+            "cameraFov": 70.0,
+            "runnerAspect": 1.3333333730697632,
+            "aspect": 1.7777777910232544,
+            "sightingRate": 0.3083333373069763,
+            "sightingRateFoliage": 0.10555555671453476,
+            "longestGapSec": 40.5,
+            "firstSightingSec": 10.5,
+            "maxVisible": 6,
+            "pctSamplesGe5": 0.013888888992369175,
+            "perSpeciesMaxConsecutive": {
+                "Deer": 25,
+                "Stag": 34,
+                "Fox": 28,
+                "Wolf": 9
+            },
+            "population": {
+                "Deer": 8,
+                "Stag": 3,
+                "Fox": 2,
+                "Wolf": 2
+            },
+            "groups": [
+                {
+                    "species": "Deer",
+                    "size": 4,
+                    "anchor": {
+                        "x": -156.94627380371094,
+                        "y": 12.938331604003906,
+                        "z": -737.0654296875
+                    },
+                    "routeArc": 2,
+                    "routeDistance_m": 26.821191787719727,
+                    "sightlineBack_m": 40.0,
+                    "sightlineFromRouteS_m": 343.3966064453125,
+                    "sightlineFromSegment": 4,
+                    "plannedAnchorMatches": true
+                },
+                {
+                    "species": "Deer",
+                    "size": 4,
+                    "anchor": {
+                        "x": -151.26416015625,
+                        "y": 13.662796020507813,
+                        "z": -1010.9451293945313
+                    },
+                    "routeArc": 4,
+                    "routeDistance_m": 32.14030456542969,
+                    "sightlineBack_m": 40.0,
+                    "sightlineFromRouteS_m": 665.9467163085938,
+                    "sightlineFromSegment": 7,
+                    "plannedAnchorMatches": true
+                },
+                {
+                    "species": "Wolf",
+                    "size": 2,
+                    "anchor": {
+                        "x": -202.48428344726563,
+                        "y": 14.490325927734375,
+                        "z": -827.8863525390625
+                    },
+                    "routeArc": 3,
+                    "routeDistance_m": 30.628488540649414,
+                    "sightlineBack_m": 40.0,
+                    "sightlineFromRouteS_m": 421.3670654296875,
+                    "sightlineFromSegment": 5,
+                    "plannedAnchorMatches": true
+                },
+                {
+                    "species": "Stag",
+                    "size": 3,
+                    "anchor": {
+                        "x": -93.7174301147461,
+                        "y": 16.039459228515625,
+                        "z": -929.56494140625
+                    },
+                    "routeArc": 0,
+                    "routeDistance_m": 18.670665740966797,
+                    "sightlineBack_m": 40.0,
+                    "sightlineFromRouteS_m": 88.53390502929688,
+                    "sightlineFromSegment": 1,
+                    "plannedAnchorMatches": true
+                },
+                {
+                    "species": "Fox",
+                    "size": 1,
+                    "anchor": {
+                        "x": -84.71774291992188,
+                        "y": 14.162225723266602,
+                        "z": -990.1727905273438
+                    },
+                    "routeArc": 5,
+                    "routeDistance_m": 19.791120529174805,
+                    "sightlineBack_m": 40.0,
+                    "sightlineFromRouteS_m": 728.3304443359375,
+                    "sightlineFromSegment": 8,
+                    "plannedAnchorMatches": true
+                },
+                {
+                    "species": "Fox",
+                    "size": 1,
+                    "anchor": {
+                        "x": -22.96364402770996,
+                        "y": 19.74498748779297,
+                        "z": -884.903076171875
+                    },
+                    "routeArc": 1,
+                    "routeDistance_m": 32.88500213623047,
+                    "sightlineBack_m": 55.0,
+                    "sightlineFromRouteS_m": 139.1178436279297,
+                    "sightlineFromSegment": 2,
+                    "plannedAnchorMatches": true
+                }
+            ],
+            "stallRecoveries": 0,
+            "sightSaturations": 0,
+            "sightMaxHits": 1,
+            "stallEvents": [],
+            "pass": {
+                "sightingRate": true,
+                "longestGap": true,
+                "firstSighting": true,
+                "maxVisible": true,
+                "busy": true,
+                "perSpecies": true,
+                "all": true
+            },
+            "perSample": [
+                {
+                    "t": 0.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 0.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 1.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 1.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 2.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 2.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 3.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 3.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 4.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 4.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 5.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 5.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 6.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 6.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 7.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 7.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 8.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 8.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 9.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 9.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 10.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 10.5,
+                    "visible": 2,
+                    "species": "Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 2,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 11.0,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 11.5,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 12.0,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 12.5,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 13.0,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 13.5,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 14.0,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 14.5,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 15.0,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 15.5,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 16.0,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 3
+                },
+                {
+                    "t": 16.5,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 3
+                },
+                {
+                    "t": 17.0,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 2
+                },
+                {
+                    "t": 17.5,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 3
+                },
+                {
+                    "t": 18.0,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 2
+                },
+                {
+                    "t": 18.5,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 1
+                },
+                {
+                    "t": 19.0,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 1
+                },
+                {
+                    "t": 19.5,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 20.0,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 20.5,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 21.0,
+                    "visible": 3,
+                    "species": "Stag,Stag,Stag",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 21.5,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 22.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 22.5,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 23.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 23.5,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 24.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 24.5,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 25.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 25.5,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 26.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 1
+                },
+                {
+                    "t": 26.5,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 1
+                },
+                {
+                    "t": 27.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 2
+                },
+                {
+                    "t": 27.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 28.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 28.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 29.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 29.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 30.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 30.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 31.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 31.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 32.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 32.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 33.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 33.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 34.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 34.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 35.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 35.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 36.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 36.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 37.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 37.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 38.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 38.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 39.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 39.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 40.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 40.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 41.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 3,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 41.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 3,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 42.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 42.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 43.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 43.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 44.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 44.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 45.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 45.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 46.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 46.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 47.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 47.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 48.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 48.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 49.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 49.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 50.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 50.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 51.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 51.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 52.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 52.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 53.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 53.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 54.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 54.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 55.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 55.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 56.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 56.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 57.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 57.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 58.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 58.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 59.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 59.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 60.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 60.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 61.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 61.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 62.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 62.5,
+                    "visible": 1,
+                    "species": "Deer",
+                    "inRange80": 1,
+                    "inFrame80": 1,
+                    "visibleFoliage": 1
+                },
+                {
+                    "t": 63.0,
+                    "visible": 2,
+                    "species": "Deer,Deer",
+                    "inRange80": 2,
+                    "inFrame80": 2,
+                    "visibleFoliage": 2
+                },
+                {
+                    "t": 63.5,
+                    "visible": 3,
+                    "species": "Deer,Deer,Deer",
+                    "inRange80": 3,
+                    "inFrame80": 3,
+                    "visibleFoliage": 3
+                },
+                {
+                    "t": 64.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 64.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 65.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 65.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 66.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 66.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 67.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 67.5,
+                    "visible": 3,
+                    "species": "Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 3,
+                    "visibleFoliage": 3
+                },
+                {
+                    "t": 68.0,
+                    "visible": 3,
+                    "species": "Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 3,
+                    "visibleFoliage": 3
+                },
+                {
+                    "t": 68.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 69.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 69.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 70.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 70.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 71.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 71.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 72.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 72.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 73.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 4
+                },
+                {
+                    "t": 73.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 74.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 74.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 75.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 75.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 76.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 76.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 77.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 77.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 78.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 78.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 79.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 79.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 80.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 80.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 81.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 5,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 81.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 5,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 82.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 6,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 82.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 6,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 83.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 5,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 83.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 5,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 84.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 5,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 84.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 3,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 85.0,
+                    "visible": 2,
+                    "species": "Wolf,Wolf",
+                    "inRange80": 3,
+                    "inFrame80": 2,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 85.5,
+                    "visible": 2,
+                    "species": "Wolf,Wolf",
+                    "inRange80": 3,
+                    "inFrame80": 2,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 86.0,
+                    "visible": 2,
+                    "species": "Wolf,Wolf",
+                    "inRange80": 2,
+                    "inFrame80": 2,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 86.5,
+                    "visible": 2,
+                    "species": "Wolf,Wolf",
+                    "inRange80": 2,
+                    "inFrame80": 2,
+                    "visibleFoliage": 1
+                },
+                {
+                    "t": 87.0,
+                    "visible": 2,
+                    "species": "Wolf,Wolf",
+                    "inRange80": 2,
+                    "inFrame80": 2,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 87.5,
+                    "visible": 2,
+                    "species": "Wolf,Wolf",
+                    "inRange80": 2,
+                    "inFrame80": 2,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 88.0,
+                    "visible": 2,
+                    "species": "Wolf,Wolf",
+                    "inRange80": 2,
+                    "inFrame80": 2,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 88.5,
+                    "visible": 2,
+                    "species": "Wolf,Wolf",
+                    "inRange80": 2,
+                    "inFrame80": 2,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 89.0,
+                    "visible": 1,
+                    "species": "Wolf",
+                    "inRange80": 2,
+                    "inFrame80": 1,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 89.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 90.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 90.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 91.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 91.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 92.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 92.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 93.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 93.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 94.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 94.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 95.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 95.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 96.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 96.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 97.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 97.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 98.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 98.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 99.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 99.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 100.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 100.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 101.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 101.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 102.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 102.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 103.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 103.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 104.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 104.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 105.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 105.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 106.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 106.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 107.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 107.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 108.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 108.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 109.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 109.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 110.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 110.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 111.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 111.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 112.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 112.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 113.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 113.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 114.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 114.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 115.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 115.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 116.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 116.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 117.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 117.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 118.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 118.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 119.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 119.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 120.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 120.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 121.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 121.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 122.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 122.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 123.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 123.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 124.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 124.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 125.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 125.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 126.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 126.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 127.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 127.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 128.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 128.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 129.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 129.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 130.0,
+                    "visible": 1,
+                    "species": "Deer",
+                    "inRange80": 1,
+                    "inFrame80": 1,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 130.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 131.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 131.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 132.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 132.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 133.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 133.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 134.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 134.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 135.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 135.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 136.0,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 136.5,
+                    "visible": 4,
+                    "species": "Deer,Deer,Deer,Deer",
+                    "inRange80": 4,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 137.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 137.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 138.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 138.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 139.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 139.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 140.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 140.5,
+                    "visible": 2,
+                    "species": "Deer,Stag",
+                    "inRange80": 5,
+                    "inFrame80": 2,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 141.0,
+                    "visible": 4,
+                    "species": "Deer,Fox,Stag,Stag",
+                    "inRange80": 7,
+                    "inFrame80": 4,
+                    "visibleFoliage": 1
+                },
+                {
+                    "t": 141.5,
+                    "visible": 5,
+                    "species": "Deer,Deer,Fox,Stag,Stag",
+                    "inRange80": 7,
+                    "inFrame80": 5,
+                    "visibleFoliage": 1
+                },
+                {
+                    "t": 142.0,
+                    "visible": 6,
+                    "species": "Deer,Deer,Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 6,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 142.5,
+                    "visible": 6,
+                    "species": "Deer,Deer,Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 6,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 143.0,
+                    "visible": 5,
+                    "species": "Deer,Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 5,
+                    "visibleFoliage": 2
+                },
+                {
+                    "t": 143.5,
+                    "visible": 5,
+                    "species": "Deer,Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 5,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 144.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 1
+                },
+                {
+                    "t": 144.5,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 145.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 145.5,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 146.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 146.5,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 147.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 147.5,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 148.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 148.5,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 149.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 1
+                },
+                {
+                    "t": 149.5,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 150.0,
+                    "visible": 4,
+                    "species": "Fox,Stag,Stag,Stag",
+                    "inRange80": 8,
+                    "inFrame80": 4,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 150.5,
+                    "visible": 2,
+                    "species": "Fox,Stag",
+                    "inRange80": 7,
+                    "inFrame80": 2,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 151.0,
+                    "visible": 1,
+                    "species": "Fox",
+                    "inRange80": 7,
+                    "inFrame80": 1,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 151.5,
+                    "visible": 1,
+                    "species": "Fox",
+                    "inRange80": 7,
+                    "inFrame80": 1,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 152.0,
+                    "visible": 1,
+                    "species": "Fox",
+                    "inRange80": 7,
+                    "inFrame80": 1,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 152.5,
+                    "visible": 1,
+                    "species": "Fox",
+                    "inRange80": 6,
+                    "inFrame80": 1,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 153.0,
+                    "visible": 1,
+                    "species": "Fox",
+                    "inRange80": 6,
+                    "inFrame80": 1,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 153.5,
+                    "visible": 1,
+                    "species": "Fox",
+                    "inRange80": 6,
+                    "inFrame80": 1,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 154.0,
+                    "visible": 1,
+                    "species": "Fox",
+                    "inRange80": 6,
+                    "inFrame80": 1,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 154.5,
+                    "visible": 1,
+                    "species": "Fox",
+                    "inRange80": 6,
+                    "inFrame80": 1,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 155.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 6,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 155.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 6,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 156.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 6,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 156.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 6,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 157.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 6,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 157.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 6,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 158.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 6,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 158.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 5,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 159.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 6,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 159.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 6,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 160.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 6,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 160.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 5,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 161.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 5,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 161.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 5,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 162.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 5,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 162.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 5,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 163.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 5,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 163.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 164.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 164.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 165.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 165.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 166.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 166.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 4,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 167.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 3,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 167.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 3,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 168.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 2,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 168.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 169.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 169.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 170.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 170.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 171.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 1,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 171.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 172.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 172.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 173.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 173.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 174.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 174.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 175.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 175.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 176.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 176.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 177.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 177.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 178.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 178.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 179.0,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                },
+                {
+                    "t": 179.5,
+                    "visible": 0,
+                    "species": "",
+                    "inRange80": 0,
+                    "inFrame80": 0,
+                    "visibleFoliage": 0
+                }
+            ]
+        }
+    ],
+    "robustness": []
+}

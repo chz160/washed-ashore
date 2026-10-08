@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-08 00:48:27Z" end-time="2026-10-08 00:48:30Z" duration="2.679149">
+  <test-suite type="TestSuite" id="1166" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="98" result="Passed" start-time="2026-10-08 00:48:27Z" end-time="2026-10-08 00:48:30Z" duration="2.679149" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1242" name="WashedAshore.Tests.Fish.Rendering.PlayMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.Fish.Rendering.PlayMode.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-08 00:48:27Z" end-time="2026-10-08 00:48:30Z" duration="2.672034" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="80692" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1243" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-08 00:48:27Z" end-time="2026-10-08 00:48:30Z" duration="2.671458" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1244" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-08 00:48:27Z" end-time="2026-10-08 00:48:30Z" duration="2.671184" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1245" name="PlayMode" fullname="WashedAshore.Tests.PlayMode" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-08 00:48:27Z" end-time="2026-10-08 00:48:30Z" duration="2.670962" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1246" name="FishRendering" fullname="WashedAshore.Tests.PlayMode.FishRendering" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-08 00:48:27Z" end-time="2026-10-08 00:48:30Z" duration="2.670713" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1240" name="FishSignInGameTests" fullname="WashedAshore.Tests.PlayMode.FishRendering.FishSignInGameTests" classname="WashedAshore.Tests.PlayMode.FishRendering.FishSignInGameTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-08 00:48:27Z" end-time="2026-10-08 00:48:30Z" duration="2.669882" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1241" name="SurfaceSigns_DrawInTheWorldScene" fullname="WashedAshore.Tests.PlayMode.FishRendering.FishSignInGameTests.SurfaceSigns_DrawInTheWorldScene" methodname="SurfaceSigns_DrawInTheWorldScene" classname="WashedAshore.Tests.PlayMode.FishRendering.FishSignInGameTests" runstate="Runnable" seed="1714599680" result="Passed" start-time="2026-10-08 00:48:27Z" end-time="2026-10-08 00:48:30Z" duration="2.660639" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[
+IgnoreFailingMessages:true
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Failed to create material drawer Header with arguments 'Distance legibility, ruling fish sign legibility distance'
+Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

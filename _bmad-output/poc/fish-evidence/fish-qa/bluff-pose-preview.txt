@@ -1,0 +1,17 @@
+f-qa OFFLINE PREVIEW (information only) of f-designer's geometric bluff rule on the 60 s calibration dumps; terrain = raw tiles (calibrated, max 9 cm)
+nearest bank station 1611 (415.5, 729.6) normal toward water (0.805, 0.594)
+edge E (415.0, 727.4) ground 4.38 foot F (417.1, 728.8) dF 2.5 eye h above W 4.47 vFOV 70.0 pitch down 28.8
+-probe-calib-bluff-404.jsonl events within 150 m 3 in frame and unoccluded 1 occluded 0 -> per min 1
+-probe-calib-bluff-505.jsonl events within 150 m 2 in frame and unoccluded 0 occluded 0 -> per min 0
+-probe-calib-bluff-606.jsonl events within 150 m 4 in frame and unoccluded 0 occluded 0 -> per min 0
+NOTE: the dumps are 60 s at the OLD pose; events do not depend on the camera, so the count is a fair preview, not the graded 180 s held-out run.
+--- variant: crest edge (E = last sample along n with ground >= ground(P0) - 1.0 m), otherwise f-designer's rule unchanged
+E (401.8, 717.6) eye h 27.68 dF 19.0 foot 3 deg inside bottom edge pitch 23.5
+  404 within 150 m 3 in frame 2 angles (h,v) [(-6, 27), (-36, 21), (-75, 27)]
+  505 within 150 m 2 in frame 0 angles (h,v) [(-66, 30), (60, 21)]
+  606 within 150 m 4 in frame 1 angles (h,v) [(-74, 29), (-65, 23), (-43, 25), (-65, 6)]
+--- F16 diff edge rule (last >= W+2 then 0.5 m back) vs crest rule (>= height(P0) - 1 m), both bluffs; vFOV 70
+McCord: station 1611 n (0.805, 0.594) ground(P0) 28.1 foot at 19.5 m; designer W+2: E at 17.0 m, eye h 4.5 m, dF 2.5, pitch 28.8
+McCord: station 1611 n (0.805, 0.594) ground(P0) 28.1 foot at 19.5 m; crest: E at 0.5 m, eye h 27.7 m, dF 19.0, pitch 23.5
+Buzzard: station 1838 n (0.868, -0.497) ground(P0) 26.5 foot at 22.0 m; designer W+2: E at 20.0 m, eye h 4.9 m, dF 2.0, pitch 35.8
+Buzzard: station 1838 n (0.868, -0.497) ground(P0) 26.5 foot at 22.0 m; crest: E at 1.5 m, eye h 25.8 m, dF 20.5, pitch 19.5

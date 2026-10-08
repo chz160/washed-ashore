@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="20" result="Passed" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-07 22:57:02Z" end-time="2026-10-07 22:57:06Z" duration="3.4218841">
+  <test-suite type="TestSuite" id="1000" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="188" result="Passed" start-time="2026-10-07 22:57:02Z" end-time="2026-10-07 22:57:06Z" duration="3.421884" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1207" name="WashedAshore.Tests.Fish.EditMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.Fish.EditMode.dll" runstate="Runnable" testcasecount="64" result="Passed" start-time="2026-10-07 22:57:02Z" end-time="2026-10-07 22:57:06Z" duration="3.415751" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="19532" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1208" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="64" result="Passed" start-time="2026-10-07 22:57:02Z" end-time="2026-10-07 22:57:06Z" duration="3.415456" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1209" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="64" result="Passed" start-time="2026-10-07 22:57:02Z" end-time="2026-10-07 22:57:06Z" duration="3.415292" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1210" name="EditMode" fullname="WashedAshore.Tests.EditMode" runstate="Runnable" testcasecount="64" result="Passed" start-time="2026-10-07 22:57:02Z" end-time="2026-10-07 22:57:06Z" duration="3.415144" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1211" name="Fish" fullname="WashedAshore.Tests.EditMode.Fish" runstate="Runnable" testcasecount="64" result="Passed" start-time="2026-10-07 22:57:02Z" end-time="2026-10-07 22:57:06Z" duration="3.414979" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1133" name="FishJsonTests" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" testcasecount="20" result="Passed" start-time="2026-10-07 22:57:02Z" end-time="2026-10-07 22:57:06Z" duration="3.410745" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1153" name="Lines_AreCheckedOneByOne" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Lines_AreCheckedOneByOne" methodname="Lines_AreCheckedOneByOne" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="1794065012" result="Passed" start-time="2026-10-07 22:57:02Z" end-time="2026-10-07 22:57:02Z" duration="0.007651" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1152" name="Num_IsInvariant_UnderACommaCulture" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Num_IsInvariant_UnderACommaCulture" methodname="Num_IsInvariant_UnderACommaCulture" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="1836950342" result="Passed" start-time="2026-10-07 22:57:02Z" end-time="2026-10-07 22:57:02Z" duration="0.003572" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1155" name="ResultFiles_OnDisk_AllParse" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.ResultFiles_OnDisk_AllParse" methodname="ResultFiles_OnDisk_AllParse" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="2079508636" result="Passed" start-time="2026-10-07 22:57:02Z" end-time="2026-10-07 22:57:06Z" duration="3.369113" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1154" name="Sources_HaveNoFormatThenDoubleBrace" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Sources_HaveNoFormatThenDoubleBrace" methodname="Sources_HaveNoFormatThenDoubleBrace" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="1203149761" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.009487" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-suite type="ParameterizedMethod" id="1138" name="Validate_AcceptsJson" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_AcceptsJson" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.002347" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1134" name="Validate_AcceptsJson(&quot;{}&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_AcceptsJson(&quot;{}&quot;)" methodname="Validate_AcceptsJson" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="1869003546" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000221" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1135" name="Validate_AcceptsJson(&quot;[]&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_AcceptsJson(&quot;[]&quot;)" methodname="Validate_AcceptsJson" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="1973954154" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000084" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1136" name="Validate_AcceptsJson(&quot;{\&quot;a\&quot;:1,\&quot;b\&quot;:[1.5,-2e-3,true,false,null],\&quot;c\&quot;:{\&quot;d\&quot;:\&quot;x\\\&quot;y\\u00e9\&quot;}}&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_AcceptsJson(&quot;{\&quot;a\&quot;:1,\&quot;b\&quot;:[1.5,-2e-3,true,false,null],\&quot;c\&quot;:{\&quot;d\&quot;:\&quot;x\\\&quot;y\\u00e9\&quot;}}&quot;)" methodname="Validate_AcceptsJson" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="1891074483" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000086" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1137" name="Validate_AcceptsJson(&quot;  {\&quot;a\&quot; : 0.25 }  &quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_AcceptsJson(&quot;  {\&quot;a\&quot; : 0.25 }  &quot;)" methodname="Validate_AcceptsJson" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="1987625545" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000031" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1150" name="Validate_RejectsMalformed" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_RejectsMalformed" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.001232" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1139" name="Validate_RejectsMalformed(&quot;{\&quot;x\&quot;:F1}&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_RejectsMalformed(&quot;{\&quot;x\&quot;:F1}&quot;)" methodname="Validate_RejectsMalformed" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="954308348" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000179" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1140" name="Validate_RejectsMalformed(&quot;{\&quot;x\&quot;:1.5F1}&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_RejectsMalformed(&quot;{\&quot;x\&quot;:1.5F1}&quot;)" methodname="Validate_RejectsMalformed" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="1226189324" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000041" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1141" name="Validate_RejectsMalformed(&quot;{\&quot;a\&quot;:1,}&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_RejectsMalformed(&quot;{\&quot;a\&quot;:1,}&quot;)" methodname="Validate_RejectsMalformed" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="672215024" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000024" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1142" name="Validate_RejectsMalformed(&quot;[1,2,]&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_RejectsMalformed(&quot;[1,2,]&quot;)" methodname="Validate_RejectsMalformed" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="80448541" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000022" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1143" name="Validate_RejectsMalformed(&quot;{\&quot;a\&quot;:1.}&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_RejectsMalformed(&quot;{\&quot;a\&quot;:1.}&quot;)" methodname="Validate_RejectsMalformed" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="264975443" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000021" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1144" name="Validate_RejectsMalformed(&quot;{\&quot;a\&quot;:NaN}&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_RejectsMalformed(&quot;{\&quot;a\&quot;:NaN}&quot;)" methodname="Validate_RejectsMalformed" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="442296764" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000021" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1145" name="Validate_RejectsMalformed(&quot;{\&quot;a\&quot;:1,5}&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_RejectsMalformed(&quot;{\&quot;a\&quot;:1,5}&quot;)" methodname="Validate_RejectsMalformed" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="241612059" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000020" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1146" name="Validate_RejectsMalformed(&quot;{\&quot;a\&quot;:01}&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_RejectsMalformed(&quot;{\&quot;a\&quot;:01}&quot;)" methodname="Validate_RejectsMalformed" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="1448241530" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000019" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1147" name="Validate_RejectsMalformed(&quot;{\&quot;a\&quot;:1}}&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_RejectsMalformed(&quot;{\&quot;a\&quot;:1}}&quot;)" methodname="Validate_RejectsMalformed" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="1028106073" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000021" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1148" name="Validate_RejectsMalformed(&quot;{a:1}&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_RejectsMalformed(&quot;{a:1}&quot;)" methodname="Validate_RejectsMalformed" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="1654171806" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000022" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1149" name="Validate_RejectsMalformed(&quot;&quot;)" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.Validate_RejectsMalformed(&quot;&quot;)" methodname="Validate_RejectsMalformed" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="389617071" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.000020" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1151" name="WriteFile_RefusesMalformed_AndWritesNothing" fullname="WashedAshore.Tests.EditMode.Fish.FishJsonTests.WriteFile_RefusesMalformed_AndWritesNothing" methodname="WriteFile_RefusesMalformed_AndWritesNothing" classname="WashedAshore.Tests.EditMode.Fish.FishJsonTests" runstate="Runnable" seed="1094190813" result="Passed" start-time="2026-10-07 22:57:06Z" end-time="2026-10-07 22:57:06Z" duration="0.007530" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

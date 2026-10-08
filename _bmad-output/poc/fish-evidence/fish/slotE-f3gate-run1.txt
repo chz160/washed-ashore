@@ -1,0 +1,43 @@
+planVersion/fallbacks: [(101, 2, 0.0, 0.05), (202, 2, 0.1, 0.04), (303, 2, 0.1, 0.04)]
+Shelf: raw out 1982 in 1164 | v1 out 1981 (-0.0%) in 1159 (-0.4%) | v2 out 1979 (-0.1%) in 1161 (-0.2%) | band v1 -0.15% v2 -0.15% v2-vs-v1 +0.00%
+   Bluegill             raw o/i  1188.9/  555.3  v1  1190.6/  555.6  v2  1190.0/  556.6  got v1 1197 v2 1195 exp 1189.1  PASS
+   LargemouthBass       raw o/i   297.2/  220.2  v1   297.3/  219.7  v2   297.0/  220.2  got v1 318 v2 318 exp 297.3  PASS
+   SpottedBass          raw o/i    59.5/   90.2  v1    58.4/   88.4  v2    58.0/   88.5  got v1 56 v2 56 exp 59.5  PASS
+   WhiteCrappie         raw o/i    99.1/   78.0  v1    98.4/   76.7  v2    98.0/   76.9  got v1 122 v2 116 exp 99.1  PASS
+   ChannelCatfish       raw o/i    39.6/   30.1  v1    39.4/   29.6  v2    39.2/   29.7  got v1 49 v2 47 exp 39.6  PASS
+   CommonCarp           raw o/i   198.2/  104.4  v1   198.1/  103.7  v2   197.9/  103.9  got v1 224 v2 224 exp 198.2  fail
+   LongnoseGar          raw o/i    99.1/   85.4  v1    99.2/   85.4  v2    99.1/   85.5  got v1 100 v2 102 exp 99.1  PASS
+Ramp: raw out 1588 in 828 | v1 out 1588 (+0.0%) in 828 (+0.0%) | v2 out 1588 (+0.0%) in 828 (+0.0%) | band v1 +0.00% v2 +0.00% v2-vs-v1 +0.00%
+   LargemouthBass       raw o/i    99.3/   44.7  v1    99.3/   44.7  v2    99.3/   44.7  got v1 127 v2 126 exp 99.2  fail
+   SpottedBass          raw o/i   198.5/  156.1  v1   198.5/  156.1  v2   198.5/  156.1  got v1 169 v2 169 exp 198.5  fail
+   SmallmouthBass       raw o/i    39.7/   42.3  v1    39.7/   42.3  v2    39.7/   42.3  got v1 38 v2 36 exp 39.7  fail
+   WhiteCrappie         raw o/i   297.7/  143.5  v1   297.7/  143.5  v2   297.7/  143.5  got v1 313 v2 315 exp 297.7  fail
+   ChannelCatfish       raw o/i   297.7/  135.6  v1   297.7/  135.6  v2   297.7/  135.6  got v1 302 v2 301 exp 297.7  PASS
+   FreshwaterDrum       raw o/i   297.7/  146.4  v1   297.7/  146.4  v2   297.7/  146.4  got v1 271 v2 274 exp 297.7  PASS
+   SmallmouthBuffalo    raw o/i   198.5/   91.3  v1   198.5/   91.3  v2   198.5/   91.3  got v1 184 v2 184 exp 198.5  fail
+   CommonCarp           raw o/i    79.4/   28.7  v1    79.4/   28.7  v2    79.4/   28.7  got v1 59 v2 59 exp 79.4  PASS
+   Sauger               raw o/i    79.4/   39.5  v1    79.4/   39.5  v2    79.4/   39.5  got v1 90 v2 90 exp 79.4  PASS
+Open: raw out 1609 in 9 | v1 out 1609 (+0.0%) in 9 (+0.0%) | v2 out 1609 (+0.0%) in 9 (+0.0%) | band v1 +0.00% v2 +0.00% v2-vs-v1 +0.00%
+   ChannelCatfish       raw o/i   301.1/    1.6  v1   301.1/    1.6  v2   301.1/    1.6  got v1 337 v2 337 exp 300.8  fail
+   BlueCatfish          raw o/i   120.4/    0.6  v1   120.4/    0.6  v2   120.4/    0.6  got v1 128 v2 128 exp 120.3  PASS
+   FreshwaterDrum       raw o/i   451.0/    3.0  v1   451.0/    3.0  v2   451.0/    3.0  got v1 463 v2 465 exp 451.2  fail
+   SmallmouthBuffalo    raw o/i   451.0/    2.6  v1   451.0/    2.6  v2   451.0/    2.6  got v1 395 v2 395 exp 451.2  fail
+   Sauger               raw o/i    90.3/    0.5  v1    90.3/    0.5  v2    90.3/    0.5  got v1 82 v2 82 exp 90.2  PASS
+   WhiteBass            raw o/i   180.5/    0.9  v1   180.5/    0.9  v2   180.5/    0.9  got v1 244 v2 233 exp 180.5  PASS
+   Paddlefish           raw o/i    15.1/    0.1  v1    15.1/    0.1  v2    15.1/    0.1  got v1 19 v2 19 exp 15.0  PASS
+  BluffFace/Shelf: v1 646 v2 662 target 615 PASS
+  BluffFace/Ramp: v1 477 v2 460 target 462 PASS
+  BluffFace/Open: v1 10 v2 10 target 7 PASS
+  HollowMouth/Shelf: v1 235 v2 224 target 231 PASS
+  HollowMouth/Ramp: v1 185 v2 186 target 159 PASS
+  HollowMouth/Open: v1 0 v2 0 target 1 PASS
+  LandingOrSlipway/Shelf: v1 75 v2 80 target 79 PASS
+  LandingOrSlipway/Ramp: v1 65 v2 71 target 51 fail
+  LandingOrSlipway/Open: v1 0 v2 0 target 0 PASS
+  IslandFace/Shelf: v1 260 v2 260 target 193 fail
+  IslandFace/Ramp: v1 205 v2 205 target 150 fail
+  IslandFace/Open: v1 2 v2 2 target 2 PASS
+  IslandChuteMouth/Shelf: v1 70 v2 70 target 73 PASS
+  IslandChuteMouth/Ramp: v1 34 v2 29 target 50 fail
+  IslandChuteMouth/Open: v1 0 v2 0 target 0 PASS
+MECHANISM NOT CONFIRMED | band totals v2 vs v1 within 1%: True | census failures: 15

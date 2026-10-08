@@ -1,0 +1,8 @@
+f-qa check of the surface-event calibration (C1) against the plan rev 3.5 guard - 2026-10-07 ~21:55Z
+Source: TestResults/fish-calib-events.json; probe headers of fish-probe-calib-{404,505,606}.jsonl and fish-probe-calib-bluff-{404,505,606}.jsonl; fish/slotC1-calib2.xml (1/1 FishSignCalibration.CalibrateBandRateMultiplier).
+Guard: seeds 404/505/606 only (MET); brief F14 5f87dfdacdc1a975 in every header (MET); logs saved (MET); single scalar, recommended 1.002 -> 1.00, rates unchanged (MET).
+Shore seen per seed 1.33 / 0.998 / 0.665 per min (band 0.6-1.5), median 0.998.
+Bluff: pod reports 0 seen at all seeds. qa from the dumps: spontaneous events within 150 m of the eye (401.36, 29.83, 717.27): 3 / 2 / 4 in 60 s;
+  every one is outside the camera frustum of the routeBluff pose (camFwd 0.814,-0.174,0.555 = NE, 10 deg down; vertical FOV 70, 16:9):
+  22-48 deg below the view axis and/or 40-79 deg to the left (near bank), at 36-130 m; none terrain-occluded (qa terrain march, raw tiles).
+  -> the 0 is a framing (pose-of-record) issue, not an event-rate or calibration issue. Bluff band not graded until the pose of record is settled.

@@ -1,0 +1,26 @@
+FishPrefabBuilder 2026-10-07T21:06:28Z
+  Assets/World/Fish/Prefabs/Bluegill.prefab: variant of Fish2, scale (0.0185, 0.0174, 0.0185) = mean adult 0.19 m; back #4F5A48 belly #A08F60 fins #4A4E40
+  Assets/World/Fish/Prefabs/LongearSunfish.prefab: variant of Fish2, scale (0.0185, 0.0174, 0.0185) = mean adult 0.19 m; back #535E4C belly #A89665 fins #4E5243
+  Assets/World/Fish/Prefabs/RedearSunfish.prefab: variant of Fish2, scale (0.0185, 0.0174, 0.0185) = mean adult 0.19 m; back #4B5644 belly #98885C fins #464A3D
+  Assets/World/Fish/Prefabs/LargemouthBass.prefab: variant of Fish1, scale (0.0515, 0.0561, 0.0468) = mean adult 0.38 m; back #5C6440 belly #C9C4A0 fins #6A6A48
+  Assets/World/Fish/Prefabs/SpottedBass.prefab: variant of Fish1, scale (0.0445, 0.0488, 0.0424) = mean adult 0.34 m; back #646040 belly #C8C0A0 fins #64604A
+  Assets/World/Fish/Prefabs/SmallmouthBass.prefab: variant of Fish1, scale (0.0491, 0.0538, 0.0468) = mean adult 0.38 m; back #6E6042 belly #C2B48E fins #6A5A40
+  Assets/World/Fish/Prefabs/WhiteCrappie.prefab: variant of Fish2, scale (0.0275, 0.0253, 0.0305) = mean adult 0.31 m; back #5E6656 belly #B9BCB2 fins #5A5E52
+  Assets/World/Fish/Prefabs/BlackCrappie.prefab: variant of Fish2, scale (0.0275, 0.0253, 0.0305) = mean adult 0.31 m; back #596152 belly #B0B3A9 fins #56594E
+  Assets/World/Fish/Prefabs/ChannelCatfish.prefab: variant of Fish1, scale (0.0823, 0.0590, 0.0686) = mean adult 0.55 m; back #5A6052 belly #B8B49C fins #4E5048
+  Assets/World/Fish/Prefabs/FlatheadCatfish.prefab: variant of Fish1, scale (0.1327, 0.0759, 0.0948) = mean adult 0.76 m; back #6B5B41 belly #B5A783 fins #5A4C36
+  Assets/World/Fish/Prefabs/BlueCatfish.prefab: variant of Fish1, scale (0.1213, 0.0960, 0.1011) = mean adult 0.81 m; back #5E6670 belly #C2C4BE fins #565C62
+  Assets/World/Fish/Prefabs/FreshwaterDrum.prefab: variant of Fish1, scale (0.0574, 0.0699, 0.0499) = mean adult 0.40 m; back #6E7270 belly #BEBEB4 fins #6A6C68
+  Assets/World/Fish/Prefabs/SmallmouthBuffalo.prefab: variant of Fish1, scale (0.0853, 0.1102, 0.0711) = mean adult 0.57 m; back #5E5A48 belly #B0AA92 fins #56524A
+  Assets/World/Fish/Prefabs/BigmouthBuffalo.prefab: variant of Fish1, scale (0.0853, 0.1102, 0.0711) = mean adult 0.57 m; back #635E4C belly #B9B299 fins #5A564E
+  Assets/World/Fish/Prefabs/CommonCarp.prefab: variant of Fish1, scale (0.0704, 0.0821, 0.0586) = mean adult 0.47 m; back #6C6241 belly #B8A570 fins #6A5640
+  Assets/World/Fish/Prefabs/LongnoseGar.prefab: variant of Fish1, scale (0.0674, 0.0483, 0.1123) = mean adult 0.90 m; back #5E5A3E belly #B3A986 fins #5A5438
+  Assets/World/Fish/Prefabs/SpottedGar.prefab: variant of Fish1, scale (0.0674, 0.0483, 0.1123) = mean adult 0.90 m; back #635E41 belly #BCB18D fins #5E583B
+  Assets/World/Fish/Prefabs/ShortnoseGar.prefab: variant of Fish1, scale (0.0674, 0.0483, 0.1123) = mean adult 0.90 m; back #59563B belly #AAA17F fins #565035
+  Assets/World/Fish/Prefabs/Sauger.prefab: variant of Fish1, scale (0.0382, 0.0339, 0.0424) = mean adult 0.34 m; back #66603E belly #CFC8AA fins #6A6448
+  Assets/World/Fish/Prefabs/WhiteBass.prefab: variant of Fish1, scale (0.0419, 0.0533, 0.0380) = mean adult 0.31 m; back #6A706A belly #C4C6BE fins #646862
+  Assets/World/Fish/Prefabs/Paddlefish.prefab: variant of Fish1, scale (0.1747, 0.1572, 0.1747) = mean adult 1.40 m; back #5E6468 belly #B4B6B2 fins #585E62
+  Assets/World/Fish/Prefabs/GizzardShad.prefab: variant of Fish2, scale (0.0184, 0.0173, 0.0230) = mean adult 0.23 m; back #646C68 belly #C6C8C0 fins #60645E
+  Assets/World/Fish/Prefabs/ThreadfinShad.prefab: variant of Fish2, scale (0.0184, 0.0173, 0.0230) = mean adult 0.23 m; back #69716D belly #CFD1C9 fins #656963
+  Assets/World/Fish/Prefabs/SkipjackHerring.prefab: variant of Fish1, scale (0.0376, 0.0509, 0.0443) = mean adult 0.36 m; back #566A66 belly #C8CCC4 fins #5E6462
+24 prefab variants in Assets/World/Fish/Prefabs

@@ -1,0 +1,17 @@
+{
+    "name": "WashedAshore.Fish.Rendering",
+    "rootNamespace": "WashedAshore.Fish.Rendering",
+    "references": [
+        "WashedAshore.Fish",
+        "WashedAshore.World"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
