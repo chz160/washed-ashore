@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="20" result="Failed(Child)" total="20" passed="9" failed="11" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-08 00:03:16Z" end-time="2026-10-08 00:08:11Z" duration="295.2687439">
+  <test-suite type="TestSuite" id="1165" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="97" result="Failed" site="Child" start-time="2026-10-08 00:03:16Z" end-time="2026-10-08 00:08:11Z" duration="295.268744" total="20" passed="9" failed="11" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1233" name="WashedAshore.Tests.Fish.PlayMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.Fish.PlayMode.dll" runstate="Runnable" testcasecount="22" result="Failed" site="Child" start-time="2026-10-08 00:03:16Z" end-time="2026-10-08 00:08:11Z" duration="295.260519" total="20" passed="9" failed="11" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="66844" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1234" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="22" result="Failed" site="Child" start-time="2026-10-08 00:03:16Z" end-time="2026-10-08 00:08:11Z" duration="295.259679" total="20" passed="9" failed="11" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1235" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="22" result="Failed" site="Child" start-time="2026-10-08 00:03:16Z" end-time="2026-10-08 00:08:11Z" duration="295.259218" total="20" passed="9" failed="11" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1236" name="PlayMode" fullname="WashedAshore.Tests.PlayMode" runstate="Runnable" testcasecount="22" result="Failed" site="Child" start-time="2026-10-08 00:03:16Z" end-time="2026-10-08 00:08:11Z" duration="295.258937" total="20" passed="9" failed="11" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestSuite" id="1237" name="Fish" fullname="WashedAshore.Tests.PlayMode.Fish" runstate="Runnable" testcasecount="22" result="Failed" site="Child" start-time="2026-10-08 00:03:16Z" end-time="2026-10-08 00:08:11Z" duration="295.258607" total="20" passed="9" failed="11" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="TestFixture" id="1200" name="FishBehaviourTests" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2026-10-08 00:03:16Z" end-time="2026-10-08 00:05:32Z" duration="136.592058" total="6" passed="2" failed="4" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-suite type="ParameterizedMethod" id="1204" name="F4F5_ShoreWalk120s" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests.F4F5_ShoreWalk120s" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2026-10-08 00:03:16Z" end-time="2026-10-08 00:03:48Z" duration="32.484698" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[One or more child tests had errors]]></message>
+                  </failure>
+                  <test-case id="1201" name="F4F5_ShoreWalk120s(101)" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests.F4F5_ShoreWalk120s(101)" methodname="F4F5_ShoreWalk120s" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" seed="2049208405" result="Failed" start-time="2026-10-08 00:03:16Z" end-time="2026-10-08 00:03:28Z" duration="11.922829" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  f-td bar: no fish frozen (every wanted step refused) for over 5 s; see stuckByBlocker. stuck 5.07s block Body mode SchoolFollow species 15 other 3293332725554520628 :: sim A (960.503, 0.625, 103.322) yaw 12.6 prev (960.503, 0.625, 103.322)/12.6 spd 0.00 stuck 5.07 mode SchoolFollow | B (960.388, 0.501, 103.507) yaw 112.5 prev (960.388, 0.501, 103.507)/112.5 spd 0.00 stuck 1.87 mode SchoolFollow | overlapXZ now False prevA-B False A-prevB False prev-prev False cellA 209,22 cellB 209,22 grid 4.58
+  Expected: less than or equal to 5.0f
+  But was:  13.3999901f
+]]></message>
+                      <stack-trace><![CDATA[at WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests+<F4F5_ShoreWalk120s>d__2.MoveNext () [0x00828] in E:\GitHub\washed-ashore\Assets\Tests\PlayMode\Fish\FishBehaviourTests.cs:88
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                    </failure>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1202" name="F4F5_ShoreWalk120s(202)" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests.F4F5_ShoreWalk120s(202)" methodname="F4F5_ShoreWalk120s" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" seed="1113239218" result="Failed" start-time="2026-10-08 00:03:28Z" end-time="2026-10-08 00:03:37Z" duration="9.209495" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  F5 groupmates closer than the brief's minimum spacing
+  Expected: greater than or equal to 0.999000013f
+  But was:  0.998906136f
+]]></message>
+                      <stack-trace><![CDATA[at WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests+<F4F5_ShoreWalk120s>d__2.MoveNext () [0x007bc] in E:\GitHub\washed-ashore\Assets\Tests\PlayMode\Fish\FishBehaviourTests.cs:85
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                    </failure>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1203" name="F4F5_ShoreWalk120s(303)" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests.F4F5_ShoreWalk120s(303)" methodname="F4F5_ShoreWalk120s" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" seed="493788116" result="Failed" start-time="2026-10-08 00:03:37Z" end-time="2026-10-08 00:03:48Z" duration="11.344197" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  f-td bar: no fish frozen (every wanted step refused) for over 5 s; see stuckByBlocker. stuck 5.07s block Body mode SchoolFollow species 15 other 2222424010899014762 :: sim A (743.527, -0.070, 289.560) yaw 783.8 prev (743.527, -0.070, 289.560)/783.8 spd 0.00 stuck 5.07 mode SchoolFollow | B (743.726, -0.089, 289.453) yaw -36.8 prev (743.726, -0.089, 289.453)/-36.8 spd 0.00 stuck 1.00 mode SchoolFollow | overlapXZ now False prevA-B False A-prevB False prev-prev False cellA 162,63 cellB 162,63 grid 4.58
+  Expected: less than or equal to 5.0f
+  But was:  10.1999931f
+]]></message>
+                      <stack-trace><![CDATA[at WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests+<F4F5_ShoreWalk120s>d__2.MoveNext () [0x00828] in E:\GitHub\washed-ashore\Assets\Tests\PlayMode\Fish\FishBehaviourTests.cs:88
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                    </failure>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1208" name="F6_FourTriggers_EachFishFleesAndSettles" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests.F6_FourTriggers_EachFishFleesAndSettles" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2026-10-08 00:03:48Z" end-time="2026-10-08 00:05:32Z" duration="104.104603" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[One or more child tests had errors]]></message>
+                  </failure>
+                  <test-case id="1205" name="F6_FourTriggers_EachFishFleesAndSettles(101)" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests.F6_FourTriggers_EachFishFleesAndSettles(101)" methodname="F6_FourTriggers_EachFishFleesAndSettles" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" seed="1334779898" result="Passed" start-time="2026-10-08 00:03:48Z" end-time="2026-10-08 00:04:28Z" duration="39.506259" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1206" name="F6_FourTriggers_EachFishFleesAndSettles(202)" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests.F6_FourTriggers_EachFishFleesAndSettles(202)" methodname="F6_FourTriggers_EachFishFleesAndSettles" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" seed="1481775531" result="Passed" start-time="2026-10-08 00:04:28Z" end-time="2026-10-08 00:04:57Z" duration="29.271877" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1207" name="F6_FourTriggers_EachFishFleesAndSettles(303)" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests.F6_FourTriggers_EachFishFleesAndSettles(303)" methodname="F6_FourTriggers_EachFishFleesAndSettles" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" seed="293641937" result="Failed" start-time="2026-10-08 00:04:57Z" end-time="2026-10-08 00:05:32Z" duration="35.324464" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  wade 28560877766329212: not back in its band/home by 90 s
+  Expected: <empty>
+  But was:  < "wade 28560877766329212: not back in its band/home by 90 s" >
+]]></message>
+                      <stack-trace><![CDATA[at WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests+<F6_FourTriggers_EachFishFleesAndSettles>d__5.MoveNext () [0x00d59] in E:\GitHub\washed-ashore\Assets\Tests\PlayMode\Fish\FishBehaviourTests.cs:240
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                    </failure>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                </test-suite>
+              </test-suite>
+              <test-suite type="TestFixture" id="1209" name="FishCensusTests" fullname="WashedAshore.Tests.PlayMode.Fish.FishCensusTests" classname="WashedAshore.Tests.PlayMode.Fish.FishCensusTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-08 00:05:32Z" end-time="2026-10-08 00:05:58Z" duration="25.343217" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1210" name="F3_Census_AtThreeSeeds_MatchesTheBrief" fullname="WashedAshore.Tests.PlayMode.Fish.FishCensusTests.F3_Census_AtThreeSeeds_MatchesTheBrief" methodname="F3_Census_AtThreeSeeds_MatchesTheBrief" classname="WashedAshore.Tests.PlayMode.Fish.FishCensusTests" runstate="Runnable" seed="598993818" result="Failed" start-time="2026-10-08 00:05:32Z" end-time="2026-10-08 00:05:58Z" duration="25.341317" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  seed 101 Shelf CommonCarp: 98 fish vs 66.1
+seed 101 Ramp LargemouthBass: 44 fish vs 33.1
+seed 303 Ramp LargemouthBass: 43 fish vs 33.0
+seed 202 Ramp SpottedBass: 43 fish vs 66.2
+seed 303 Ramp SmallmouthBass: 9 fish vs 13.2
+seed 303 Ramp WhiteCrappie: 138 fish vs 99.0
+seed 101 Ramp SmallmouthBuffalo: 47 fish vs 66.3
+seed 303 Ramp SmallmouthBuffalo: 83 fish vs 66.0
+seed 303 Open ChannelCatfish: 132 fish vs 100.3
+seed 101 Open FreshwaterDrum: 206 fish vs 150.4
+seed 202 Open SmallmouthBuffalo: 98 fish vs 150.4
+LandingOrSlipway/Ramp (pooled): 0.01277 adults/m2 vs 0.00923
+IslandFace/Shelf (pooled): 0.02312 adults/m2 vs 0.01714
+IslandFace/Ramp (pooled): 0.01008 adults/m2 vs 0.00738
+IslandChuteMouth/Ramp (pooled): 0.00748 adults/m2 vs 0.01293
+  Expected: <empty>
+  But was:  < "seed 101 Shelf CommonCarp: 98 fish vs 66.1", "seed 101 Ramp LargemouthBass: 44 fish vs 33.1", "seed 303 Ramp LargemouthBass: 43 fish vs 33.0", "seed 202 Ramp SpottedBass: 43 fish vs 66.2", "seed 303 Ramp SmallmouthBass: 9 fish vs 13.2", "seed 303 Ramp WhiteCrappie: 138 fish vs 99.0", "seed 101 Ramp SmallmouthBuffalo: 47 fish vs 66.3", "seed 303 Ramp SmallmouthBuffalo: 83 fish vs 66.0", "seed 303 Open ChannelCatfish: 132 fish vs 100.3", "seed 101 Open FreshwaterDrum: 206 fish vs 150.4"... >
+]]></message>
+                    <stack-trace><![CDATA[at WashedAshore.Tests.PlayMode.Fish.FishCensusTests+<F3_Census_AtThreeSeeds_MatchesTheBrief>d__6.MoveNext () [0x011b2] in E:\GitHub\washed-ashore\Assets\Tests\PlayMode\Fish\FishCensusTests.cs:234
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                  </failure>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1213" name="FishLiveSetTests" fullname="WashedAshore.Tests.PlayMode.Fish.FishLiveSetTests" classname="WashedAshore.Tests.PlayMode.Fish.FishLiveSetTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-08 00:05:58Z" end-time="2026-10-08 00:06:11Z" duration="13.732041" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1216" name="F10_FishHaveNoColliders_AndRobinCastsNeverHitThem" fullname="WashedAshore.Tests.PlayMode.Fish.FishLiveSetTests.F10_FishHaveNoColliders_AndRobinCastsNeverHitThem" methodname="F10_FishHaveNoColliders_AndRobinCastsNeverHitThem" classname="WashedAshore.Tests.PlayMode.Fish.FishLiveSetTests" runstate="Runnable" seed="1607256524" result="Passed" start-time="2026-10-08 00:05:58Z" end-time="2026-10-08 00:05:58Z" duration="0.285799" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+]]></output>
+                </test-case>
+                <test-case id="1215" name="F9_DisablingATileUnderLiveFish_TakesThemAway" fullname="WashedAshore.Tests.PlayMode.Fish.FishLiveSetTests.F9_DisablingATileUnderLiveFish_TakesThemAway" methodname="F9_DisablingATileUnderLiveFish_TakesThemAway" classname="WashedAshore.Tests.PlayMode.Fish.FishLiveSetTests" runstate="Runnable" seed="1758052768" result="Passed" start-time="2026-10-08 00:05:58Z" end-time="2026-10-08 00:05:58Z" duration="0.286622" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+]]></output>
+                </test-case>
+                <test-case id="1214" name="F9_LiveSetFollowsThePlayer_AndNothingPopsInView" fullname="WashedAshore.Tests.PlayMode.Fish.FishLiveSetTests.F9_LiveSetFollowsThePlayer_AndNothingPopsInView" methodname="F9_LiveSetFollowsThePlayer_AndNothingPopsInView" classname="WashedAshore.Tests.PlayMode.Fish.FishLiveSetTests" runstate="Runnable" seed="350893851" result="Passed" start-time="2026-10-08 00:05:58Z" end-time="2026-10-08 00:06:11Z" duration="13.157794" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1217" name="FishShoreDistanceGuardTests" fullname="WashedAshore.Tests.PlayMode.Fish.FishShoreDistanceGuardTests" classname="WashedAshore.Tests.PlayMode.Fish.FishShoreDistanceGuardTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-08 00:06:11Z" end-time="2026-10-08 00:06:13Z" duration="1.975793" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1218" name="ShoreDistance_NeverExceedsTrueDistanceToDryGround" fullname="WashedAshore.Tests.PlayMode.Fish.FishShoreDistanceGuardTests.ShoreDistance_NeverExceedsTrueDistanceToDryGround" methodname="ShoreDistance_NeverExceedsTrueDistanceToDryGround" classname="WashedAshore.Tests.PlayMode.Fish.FishShoreDistanceGuardTests" runstate="Runnable" seed="879267796" result="Passed" start-time="2026-10-08 00:06:11Z" end-time="2026-10-08 00:06:13Z" duration="1.974443" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+]]></output>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1219" name="FishSightingTests" fullname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" classname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" runstate="Runnable" testcasecount="9" result="Failed" site="Child" start-time="2026-10-08 00:06:13Z" end-time="2026-10-08 00:08:11Z" duration="117.614301" total="9" passed="3" failed="6" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-suite type="ParameterizedMethod" id="1230" name="F7_BluffLook_SurfaceEventsOnly" fullname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests.F7_BluffLook_SurfaceEventsOnly" classname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2026-10-08 00:06:13Z" end-time="2026-10-08 00:07:30Z" duration="77.025422" total="6" passed="3" failed="3" inconclusive="0" skipped="0" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[One or more child tests had errors]]></message>
+                  </failure>
+                  <test-case id="1224" name="F7_BluffLook_SurfaceEventsOnly(101,&quot;McCord&quot;)" fullname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests.F7_BluffLook_SurfaceEventsOnly(101,&quot;McCord&quot;)" methodname="F7_BluffLook_SurfaceEventsOnly" classname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" runstate="Runnable" seed="868433917" result="Passed" start-time="2026-10-08 00:06:13Z" end-time="2026-10-08 00:06:22Z" duration="9.131974" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1225" name="F7_BluffLook_SurfaceEventsOnly(101,&quot;Buzzard&quot;)" fullname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests.F7_BluffLook_SurfaceEventsOnly(101,&quot;Buzzard&quot;)" methodname="F7_BluffLook_SurfaceEventsOnly" classname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" runstate="Runnable" seed="115620466" result="Failed" start-time="2026-10-08 00:06:22Z" end-time="2026-10-08 00:06:35Z" duration="12.102602" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  bluff surface events per minute
+  Expected: in range (1.2,3)
+  But was:  0.666666031f
+]]></message>
+                      <stack-trace><![CDATA[at WashedAshore.Tests.PlayMode.Fish.FishSightingTests+<F7_BluffLook_SurfaceEventsOnly>d__13.MoveNext () [0x00466] in E:\GitHub\washed-ashore\Assets\Tests\PlayMode\Fish\FishSightingTests.cs:153
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                    </failure>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1226" name="F7_BluffLook_SurfaceEventsOnly(202,&quot;McCord&quot;)" fullname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests.F7_BluffLook_SurfaceEventsOnly(202,&quot;McCord&quot;)" methodname="F7_BluffLook_SurfaceEventsOnly" classname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" runstate="Runnable" seed="1347688858" result="Failed" start-time="2026-10-08 00:06:35Z" end-time="2026-10-08 00:06:49Z" duration="14.510208" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  F7: a counted surface sign was not drawn (FishSurfaceFx inactive or drew nothing)
+  Expected: 0
+  But was:  1
+]]></message>
+                      <stack-trace><![CDATA[at WashedAshore.Tests.PlayMode.Fish.FishSightingTests+<F7_BluffLook_SurfaceEventsOnly>d__13.MoveNext () [0x00417] in E:\GitHub\washed-ashore\Assets\Tests\PlayMode\Fish\FishSightingTests.cs:151
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                    </failure>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1227" name="F7_BluffLook_SurfaceEventsOnly(202,&quot;Buzzard&quot;)" fullname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests.F7_BluffLook_SurfaceEventsOnly(202,&quot;Buzzard&quot;)" methodname="F7_BluffLook_SurfaceEventsOnly" classname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" runstate="Runnable" seed="741589478" result="Passed" start-time="2026-10-08 00:06:49Z" end-time="2026-10-08 00:07:04Z" duration="14.763231" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1228" name="F7_BluffLook_SurfaceEventsOnly(303,&quot;McCord&quot;)" fullname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests.F7_BluffLook_SurfaceEventsOnly(303,&quot;McCord&quot;)" methodname="F7_BluffLook_SurfaceEventsOnly" classname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" runstate="Runnable" seed="723771413" result="Failed" start-time="2026-10-08 00:07:04Z" end-time="2026-10-08 00:07:14Z" duration="10.415242" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  bluff surface events per minute
+  Expected: in range (1.2,3)
+  But was:  0.999999046f
+]]></message>
+                      <stack-trace><![CDATA[at WashedAshore.Tests.PlayMode.Fish.FishSightingTests+<F7_BluffLook_SurfaceEventsOnly>d__13.MoveNext () [0x00466] in E:\GitHub\washed-ashore\Assets\Tests\PlayMode\Fish\FishSightingTests.cs:153
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                    </failure>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1229" name="F7_BluffLook_SurfaceEventsOnly(303,&quot;Buzzard&quot;)" fullname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests.F7_BluffLook_SurfaceEventsOnly(303,&quot;Buzzard&quot;)" methodname="F7_BluffLook_SurfaceEventsOnly" classname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" runstate="Runnable" seed="757177988" result="Passed" start-time="2026-10-08 00:07:14Z" end-time="2026-10-08 00:07:30Z" duration="16.100375" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                </test-suite>
+                <test-suite type="ParameterizedMethod" id="1223" name="F7_ShoreWalk_HitsSightingAndSurfaceEventBands" fullname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests.F7_ShoreWalk_HitsSightingAndSurfaceEventBands" classname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2026-10-08 00:07:30Z" end-time="2026-10-08 00:08:11Z" duration="40.586018" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[One or more child tests had errors]]></message>
+                  </failure>
+                  <test-case id="1220" name="F7_ShoreWalk_HitsSightingAndSurfaceEventBands(101)" fullname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests.F7_ShoreWalk_HitsSightingAndSurfaceEventBands(101)" methodname="F7_ShoreWalk_HitsSightingAndSurfaceEventBands" classname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" runstate="Runnable" seed="1087881960" result="Failed" start-time="2026-10-08 00:07:30Z" end-time="2026-10-08 00:07:44Z" duration="13.938264" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  F7 sightings per minute
+  Expected: in range (1.4,2.8)
+  But was:  8.31562042f
+]]></message>
+                      <stack-trace><![CDATA[at WashedAshore.Tests.PlayMode.Fish.FishSightingTests+<F7_ShoreWalk_HitsSightingAndSurfaceEventBands>d__11.MoveNext () [0x0034f] in E:\GitHub\washed-ashore\Assets\Tests\PlayMode\Fish\FishSightingTests.cs:98
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                    </failure>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1221" name="F7_ShoreWalk_HitsSightingAndSurfaceEventBands(202)" fullname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests.F7_ShoreWalk_HitsSightingAndSurfaceEventBands(202)" methodname="F7_ShoreWalk_HitsSightingAndSurfaceEventBands" classname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" runstate="Runnable" seed="2068970820" result="Failed" start-time="2026-10-08 00:07:44Z" end-time="2026-10-08 00:07:57Z" duration="12.980342" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  F7 sightings per minute
+  Expected: in range (1.4,2.8)
+  But was:  15.3007421f
+]]></message>
+                      <stack-trace><![CDATA[at WashedAshore.Tests.PlayMode.Fish.FishSightingTests+<F7_ShoreWalk_HitsSightingAndSurfaceEventBands>d__11.MoveNext () [0x0034f] in E:\GitHub\washed-ashore\Assets\Tests\PlayMode\Fish\FishSightingTests.cs:98
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                    </failure>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1222" name="F7_ShoreWalk_HitsSightingAndSurfaceEventBands(303)" fullname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests.F7_ShoreWalk_HitsSightingAndSurfaceEventBands(303)" methodname="F7_ShoreWalk_HitsSightingAndSurfaceEventBands" classname="WashedAshore.Tests.PlayMode.Fish.FishSightingTests" runstate="Runnable" seed="750238086" result="Failed" start-time="2026-10-08 00:07:57Z" end-time="2026-10-08 00:08:11Z" duration="13.665966" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <failure>
+                      <message><![CDATA[  F7 sightings per minute
+  Expected: in range (1.4,2.8)
+  But was:  11.3092442f
+]]></message>
+                      <stack-trace><![CDATA[at WashedAshore.Tests.PlayMode.Fish.FishSightingTests+<F7_ShoreWalk_HitsSightingAndSurfaceEventBands>d__11.MoveNext () [0x0034f] in E:\GitHub\washed-ashore\Assets\Tests\PlayMode\Fish\FishSightingTests.cs:98
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@80f691d4262b\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+                    </failure>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+                  </test-case>
+                </test-suite>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

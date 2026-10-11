@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-07 21:11:38Z" end-time="2026-10-07 21:11:52Z" duration="13.853181">
+  <test-suite type="TestSuite" id="1000" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="152" result="Passed" start-time="2026-10-07 21:11:38Z" end-time="2026-10-07 21:11:52Z" duration="13.853181" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1212" name="WashedAshore.Tests.FishQaProbe.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.FishQaProbe.dll" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-07 21:11:38Z" end-time="2026-10-07 21:11:52Z" duration="13.846896" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="41440" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1213" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-07 21:11:38Z" end-time="2026-10-07 21:11:52Z" duration="13.846620" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1214" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-07 21:11:38Z" end-time="2026-10-07 21:11:52Z" duration="13.846512" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1215" name="FishQaProbe" fullname="WashedAshore.Tests.FishQaProbe" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-07 21:11:38Z" end-time="2026-10-07 21:11:52Z" duration="13.846394" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1203" name="FishQaBandProbe" fullname="WashedAshore.Tests.FishQaProbe.FishQaBandProbe" classname="WashedAshore.Tests.FishQaProbe.FishQaBandProbe" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-07 21:11:38Z" end-time="2026-10-07 21:11:52Z" duration="13.569852" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1204" name="BandAreasAndShoreDistanceGuard" fullname="WashedAshore.Tests.FishQaProbe.FishQaBandProbe.BandAreasAndShoreDistanceGuard" methodname="BandAreasAndShoreDistanceGuard" classname="WashedAshore.Tests.FishQaProbe.FishQaBandProbe" runstate="Runnable" seed="1428374619" result="Passed" start-time="2026-10-07 21:11:38Z" end-time="2026-10-07 21:11:52Z" duration="13.561208" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1205" name="FishQaF1Probe" fullname="WashedAshore.Tests.FishQaProbe.FishQaF1Probe" classname="WashedAshore.Tests.FishQaProbe.FishQaF1Probe" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-07 21:11:52Z" end-time="2026-10-07 21:11:52Z" duration="0.204120" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1206" name="FacingReportRerun" fullname="WashedAshore.Tests.FishQaProbe.FishQaF1Probe.FacingReportRerun" methodname="FacingReportRerun" classname="WashedAshore.Tests.FishQaProbe.FishQaF1Probe" runstate="Runnable" seed="981782484" result="Passed" start-time="2026-10-07 21:11:52Z" end-time="2026-10-07 21:11:52Z" duration="0.192579" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1207" name="SwimSeam" fullname="WashedAshore.Tests.FishQaProbe.FishQaF1Probe.SwimSeam" methodname="SwimSeam" classname="WashedAshore.Tests.FishQaProbe.FishQaF1Probe" runstate="Runnable" seed="1191270655" result="Passed" start-time="2026-10-07 21:11:52Z" end-time="2026-10-07 21:11:52Z" duration="0.009201" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1208" name="FishQaF2Probe" fullname="WashedAshore.Tests.FishQaProbe.FishQaF2Probe" classname="WashedAshore.Tests.FishQaProbe.FishQaF2Probe" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-07 21:11:52Z" end-time="2026-10-07 21:11:52Z" duration="0.011269" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1209" name="PrefabMeshesAndMaterials" fullname="WashedAshore.Tests.FishQaProbe.FishQaF2Probe.PrefabMeshesAndMaterials" methodname="PrefabMeshesAndMaterials" classname="WashedAshore.Tests.FishQaProbe.FishQaF2Probe" runstate="Runnable" seed="1716840918" result="Passed" start-time="2026-10-07 21:11:52Z" end-time="2026-10-07 21:11:52Z" duration="0.010225" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Failed to create material drawer Header with arguments 'Per model, set by the bake'
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1210" name="FishQaVatProbe" fullname="WashedAshore.Tests.FishQaProbe.FishQaVatProbe" classname="WashedAshore.Tests.FishQaProbe.FishQaVatProbe" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-07 21:11:52Z" end-time="2026-10-07 21:11:52Z" duration="0.060279" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1211" name="VatSteps" fullname="WashedAshore.Tests.FishQaProbe.FishQaVatProbe.VatSteps" methodname="VatSteps" classname="WashedAshore.Tests.FishQaProbe.FishQaVatProbe" runstate="Runnable" seed="1050681385" result="Passed" start-time="2026-10-07 21:11:52Z" end-time="2026-10-07 21:11:52Z" duration="0.059645" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

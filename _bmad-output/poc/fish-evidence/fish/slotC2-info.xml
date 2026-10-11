@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-07 22:06:43Z" end-time="2026-10-07 22:08:10Z" duration="87.2994008">
+  <test-suite type="TestSuite" id="1158" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="96" result="Passed" start-time="2026-10-07 22:06:43Z" end-time="2026-10-07 22:08:10Z" duration="87.299401" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1226" name="WashedAshore.Tests.Fish.PlayMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.Fish.PlayMode.dll" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-10-07 22:06:43Z" end-time="2026-10-07 22:08:10Z" duration="87.292464" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="24600" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1227" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-10-07 22:06:43Z" end-time="2026-10-07 22:08:10Z" duration="87.291735" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1228" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-10-07 22:06:43Z" end-time="2026-10-07 22:08:10Z" duration="87.291409" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1229" name="PlayMode" fullname="WashedAshore.Tests.PlayMode" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-10-07 22:06:43Z" end-time="2026-10-07 22:08:10Z" duration="87.291112" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1230" name="Fish" fullname="WashedAshore.Tests.PlayMode.Fish" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-10-07 22:06:43Z" end-time="2026-10-07 22:08:10Z" duration="87.290811" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1204" name="FishInfoRun" fullname="WashedAshore.Tests.PlayMode.Fish.FishInfoRun" classname="WashedAshore.Tests.PlayMode.Fish.FishInfoRun" runstate="Explicit" testcasecount="1" result="Passed" start-time="2026-10-07 22:06:43Z" end-time="2026-10-07 22:08:10Z" duration="87.289509" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties>
+                  <property name="_SKIPREASON" value="Information-only run on the held-out seeds; never graded" />
+                </properties>
+                <test-case id="1205" name="HeldOutSeeds_ShoreAndBothBluffs" fullname="WashedAshore.Tests.PlayMode.Fish.FishInfoRun.HeldOutSeeds_ShoreAndBothBluffs" methodname="HeldOutSeeds_ShoreAndBothBluffs" classname="WashedAshore.Tests.PlayMode.Fish.FishInfoRun" runstate="Runnable" seed="739035880" result="Passed" start-time="2026-10-07 22:06:43Z" end-time="2026-10-07 22:08:10Z" duration="87.280504" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

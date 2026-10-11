@@ -1,0 +1,23 @@
+f-qa grade of slot C2 evidence (brief F16 7e5e23c461769436 in every probe header and JSON) - 2026-10-07 ~22:20Z. Graded against plan rev 4.0.
+EditMode 65/65 (fish/slotC2-editmode-r2.xml). Full PlayMode 80 pass / 12 fail / 4 skipped (2 InputSystem package tests, 2 info/calibration runs by design).
+F2 sizes (fish-census-lengths.json, 3 seeds pooled, 17 species): all >= 92% inside [lengthMin,lengthMax] (0.939-1.000), 0 above lengthTailMax, 0 below lengthMin -> PASS (fish-qa/c2-f2-sizes.txt). F2 overall: PASS (with f2-offline.txt + f2-prefabs-engine.txt).
+F4 (qa grader on all C2 dumps: f4f5, f6, f7, both bluffs x3 seeds, f9; ~880k fish samples): bed/surface/land/north 0 -> PASS (fish-qa/c2-grade-f4-tiers.jsonl).
+Tier rules (renderer DrawModes): V1 deep body 0, V2 body 0, V3 drawn 0, beyond range 0 -> PASS.
+F7 body cap: max 3 bodies per sample and per frame (pod histogram, 10,823 frames/seed), > 3 never -> PASS. Bluff: 0 sub-surface draws in all 6 looks (10,800 frames each) -> PASS (N2).
+F7 rates (fish-sightings.json, pod's shared occlusion helper; qa cross-check pending):
+  shore sightings/min 7.65 / 15.97 / 11.31 (band 1.4-2.8) FAIL all seeds (body sightings 21/45/33 in 3 min);
+  shore surface events/min 0.67 / 1.00 / 0.33 (0.6-1.5): 303 FAIL; maxSightingsIn15s 5 / 10 / 6 (<= 3) FAIL; longest gap 27.5 / 26.5 / 43.7 s (<= 75) PASS; jumps 0.
+  bluff (near + far) McCord 1.67 / 2.33 / 1.00, Buzzard 0.67 / 2.33 / 1.33 per min (1.2-3.0): McCord 303 and Buzzard 101 FAIL. Cap refusals 0.
+  -> F7 FAIL.
+F3 census: the pod reports shelf -27%/-30%/-21% and ramp -27%/-32%/-19% outside structure. qa finds the census DENOMINATOR includes area north of the line:
+  census band area (outside structure + excluded structure) shelf 85,216 m2, ramp 145,536 m2, open 305,280 m2;
+  qa band areas south of the line (in-engine probe, confirmed offline from raw tiles) shelf 68,808, ramp 118,360, open 303,556;
+  qa offline: north-of-line shelf 28,188 / ramp 42,848 m2 (no fish there: 0 samples north of the line in every dump).
+  Re-dividing the census adults by qa's south-only area minus the excluded structure: shelf 0.01393 / 0.01342 / 0.01510 (target 0.014286: -2.5% / -6.1% / +5.7%), ramp 0.00593 / 0.00554 / 0.00658 (target 0.006154: -3.7% / -9.9% / +6.9%) -> within +/-25% IF the structure exclusion is south-only. Census code fix (area south of the line only), not a placement or target change. F3 not graded until the census is re-run.
+F6 (fish-f6-*.json): per-fish fails: 101 wade first-away 1.22 s (bar 0.4), 101 swim 8 m at 20.0 s (budget 13.3), 303 swim first-away 5.47 s and 8 m at 16.1 s (13.3); bank-walk trigger found no candidate at any seed -> FAIL.
+Shore guard: pod test asserts under-reads = 0 over all wet cells, which fails on the 127 m clamp (cells beyond 127 m read 127); qa's ruling-of-record metric (open cells admitted by SD <= 50 but true > 52 m) = 0 -> PASS; pod test to be corrected to that metric.
+F9/F10 pass per pod; regression: birds 42/60/78 exact; wildlife 113/180/182 (pre-fish gate 111-114 / 179-181 / 181-183) -> within gate in this full-suite run; W-QA-1 A/B still to run. The two BB-QA-7 perf tests fail as before (known exception, f-td).
+Not gradable from the dumps: cap fade/alpha (N7): the probe does not log DrawnAlpha/CapHeld or CapTransition events yet.
+
+CORRECTION (f-qa, after f-engineer's analysis): the F3 census over-count is NOT north-of-line water (FishSceneWater.TryBed returns false for z > northLineZ, so BandAt = -1 there). It is a double count in FishCensusTests.Count: a structure square was added to bandArea AND structArea while its fish went only to structAdults, so the reported "outside" area (shelf 65,080 / ramp 113,228 m2) already contained the excluded structure area. Re-divided: shelf outside 65,080 - 20,136 = 44,944 m2 -> 0.01509 / 0.01453 / 0.01635 adults/m2 (+5.6% / +1.7% / +14.5% vs 0.014286); ramp 113,228 - 32,308 = 80,920 m2 -> 0.00630 / 0.00589 / 0.00699 (+2.4% / -4.2% / +13.6% vs 0.006154). Within +/-25% either way; F3 still to be graded on slot D's corrected census.
+Residual: the census full-band areas (shelf 65,080, ramp 113,228, open 305,280 m2) vs qa's south-of-line areas (68,808 / 118,360 / 303,556) differ by -5.4% / -4.3% / +0.6%; to be reconciled in slot D (sampling or a minimum-depth exclusion).

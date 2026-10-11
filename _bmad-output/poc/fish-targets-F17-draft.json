@@ -1,0 +1,1276 @@
+{
+ "_comment": "F1 2026-10-07 (f-designer). studio:design fish/targets (alias spec/fish-numbers). Report: _bmad-output/research/domain-fish-2026-10-07/research.md s7. Bands are defined by BED DEPTH only (ruling/fish-depth-bands); densityPerM2 = adultsPer100m / (100 * nominalWidth). Distances and speeds in game m (player scale, not halved). Depths are below the local surface (WaterLevelY + WaterMotion.Offset) unless named bed*. Per-fish and per-school event rates are calibration starting values; the acceptance targets are the totals in sightings. JsonUtility-friendly.",
+ "briefRevision": "F17",
+ "defaultSeed": 101,
+ "walkSpeedForTargets": 5.0,
+ "visibility": {
+  "cullRule": "FishMurk (f-td cull of record): not drawn when (1-F)*Tavg < 0.02 at the shallowest point of the body; path L = d / max(V.y, 0.15); extinction 2.2/2.4/3.2 per m",
+  "visibilityDepthVertical": 1.57,
+  "visibilityDepthBluff": 1.1,
+  "visibilityDepthShoreEye5m": 0.48,
+  "subSurfaceDrawRadius": 25.0,
+  "subSurfaceFadeBand": 3.0,
+  "bodyPlacementTierDepth": 0.6,
+  "measuredSecchiMedian": 1.0,
+  "measuredSecchiP10": 0.7,
+  "measuredSecchiP90": 1.2,
+  "shaderImpliedSecchi": 0.65,
+  "maxVisibleBodiesShore": 3,
+  "maxVisibleBodiesShoreHard": 4,
+  "maxVisibleBodiesBluff": 0,
+  "neverDrawBodyTierV3": true,
+  "tierRule": "ruling/fish-visibility-tiers: FishMurk only decides drawn / not drawn and never overrides tiers. V1: body reads only within 0.6 m; deeper but inside the floor = dim shadow at most. V2: shadow or flash at most at ANY depth, never a body. V3: never drawn (neverDrawBody). Bluff stays surface-only via R_sub.",
+  "measuredSecchiNote": "f-designer n=572 (CHE stations, numeric metre/foot rows); f-web n=624 (all HUC 05130202 rows): both median 1.0 m, p10-p90 0.7-1.2 m",
+  "jumpBodyDrawRadius": 40,
+  "jumpBodyRule": "A jumping body at or above the surface is drawn out to 40 m (exempt from R_sub 25 m, which governs sub-surface bodies). It counts as part of its jump surface event, not toward maxVisibleBodies. Applies from the bluff too (a fish in the air is a surface sign, N2). Beyond 40 m: splash/ring sign only."
+ },
+ "limits": {
+  "minBedDepthAny": 0.35,
+  "minBedDepthBottomSpeciesDay": 1.0,
+  "maxTurnDegPerFrame": 45.0,
+  "noFishNorthOfLine": true,
+  "minBedDepthRule": "per species: minBedDepth >= bedClearance + surfaceMargin + 0.028 (wave amplitude) + body height at max scale, rounded up to 0.05 m. estBodyHeightMax is my estimate (depth/TL ratio x tail max x 1.1); if f-artist clip-max boxes are taller, FishTuning.Validate wins and minBedDepth rises to fit (record it as a revision).",
+  "clearanceNote": "bedClearance and surfaceMargin are per species (small shelf species 0.08/0.05, gar bask 0.03, others 0.15/0.10), each plus half body height",
+  "southOfNorthLineOnly": true
+ },
+ "bands": [
+  {
+   "band": "Shelf",
+   "bedDepthMin": 0.0,
+   "bedDepthMax": 2.0,
+   "nominalWidth": 7,
+   "adultsPer100m": 10.0,
+   "densityPerM2": 0.01429,
+   "shadSchoolsPer100m": 0.5,
+   "skipjackSchoolsPer100m": 0.0,
+   "surfaceEventsPer100mPerMin": 0.7,
+   "tolerance": 0.25,
+   "note": "Census area = bed depth 0-2 m (nominal 7 m wide); fish are placed only where bed >= each species minBedDepth (global floor 0.35 m)"
+  },
+  {
+   "band": "Ramp",
+   "bedDepthMin": 2.0,
+   "bedDepthMax": 9.9,
+   "nominalWidth": 13,
+   "adultsPer100m": 8.0,
+   "densityPerM2": 0.00615,
+   "shadSchoolsPer100m": 0.5,
+   "skipjackSchoolsPer100m": 0.0,
+   "surfaceEventsPer100mPerMin": 0.2,
+   "tolerance": 0.25
+  },
+  {
+   "band": "Open",
+   "bedDepthMin": 9.9,
+   "bedDepthMax": 99.0,
+   "nominalWidth": 30,
+   "adultsPer100m": 5.35,
+   "densityPerM2": 0.00178,
+   "shadSchoolsPer100m": 0.5,
+   "skipjackSchoolsPer100m": 0.2,
+   "tolerance": 0.25,
+   "note": "FINAL (team-lead; f-td ruling/fish-depth-bands rev 4, option A): open = bed >= 9.9 m AND LevelMaps shore distance <= 50 m (valid south of the line, test-guarded). Beyond 50 m: no fish and no fish-driven signs. Shelf and ramp stay depth-only. Density per m2 unchanged. Changes to the open band only via team-lead.",
+   "outerShoreDistance": 50,
+   "surfaceEventsPer100mPerMin": 0.2,
+   "farWaterSignsPerM2PerMin": 6.67e-05,
+   "farWaterRule": "ruling/fish-far-water-signs: beyond outerShoreDistance 50 m, south of the line, inside surfaceEventRadius 150 m: sign-only events at the open band's per-area rate x bandRateMultiplier (frozen 1.00; no new tunable). Events carry fishId -1 / class farWater; no fish state beyond 50 m. No fish, bodies, shadows or jumps. Kinds Rise/Swirl/Dimple only; far signs flagged in the event record. Soft muted L4 rings fading with distance. Deterministic per (seed, cell, tick); nearer events win when the 6-live-sign cap binds; any refusal of a sign within 60 m of the shore eye because of far signs is a finding (refusals reported by origin). F7 JSON reports far/near counts and cap-binding share separately. If F8/qa finds it busy, cut this rate first."
+  }
+ ],
+ "species": [
+  {
+   "id": "Bluegill",
+   "variants": [
+    "Bluegill",
+    "LongearSunfish",
+    "RedearSunfish"
+   ],
+   "tier": "V1",
+   "lengthMin": 0.13,
+   "lengthMax": 0.24,
+   "lengthTailMax": 0.27,
+   "groupMin": 3,
+   "groupMax": 8,
+   "grouping": "Loose",
+   "depthMin": 0.3,
+   "depthMax": 1.5,
+   "bedHug": false,
+   "bedOffsetMin": 0,
+   "bedOffsetMax": 0,
+   "per100mShelf": 6.0,
+   "per100mRamp": 0.0,
+   "per100mOpen": 0.0,
+   "cruiseBodyLengthsPerSec": 0.8,
+   "burstSpeed": 1.1,
+   "surfaceEventPerFishPerMin": 0.05,
+   "surfaceEvent": "Dimple",
+   "bottom": false,
+   "cruiseSpeed": 0.15,
+   "maxTurnDegPerSecCruise": 120,
+   "maxTurnDegPerSecBurst": 360,
+   "idleShare": 0.3,
+   "minBedDepth": 0.35,
+   "swimDepthMode": "Mid",
+   "neverDrawBody": false,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.08,
+   "surfaceMargin": 0.05,
+   "estBodyHeightMax": 0.149,
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "LargemouthBass",
+   "variants": [
+    "LargemouthBass"
+   ],
+   "tier": "V1",
+   "lengthMin": 0.25,
+   "lengthMax": 0.5,
+   "lengthTailMax": 0.61,
+   "groupMin": 1,
+   "groupMax": 2,
+   "grouping": "Solitary",
+   "depthMin": 0.4,
+   "depthMax": 3.0,
+   "bedHug": false,
+   "bedOffsetMin": 0,
+   "bedOffsetMax": 0,
+   "per100mShelf": 1.5,
+   "per100mRamp": 0.5,
+   "per100mOpen": 0.0,
+   "cruiseBodyLengthsPerSec": 0.6,
+   "burstSpeed": 2.12,
+   "surfaceEventPerFishPerMin": 0.02,
+   "surfaceEvent": "Swirl",
+   "bottom": false,
+   "cruiseSpeed": 0.22,
+   "maxTurnDegPerSecCruise": 90,
+   "maxTurnDegPerSecBurst": 360,
+   "idleShare": 0.4,
+   "minBedDepth": 0.45,
+   "swimDepthMode": "Mid",
+   "neverDrawBody": false,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.08,
+   "surfaceMargin": 0.05,
+   "estBodyHeightMax": 0.188,
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "SpottedBass",
+   "variants": [
+    "SpottedBass"
+   ],
+   "tier": "V2",
+   "lengthMin": 0.25,
+   "lengthMax": 0.43,
+   "lengthTailMax": 0.51,
+   "groupMin": 2,
+   "groupMax": 4,
+   "grouping": "Loose",
+   "depthMin": 1.0,
+   "depthMax": 6.0,
+   "bedHug": false,
+   "bedOffsetMin": 0,
+   "bedOffsetMax": 0,
+   "per100mShelf": 0.3,
+   "per100mRamp": 1.0,
+   "per100mOpen": 0.0,
+   "cruiseBodyLengthsPerSec": 0.6,
+   "burstSpeed": 2.12,
+   "surfaceEventPerFishPerMin": 0.01,
+   "surfaceEvent": "Swirl",
+   "bottom": false,
+   "cruiseSpeed": 0.2,
+   "maxTurnDegPerSecCruise": 90,
+   "maxTurnDegPerSecBurst": 360,
+   "idleShare": 0.35,
+   "minBedDepth": 1.3,
+   "swimDepthMode": "Mid",
+   "neverDrawBody": false,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.15,
+   "surfaceMargin": 0.1,
+   "estBodyHeightMax": 0.151,
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "SmallmouthBass",
+   "variants": [
+    "SmallmouthBass"
+   ],
+   "tier": "V2",
+   "lengthMin": 0.25,
+   "lengthMax": 0.5,
+   "lengthTailMax": 0.56,
+   "groupMin": 1,
+   "groupMax": 1,
+   "grouping": "Solitary",
+   "depthMin": 1.0,
+   "depthMax": 5.0,
+   "bedHug": false,
+   "bedOffsetMin": 0,
+   "bedOffsetMax": 0,
+   "per100mShelf": 0.0,
+   "per100mRamp": 0.2,
+   "per100mOpen": 0.0,
+   "cruiseBodyLengthsPerSec": 0.6,
+   "burstSpeed": 2.12,
+   "surfaceEventPerFishPerMin": 0.01,
+   "surfaceEvent": "Swirl",
+   "bottom": false,
+   "cruiseSpeed": 0.22,
+   "maxTurnDegPerSecCruise": 90,
+   "maxTurnDegPerSecBurst": 360,
+   "idleShare": 0.35,
+   "minBedDepth": 1.0,
+   "swimDepthMode": "Mid",
+   "neverDrawBody": false,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.15,
+   "surfaceMargin": 0.1,
+   "estBodyHeightMax": 0.166,
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "WhiteCrappie",
+   "variants": [
+    "WhiteCrappie",
+    "BlackCrappie"
+   ],
+   "tier": "V2",
+   "lengthMin": 0.23,
+   "lengthMax": 0.38,
+   "lengthTailMax": 0.4,
+   "groupMin": 5,
+   "groupMax": 12,
+   "grouping": "LooseSchool",
+   "depthMin": 1.5,
+   "depthMax": 4.0,
+   "bedHug": false,
+   "bedOffsetMin": 0,
+   "bedOffsetMax": 0,
+   "per100mShelf": 0.5,
+   "per100mRamp": 1.5,
+   "per100mOpen": 0.0,
+   "cruiseBodyLengthsPerSec": 0.5,
+   "burstSpeed": 1.8,
+   "surfaceEventPerFishPerMin": 0.005,
+   "surfaceEvent": "Dimple",
+   "bottom": false,
+   "cruiseSpeed": 0.15,
+   "maxTurnDegPerSecCruise": 90,
+   "maxTurnDegPerSecBurst": 300,
+   "idleShare": 0.4,
+   "minBedDepth": 1.0,
+   "swimDepthMode": "Mid",
+   "neverDrawBody": false,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.08,
+   "surfaceMargin": 0.05,
+   "estBodyHeightMax": 0.198,
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "ChannelCatfish",
+   "variants": [
+    "ChannelCatfish"
+   ],
+   "tier": "V3",
+   "lengthMin": 0.3,
+   "lengthMax": 0.8,
+   "lengthTailMax": 1.0,
+   "groupMin": 1,
+   "groupMax": 3,
+   "grouping": "Solitary",
+   "depthMin": 0,
+   "depthMax": 0,
+   "bedHug": true,
+   "bedOffsetMin": 0.2,
+   "bedOffsetMax": 0.6,
+   "per100mShelf": 0.2,
+   "per100mRamp": 1.5,
+   "per100mOpen": 1.0,
+   "cruiseBodyLengthsPerSec": 0.3,
+   "burstSpeed": 1.5,
+   "surfaceEventPerFishPerMin": 0.0,
+   "surfaceEvent": "None",
+   "bottom": true,
+   "cruiseSpeed": 0.17,
+   "maxTurnDegPerSecCruise": 60,
+   "maxTurnDegPerSecBurst": 240,
+   "idleShare": 0.6,
+   "minBedDepth": 1.0,
+   "swimDepthMode": "NearBed",
+   "neverDrawBody": true,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.15,
+   "surfaceMargin": 0.1,
+   "estBodyHeightMax": 0.22,
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "FlatheadCatfish",
+   "variants": [
+    "FlatheadCatfish"
+   ],
+   "tier": "V3",
+   "lengthMin": 0.38,
+   "lengthMax": 1.14,
+   "lengthTailMax": 1.3,
+   "groupMin": 1,
+   "groupMax": 1,
+   "grouping": "Solitary",
+   "depthMin": 0,
+   "depthMax": 0,
+   "bedHug": true,
+   "bedOffsetMin": 0.1,
+   "bedOffsetMax": 0.4,
+   "per100mShelf": 0.0,
+   "per100mRamp": 0.0,
+   "per100mOpen": 0.0,
+   "cruiseBodyLengthsPerSec": 0.2,
+   "burstSpeed": 1.2,
+   "surfaceEventPerFishPerMin": 0.0,
+   "surfaceEvent": "None",
+   "bottom": true,
+   "cruiseSpeed": 0.15,
+   "maxTurnDegPerSecCruise": 45,
+   "maxTurnDegPerSecBurst": 200,
+   "idleShare": 0.75,
+   "minBedDepth": 1.0,
+   "swimDepthMode": "NearBed",
+   "neverDrawBody": true,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.15,
+   "surfaceMargin": 0.1,
+   "estBodyHeightMax": 0.257,
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "BlueCatfish",
+   "variants": [
+    "BlueCatfish"
+   ],
+   "tier": "V3",
+   "lengthMin": 0.5,
+   "lengthMax": 1.12,
+   "lengthTailMax": 1.3,
+   "groupMin": 1,
+   "groupMax": 1,
+   "grouping": "Solitary",
+   "depthMin": 0,
+   "depthMax": 0,
+   "bedHug": true,
+   "bedOffsetMin": 0.3,
+   "bedOffsetMax": 1.0,
+   "per100mShelf": 0.0,
+   "per100mRamp": 0.0,
+   "per100mOpen": 0.4,
+   "cruiseBodyLengthsPerSec": 0.3,
+   "burstSpeed": 1.5,
+   "surfaceEventPerFishPerMin": 0.0,
+   "surfaceEvent": "None",
+   "bottom": true,
+   "cruiseSpeed": 0.24,
+   "maxTurnDegPerSecCruise": 60,
+   "maxTurnDegPerSecBurst": 240,
+   "idleShare": 0.5,
+   "minBedDepth": 2.0,
+   "swimDepthMode": "NearBed",
+   "neverDrawBody": true,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.15,
+   "surfaceMargin": 0.1,
+   "estBodyHeightMax": 0.286,
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "FreshwaterDrum",
+   "variants": [
+    "FreshwaterDrum"
+   ],
+   "tier": "V3",
+   "lengthMin": 0.3,
+   "lengthMax": 0.5,
+   "lengthTailMax": 0.75,
+   "groupMin": 2,
+   "groupMax": 6,
+   "grouping": "Loose",
+   "depthMin": 0,
+   "depthMax": 0,
+   "bedHug": true,
+   "bedOffsetMin": 0.2,
+   "bedOffsetMax": 1.0,
+   "per100mShelf": 0.0,
+   "per100mRamp": 1.5,
+   "per100mOpen": 1.5,
+   "cruiseBodyLengthsPerSec": 0.4,
+   "burstSpeed": 1.5,
+   "surfaceEventPerFishPerMin": 0.0,
+   "surfaceEvent": "None",
+   "bottom": true,
+   "cruiseSpeed": 0.16,
+   "maxTurnDegPerSecCruise": 60,
+   "maxTurnDegPerSecBurst": 240,
+   "idleShare": 0.5,
+   "minBedDepth": 1.0,
+   "swimDepthMode": "NearBed",
+   "neverDrawBody": true,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.15,
+   "surfaceMargin": 0.1,
+   "estBodyHeightMax": 0.272,
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "SmallmouthBuffalo",
+   "variants": [
+    "SmallmouthBuffalo",
+    "BigmouthBuffalo"
+   ],
+   "tier": "V2",
+   "lengthMin": 0.38,
+   "lengthMax": 0.76,
+   "lengthTailMax": 0.95,
+   "groupMin": 3,
+   "groupMax": 8,
+   "grouping": "LooseSchool",
+   "depthMin": 0,
+   "depthMax": 0,
+   "bedHug": true,
+   "bedOffsetMin": 0.3,
+   "bedOffsetMax": 1.5,
+   "per100mShelf": 0.0,
+   "per100mRamp": 1.0,
+   "per100mOpen": 1.5,
+   "cruiseBodyLengthsPerSec": 0.4,
+   "burstSpeed": 1.5,
+   "surfaceEventPerFishPerMin": 0.005,
+   "surfaceEvent": "Roll",
+   "bottom": true,
+   "cruiseSpeed": 0.23,
+   "maxTurnDegPerSecCruise": 60,
+   "maxTurnDegPerSecBurst": 240,
+   "idleShare": 0.45,
+   "minBedDepth": 1.0,
+   "swimDepthMode": "NearBed",
+   "neverDrawBody": false,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.15,
+   "surfaceMargin": 0.1,
+   "estBodyHeightMax": 0.366,
+   "model": "Fish1",
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "CommonCarp",
+   "variants": [
+    "CommonCarp"
+   ],
+   "tier": "V1",
+   "lengthMin": 0.3,
+   "lengthMax": 0.64,
+   "lengthTailMax": 0.8,
+   "groupMin": 2,
+   "groupMax": 4,
+   "grouping": "Loose",
+   "depthMin": 0.3,
+   "depthMax": 3.0,
+   "bedHug": false,
+   "bedOffsetMin": 0,
+   "bedOffsetMax": 0,
+   "per100mShelf": 1.0,
+   "per100mRamp": 0.4,
+   "per100mOpen": 0.0,
+   "cruiseBodyLengthsPerSec": 0.5,
+   "burstSpeed": 2.0,
+   "surfaceEventPerFishPerMin": 0.03,
+   "surfaceEvent": "RollOrTail",
+   "jumpPerFishPerMin": 0.01,
+   "bottom": false,
+   "cruiseSpeed": 0.23,
+   "maxTurnDegPerSecCruise": 75,
+   "maxTurnDegPerSecBurst": 300,
+   "idleShare": 0.3,
+   "minBedDepth": 0.55,
+   "swimDepthMode": "Mid",
+   "neverDrawBody": false,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.08,
+   "surfaceMargin": 0.05,
+   "estBodyHeightMax": 0.264,
+   "airborneBodyAllowed": true
+  },
+  {
+   "id": "LongnoseGar",
+   "variants": [
+    "LongnoseGar",
+    "SpottedGar",
+    "ShortnoseGar"
+   ],
+   "tier": "V2",
+   "lengthMin": 0.6,
+   "lengthMax": 1.2,
+   "lengthTailMax": 1.5,
+   "groupMin": 1,
+   "groupMax": 3,
+   "grouping": "Loose",
+   "depthMin": 0.0,
+   "depthMax": 1.0,
+   "bedHug": false,
+   "bedOffsetMin": 0,
+   "bedOffsetMax": 0,
+   "per100mShelf": 0.5,
+   "per100mRamp": 0.0,
+   "per100mOpen": 0.0,
+   "cruiseBodyLengthsPerSec": 0.2,
+   "burstSpeed": 2.0,
+   "surfaceEventPerFishPerMin": 0.1,
+   "surfaceEvent": "GarGulpOrBask",
+   "jumpPerFishPerMin": 0.0,
+   "bottom": false,
+   "cruiseSpeed": 0.18,
+   "maxTurnDegPerSecCruise": 45,
+   "maxTurnDegPerSecBurst": 300,
+   "idleShare": 0.6,
+   "minBedDepth": 0.4,
+   "swimDepthMode": "NearSurface",
+   "neverDrawBody": false,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.08,
+   "surfaceMargin": 0.03,
+   "estBodyHeightMax": 0.198,
+   "lookNote": "L1 (ruling/fish-roster-look): long dark shadow under the surface while basking, plus snout/back dimple, slow V-wake and a sink swirl; never a lit body",
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "Sauger",
+   "variants": [
+    "Sauger"
+   ],
+   "tier": "V3",
+   "lengthMin": 0.3,
+   "lengthMax": 0.38,
+   "lengthTailMax": 0.45,
+   "groupMin": 2,
+   "groupMax": 4,
+   "grouping": "Loose",
+   "depthMin": 0,
+   "depthMax": 0,
+   "bedHug": true,
+   "bedOffsetMin": 0.1,
+   "bedOffsetMax": 0.5,
+   "per100mShelf": 0.0,
+   "per100mRamp": 0.4,
+   "per100mOpen": 0.3,
+   "cruiseBodyLengthsPerSec": 0.4,
+   "burstSpeed": 1.8,
+   "surfaceEventPerFishPerMin": 0.0,
+   "surfaceEvent": "None",
+   "bottom": true,
+   "cruiseSpeed": 0.14,
+   "maxTurnDegPerSecCruise": 75,
+   "maxTurnDegPerSecBurst": 300,
+   "idleShare": 0.55,
+   "minBedDepth": 1.0,
+   "swimDepthMode": "NearBed",
+   "neverDrawBody": true,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.15,
+   "surfaceMargin": 0.1,
+   "estBodyHeightMax": 0.089,
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "WhiteBass",
+   "variants": [
+    "WhiteBass"
+   ],
+   "tier": "V3",
+   "lengthMin": 0.23,
+   "lengthMax": 0.38,
+   "lengthTailMax": 0.43,
+   "groupMin": 8,
+   "groupMax": 20,
+   "grouping": "School",
+   "depthMin": 0.5,
+   "depthMax": 4.0,
+   "bedHug": false,
+   "bedOffsetMin": 0,
+   "bedOffsetMax": 0,
+   "per100mShelf": 0.0,
+   "per100mRamp": 0.0,
+   "per100mOpen": 0.6,
+   "cruiseBodyLengthsPerSec": 0.8,
+   "burstSpeed": 1.96,
+   "surfaceEventPerFishPerMin": 0.0,
+   "surfaceEvent": "Busting",
+   "schoolEventPerMin": 0.2,
+   "bottom": false,
+   "cruiseSpeed": 0.24,
+   "maxTurnDegPerSecCruise": 120,
+   "maxTurnDegPerSecBurst": 360,
+   "idleShare": 0.0,
+   "minBedDepth": 2.0,
+   "swimDepthMode": "Mid",
+   "neverDrawBody": true,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.15,
+   "surfaceMargin": 0.1,
+   "estBodyHeightMax": 0.166,
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "Paddlefish",
+   "variants": [
+    "Paddlefish"
+   ],
+   "tier": "V3",
+   "lengthMin": 1.0,
+   "lengthMax": 1.8,
+   "lengthTailMax": 2.1,
+   "groupMin": 1,
+   "groupMax": 1,
+   "grouping": "Solitary",
+   "depthMin": 0.5,
+   "depthMax": 3.0,
+   "bedHug": false,
+   "bedOffsetMin": 0,
+   "bedOffsetMax": 0,
+   "per100mShelf": 0.0,
+   "per100mRamp": 0.0,
+   "per100mOpen": 0.05,
+   "cruiseBodyLengthsPerSec": 0.3,
+   "burstSpeed": 1.5,
+   "surfaceEventPerFishPerMin": 0.01,
+   "surfaceEvent": "Wake",
+   "bottom": false,
+   "cruiseSpeed": 0.42,
+   "maxTurnDegPerSecCruise": 30,
+   "maxTurnDegPerSecBurst": 120,
+   "idleShare": 0.0,
+   "minBedDepth": 3.0,
+   "swimDepthMode": "NearSurface",
+   "neverDrawBody": true,
+   "spacingMinBodyLengths": 0.6,
+   "spacingTargetBodyLengths": 1.5,
+   "bedClearance": 0.15,
+   "surfaceMargin": 0.1,
+   "estBodyHeightMax": 0.347,
+   "airborneBodyAllowed": false
+  }
+ ],
+ "schools": [
+  {
+   "id": "GizzardShad",
+   "variants": [
+    "GizzardShad",
+    "ThreadfinShad"
+   ],
+   "tier": "V3",
+   "lengthMin": 0.1,
+   "lengthMax": 0.36,
+   "membersMin": 15,
+   "membersMax": 40,
+   "depthMin": 0.3,
+   "depthMax": 3.0,
+   "spacingBodyLengths": 1.0,
+   "cohesionRadius": 3.0,
+   "cruiseBodyLengthsPerSec": 1.0,
+   "schoolEventPerMin": 0.25,
+   "surfaceEvent": "NervousWaterOrFlip",
+   "cruiseSpeed": 0.23,
+   "spacingMinBodyLengths": 0.6,
+   "maxTurnDegPerSecCruise": 120,
+   "maxTurnDegPerSecBurst": 360,
+   "neverDrawBody": true,
+   "minBedDepth": 1.0,
+   "burstSpeed": 0.85,
+   "bedClearance": 0.1,
+   "surfaceMargin": 0.05,
+   "airborneBodyAllowed": false
+  },
+  {
+   "id": "SkipjackHerring",
+   "variants": [
+    "SkipjackHerring"
+   ],
+   "tier": "V3",
+   "lengthMin": 0.3,
+   "lengthMax": 0.41,
+   "membersMin": 6,
+   "membersMax": 15,
+   "depthMin": 0.3,
+   "depthMax": 3.0,
+   "spacingBodyLengths": 1.0,
+   "cohesionRadius": 4.0,
+   "cruiseBodyLengthsPerSec": 1.0,
+   "schoolEventPerMin": 0.2,
+   "surfaceEvent": "Jump",
+   "cruiseSpeed": 0.35,
+   "spacingMinBodyLengths": 0.6,
+   "maxTurnDegPerSecCruise": 120,
+   "maxTurnDegPerSecBurst": 360,
+   "neverDrawBody": true,
+   "minBedDepth": 1.0,
+   "burstSpeed": 1.2,
+   "bedClearance": 0.1,
+   "surfaceMargin": 0.05,
+   "airborneBodyAllowed": true
+  }
+ ],
+ "structure": [
+  {
+   "anchorType": "BluffFace",
+   "reachOut": 20,
+   "densityMultiplier": 1.3,
+   "shelfDensityPerM2": 0.01857,
+   "rampDensityPerM2": 0.008,
+   "prefs": [
+    {
+     "id": "SpottedBass",
+     "weight": 3
+    },
+    {
+     "id": "SmallmouthBass",
+     "weight": 4
+    },
+    {
+     "id": "FreshwaterDrum",
+     "weight": 1.5
+    },
+    {
+     "id": "Bluegill",
+     "weight": 0.5
+    },
+    {
+     "id": "CommonCarp",
+     "weight": 0.5
+    }
+   ],
+   "flatheadPer100mShore": 1.0,
+   "extraShadSchoolsPerAnchor": 0,
+   "shelfMultiplier": 1.3,
+   "rampMultiplier": 1.3,
+   "openMultiplier": 1.0
+  },
+  {
+   "anchorType": "HollowMouth",
+   "reachOut": 20,
+   "densityMultiplier": 2.0,
+   "shelfDensityPerM2": 0.02857,
+   "rampDensityPerM2": 0.01231,
+   "prefs": [
+    {
+     "id": "ChannelCatfish",
+     "weight": 2
+    },
+    {
+     "id": "LargemouthBass",
+     "weight": 1.5
+    },
+    {
+     "id": "WhiteCrappie",
+     "weight": 2
+    },
+    {
+     "id": "Sauger",
+     "weight": 2
+    },
+    {
+     "id": "LongnoseGar",
+     "weight": 2
+    }
+   ],
+   "flatheadPer100mShore": 2.5,
+   "extraShadSchoolsPerAnchor": 1,
+   "shelfMultiplier": 2.0,
+   "rampMultiplier": 2.0,
+   "openMultiplier": 1.0
+  },
+  {
+   "anchorType": "LandingOrSlipway",
+   "reachOut": 20,
+   "densityMultiplier": 1.5,
+   "shelfDensityPerM2": 0.02143,
+   "rampDensityPerM2": 0.00923,
+   "prefs": [
+    {
+     "id": "WhiteCrappie",
+     "weight": 2
+    },
+    {
+     "id": "Bluegill",
+     "weight": 1.5
+    },
+    {
+     "id": "LargemouthBass",
+     "weight": 1.5
+    }
+   ],
+   "flatheadPer100mShore": 0.0,
+   "extraShadSchoolsPerAnchor": 0,
+   "shelfMultiplier": 1.5,
+   "rampMultiplier": 1.5,
+   "openMultiplier": 1.0
+  },
+  {
+   "anchorType": "IslandFace",
+   "reachOut": 20,
+   "densityMultiplier": 1.2,
+   "shelfDensityPerM2": 0.01714,
+   "rampDensityPerM2": 0.00738,
+   "prefs": [
+    {
+     "id": "SmallmouthBass",
+     "weight": 2
+    },
+    {
+     "id": "Sauger",
+     "weight": 1.5
+    },
+    {
+     "id": "SmallmouthBuffalo",
+     "weight": 1.5
+    },
+    {
+     "id": "CommonCarp",
+     "weight": 1.5
+    },
+    {
+     "id": "LongnoseGar",
+     "weight": 1.5
+    }
+   ],
+   "flatheadPer100mShore": 0.0,
+   "extraShadSchoolsPerAnchor": 0,
+   "note": "R3: slack side of the face takes part of the former lee allocation (carp, gar, buffalo)",
+   "shelfMultiplier": 1.2,
+   "rampMultiplier": 1.2,
+   "openMultiplier": 1.0
+  },
+  {
+   "anchorType": "IslandChuteMouth",
+   "reachOut": 20,
+   "densityMultiplier": 2.0,
+   "shelfDensityPerM2": 0.02857,
+   "rampDensityPerM2": 0.01231,
+   "prefs": [
+    {
+     "id": "CommonCarp",
+     "weight": 2
+    },
+    {
+     "id": "LongnoseGar",
+     "weight": 3
+    },
+    {
+     "id": "SmallmouthBuffalo",
+     "weight": 2
+    },
+    {
+     "id": "LargemouthBass",
+     "weight": 1.5
+    }
+   ],
+   "flatheadPer100mShore": 1.25,
+   "extraShadSchoolsPerAnchor": 0.5,
+   "shelfMultiplier": 2.0,
+   "rampMultiplier": 2.0,
+   "openMultiplier": 1.0
+  }
+ ],
+ "sightings": {
+  "sightingsPerMinShoreWalk": 2.0,
+  "sightingsBand": [
+   1.4,
+   2.8
+  ],
+  "spontaneousSurfaceEventsPerMin": 1.0,
+  "surfaceEventsBand": [
+   0.6,
+   1.5
+  ],
+  "surfaceEventViewRadius": 60,
+  "jumpsPerMin": 0.1,
+  "jumpsBand": [
+   0.0,
+   0.25
+  ],
+  "flushSignsPer100mWalked": 0.35,
+  "flushBand": [
+   0.2,
+   0.5
+  ],
+  "longestGapSec": 75,
+  "maxSightingsIn15s": 3,
+  "firstSightingSec": 30,
+  "bluffSurfaceEventsPerMin": 2.0,
+  "bluffBand": [
+   1.2,
+   3.0
+  ],
+  "bluffViewRadius": 150,
+  "bodyRecountSec": 10,
+  "definition": "Body: a fish or school in the camera frustum, within subSurfaceDrawRadius, drawable by FishMurk and not terrain-occluded from the eye, continuously for >= minSightingSec; it recounts only after bodyRecountSec out of view. Surface event: a sign (rise, dimple, swirl, V-wake, nervous water, roll/tail, gar gulp/bask, jump, busting) whose origin is in the frustum, within surfaceEventViewRadius and not terrain-occluded, counted once at spawn. Sightings = bodies + surface events; a flee wake is a surface event, and a body seen together with its own wake counts once.",
+  "minSightingSec": 0.5,
+  "routeShore": "f-level shore-routes.json robertson_mccord: bank st 1410->1585 every 5th, 6 m inland, 903 m, teleport start (1077.9,-49.6), 5 m/s, eye 1.7 m, yaw = travel direction + 35 deg toward the water; same route at 3 seeds",
+  "routeBluff": "Geometric (team-lead final rule of record), applied identically at BOTH bluffs: McCord (P0 = LM_McCordBluff XZ 401.36, 717.27; McCord anchor) and Buzzard (P0 = LM_BuzzardBluff XZ 413.84, 1793.19; Buzzard anchor). n = unit horizontal bank normal (toward water) of that anchor at the bank station nearest P0 (landed anchor asset). March from P0 along n in 0.5 m steps using TryGroundHeight throughout: E = last sample whose ground >= ground(P0) - 1.0 m (still on the crest; f-qa fix); F = first sample with ground <= WaterLevelY (fail loudly if none within 200 m); d_F = |F - E| horizontal. vFOV read from the game camera at run time. Eye = (E.x, height(E) + 1.7, E.z); yaw = n; h = eye.y - WaterLevelY; pitch down = atan2(h, d_F) - vFOV/2 + 3 deg (foot waterline 3 deg inside the bottom of the frame). 180 s per bluff. Graded at seeds 101/202/303, each bluff within T13 1.2-3.0 surface events/min (near + far combined), 0 sub-surface body draws from either bluff. Held-out 404/505/606 information only. Frozen once written; untuned.",
+  "bluffExpectedNote": "Graded band 2.0/min (1.2-3.0) in view within 150 m of the McCord landmark; with fish only within 50 m of the bank, expected ~1.3-1.8/min. F8 lever if low or empty-looking mid-river: a sign-only far-water event rate (retune), not a wider band.",
+  "bluffDurationSec": 180,
+  "legibleDistanceByKind": [
+   {
+    "kind": "Dimple",
+    "shore": 10,
+    "McCord": 30,
+    "Buzzard": 30
+   },
+   {
+    "kind": "Rise",
+    "shore": 10,
+    "McCord": 30,
+    "Buzzard": 30
+   },
+   {
+    "kind": "Swirl",
+    "shore": 15,
+    "McCord": 30,
+    "Buzzard": 30
+   },
+   {
+    "kind": "RollOrTail",
+    "shore": 15,
+    "McCord": 30,
+    "Buzzard": 30
+   },
+   {
+    "kind": "GarGulp",
+    "shore": 10,
+    "McCord": 30,
+    "Buzzard": 30
+   },
+   {
+    "kind": "GarBask",
+    "shore": 0,
+    "McCord": 0,
+    "Buzzard": 0
+   },
+   {
+    "kind": "Jump",
+    "shore": 15,
+    "McCord": 30,
+    "Buzzard": 30
+   },
+   {
+    "kind": "Wake",
+    "shore": 30,
+    "McCord": 100,
+    "Buzzard": 100
+   },
+   {
+    "kind": "NervousWaterOrFlip",
+    "shore": 15,
+    "McCord": 60,
+    "Buzzard": 30
+   },
+   {
+    "kind": "Busting",
+    "shore": 15,
+    "McCord": 60,
+    "Buzzard": 30
+   }
+  ],
+  "legibilityRule": "A sign counts toward F7/bluff only within legibleDistanceByKind for the eye (0 = never). Source: TestResults/fish-lookdev/sign-legibility.json (slot #18, valid, sha256 702eea92...; f-qa plan rev 4.2 floor: minor axis >= 6 px at 1080 lines, Weber >= 0.05 linear Rec.709, same frame). Per cell the minimum of three independent derivations (f-designer JSON, f-designer pixel recompute, f-qa image diff). signRendered = false points are NOT MEASURED (never raise or lower); f-artist: shore >= 60 m are sub-pixel and age 0.9 faded (measured fails), Buzzard 60 m occluded by a tree at the F16 pose. NOTES (not values): (1) GarBask = 0 everywhere comes from the vertical-extent size criterion on a long thin body line; f-qa images found its changed region >= 6 px at shore 15 m and Buzzard 30 m; stays 0 for grading, flagged for Noah F8 and f-director. (2) FLAGGED: Wake/shore 30 (some 10 m and 15 m shots unrendered). NervousWater/McCord 60 and Busting/McCord 60 not flagged: no lower McCord point is unrendered (McCord 30 m: 0/55 unrendered). (3) Buzzard column PROVISIONAL pending f-artist's Buzzard 60 m re-measure off the tree line (f-qa rev 5.7; + projectedHeightPx, occludedBy), which includes the Wake/Buzzard 100 flag; a change is a separate revision with f-qa agreement. Rates and sizes unaffected (ruling/fish-sign-legibility-distance)."
+ },
+ "scatter": {
+  "triggerWading": 4.0,
+  "triggerSwimming": 6.0,
+  "triggerBankWalk": 2.5,
+  "bankWalkLipDistance": 2.0,
+  "bottomFishTriggerSwim3D": 4.0,
+  "bottomFishBurstInside": 2.0,
+  "burstSpeedMin": 1.5,
+  "burstSpeedMax": 2.5,
+  "burstSecMin": 1.0,
+  "burstSecMax": 2.0,
+  "fleeCruiseSpeed": 0.6,
+  "fleeDistanceMin": 8.0,
+  "fleeDistanceMax": 15.0,
+  "fleeSurfaceSignDepth": 0.6,
+  "returnStartSec": 20,
+  "settleSec": 45,
+  "settleBand": [
+   30,
+   90
+  ],
+  "reactionTimeMin": 0.2,
+  "reactionTimeMax": 0.4,
+  "dryPlayerTriggers": "yes: shelf fish within triggerBankWalk of the feet while the player is within bankWalkLipDistance of the waterline",
+  "reactionTurnRateDegPerSec": 720,
+  "reactionTurnRule": "720 deg/s applies only inside the logged startle window (trigger to +reactionTimeMax 0.4 s); outside it the species burst/cruise caps govern; <= 45 deg/frame always (F5)"
+ },
+ "sim": {
+  "cellSize": 32,
+  "bodySimRadiusIn": 50,
+  "bodySimRadiusOut": 60,
+  "surfaceEventRadius": 150,
+  "maxSimulatedIndividuals": 48,
+  "maxInstancedSchoolMembers": 80,
+  "maxLiveSurfaceEvents": 6,
+  "tdCaps": "live <= 256, drawn <= 64, surface events <= 16 (gate/fish-technique)",
+  "spawnRule": "cells live inside bodySimRadiusIn, dead outside bodySimRadiusOut; population is a pure function of (seed, cell); a cell is live only where TryGroundHeight succeeds; bodies fade in over 1 s and only spawn where not drawable (outside R_sub or below the FishMurk floor), so nothing pops in view",
+  "bodyDrawDistance": 25
+ },
+ "structureRules": "Anchors per f-level sections/level-structure-anchors.md: McCord, Buzzard and unnamed bluff faces (hanging hollows folded in); Cleeces Ferry landing; slipway; Robertson Island river face st 1408-1522 (592 m) + south chute mouth st 1404-1412 + north chute mouth st 1518-1526 at (658.9,347.9) (the dry chute holds no fish); real hollow mouths st 1543, 1669, 52, 107 (+16 near the line). Structure area = anchor shoreline x 0-20 m out, banded by bed depth like everywhere. Adults = densityMultiplier x band density x area; mix = band mix x prefs weight, renormalised; flathead added on top (structure-only species). No structure fish swims deeper than its bed allows (ruling/fish-robertson-island-anchor). The game has no snag geometry, so there are no snag anchors.",
+ "animation": {
+  "restSpeedThreshold": 0.05,
+  "idleAnimRate": 0.25,
+  "animRateRule": "clip rate = max(idleAnimRate, idleAnimRate + speed / (strideBodyLengths * bodyLength)) <= maxRate",
+  "note": "strideBodyLengths 0.7 per Swim cycle is f-artist INFERRED; if F1 measurement moves it, burst caps move with it (revision)",
+  "maxRate": 12.5,
+  "burstRule": "burstSpeed <= 8.5 x lengthMin, so idleAnimRate + burst / (0.7 x lengthMin) <= maxRate 12.5 (f-td RateCoversBurst); cap the speed, not the rate",
+  "strideBodyLengths": 0.7
+ },
+ "carpJumpCapPerMin": 0.25,
+ "countingRule": "adultsPer100m / densityPerM2 count individual adults including white bass; shad and skipjack schools are excluded and counted only as school units",
+ "revisionLog": [
+  "F1 2026-10-07: bands by bed depth, nominal widths, structure targets, FishMurk visibility, director R1-R4",
+  "F2 2026-10-07: f-td validation checks. Per-species bedClearance/surfaceMargin (small shelf species 0.08/0.05) and minBedDepth raised to fit clearance+margin+wave+body height (global floor 0.30->0.35); burstSpeed capped at 12 x lengthMin; animation maxRate 12 (was clamp 3.0); sim.bodyDrawDistance 25. No density or sighting target changed.",
+  "F3 2026-10-07: animation maxRate 12.5 and strideBodyLengths 0.7 (f-artist) replace the 1 BL/s reference; burstSpeed capped at 8.5 x lengthMin (affects bluegill, bass, white bass, shad, skipjack); tierRule states V2 (shadow/flash at any depth, never a body); Robertson anchors corrected by f-level (face 592 m, north chute mouth st 1518-1526); per-band structure multipliers made explicit (shelf = ramp = anchor multiplier, open 1.0); scaleNote; southOfNorthLineOnly true. No density or sighting target changed.",
+  "F4 2026-10-07: added behaviour (acceleration, hold/wander bouts, home radius, length tail share 0.05) and surfaceSigns (durations, jump height, gar gulp/bask split 70/30) blocks, all INFERRED, at f-engineer request. No existing value changed.",
+  "F5 2026-10-07: f-director ruling/fish-roster-look L1: gar V1 -> V2 (shadow plus surface signs, never a lit body); L2 buffalo model Fish1 recorded. No density, sighting or visibility target changed (no sighting target counted gar bodies separately; gar signs were already surface events).",
+  "F6 2026-10-07: f-td ruling adds an outer edge to the open band at 50 m shore distance (no fish or fish signs beyond). Supersedes my \"open runs to the map edge\" intent. Densities unchanged. If F8 bluff look reads empty mid-river, add a sign-only far-water event rate (retune lever) rather than widening the band.",
+  "F7 2026-10-07: f-td ruling/fish-depth-bands rev 3 chose option B; F6 outer edge withdrawn. Open band F3 target restated as 17.8 adults/ha +-25% over all open water; open surface events 0.67/ha/min (= old 0.2 per 100 m over 3,000 m2); open schools per ha (shad 3.0, skipjack 1.2). Bluff F7/F8 target unchanged at 2.0/min (1.2-3.0), expected ~1.6-2.0.",
+  "F8 2026-10-07: F7 withdrawn; F6 content restored as final per team-lead (f-td ruling/fish-depth-bands rev 4, option A). Open band ends 50 m from the bank; per-100 m targets and 0.2 events per 100 m/min as in F6.",
+  "F9 2026-10-07: f-td design call: jumping bodies above the surface drawn to 60 m (jumpBodyDrawRadius), exempt from R_sub; counted as the jump event, not a body. No other change.",
+  "F10 2026-10-07: jumpBodyDrawRadius 60 -> 40 (f-td option a): live cells start at 50 m and must extend >= 10 m past any draw radius; avoids raising the sim radius (web cost). No other change.",
+  "F11 2026-10-07: LongnoseGar jumpPerFishPerMin 0.002 -> 0 to match ruling/fish-airborne-jumps; added jumpSpecies list and jumpRule text. Issued before slot B at team-lead request. No other change.",
+  "F12 2026-10-07: blocking fix for slot B. FishTuning.Validate with f-artist's FishBodies (need = clearance + max(margin, 0.028) + 0.028 + body height at lengthTailMax): CommonCarp minBedDepth 0.45 -> 0.55 (need 0.528), LongnoseGar 0.35 -> 0.40 (need 0.351), LargemouthBass 0.40 -> 0.45 (need 0.400, float edge). No other change.",
+  "F13: airborneBodyAllowed (CommonCarp, SkipjackHerring) per ruling/fish-airborne-jumps-skipjack; jumpSpecies cleaned to carp + skipjack (bass removed) per rev 2. No other change. Also F3 target defects from slot B: SpottedBass depthMin 2.0 -> 1.0, minBedDepth 2.0 -> 1.3 (shelf placement was impossible: needed bed >= 2.23 m on a 0-2 m band); WhiteCrappie depthMin 1.5 -> 0.8, minBedDepth 1.0 -> 1.2 (only ~16% of the shelf was usable). Both stay inside FishBodies Validate (need 0.472 / 0.360). No density or share changed.",
+  "F14 2026-10-07: f-qa refused the F13 WhiteCrappie change (reachable target: 16% usable shelf can hold 0.5/100 m with concentrated placement, a slot-C code fix). Reverted WhiteCrappie depthMin 0.8 -> 1.5, minBedDepth 1.2 -> 1.0. SpottedBass F13 change accepted by f-qa and kept. No other change.",
+  "F15 2026-10-07 (f-producer approved; f-qa agreed): surfaceSigns.bandRateMultiplier = 1, calibrated on seeds 404/505/606 (TestResults/fish-sign-calibration.json) so the shore median meets T7 1.0/min; per-fish rates are relative weights only, frozen from here. scatter.reactionTurnRateDegPerSec = 720: the brief omitted startle turns, and at 360 deg/s the 0.4 s first-motion bar was unreachable for fish facing the player. No other change.",
+  "F16 2026-10-07 (team-lead final bluff decision; f-producer OK; f-td cost OK; f-director ruling/fish-far-water-signs; f-qa agreed): far-water sign-only events beyond the 50 m edge at the open band's per-area rate (f-qa's five conditions) (T13 had assumed events to 150 m; ruling rev 4's edge emptied the bluff view); routeBluff rewritten as a geometric rule at both McCord and Buzzard, 180 s each (the old pose framed water with no fish). No fish beyond 50 m; no other change.",
+  "F17 2026-10-07 (f-qa agreed; f-producer OK): surfaceSigns.footprints physical (ring speed 0.23 m/s sourced; F16 lives; cores/patches within F16 drawn quads; INFERRED marked per field); sightings.legibleDistanceByKind from the slot #18 rev 4.2 measurement, min of three derivations; GarBask 0 everywhere (note); Buzzard column provisional. No rate change."
+ ],
+ "scaleNote": "Fish lengths are real adult lengths in game metres = real metres (player scale; the 1:2 squeeze is horizontal map only and is NOT applied to fish, per bells-bend-design-brief player-scale rule)",
+ "behaviour": {
+  "_note": "All INFERRED (no source gives these for our species); first tuning levers if F5/F8 read wrong",
+  "accelCruise": 0.5,
+  "accelBurst": 5.0,
+  "holdSec": [
+   4,
+   12
+  ],
+  "holdSecBottom": [
+   10,
+   30
+  ],
+  "wanderSec": [
+   5,
+   15
+  ],
+  "homeWanderRadius": 15,
+  "homeWanderRadiusBottom": 20,
+  "homeWanderRadiusOpen": 30,
+  "homeWanderRadiusSchool": 25,
+  "lengthTailShare": 0.05
+ },
+ "surfaceSigns": {
+  "_note": "All INFERRED. Durations are the visible life of the sign; jump airtime follows from jump height (ballistic)",
+  "dimpleSec": 1.5,
+  "riseSec": 2.0,
+  "swirlSec": 2.0,
+  "vWakeSec": 3.0,
+  "nervousWaterSec": [
+   4,
+   8
+  ],
+  "rollOrTailSec": 2.5,
+  "gulpSec": 1.5,
+  "splashRingSec": 2.0,
+  "baskSec": [
+   20,
+   60
+  ],
+  "jumpHeightBodyLengths": [
+   0.3,
+   1.0
+  ],
+  "garGulpShare": 0.7,
+  "garBaskShare": 0.3,
+  "bandRateMultiplier": 1.0,
+  "footprints": [
+   {
+    "kind": "Dimple",
+    "coreRadius": 0.05,
+    "ringSpeed": 0.23,
+    "lifeSec": 1.5,
+    "maxRingRadius": 0.35,
+    "provenance": {
+     "ringSpeed": "sourced: capillary-gravity minimum phase speed 0.23 m/s (Wikipedia \"Capillary wave\")",
+     "lifeSec": "F4 value (INFERRED pre-result), unchanged",
+     "coreRadius": "INFERRED",
+     "maxRingRadius": "derived = ringSpeed x lifeSec",
+     "footprintCheck": "core dia 0.10 m <= F16 quad max(0.5, 1.5 x L) = 0.5 m (bluegill L 0.13-0.27)"
+    }
+   },
+   {
+    "kind": "Rise",
+    "coreRadius": 0.1,
+    "ringSpeed": 0.23,
+    "lifeSec": 2.0,
+    "maxRingRadius": 0.46,
+    "provenance": {
+     "ringSpeed": "sourced: capillary-gravity minimum phase speed 0.23 m/s (Wikipedia \"Capillary wave\")",
+     "lifeSec": "F4 value (INFERRED pre-result), unchanged",
+     "coreRadius": "INFERRED",
+     "maxRingRadius": "derived = ringSpeed x lifeSec",
+     "footprintCheck": "core dia 0.20 m <= F16 quad max(1.0, 3.0 x L) >= 1.0 m"
+    }
+   },
+   {
+    "kind": "Swirl",
+    "coreRadius": 0.3,
+    "ringSpeed": 0.23,
+    "lifeSec": 2.0,
+    "maxRingRadius": 0.46,
+    "provenance": {
+     "ringSpeed": "sourced: capillary-gravity minimum phase speed 0.23 m/s (Wikipedia \"Capillary wave\")",
+     "lifeSec": "F4 value (INFERRED pre-result), unchanged",
+     "coreRadius": "INFERRED",
+     "maxRingRadius": "derived = ringSpeed x lifeSec",
+     "footprintCheck": "core dia 0.60 m <= F16 quad max(0.8, 2.5 x L) >= 0.8 m"
+    }
+   },
+   {
+    "kind": "RollOrTail",
+    "coreRadius": 0.5,
+    "ringSpeed": 0.23,
+    "lifeSec": 2.5,
+    "maxRingRadius": 0.58,
+    "provenance": {
+     "ringSpeed": "sourced: capillary-gravity minimum phase speed 0.23 m/s (Wikipedia \"Capillary wave\")",
+     "lifeSec": "F4 value (INFERRED pre-result), unchanged",
+     "coreRadius": "INFERRED",
+     "maxRingRadius": "derived = ringSpeed x lifeSec",
+     "footprintCheck": "core dia 1.00 m <= F16 quad max(1.0, 3.0 x L) >= 1.0 m (core reduced 0.55 -> 0.50 m radius to fit the smallest carp)"
+    }
+   },
+   {
+    "kind": "GarGulp",
+    "coreRadius": 0.15,
+    "ringSpeed": 0.23,
+    "lifeSec": 1.5,
+    "maxRingRadius": 0.35,
+    "provenance": {
+     "ringSpeed": "sourced: capillary-gravity minimum phase speed 0.23 m/s (Wikipedia \"Capillary wave\")",
+     "lifeSec": "F4 value (INFERRED pre-result), unchanged",
+     "coreRadius": "INFERRED",
+     "maxRingRadius": "derived = ringSpeed x lifeSec",
+     "footprintCheck": "core dia 0.30 m <= F16 quad max(0.5, 1.0 x L) >= 0.6 m (gar L >= 0.6)"
+    }
+   },
+   {
+    "kind": "GarBask",
+    "coreRadius": 0,
+    "ringSpeed": 0,
+    "lifeSec": [
+     20,
+     60
+    ],
+    "maxRingRadius": 0,
+    "note": "dorsal/snout line, no ring (unchanged)",
+    "provenance": {
+     "ringSpeed": "n/a",
+     "coreRadius": "INFERRED",
+     "lifeSec": "INFERRED",
+     "maxRingRadius": "derived = ringSpeed x lifeSec"
+    }
+   },
+   {
+    "kind": "VWake",
+    "coreRadius": 0,
+    "ringSpeed": 0,
+    "lifeSec": 3.0,
+    "maxRingRadius": 0,
+    "armLengthRule": "burst speed x 3 s",
+    "provenance": {
+     "lifeSec": "F4 value, unchanged"
+    }
+   },
+   {
+    "kind": "NervousWaterOrFlip",
+    "patchDiameter": [
+     3,
+     6
+    ],
+    "lifeSec": [
+     4,
+     8
+    ],
+    "provenance": {
+     "ringSpeed": "n/a",
+     "coreRadius": "INFERRED",
+     "lifeSec": "F16 nervous-water life (pre-result)",
+     "maxRingRadius": "derived = ringSpeed x lifeSec",
+     "footprintCheck": "patch dia 3-6 m <= F16 quad max(2.0, 2.0 x school radius) = 6 m (shad cohesionRadius 3 m); upper bound cut 8 -> 6 m",
+     "patchDiameter": "INFERRED, capped at the F16 drawn footprint"
+    }
+   },
+   {
+    "kind": "Jump",
+    "coreRadius": 0.4,
+    "ringSpeed": 0.23,
+    "lifeSec": 2.0,
+    "maxRingRadius": 0.46,
+    "note": "splash 0.5-1 m then rings",
+    "provenance": {
+     "ringSpeed": "sourced: capillary-gravity minimum phase speed 0.23 m/s (Wikipedia \"Capillary wave\")",
+     "lifeSec": "F4 value (INFERRED pre-result), unchanged",
+     "coreRadius": "INFERRED",
+     "maxRingRadius": "derived = ringSpeed x lifeSec",
+     "footprintCheck": "core dia 0.80 m <= F16 quad max(1.2, 4.0 x L) >= 1.2 m"
+    }
+   },
+   {
+    "kind": "Busting",
+    "patchDiameter": [
+     3,
+     6
+    ],
+    "lifeSec": [
+     4,
+     8
+    ],
+    "provenance": {
+     "ringSpeed": "n/a",
+     "coreRadius": "INFERRED",
+     "lifeSec": "F16 nervous-water life (pre-result)",
+     "maxRingRadius": "derived = ringSpeed x lifeSec",
+     "footprintCheck": "patch dia 3-6 m <= F16 quad max(2.0, 2.0 x school radius) = 6 m (school radius 3 m as drawn); life set to the nervous-water life [4, 8] s (no pre-result busting life)",
+     "patchDiameter": "INFERRED, capped at the F16 drawn footprint"
+    }
+   }
+  ],
+  "footprintsNote": "ruling/fish-sign-footprint-physical + f-qa F17 agreement (revised): physical rule max ring radius = front speed x visible life; front speed 0.23 m/s for all ring kinds (sourced, Wikipedia \"Capillary wave\"); visible lives stay at F4/F16 values (dimple 1.5, rise 2.0, swirl 2.0, roll/tail 2.5, gulp 1.5, jump ring 2.0, V-wake 3.0 s). A kind may exceed these only with an external source for that kind recorded here. Fade law and contrast unchanged (L4 closeout). GarBask, NervousWater, Busting unchanged."
+ },
+ "jumpSpecies": [
+  "CommonCarp",
+  "SkipjackHerring"
+ ],
+ "jumpRule": "ruling/fish-airborne-jumps rev 2 + ruling/fish-airborne-jumps-skipjack: only CommonCarp and SkipjackHerring leave the water. airborneBodyAllowed overrides neverDrawBody only while the fish is at or above the surface during its own logged jump (underwater skipjack stays V3). Real speed, no hang time, splash + soft rings, muted dull-silver tint with no glint, within jumpBodyDrawRadius 40 m, cap <= 0.25/min, not counted in maxVisibleBodies. Shad flips and white bass busting are body-less splash signs; bass do not jump."
+}

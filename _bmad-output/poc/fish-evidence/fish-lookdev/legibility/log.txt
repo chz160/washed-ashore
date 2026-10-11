@@ -1,0 +1,45 @@
+legibility 2026-10-08T00:22:02Z
+shader WashedAshore/FishRing: hasError=False, variants compiled 12/12 (D3D + GLES3x/WebGL)
+shader WashedAshore/FishUnderwater: hasError=False, variants compiled 12/12 (D3D + GLES3x/WebGL)
+scene Assets/Scenes/LookDev/FishLookDev.unity: copied 11 terrain tiles, 10 water quads, 1 directional lights, 1 sky roots from Assets/Scenes/World.unity (closed unsaved); fog Linear 120-520, skybox BellsBendSky, sun Sun
+water globals at t=0.6: W=1.610; copied from BellsBendWater: _Extinction (2.20, 2.40, 3.20, 0.00), _ScatterColor RGBA(0.290, 0.290, 0.180, 1.000), _MinCosView 0.15, _F0 0.02
+footprints from _bmad-output/poc/fish-targets.json (F17) sha256 dcf7fd253117af7ba4980d20191c1afe5270d65ea48cdce2869b1f3479d42971:
+  Dimple: core 0.05 m, speed 0.23 m/s, max ring 0.35 m, arm 0 m / 0 s x burst, life 1.5-1.5 s, patch 0-0 m
+  Rise: core 0.1 m, speed 0.23 m/s, max ring 0.46 m, arm 0 m / 0 s x burst, life 2-2 s, patch 0-0 m
+  Swirl: core 0.3 m, speed 0.23 m/s, max ring 0.46 m, arm 0 m / 0 s x burst, life 2-2 s, patch 0-0 m
+  Roll: core 0.5 m, speed 0.23 m/s, max ring 0.58 m, arm 0 m / 0 s x burst, life 2.5-2.5 s, patch 0-0 m
+  RollOrTail: core 0.5 m, speed 0.23 m/s, max ring 0.58 m, arm 0 m / 0 s x burst, life 2.5-2.5 s, patch 0-0 m
+  GarGulpOrBask: core 0.15 m, speed 0.23 m/s, max ring 0.35 m, arm 0 m / 0 s x burst, life 1.5-1.5 s, patch 0-0 m
+  GarBask: no ring sign, skipped
+  Wake: core 0 m, speed 0 m/s, max ring 0 m, arm 0 m / 3 s x burst, life 3-3 s, patch 0-0 m
+  FleeWake: core 0 m, speed 0 m/s, max ring 0 m, arm 0 m / 3 s x burst, life 3-3 s, patch 0-0 m
+  NervousWaterOrFlip: core 0 m, speed 0 m/s, max ring 0 m, arm 0 m / 0 s x burst, life 4-8 s, patch 3-6 m
+  Jump: core 0.4 m, speed 0.23 m/s, max ring 0.46 m, arm 0 m / 0 s x burst, life 2-2 s, patch 0-0 m
+  Busting: core 0 m, speed 0 m/s, max ring 0 m, arm 0 m / 0 s x burst, life 4-8 s, patch 3-6 m
+
+  shore 5 m: done
+  shore 10 m: done
+  shore 15 m: done
+  shore 30 m: done
+  shore 60 m: done
+  shore 100 m: done
+  shore 150 m: done
+  McCord 5 m: land at (405.8,720.5), skipped
+  McCord 10 m: land at (409.9,723.5), skipped
+  McCord 15 m: land at (413.9,726.4), skipped
+  McCord 30 m: done
+  McCord 60 m: done
+  McCord 100 m: done
+  McCord 150 m: done
+  Buzzard 5 m: land at (419.4,1789.9), skipped
+  Buzzard 10 m: land at (423.8,1787.4), skipped
+  Buzzard 15 m: land at (428.1,1784.9), skipped
+  Buzzard 30 m: line of sight blocked by terrain (recorded, not moved)
+  Buzzard 30 m: done
+  Buzzard 60 m: (467.1,1762.5) occluded by tree:CommonTree_4; moved -8 m along the ring to (470.6,1769.7), line of sight clear
+  Buzzard 60 m: done
+  Buzzard 100 m: line of sight blocked by tree:CommonTree_4 (recorded, not moved)
+  Buzzard 100 m: done
+  Buzzard 150 m: done
+825 shots; drawn (changed px > 0): 609; meets floor: 224
+done

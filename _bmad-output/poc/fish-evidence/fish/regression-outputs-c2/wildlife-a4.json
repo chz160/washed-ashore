@@ -1,0 +1,12 @@
+{
+  "method": "footprint = 4 lowest corners of SkinnedMeshRenderer.localBounds in rootBone space (tilts with the model) + their centre; sampled 1 Hz over 60 s",
+  "facingMethod": "model forward = flat(Head bone - root); while moving > 0.5 m/s, dot(model forward, displacement) >= 0.7 in >= 95% of samples per agent; while Alert/watching (>= 1 s in state, still), dot(model forward, to player) >= 0.7; positive control in A4c",
+  "navMeshDeltaMethod": "|transform.y - NavMesh.SamplePosition(transform.position, r=2 m).position.y|; transform.y is set to terrain height each frame",
+  "navMeshPositiveControl": "agent=Fox_2_1 lifted1m=1.000 offEdge0.5m=0.500 rawNextPosVsTerrain=0.000",
+  "species": [
+    {"species": "Fox", "agents": 2, "maxClipDepth": 0.063, "maxClipRunSec": 0, "maxFloatGap": -0.025, "maxFloatRunSec": 0, "stuckEvents": 0, "maxNavMeshDeltaY": 0.000, "maxMismatchSec": 0.00, "offNavMeshSamples": 0, "facingMovingSamples": 454, "facingShareOk": 0.998, "facingMinDot": 0.30, "watchSamples": 0, "watchShareOk": 1.000, "watchMinDot": 1.00, "basisHeadDirInModelFrame": {"x": 0.02, "z": 1.00}},
+    {"species": "Deer", "agents": 8, "maxClipDepth": 0.131, "maxClipRunSec": 0, "maxFloatGap": -0.042, "maxFloatRunSec": 0, "stuckEvents": 0, "maxNavMeshDeltaY": 0.000, "maxMismatchSec": 0.00, "offNavMeshSamples": 0, "facingMovingSamples": 1556, "facingShareOk": 0.997, "facingMinDot": 0.03, "watchSamples": 0, "watchShareOk": 1.000, "watchMinDot": 1.00, "basisHeadDirInModelFrame": {"x": 0.02, "z": 1.00}},
+    {"species": "Stag", "agents": 3, "maxClipDepth": 0.188, "maxClipRunSec": 0, "maxFloatGap": -0.033, "maxFloatRunSec": 0, "stuckEvents": 0, "maxNavMeshDeltaY": 0.000, "maxMismatchSec": 0.00, "offNavMeshSamples": 0, "facingMovingSamples": 522, "facingShareOk": 0.996, "facingMinDot": 0.68, "watchSamples": 95, "watchShareOk": 1.000, "watchMinDot": 1.00, "basisHeadDirInModelFrame": {"x": -0.04, "z": 1.00}},
+    {"species": "Wolf", "agents": 2, "maxClipDepth": 0.145, "maxClipRunSec": 0, "maxFloatGap": -0.066, "maxFloatRunSec": 0, "stuckEvents": 0, "maxNavMeshDeltaY": 0.000, "maxMismatchSec": 0.00, "offNavMeshSamples": 0, "facingMovingSamples": 414, "facingShareOk": 0.993, "facingMinDot": 0.06, "watchSamples": 0, "watchShareOk": 1.000, "watchMinDot": 1.00, "basisHeadDirInModelFrame": {"x": -0.05, "z": 1.00}}
+  ]
+}

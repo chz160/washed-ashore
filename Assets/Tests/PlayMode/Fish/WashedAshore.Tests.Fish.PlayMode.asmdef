@@ -1,0 +1,27 @@
+{
+    "name": "WashedAshore.Tests.Fish.PlayMode",
+    "rootNamespace": "WashedAshore.Tests.PlayMode.Fish",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "WashedAshore.Fish",
+        "WashedAshore.World",
+        "WashedAshore.Gameplay",
+        "WashedAshore.Level",
+        "WashedAshore.Birds",
+        "WashedAshore.Wildlife"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

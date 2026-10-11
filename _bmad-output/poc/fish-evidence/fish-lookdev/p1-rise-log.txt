@@ -1,0 +1,38 @@
+Rise stills 2026-10-07T22:30:30Z
+shader WashedAshore/FishRing: hasError=False, variants compiled 12/12 (D3D + GLES3x/WebGL)
+shader WashedAshore/FishUnderwater: hasError=False, variants compiled 12/12 (D3D + GLES3x/WebGL)
+scene Assets/Scenes/LookDev/FishLookDev.unity: copied 9 terrain tiles, 9 water quads, 1 directional lights, 1 sky roots from Assets/Scenes/World.unity (closed unsaved); fog Linear 120-520, skybox BellsBendSky, sun Sun
+water globals at t=0.6: W=1.610; copied from BellsBendWater: _Extinction (2.20, 2.40, 3.20, 0.00), _ScatterColor RGBA(0.290, 0.290, 0.180, 1.000), _MinCosView 0.15, _F0 0.02
+  p1-rise-shore-5m-age0.25-fov30.png: Rise shore 5 m fov 30: height 118 px, changed 31962 px, peak contrast 0.180
+  p1-rise-shore-5m-age0.25-fov70.png: Rise shore 5 m fov 70: height 45 px, changed 4672 px, peak contrast 0.180
+  p1-rise-shore-5m-age0.60-fov30.png: Rise shore 5 m fov 30: height 138 px, changed 37441 px, peak contrast 0.062
+  p1-rise-shore-5m-age0.60-fov70.png: Rise shore 5 m fov 70: height 52 px, changed 5473 px, peak contrast 0.062
+  p1-dimple-shore-5m-fov70.png: Dimple shore 5 m fov 70: height 17 px, changed 602 px, peak contrast 0.105
+  p1-rise-shore-15m-age0.25-fov30.png: Rise shore 15 m fov 30: height 17 px, changed 1758 px, peak contrast 0.133
+  p1-rise-shore-15m-age0.25-fov70.png: Rise shore 15 m fov 70: height 6 px, changed 254 px, peak contrast 0.123
+  p1-rise-shore-15m-age0.60-fov30.png: Rise shore 15 m fov 30: height 20 px, changed 1573 px, peak contrast 0.042
+  p1-rise-shore-15m-age0.60-fov70.png: Rise shore 15 m fov 70: height 8 px, changed 244 px, peak contrast 0.041
+  p1-dimple-shore-15m-fov70.png: Dimple shore 15 m fov 70: height 2 px, changed 30 px, peak contrast 0.075
+  p1-rise-shore-30m-age0.25-fov30.png: Rise shore 30 m fov 30: height 5 px, changed 195 px, peak contrast 0.109
+  p1-rise-shore-30m-age0.25-fov70.png: Rise shore 30 m fov 70: height 2 px, changed 55 px, peak contrast 0.091
+  p1-rise-shore-30m-age0.60-fov30.png: Rise shore 30 m fov 30: height 5 px, changed 123 px, peak contrast 0.028
+  p1-rise-shore-30m-age0.60-fov70.png: Rise shore 30 m fov 70: height 2 px, changed 54 px, peak contrast 0.028
+  p1-dimple-shore-30m-fov70.png: Dimple shore 30 m fov 70: height 0 px, changed 0 px, peak contrast 0.000
+  p1-rise-shore-40m-age0.25-fov30.png: Rise shore 40 m fov 30: height 4 px, changed 160 px, peak contrast 0.102
+  p1-rise-shore-40m-age0.25-fov70.png: Rise shore 40 m fov 70: height 2 px, changed 35 px, peak contrast 0.087
+  p1-rise-shore-40m-age0.60-fov30.png: Rise shore 40 m fov 30: height 3 px, changed 85 px, peak contrast 0.028
+  p1-rise-shore-40m-age0.60-fov70.png: Rise shore 40 m fov 70: height 2 px, changed 22 px, peak contrast 0.026
+  p1-dimple-shore-40m-fov70.png: Dimple shore 40 m fov 70: height 0 px, changed 0 px, peak contrast 0.000
+  p1-rise-shore-60m-age0.25-fov30.png: Rise shore 60 m fov 30: height 2 px, changed 45 px, peak contrast 0.082
+  p1-rise-shore-60m-age0.25-fov70.png: Rise shore 60 m fov 70: height 0 px, changed 0 px, peak contrast 0.000
+  p1-rise-shore-60m-age0.60-fov30.png: Rise shore 60 m fov 30: height 2 px, changed 32 px, peak contrast 0.025
+  p1-rise-shore-60m-age0.60-fov70.png: Rise shore 60 m fov 70: height 0 px, changed 0 px, peak contrast 0.000
+  p1-dimple-shore-60m-fov70.png: Dimple shore 60 m fov 70: height 0 px, changed 0 px, peak contrast 0.000
+  p1-rise-shore-80m-age0.25-fov30.png: Rise shore 80 m fov 30: height 1 px, changed 9 px, peak contrast 0.052
+  p1-rise-shore-80m-age0.25-fov70.png: Rise shore 80 m fov 70: height 0 px, changed 0 px, peak contrast 0.000
+  p1-rise-shore-80m-age0.60-fov30.png: Rise shore 80 m fov 30: height 1 px, changed 6 px, peak contrast 0.013
+  p1-rise-shore-80m-age0.60-fov70.png: Rise shore 80 m fov 70: height 0 px, changed 0 px, peak contrast 0.000
+  p1-dimple-shore-80m-fov70.png: Dimple shore 80 m fov 70: height 0 px, changed 0 px, peak contrast 0.000
+  p1-rise-bluff-fov30.png: Rise BuzzardBluff 84 m fov 30: height 545 px, changed 277 px, peak contrast 0.207
+  p1-rise-bluff-fov70.png: Rise BuzzardBluff 84 m fov 70: height 4 px, changed 25 px, peak contrast 0.177
+done

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="44" result="Failed(Child)" total="44" passed="41" failed="3" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:09Z" duration="6.0883828">
+  <test-suite type="TestSuite" id="1000" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="147" result="Failed" site="Child" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:09Z" duration="6.088383" total="44" passed="41" failed="3" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1184" name="WashedAshore.Tests.Fish.EditMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.Fish.EditMode.dll" runstate="Runnable" testcasecount="44" result="Failed" site="Child" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:09Z" duration="6.078072" total="44" passed="41" failed="3" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="49736" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1185" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="44" result="Failed" site="Child" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:09Z" duration="6.077701" total="44" passed="41" failed="3" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1186" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="44" result="Failed" site="Child" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:09Z" duration="6.077553" total="44" passed="41" failed="3" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1187" name="EditMode" fullname="WashedAshore.Tests.EditMode" runstate="Runnable" testcasecount="44" result="Failed" site="Child" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:09Z" duration="6.077422" total="44" passed="41" failed="3" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestSuite" id="1188" name="Fish" fullname="WashedAshore.Tests.EditMode.Fish" runstate="Runnable" testcasecount="44" result="Failed" site="Child" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:09Z" duration="6.077236" total="44" passed="41" failed="3" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-suite type="TestFixture" id="1131" name="FishAnchorQueryTests" fullname="WashedAshore.Tests.EditMode.Fish.FishAnchorQueryTests" classname="WashedAshore.Tests.EditMode.Fish.FishAnchorQueryTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.020787" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1132" name="MapsKinds_ReturnsAnchorArea_AndRespectsReachAndWaterSide" fullname="WashedAshore.Tests.EditMode.Fish.FishAnchorQueryTests.MapsKinds_ReturnsAnchorArea_AndRespectsReachAndWaterSide" methodname="MapsKinds_ReturnsAnchorArea_AndRespectsReachAndWaterSide" classname="WashedAshore.Tests.EditMode.Fish.FishAnchorQueryTests" runstate="Runnable" seed="53530982" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.011469" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1133" name="FishMurkTests" fullname="WashedAshore.Tests.EditMode.Fish.FishMurkTests" classname="WashedAshore.Tests.EditMode.Fish.FishMurkTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.029277" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1135" name="BluffTop_LimitIs1_10m" fullname="WashedAshore.Tests.EditMode.Fish.FishMurkTests.BluffTop_LimitIs1_10m" methodname="BluffTop_LimitIs1_10m" classname="WashedAshore.Tests.EditMode.Fish.FishMurkTests" runstate="Runnable" seed="1828609254" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.001156" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1138" name="Drawable_UsesTheShallowestPointOfTheBody" fullname="WashedAshore.Tests.EditMode.Fish.FishMurkTests.Drawable_UsesTheShallowestPointOfTheBody" methodname="Drawable_UsesTheShallowestPointOfTheBody" classname="WashedAshore.Tests.EditMode.Fish.FishMurkTests" runstate="Runnable" seed="791643815" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.000481" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1137" name="Jump_IsAlwaysDrawable" fullname="WashedAshore.Tests.EditMode.Fish.FishMurkTests.Jump_IsAlwaysDrawable" methodname="Jump_IsAlwaysDrawable" classname="WashedAshore.Tests.EditMode.Fish.FishMurkTests" runstate="Runnable" seed="672419374" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.000130" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1139" name="ShippedWaterMaterial_MatchesThePinnedNumbers" fullname="WashedAshore.Tests.EditMode.Fish.FishMurkTests.ShippedWaterMaterial_MatchesThePinnedNumbers" methodname="ShippedWaterMaterial_MatchesThePinnedNumbers" classname="WashedAshore.Tests.EditMode.Fish.FishMurkTests" runstate="Runnable" seed="1578559114" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.025824" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1136" name="ShoreEye_FiveMetresOut_LimitIs0_48m" fullname="WashedAshore.Tests.EditMode.Fish.FishMurkTests.ShoreEye_FiveMetresOut_LimitIs0_48m" methodname="ShoreEye_FiveMetresOut_LimitIs0_48m" classname="WashedAshore.Tests.EditMode.Fish.FishMurkTests" runstate="Runnable" seed="620734737" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.000166" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1134" name="StraightDown_LimitIs1_57m" fullname="WashedAshore.Tests.EditMode.Fish.FishMurkTests.StraightDown_LimitIs1_57m" methodname="StraightDown_LimitIs1_57m" classname="WashedAshore.Tests.EditMode.Fish.FishMurkTests" runstate="Runnable" seed="1679876290" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.000106" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1140" name="FishPlanTests" fullname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" classname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.330077" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-suite type="ParameterizedMethod" id="1146" name="BandAdultsAndSchools_WithinTwentyFivePercent" fullname="WashedAshore.Tests.EditMode.Fish.FishPlanTests.BandAdultsAndSchools_WithinTwentyFivePercent" classname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.285915" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties />
+                  <test-case id="1143" name="BandAdultsAndSchools_WithinTwentyFivePercent(101)" fullname="WashedAshore.Tests.EditMode.Fish.FishPlanTests.BandAdultsAndSchools_WithinTwentyFivePercent(101)" methodname="BandAdultsAndSchools_WithinTwentyFivePercent" classname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" runstate="Runnable" seed="223508450" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.095109" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1144" name="BandAdultsAndSchools_WithinTwentyFivePercent(202)" fullname="WashedAshore.Tests.EditMode.Fish.FishPlanTests.BandAdultsAndSchools_WithinTwentyFivePercent(202)" methodname="BandAdultsAndSchools_WithinTwentyFivePercent" classname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" runstate="Runnable" seed="869486490" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.098027" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                  <test-case id="1145" name="BandAdultsAndSchools_WithinTwentyFivePercent(303)" fullname="WashedAshore.Tests.EditMode.Fish.FishPlanTests.BandAdultsAndSchools_WithinTwentyFivePercent(303)" methodname="BandAdultsAndSchools_WithinTwentyFivePercent" classname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" runstate="Runnable" seed="1925865996" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.092190" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                  </test-case>
+                </test-suite>
+                <test-case id="1142" name="DifferentSeeds_DifferentPlans" fullname="WashedAshore.Tests.EditMode.Fish.FishPlanTests.DifferentSeeds_DifferentPlans" methodname="DifferentSeeds_DifferentPlans" classname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" runstate="Runnable" seed="1447989165" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.005251" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1147" name="NoAnchor_ShallowerThanTheSpeciesMinimum_OrOnLand" fullname="WashedAshore.Tests.EditMode.Fish.FishPlanTests.NoAnchor_ShallowerThanTheSpeciesMinimum_OrOnLand" methodname="NoAnchor_ShallowerThanTheSpeciesMinimum_OrOnLand" classname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" runstate="Runnable" seed="1503498931" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.007663" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1148" name="NoTile_MeansNoFish" fullname="WashedAshore.Tests.EditMode.Fish.FishPlanTests.NoTile_MeansNoFish" methodname="NoTile_MeansNoFish" classname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" runstate="Runnable" seed="167936012" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.002549" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1141" name="SameSeedAndCell_SameGroups_InAnyOrder" fullname="WashedAshore.Tests.EditMode.Fish.FishPlanTests.SameSeedAndCell_SameGroups_InAnyOrder" methodname="SameSeedAndCell_SameGroups_InAnyOrder" classname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" runstate="Runnable" seed="1941719993" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.001690" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1149" name="Structure_HoldsMoreFish_ItsOwnMix_AndItsExtras" fullname="WashedAshore.Tests.EditMode.Fish.FishPlanTests.Structure_HoldsMoreFish_ItsOwnMix_AndItsExtras" methodname="Structure_HoldsMoreFish_ItsOwnMix_AndItsExtras" classname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" runstate="Runnable" seed="292633261" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.024285" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1151" name="Validate_MinBedDepth_CoversClearanceMarginWavesAndTheTallestBody" fullname="WashedAshore.Tests.EditMode.Fish.FishPlanTests.Validate_MinBedDepth_CoversClearanceMarginWavesAndTheTallestBody" methodname="Validate_MinBedDepth_CoversClearanceMarginWavesAndTheTallestBody" classname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" runstate="Runnable" seed="148064976" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.001226" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1150" name="Validate_RejectsCapsAboveTheAdr_APopInRadius_AndMissingBodies" fullname="WashedAshore.Tests.EditMode.Fish.FishPlanTests.Validate_RejectsCapsAboveTheAdr_APopInRadius_AndMissingBodies" methodname="Validate_RejectsCapsAboveTheAdr_APopInRadius_AndMissingBodies" classname="WashedAshore.Tests.EditMode.Fish.FishPlanTests" runstate="Runnable" seed="681596981" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.000184" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1152" name="FishRandomTests" fullname="WashedAshore.Tests.EditMode.Fish.FishRandomTests" classname="WashedAshore.Tests.EditMode.Fish.FishRandomTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.068110" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1156" name="Draws_AdvanceTheCounter_AndReplay" fullname="WashedAshore.Tests.EditMode.Fish.FishRandomTests.Draws_AdvanceTheCounter_AndReplay" methodname="Draws_AdvanceTheCounter_AndReplay" classname="WashedAshore.Tests.EditMode.Fish.FishRandomTests" runstate="Runnable" seed="100941121" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.001370" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1153" name="SameInputs_SameValue_InAnyOrder" fullname="WashedAshore.Tests.EditMode.Fish.FishRandomTests.SameInputs_SameValue_InAnyOrder" methodname="SameInputs_SameValue_InAnyOrder" classname="WashedAshore.Tests.EditMode.Fish.FishRandomTests" runstate="Runnable" seed="1337408837" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.000113" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1154" name="SeedStreamCellFishCounter_EachChangeTheValue" fullname="WashedAshore.Tests.EditMode.Fish.FishRandomTests.SeedStreamCellFishCounter_EachChangeTheValue" methodname="SeedStreamCellFishCounter_EachChangeTheValue" classname="WashedAshore.Tests.EditMode.Fish.FishRandomTests" runstate="Runnable" seed="231924" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.000114" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1155" name="Values_AreInUnitRange_AndRoughlyUniform" fullname="WashedAshore.Tests.EditMode.Fish.FishRandomTests.Values_AreInUnitRange_AndRoughlyUniform" methodname="Values_AreInUnitRange_AndRoughlyUniform" classname="WashedAshore.Tests.EditMode.Fish.FishRandomTests" runstate="Runnable" seed="1555155983" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.064475" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1157" name="FishShippedAssetsTests" fullname="WashedAshore.Tests.EditMode.Fish.FishShippedAssetsTests" classname="WashedAshore.Tests.EditMode.Fish.FishShippedAssetsTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.008090" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1159" name="ShippedTuning_MatchesAFreshImportOfTheJson" fullname="WashedAshore.Tests.EditMode.Fish.FishShippedAssetsTests.ShippedTuning_MatchesAFreshImportOfTheJson" methodname="ShippedTuning_MatchesAFreshImportOfTheJson" classname="WashedAshore.Tests.EditMode.Fish.FishShippedAssetsTests" runstate="Runnable" seed="1777184611" result="Failed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.006454" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  shipped tuning is from another brief file (now F12); rerun the import
+  String lengths are both 16. Strings differ at index 1.
+  Expected: "b14fb8c4fcc32aa5"
+  But was:  "b8b2bc7576fecbb2"
+  ------------^
+]]></message>
+                    <stack-trace><![CDATA[at WashedAshore.Tests.EditMode.Fish.FishShippedAssetsTests.ShippedTuning_MatchesAFreshImportOfTheJson () [0x00032] in E:\GitHub\washed-ashore\Assets\Tests\EditMode\Fish\FishShippedAssetsTests.cs:37
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1158" name="ShippedTuning_PassesValidate_WithBodiesAndShippedWaves" fullname="WashedAshore.Tests.EditMode.Fish.FishShippedAssetsTests.ShippedTuning_PassesValidate_WithBodiesAndShippedWaves" methodname="ShippedTuning_PassesValidate_WithBodiesAndShippedWaves" classname="WashedAshore.Tests.EditMode.Fish.FishShippedAssetsTests" runstate="Runnable" seed="342945498" result="Failed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.000950" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: null
+  But was:  "CommonCarp: minBedDepth 0.45 m < clearance + margin + waves + tallest body = 0.53 m"
+]]></message>
+                    <stack-trace><![CDATA[at WashedAshore.Tests.EditMode.Fish.FishShippedAssetsTests.ShippedTuning_PassesValidate_WithBodiesAndShippedWaves () [0x00050] in E:\GitHub\washed-ashore\Assets\Tests\EditMode\Fish\FishShippedAssetsTests.cs:27
+]]></stack-trace>
+                  </failure>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1160" name="FishSimWorldTests" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" testcasecount="10" result="Failed" site="Child" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:09Z" duration="5.614746" total="10" passed="9" failed="1" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <failure>
+                  <message><![CDATA[One or more child tests had errors]]></message>
+                </failure>
+                <test-case id="1168" name="Bodies_AreRequired_OutsideTheTestPath" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.Bodies_AreRequired_OutsideTheTestPath" methodname="Bodies_AreRequired_OutsideTheTestPath" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" seed="552798563" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:03Z" duration="0.001693" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1161" name="F4_EveryFish_StaysBetweenBedClearanceAndSurfaceMargin_For120s" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.F4_EveryFish_StaysBetweenBedClearanceAndSurfaceMargin_For120s" methodname="F4_EveryFish_StaysBetweenBedClearanceAndSurfaceMargin_For120s" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" seed="1483507321" result="Passed" start-time="2026-10-07 20:47:03Z" end-time="2026-10-07 20:47:04Z" duration="0.569520" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1163" name="F5_ClipRate_TracksSwimSpeed_CorrelationAtLeast08" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.F5_ClipRate_TracksSwimSpeed_CorrelationAtLeast08" methodname="F5_ClipRate_TracksSwimSpeed_CorrelationAtLeast08" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" seed="1524628340" result="Passed" start-time="2026-10-07 20:47:04Z" end-time="2026-10-07 20:47:04Z" duration="0.304291" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1164" name="F5_Groupmates_NeverOverlap" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.F5_Groupmates_NeverOverlap" methodname="F5_Groupmates_NeverOverlap" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" seed="479389555" result="Failed" start-time="2026-10-07 20:47:04Z" end-time="2026-10-07 20:47:07Z" duration="2.627779" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <failure>
+                    <message><![CDATA[  Expected: 0
+  But was:  310
+]]></message>
+                    <stack-trace><![CDATA[at WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.F5_Groupmates_NeverOverlap () [0x00077] in E:\GitHub\washed-ashore\Assets\Tests\EditMode\Fish\FishSimWorldTests.cs:185
+]]></stack-trace>
+                  </failure>
+                </test-case>
+                <test-case id="1162" name="F5_RenderedTurn_NeverExceeds45DegPerFrame_AtAnyFrameRate" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.F5_RenderedTurn_NeverExceeds45DegPerFrame_AtAnyFrameRate" methodname="F5_RenderedTurn_NeverExceeds45DegPerFrame_AtAnyFrameRate" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" seed="801557383" result="Passed" start-time="2026-10-07 20:47:07Z" end-time="2026-10-07 20:47:07Z" duration="0.250633" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1165" name="F6_SwimmerNearby_FishFlee_ThenSettleBackInTheirBand" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.F6_SwimmerNearby_FishFlee_ThenSettleBackInTheirBand" methodname="F6_SwimmerNearby_FishFlee_ThenSettleBackInTheirBand" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" seed="2101044003" result="Passed" start-time="2026-10-07 20:47:07Z" end-time="2026-10-07 20:47:08Z" duration="0.302305" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1166" name="F7_SurfaceSigns_RespectTheCaps_AndOnlyEventFishBreakTheMargin" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.F7_SurfaceSigns_RespectTheCaps_AndOnlyEventFishBreakTheMargin" methodname="F7_SurfaceSigns_RespectTheCaps_AndOnlyEventFishBreakTheMargin" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" seed="1108767522" result="Passed" start-time="2026-10-07 20:47:08Z" end-time="2026-10-07 20:47:09Z" duration="1.375760" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1169" name="F9_GroupOverAMissingTile_ReportsNoTile" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.F9_GroupOverAMissingTile_ReportsNoTile" methodname="F9_GroupOverAMissingTile_ReportsNoTile" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" seed="648017295" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.001882" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1167" name="FishIds_AreStable_AcrossActivationHistory" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.FishIds_AreStable_AcrossActivationHistory" methodname="FishIds_AreStable_AcrossActivationHistory" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" seed="580660401" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.001223" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1170" name="SteadyState_TickRenderAndSigns_AllocateNothing" fullname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests.SteadyState_TickRenderAndSigns_AllocateNothing" methodname="SteadyState_TickRenderAndSigns_AllocateNothing" classname="WashedAshore.Tests.EditMode.Fish.FishSimWorldTests" runstate="Runnable" seed="899141238" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.178098" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1171" name="FishSteeringTests" fullname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests" classname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.002754" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1177" name="AnimRate_IsLinearInSpeed_WithIdleFloorAndCap" fullname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests.AnimRate_IsLinearInSpeed_WithIdleFloorAndCap" methodname="AnimRate_IsLinearInSpeed_WithIdleFloorAndCap" classname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests" runstate="Runnable" seed="1520538784" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.000154" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1173" name="DepthBand_CollapsesInShallowWater_AndColumnIsUnusable" fullname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests.DepthBand_CollapsesInShallowWater_AndColumnIsUnusable" methodname="DepthBand_CollapsesInShallowWater_AndColumnIsUnusable" classname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests" runstate="Runnable" seed="358214274" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.000151" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1172" name="DepthBand_StaysBetweenBedClearanceAndSurfaceMargin" fullname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests.DepthBand_StaysBetweenBedClearanceAndSurfaceMargin" methodname="DepthBand_StaysBetweenBedClearanceAndSurfaceMargin" classname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests" runstate="Runnable" seed="1456030232" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.000136" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1179" name="FleeDirection_IsAwayFromPlayer_AndHorizontal" fullname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests.FleeDirection_IsAwayFromPlayer_AndHorizontal" methodname="FleeDirection_IsAwayFromPlayer_AndHorizontal" classname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests" runstate="Runnable" seed="774209976" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.000148" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1175" name="Hitch_FourTicksOf179DegTurn_RendersAtMost45DegPerFrame" fullname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests.Hitch_FourTicksOf179DegTurn_RendersAtMost45DegPerFrame" methodname="Hitch_FourTicksOf179DegTurn_RendersAtMost45DegPerFrame" classname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests" runstate="Runnable" seed="1102722711" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.000221" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1176" name="RateCoversBurst_FlagsAClampingTuning" fullname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests.RateCoversBurst_FlagsAClampingTuning" methodname="RateCoversBurst_FlagsAClampingTuning" classname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests" runstate="Runnable" seed="1648503035" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.000091" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1178" name="Separation_PushesApartOverlappingMates_Only" fullname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests.Separation_PushesApartOverlappingMates_Only" methodname="Separation_PushesApartOverlappingMates_Only" classname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests" runstate="Runnable" seed="1246375102" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.000296" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1174" name="TurnToward_NeverExceedsCap" fullname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests.TurnToward_NeverExceedsCap" methodname="TurnToward_NeverExceedsCap" classname="WashedAshore.Tests.EditMode.Fish.FishSteeringTests" runstate="Runnable" seed="2069958009" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.000082" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="TestFixture" id="1180" name="FishTickTests" fullname="WashedAshore.Tests.EditMode.Fish.FishTickTests" classname="WashedAshore.Tests.EditMode.Fish.FishTickTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.002193" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1182" name="Alpha_StaysInUnitRange" fullname="WashedAshore.Tests.EditMode.Fish.FishTickTests.Alpha_StaysInUnitRange" methodname="Alpha_StaysInUnitRange" classname="WashedAshore.Tests.EditMode.Fish.FishTickTests" runstate="Runnable" seed="1378787964" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.001354" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1183" name="Hitch_IsCapped_AndBacklogDropped" fullname="WashedAshore.Tests.EditMode.Fish.FishTickTests.Hitch_IsCapped_AndBacklogDropped" methodname="Hitch_IsCapped_AndBacklogDropped" classname="WashedAshore.Tests.EditMode.Fish.FishTickTests" runstate="Runnable" seed="387190331" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.000233" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1181" name="SameSimTime_SameTickCount_AtAnyFrameRate" fullname="WashedAshore.Tests.EditMode.Fish.FishTickTests.SameSimTime_SameTickCount_AtAnyFrameRate" methodname="SameSimTime_SameTickCount_AtAnyFrameRate" classname="WashedAshore.Tests.EditMode.Fish.FishTickTests" runstate="Runnable" seed="794119572" result="Passed" start-time="2026-10-07 20:47:09Z" end-time="2026-10-07 20:47:09Z" duration="0.000116" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                  <output><![CDATA[Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+                </test-case>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

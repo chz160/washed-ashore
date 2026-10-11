@@ -1,0 +1,35 @@
+on1
+  W101: rate 112 ge5 1 sat 0 maxHits 1 pass True
+  W202: rate 180 ge5 12 sat 0 maxHits 0 pass True
+  W303: rate 182 ge5 13 sat 0 maxHits 0 pass True
+  B101: flushSeen 42 sat 0 wsat 0
+  B202: flushSeen 60 sat 0 wsat 0
+  B303: flushSeen 78 sat 0 wsat 0
+off1
+  W101: rate 112 ge5 1 sat 0 maxHits 1 pass True
+  W202: rate 180 ge5 12 sat 0 maxHits 0 pass True
+  W303: rate 182 ge5 13 sat 0 maxHits 0 pass True
+  B101: flushSeen 42 sat 0 wsat 0
+  B202: flushSeen 60 sat 0 wsat 0
+  B303: flushSeen 78 sat 0 wsat 0
+on2
+  W101: rate 114 ge5 1 sat 0 maxHits 1 pass True
+  W202: rate 180 ge5 12 sat 0 maxHits 0 pass True
+  W303: rate 181 ge5 13 sat 0 maxHits 0 pass True
+  B101: flushSeen 42 sat 0 wsat 0
+  B202: flushSeen 60 sat 0 wsat 0
+  B303: flushSeen 78 sat 0 wsat 0
+on3
+  W101: rate 113 ge5 1 sat 0 maxHits 1 pass True
+  W202: rate 180 ge5 12 sat 0 maxHits 0 pass True
+  W303: rate 182 ge5 13 sat 0 maxHits 0 pass True
+  B101: flushSeen 42 sat 0 wsat 0
+  B202: flushSeen 60 sat 0 wsat 0
+  B303: flushSeen 78 sat 0 wsat 0
+full1
+  W101: rate 112 ge5 1 sat 0 maxHits 1 pass True
+  W202: rate 180 ge5 12 sat 0 maxHits 0 pass True
+  W303: rate 185 ge5 5 sat 0 maxHits 0 pass True
+  B101: flushSeen 42 sat 0 wsat 0
+  B202: flushSeen 60 sat 0 wsat 0
+  B303: flushSeen 78 sat 0 wsat 0

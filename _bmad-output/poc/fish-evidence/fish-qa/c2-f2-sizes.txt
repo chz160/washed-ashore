@@ -1,0 +1,19 @@
+f-qa F2 size spread from fish-census-lengths.json (C2, brief F16 ) pooled over seeds [101, 202, 303]
+BlueCatfish        n    128 inBand 0.977 >tailMax 0 <min 0 -> PASS
+Bluegill           n   1812 inBand 0.950 >tailMax 0 <min 0 -> PASS
+ChannelCatfish     n    860 inBand 0.940 >tailMax 0 <min 0 -> PASS
+CommonCarp         n    398 inBand 0.947 >tailMax 0 <min 0 -> PASS
+FlatheadCatfish    n     85 inBand 0.953 >tailMax 0 <min 0 -> PASS
+FreshwaterDrum     n    918 inBand 0.939 >tailMax 0 <min 0 -> PASS
+GizzardShad        n  12130 inBand 1.000 >tailMax 0 <min 0 -> PASS
+LargemouthBass     n    726 inBand 0.950 >tailMax 0 <min 0 -> PASS
+LongnoseGar        n    172 inBand 0.983 >tailMax 0 <min 0 -> PASS
+Paddlefish         n     20 inBand 1.000 >tailMax 0 <min 0 -> PASS
+Sauger             n    189 inBand 0.968 >tailMax 0 <min 0 -> PASS
+SkipjackHerring    n    560 inBand 1.000 >tailMax 0 <min 0 -> PASS
+SmallmouthBass     n     87 inBand 0.977 >tailMax 0 <min 0 -> PASS
+SmallmouthBuffalo  n    714 inBand 0.940 >tailMax 0 <min 0 -> PASS
+SpottedBass        n    472 inBand 0.949 >tailMax 0 <min 0 -> PASS
+WhiteBass          n    244 inBand 0.939 >tailMax 0 <min 0 -> PASS
+WhiteCrappie       n    726 inBand 0.959 >tailMax 0 <min 0 -> PASS
+F2 size spread: PASS

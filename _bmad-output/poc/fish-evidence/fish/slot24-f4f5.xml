@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-08 00:50:43Z" end-time="2026-10-08 00:51:08Z" duration="25.2083706">
+  <test-suite type="TestSuite" id="1166" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="98" result="Passed" start-time="2026-10-08 00:50:43Z" end-time="2026-10-08 00:51:08Z" duration="25.208371" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1235" name="WashedAshore.Tests.Fish.PlayMode.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.Fish.PlayMode.dll" runstate="Runnable" testcasecount="23" result="Passed" start-time="2026-10-08 00:50:43Z" end-time="2026-10-08 00:51:08Z" duration="25.201255" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="39784" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1236" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="23" result="Passed" start-time="2026-10-08 00:50:43Z" end-time="2026-10-08 00:51:08Z" duration="25.200435" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1237" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="23" result="Passed" start-time="2026-10-08 00:50:43Z" end-time="2026-10-08 00:51:08Z" duration="25.200081" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1238" name="PlayMode" fullname="WashedAshore.Tests.PlayMode" runstate="Runnable" testcasecount="23" result="Passed" start-time="2026-10-08 00:50:43Z" end-time="2026-10-08 00:51:08Z" duration="25.199839" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestSuite" id="1239" name="Fish" fullname="WashedAshore.Tests.PlayMode.Fish" runstate="Runnable" testcasecount="23" result="Passed" start-time="2026-10-08 00:50:43Z" end-time="2026-10-08 00:51:08Z" duration="25.199544" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="TestFixture" id="1201" name="FishBehaviourTests" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-08 00:50:43Z" end-time="2026-10-08 00:51:08Z" duration="25.198256" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-suite type="ParameterizedMethod" id="1205" name="F4F5_ShoreWalk120s" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests.F4F5_ShoreWalk120s" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-08 00:50:43Z" end-time="2026-10-08 00:51:08Z" duration="25.195595" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                  <properties>
+                    <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  </properties>
+                  <test-case id="1202" name="F4F5_ShoreWalk120s(101)" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests.F4F5_ShoreWalk120s(101)" methodname="F4F5_ShoreWalk120s" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" seed="967940691" result="Passed" start-time="2026-10-08 00:50:43Z" end-time="2026-10-08 00:50:52Z" duration="9.275080" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1203" name="F4F5_ShoreWalk120s(202)" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests.F4F5_ShoreWalk120s(202)" methodname="F4F5_ShoreWalk120s" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" seed="900991762" result="Passed" start-time="2026-10-08 00:50:52Z" end-time="2026-10-08 00:51:00Z" duration="7.404679" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+]]></output>
+                  </test-case>
+                  <test-case id="1204" name="F4F5_ShoreWalk120s(303)" fullname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests.F4F5_ShoreWalk120s(303)" methodname="F4F5_ShoreWalk120s" classname="WashedAshore.Tests.PlayMode.Fish.FishBehaviourTests" runstate="Runnable" seed="1910482645" result="Passed" start-time="2026-10-08 00:51:00Z" end-time="2026-10-08 00:51:08Z" duration="8.508648" asserts="0">
+                    <properties>
+                      <property name="retryIteration" value="0" />
+                      <property name="repeatIteration" value="0" />
+                    </properties>
+                    <output><![CDATA[Birds: seed=101 robins=16 flocks=3 flockBirds=15 layer=Birds
+Wildlife: seed=101 agents=15 onNavMesh=15
+Birds: t=5 robinsOnGround=16 distinctClips=9 flockAgl=32.1-42.9
+Wildlife: t=5 onNavMesh=15 moving=10
+Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+                  </test-case>
+                </test-suite>
+              </test-suite>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

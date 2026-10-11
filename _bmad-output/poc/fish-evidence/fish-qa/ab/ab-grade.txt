@@ -1,0 +1,13 @@
+f-qa regression A/B, baton slot #25 (2026-10-08 00:54-01:38Z). Tree: World.unity 6d8a19fc794515f5, brief F18 02319b3dbf5cb70c; fish-off via the native WA_FISH_OFF switch (#24).
+Off-arm proof (canary): FishLiveSetTests.F9 passed in on1 and FAILED in off1 (no fish) -> the off arm really ran without fish.
+Wildlife walk (gating seeds 101/202/303; sightingRate samples of 360; pctSamplesGe5 samples):
+  pre-fish gate (slot #1): rate 111-114 / 179-181 / 181-183; ge5 0-2 / 11-13 / 12-14
+  on1 112/180/182 ge5 1/12/13 | off1 112/180/182 1/12/13 | on2 114/180/181 1/12/13 | on3 113/180/182 1/12/13  -> all inside the gate; fish-on == fish-off (identical on1/off1)
+  full1 (whole suite in one process, incl. fish and performance suites before wildlife): 112/180/185, ge5 1/12/5 -> seed 303 OUTSIDE the gate (+2 rate, -7 ge5)
+  SightSaturations 0 and maxHits <= 1 in every run; A6 bands pass in every run.
+Birds: flushSeen 42/60/78 in every run (exact).
+Reading: the filtered fish-on/fish-off runs show no fish effect on wildlife or birds. The full-suite seed-303 drift is the open W-QA-1 pattern (same 185 in slot B's full run; 182 in C2's; water pod's C2 172/5): it appears only when other suites run first in the same process, and was not reproduced by any filtered run with fish on. It cannot be split fish-on/off inside one full-suite process in this slot (would need a full-suite fish-off run, ~17 min).
+Gate of record (plan rev 1.4: every post-fish run within pre-fish min-1..max+1): full1 seed 303 FAILS the gate -> recorded F10 finding, attributed to W-QA-1 test-order dependence, not to fish runtime (evidence: on/off identity), pending a full-suite fish-off run if team-lead wants attribution proven.
+EditMode 199/200: WaterBuildTests.W1_NoLiteralWaterHeight FAILS - literal 1.61 in Assets/Tests/EditMode/FishRendering/FishSignShapeTests.cs:47 and :102 (fish pod test code) -> F10 regression FAIL (water W1 guard).
+Full PlayMode run (full1): 81 pass / 13 fail / 4 skipped: fish F3, F6(303), F7 x9 fail exactly as graded in slot F (repeatable); BirdFrameTime/WildlifeFrameTime perf tests fail as known (BB-QA-7, f-td exception); skips = 2 InputSystem package tests + 2 explicit fish info/calibration tests. Water, WorldBounds, WorldWalk, birds, wildlife suites pass.
+Side effect: batchmode rewrote ProjectSettings.asset line endings again; restored with git checkout (hash 87750af768eda976 = pre-slot); all pre-slot hashes match; no new files; sightings files restored.

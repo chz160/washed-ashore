@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-07 21:12:39Z" end-time="2026-10-07 21:12:52Z" duration="13.3143427">
+  <test-suite type="TestSuite" id="1000" name="Washed Ashore" fullname="Washed Ashore" runstate="Runnable" testcasecount="152" result="Passed" start-time="2026-10-07 21:12:39Z" end-time="2026-10-07 21:12:52Z" duration="13.314343" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1212" name="WashedAshore.Tests.FishQaProbe.dll" fullname="E:/GitHub/washed-ashore/Library/ScriptAssemblies/WashedAshore.Tests.FishQaProbe.dll" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-07 21:12:39Z" end-time="2026-10-07 21:12:52Z" duration="13.304978" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="79372" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1213" name="WashedAshore" fullname="WashedAshore" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-07 21:12:39Z" end-time="2026-10-07 21:12:52Z" duration="13.304697" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1214" name="Tests" fullname="WashedAshore.Tests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-07 21:12:39Z" end-time="2026-10-07 21:12:52Z" duration="13.304579" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1215" name="FishQaProbe" fullname="WashedAshore.Tests.FishQaProbe" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-07 21:12:39Z" end-time="2026-10-07 21:12:52Z" duration="13.304446" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1203" name="FishQaBandProbe" fullname="WashedAshore.Tests.FishQaProbe.FishQaBandProbe" classname="WashedAshore.Tests.FishQaProbe.FishQaBandProbe" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-07 21:12:39Z" end-time="2026-10-07 21:12:52Z" duration="13.303638" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1204" name="BandAreasAndShoreDistanceGuard" fullname="WashedAshore.Tests.FishQaProbe.FishQaBandProbe.BandAreasAndShoreDistanceGuard" methodname="BandAreasAndShoreDistanceGuard" classname="WashedAshore.Tests.FishQaProbe.FishQaBandProbe" runstate="Runnable" seed="613080396" result="Passed" start-time="2026-10-07 21:12:39Z" end-time="2026-10-07 21:12:52Z" duration="13.295090" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/noah/AppData/LocalLow/DefaultCompany/Washed Ashore\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

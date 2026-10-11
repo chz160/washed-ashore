@@ -1,0 +1,183 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 002e0d6a3a5c3e5499ded25a441bb687, type: 3}
+  m_Name: FishBodies
+  m_EditorClassIdentifier: WashedAshore.Fish::WashedAshore.Fish.FishBodies
+  bodies:
+  - variant: Bluegill
+    clipBounds:
+      m_Center: {x: 0.006178856, y: 0.13238584, z: -1.6514888}
+      m_Extent: {x: 1.3707771, y: 2.8620787, z: 5.00299}
+    noseToTail: 9.993749
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.11527754
+  - variant: LongearSunfish
+    clipBounds:
+      m_Center: {x: 0.006178856, y: 0.13238584, z: -1.6514888}
+      m_Extent: {x: 1.3707771, y: 2.8620787, z: 5.00299}
+    noseToTail: 9.993749
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.11527754
+  - variant: RedearSunfish
+    clipBounds:
+      m_Center: {x: 0.006178856, y: 0.13238584, z: -1.6514888}
+      m_Extent: {x: 1.3707771, y: 2.8620787, z: 5.00299}
+    noseToTail: 9.993749
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.11527754
+  - variant: LargemouthBass
+    clipBounds:
+      m_Center: {x: 0.014579911, y: 0.24732743, z: -1.0031767}
+      m_Extent: {x: 0.71894026, y: 1.5886297, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.11957588
+  - variant: SpottedBass
+    clipBounds:
+      m_Center: {x: 0.013917186, y: 0.2370221, z: -1.0031767}
+      m_Extent: {x: 0.6862611, y: 1.5224367, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.11414061
+  - variant: SmallmouthBass
+    clipBounds:
+      m_Center: {x: 0.013917186, y: 0.2370221, z: -1.0031767}
+      m_Extent: {x: 0.6862611, y: 1.5224367, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.11414061
+  - variant: WhiteCrappie
+    clipBounds:
+      m_Center: {x: 0.00556097, y: 0.11689388, z: -1.6514888}
+      m_Extent: {x: 1.2336994, y: 2.5271544, z: 5.00299}
+    noseToTail: 9.993749
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.10374978
+  - variant: BlackCrappie
+    clipBounds:
+      m_Center: {x: 0.00556097, y: 0.11689388, z: -1.6514888}
+      m_Extent: {x: 1.2336994, y: 2.5271544, z: 5.00299}
+    noseToTail: 9.993749
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.10374978
+  - variant: ChannelCatfish
+    clipBounds:
+      m_Center: {x: 0.015905358, y: 0.17725132, z: -1.0031767}
+      m_Extent: {x: 0.7842985, y: 1.138518, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.13044642
+  - variant: FlatheadCatfish
+    clipBounds:
+      m_Center: {x: 0.018556248, y: 0.16488495, z: -1.0031767}
+      m_Extent: {x: 0.91501486, y: 1.0590864, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.15218748
+  - variant: BlueCatfish
+    clipBounds:
+      m_Center: {x: 0.015905358, y: 0.19580087, z: -1.0031767}
+      m_Extent: {x: 0.7842985, y: 1.2576652, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.13044642
+  - variant: FreshwaterDrum
+    clipBounds:
+      m_Center: {x: 0.0152426325, y: 0.28854865, z: -1.0031767}
+      m_Extent: {x: 0.75161934, y: 1.8534012, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.12501115
+  - variant: SmallmouthBuffalo
+    clipBounds:
+      m_Center: {x: 0.015905358, y: 0.31946456, z: -1.0031767}
+      m_Extent: {x: 0.7842985, y: 2.0519798, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.13044642
+  - variant: BigmouthBuffalo
+    clipBounds:
+      m_Center: {x: 0.015905358, y: 0.31946456, z: -1.0031767}
+      m_Extent: {x: 0.7842985, y: 2.0519798, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.13044642
+  - variant: CommonCarp
+    clipBounds:
+      m_Center: {x: 0.015905358, y: 0.28854865, z: -1.0031767}
+      m_Extent: {x: 0.7842985, y: 1.8534012, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.13044642
+  - variant: LongnoseGar
+    clipBounds:
+      m_Center: {x: 0.007952679, y: 0.08862566, z: -1.0031767}
+      m_Extent: {x: 0.39214924, y: 0.569259, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.06522321
+  - variant: SpottedGar
+    clipBounds:
+      m_Center: {x: 0.007952679, y: 0.08862566, z: -1.0031767}
+      m_Extent: {x: 0.39214924, y: 0.569259, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.06522321
+  - variant: ShortnoseGar
+    clipBounds:
+      m_Center: {x: 0.007952679, y: 0.08862566, z: -1.0031767}
+      m_Extent: {x: 0.39214924, y: 0.569259, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.06522321
+  - variant: Sauger
+    clipBounds:
+      m_Center: {x: 0.011929017, y: 0.16488495, z: -1.0031767}
+      m_Extent: {x: 0.5882238, y: 1.0590864, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.0978348
+  - variant: WhiteBass
+    clipBounds:
+      m_Center: {x: 0.014579911, y: 0.28854865, z: -1.0031767}
+      m_Extent: {x: 0.71894026, y: 1.8534012, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.11957588
+  - variant: Paddlefish
+    clipBounds:
+      m_Center: {x: 0.013254464, y: 0.18549556, z: -1.0031767}
+      m_Extent: {x: 0.65358204, y: 1.1914722, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.10870534
+  - variant: GizzardShad
+    clipBounds:
+      m_Center: {x: 0.004943085, y: 0.105627, z: -1.6514888}
+      m_Extent: {x: 1.0966218, y: 2.2835734, z: 5.00299}
+    noseToTail: 9.993749
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.092222035
+  - variant: ThreadfinShad
+    clipBounds:
+      m_Center: {x: 0.004943085, y: 0.105627, z: -1.6514888}
+      m_Extent: {x: 1.0966218, y: 2.2835734, z: 5.00299}
+    noseToTail: 9.993749
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.092222035
+  - variant: SkipjackHerring
+    clipBounds:
+      m_Center: {x: 0.011266295, y: 0.2370221, z: -1.0031767}
+      m_Extent: {x: 0.55554473, y: 1.5224367, z: 4.0080066}
+    noseToTail: 8.015821
+    rootTravelPerLoop: 0
+    tailBeatAmplitude: 0.092399545

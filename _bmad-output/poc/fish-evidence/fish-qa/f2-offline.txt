@@ -1,0 +1,34 @@
+f-qa F2 offline check (file evidence only); brief F11 b8b2bc7576fecbb2 ; source TestResults/fish-prefabs.txt sha256 a102c129e393a122
+Bluegill Fish2 tier V1 meanAdult 0.19 band [0.13,0.24] PASS; S/V [(0.2, 0.353), (0.4, 0.627), (0.179, 0.306)] palette PASS
+LongearSunfish Fish2 tier V1 meanAdult 0.19 band [0.13,0.24] PASS; S/V [(0.191, 0.369), (0.399, 0.659), (0.183, 0.322)] palette PASS
+RedearSunfish Fish2 tier V1 meanAdult 0.19 band [0.13,0.24] PASS; S/V [(0.209, 0.337), (0.401, 0.596), (0.176, 0.29)] palette FAIL
+LargemouthBass Fish1 tier V1 meanAdult 0.38 band [0.25,0.5] PASS; S/V [(0.36, 0.392), (0.204, 0.788), (0.321, 0.416)] palette PASS
+SpottedBass Fish1 tier V2 meanAdult 0.34 band [0.25,0.43] PASS; S/V [(0.36, 0.392), (0.2, 0.784), (0.26, 0.392)] palette PASS
+SmallmouthBass Fish1 tier V2 meanAdult 0.38 band [0.25,0.5] PASS; S/V [(0.4, 0.431), (0.268, 0.761), (0.396, 0.416)] palette PASS
+WhiteCrappie Fish2 tier V2 meanAdult 0.31 band [0.23,0.38] PASS; S/V [(0.157, 0.4), (0.053, 0.737), (0.128, 0.369)] palette PASS
+BlackCrappie Fish2 tier V2 meanAdult 0.31 band [0.23,0.38] PASS; S/V [(0.155, 0.38), (0.056, 0.702), (0.124, 0.349)] palette PASS
+ChannelCatfish Fish1 tier V3 meanAdult 0.55 band [0.3,0.8] PASS; S/V [(0.146, 0.376), (0.152, 0.722), (0.1, 0.314)] palette PASS
+FlatheadCatfish Fish1 tier V3 meanAdult 0.76 band [0.38,1.14] PASS; S/V [(0.402, 0.42), (0.276, 0.71), (0.4, 0.353)] palette FAIL
+BlueCatfish Fish1 tier V3 meanAdult 0.81 band [0.5,1.12] PASS; S/V [(0.161, 0.439), (0.031, 0.769), (0.122, 0.384)] palette PASS
+FreshwaterDrum Fish1 tier V3 meanAdult 0.4 band [0.3,0.5] PASS; S/V [(0.035, 0.447), (0.053, 0.745), (0.037, 0.424)] palette PASS
+SmallmouthBuffalo Fish1 tier V2 meanAdult 0.57 band [0.38,0.76] PASS; S/V [(0.234, 0.369), (0.17, 0.69), (0.14, 0.337)] palette PASS
+BigmouthBuffalo Fish1 tier V2 meanAdult 0.57 band [0.38,0.76] PASS; S/V [(0.232, 0.388), (0.173, 0.725), (0.133, 0.353)] palette PASS
+CommonCarp Fish1 tier V1 meanAdult 0.47 band [0.3,0.64] PASS; S/V [(0.398, 0.424), (0.391, 0.722), (0.396, 0.416)] palette PASS
+LongnoseGar Fish1 tier V2 meanAdult 0.9 band [0.6,1.2] PASS; S/V [(0.34, 0.369), (0.251, 0.702), (0.378, 0.353)] palette PASS
+SpottedGar Fish1 tier V2 meanAdult 0.9 band [0.6,1.2] PASS; S/V [(0.343, 0.388), (0.25, 0.737), (0.372, 0.369)] palette PASS
+ShortnoseGar Fish1 tier V2 meanAdult 0.9 band [0.6,1.2] PASS; S/V [(0.337, 0.349), (0.253, 0.667), (0.384, 0.337)] palette PASS
+Sauger Fish1 tier V3 meanAdult 0.34 band [0.3,0.38] PASS; S/V [(0.392, 0.4), (0.179, 0.812), (0.321, 0.416)] palette PASS
+WhiteBass Fish1 tier V3 meanAdult 0.31 band [0.23,0.38] PASS; S/V [(0.054, 0.439), (0.04, 0.776), (0.058, 0.408)] palette PASS
+Paddlefish Fish1 tier V3 meanAdult 1.4 band [1.0,1.8] PASS; S/V [(0.096, 0.408), (0.022, 0.714), (0.102, 0.384)] palette PASS
+GizzardShad Fish2 tier V3 meanAdult 0.23 band [0.1,0.36] PASS; S/V [(0.074, 0.424), (0.04, 0.784), (0.06, 0.392)] palette PASS
+ThreadfinShad Fish2 tier V3 meanAdult 0.23 band [0.1,0.36] PASS; S/V [(0.071, 0.443), (0.038, 0.82), (0.057, 0.412)] palette PASS
+SkipjackHerring Fish1 tier V3 meanAdult 0.36 band [0.3,0.41] PASS; S/V [(0.189, 0.416), (0.039, 0.8), (0.06, 0.392)] palette PASS
+brief variants without prefab: [] ; prefabs not in brief: []
+buffalo on Fish1 (L2): True
+RESULT (offline part): FAIL ['RedearSunfish', 'FlatheadCatfish'] ; still open in-engine: mesh GUIDs, emission/rim off, 1000-sample size spread (>=92% in band, 100% <= lengthTailMax), census prefabs render (f-artist #8)
+
+--- code review (f-qa, 2026-10-07 ~20:50Z, landed tree after f-artist #6 / f-engineer #5)
+Shader Assets/World/Fish/Art/FishUnderwater.shader: header states no reflection, specular, emissive or rim; grep finds no emission/rim/specular/smoothness terms; the only pow() is the Schlick water-transmission term (f-td cull of record). Fish1_VAT.mat: no keywords, no _EmissionColor. Census prefabs: no _EMISSION / _EmissionColor in any prefab override. -> F2 "no emission/rim/specular": PASS (code), pending the census-prefab render fix for a visual check.
+AF3 / RNG / colliders grep over Assets/Scripts/Fish, Assets/World/Fish, Assets/Editor/Fish: no 180-degree yaw constants, no negated forward, no LookRotation(-..), no UnityEngine.Random, no Time.timeScale writes, no Collider/Rigidbody added or fetched in runtime fish code; WaterMaps only named in a comment saying it is never read.
+TerrainQuery.Height( appears only in editor look-dev tooling (FishLookDev*.cs, not in a build), never in runtime fish code: noted, not a finding against the F4/F9 rule.
+Player: FishPopulation reads PlayerController.transform.position and WaterMode only (line 148); no writes to the player, PlayerController or CharacterController.

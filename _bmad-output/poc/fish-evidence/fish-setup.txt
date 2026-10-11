@@ -1,0 +1,2 @@
+FishTuning brief F17 (dcf7fd253117af7b): 3 bands, 17 species, 5 structure types; validate: ok (waves checked at runtime)
+Fish root updated in Assets/Scenes/World.unity: tuning F17 (dcf7fd253117af7b), 24 bodies, 17 anchors; FishRenderer present, FishSurfaceFx present, FishRenderSet assigned to FishRenderer, FishRenderSet assigned to FishSurfaceFx

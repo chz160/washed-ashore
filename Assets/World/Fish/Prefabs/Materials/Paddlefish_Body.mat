@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Paddlefish_Body
+  m_Shader: {fileID: 4800000, guid: 3a75b3a058dfdae41a4428f50d279a70, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _VatNrm:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _VatPos:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Amplitude: 1
+    - _Flash: 0
+    - _IsFin: 0
+    - _Mottle: 0
+    - _Phase: 0
+    - _Silhouette: 0
+    - _UseVat: 0
+    m_Colors:
+    - _BackColor: {r: 0.36862746, g: 0.39215687, b: 0.40784314, a: 1}
+    - _BellyColor: {r: 0.7058824, g: 0.7137255, b: 0.69803923, a: 1}
+    - _BodyFrame: {r: 0.009658687, g: 0.07983493, b: 0, a: 0.03}
+    - _FinColor: {r: 0.34509805, g: 0.36862746, b: 0.38431373, a: 1}
+    - _VatBoxMin: {r: 0, g: 0, b: 0, a: 0}
+    - _VatBoxSize: {r: 1, g: 1, b: 1, a: 0}
+    - _VatInfo: {r: 1, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

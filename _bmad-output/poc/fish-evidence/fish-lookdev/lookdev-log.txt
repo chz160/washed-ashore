@@ -1,0 +1,91 @@
+FishLookDev 2026-10-07T20:09:35Z
+shader WashedAshore/FishRing: hasError=False, variants compiled 12/12 (D3D + GLES3x/WebGL)
+shader WashedAshore/FishUnderwater: hasError=False, variants compiled 12/12 (D3D + GLES3x/WebGL)
+scene Assets/Scenes/LookDev/FishLookDev.unity: copied 9 terrain tiles, 9 water quads, 1 directional lights, 1 sky roots from Assets/Scenes/World.unity (closed unsaved); fog Linear 120-520, skybox BellsBendSky, sun Sun
+water globals at t=0.6: W=1.610; copied from BellsBendWater: _Extinction (2.20, 2.40, 3.20, 0.00), _ScatterColor RGBA(0.290, 0.290, 0.180, 1.000), _MinCosView 0.15, _F0 0.02
+Fish1: frame-0 bounds centre (0.000, 0.206, -1.003) size (1.154, 2.648, 8.016); submeshes 0:Bottom, 1:Top, 2:Fins
+Fish2: frame-0 bounds centre (0.000, 0.141, -1.657) size (1.287, 6.087, 9.994); submeshes 0:Body, 1:Fins, 2:Front
+shelf site: waterline (-986.8,513.2) out (-0.99,-0.12); shore eye y 3.74 (2.13 above W); bluff-height eye (-967.0,28.21,515.7), W=1.61
+  row V1 d0.3: bluegill TL 0.19 m len 0.19 h 0.11 at 2.9 m out, bed 0.47; largemouth TL 0.38 m len 0.38 h 0.15 at 2.0 m out, bed 0.50; common-carp TL 0.47 m len 0.47 h 0.22 at 2.3 m out, bed 0.58; gar TL 0.90 m len 0.90 h 0.13 at 3.2 m out, bed 0.49;
+  g4-V1-d0.3-shore-fov60.png: eye (-985.8,3.74,513.3) -> (-988.8,1.24,513.0) fov 60, dist 3.9 m
+  g4-V1-d0.3-shore-fov20-bluegill.png: eye (-985.8,3.74,513.3) -> (-988.2,1.26,510.6) fov 20, dist 4.4 m
+  g4-V1-d0.3-shore-fov20-largemouth.png: eye (-985.8,3.74,513.3) -> (-988.5,1.24,512.2) fov 20, dist 3.8 m
+  g4-V1-d0.3-shore-fov20-common-carp.png: eye (-985.8,3.74,513.3) -> (-989.1,1.20,513.7) fov 20, dist 4.2 m
+  g4-V1-d0.3-shore-fov20-gar.png: eye (-985.8,3.74,513.3) -> (-989.2,1.25,515.3) fov 20, dist 4.6 m
+  g4-V1-d0.3-bluffheight-fov20-record-V2off.png: eye (-967.0,28.21,515.7) -> (-988.8,1.24,513.0) fov 20, dist 34.8 m
+  g4-V1-d0.3-bluffheight-fov60-record-V2off.png: eye (-967.0,28.21,515.7) -> (-988.8,1.24,513.0) fov 60, dist 34.8 m
+  rule V2 from bluff height: 4 hidden
+  g4-V1-d0.3-bluffheight-fov20.png: eye (-967.0,28.21,515.7) -> (-988.8,1.24,513.0) fov 20, dist 34.8 m
+  row V1 d0.6: bluegill TL 0.19 m len 0.19 h 0.11 at 3.5 m out, bed 0.76; largemouth TL 0.38 m len 0.38 h 0.15 at 2.9 m out, bed 0.82; common-carp TL 0.47 m len 0.47 h 0.22 at 3.2 m out, bed 0.87; gar TL 0.90 m len 0.90 h 0.13 at 3.8 m out, bed 0.79;
+  g4-V1-d0.6-shore-fov60.png: eye (-985.8,3.74,513.3) -> (-989.7,0.94,512.9) fov 60, dist 4.8 m
+  g4-V1-d0.6-shore-fov20-bluegill.png: eye (-985.8,3.74,513.3) -> (-989.1,0.96,510.5) fov 20, dist 5.1 m
+  g4-V1-d0.6-shore-fov20-largemouth.png: eye (-985.8,3.74,513.3) -> (-989.5,0.94,512.1) fov 20, dist 4.8 m
+  g4-V1-d0.6-shore-fov20-common-carp.png: eye (-985.8,3.74,513.3) -> (-990.0,0.90,513.6) fov 20, dist 5.1 m
+  g4-V1-d0.6-shore-fov20-gar.png: eye (-985.8,3.74,513.3) -> (-990.1,0.95,515.2) fov 20, dist 5.4 m
+  row V1 d1.0: bluegill TL 0.19 m len 0.19 h 0.11 at 4.6 m out, bed 1.18; largemouth TL 0.38 m len 0.38 h 0.15 at 4.1 m out, bed 1.21; common-carp TL 0.47 m len 0.47 h 0.22 at 4.5 m out, bed 1.29; gar TL 0.90 m len 0.90 h 0.13 at 4.9 m out, bed 1.21;
+  g4-V1-d1.0-shore-fov40-record-tierRuleOff.png: eye (-985.8,3.74,513.3) -> (-990.9,0.54,512.7) fov 40, dist 6.1 m
+  tier rule: V1 top at 1.0 m > 0.6 m, not drawn
+  g4-V1-d1.0-shore-fov60.png: eye (-985.8,3.74,513.3) -> (-990.9,0.54,512.7) fov 60, dist 6.1 m
+  g4-V1-d1.0-shore-fov20-bluegill.png: eye (-985.8,3.74,513.3) -> (-990.4,0.56,510.4) fov 20, dist 6.3 m
+  g4-V1-d1.0-shore-fov20-largemouth.png: eye (-985.8,3.74,513.3) -> (-990.7,0.54,511.9) fov 20, dist 6.0 m
+  g4-V1-d1.0-shore-fov20-common-carp.png: eye (-985.8,3.74,513.3) -> (-991.3,0.50,513.5) fov 20, dist 6.3 m
+  g4-V1-d1.0-shore-fov20-gar.png: eye (-985.8,3.74,513.3) -> (-991.4,0.55,515.1) fov 20, dist 6.6 m
+  row V2 d0.3: crappie TL 0.31 m len 0.31 h 0.15 at 3.8 m out, bed 0.54; buffalo-alt-Fish2 TL 0.57 m len 0.57 h 0.24 at 2.6 m out, bed 0.61; spotted-bass TL 0.34 m len 0.34 h 0.13 at 1.9 m out, bed 0.51; smallmouth TL 0.38 m len 0.38 h 0.14 at 2.6 m out, bed 0.52; buffalo TL 0.57 m len 0.57 h 0.29 at 4.2 m out, bed 0.66;
+  g4-V2-d0.3-shore-fov60.png: eye (-985.8,3.74,513.3) -> (-989.0,1.21,512.9) fov 60, dist 4.0 m
+  g4-V2-d0.3-shore-fov20-crappie.png: eye (-985.8,3.74,513.3) -> (-988.4,1.23,509.8) fov 20, dist 5.1 m
+  g4-V2-d0.3-shore-fov20-buffalo-alt-Fish2.png: eye (-985.8,3.74,513.3) -> (-988.7,1.19,511.4) fov 20, dist 4.3 m
+  g4-V2-d0.3-shore-fov20-spotted-bass.png: eye (-985.8,3.74,513.3) -> (-988.7,1.25,513.0) fov 20, dist 3.8 m
+  g4-V2-d0.3-shore-fov20-smallmouth.png: eye (-985.8,3.74,513.3) -> (-989.1,1.24,514.5) fov 20, dist 4.3 m
+  g4-V2-d0.3-shore-fov20-buffalo.png: eye (-985.8,3.74,513.3) -> (-989.9,1.16,516.1) fov 20, dist 5.5 m
+  g4-V2-d0.3-bluffheight-fov20-record-V2off.png: eye (-967.0,28.21,515.7) -> (-989.0,1.21,512.9) fov 20, dist 34.9 m
+  g4-V2-d0.3-bluffheight-fov60-record-V2off.png: eye (-967.0,28.21,515.7) -> (-989.0,1.21,512.9) fov 60, dist 34.9 m
+  rule V2 from bluff height: 5 hidden
+  g4-V2-d0.3-bluffheight-fov20.png: eye (-967.0,28.21,515.7) -> (-989.0,1.21,512.9) fov 20, dist 34.9 m
+  row V2 d0.6: crappie TL 0.31 m len 0.31 h 0.15 at 4.3 m out, bed 0.83; buffalo-alt-Fish2 TL 0.57 m len 0.57 h 0.24 at 3.4 m out, bed 0.90; spotted-bass TL 0.34 m len 0.34 h 0.13 at 2.8 m out, bed 0.80; smallmouth TL 0.38 m len 0.38 h 0.14 at 3.4 m out, bed 0.81; buffalo TL 0.57 m len 0.57 h 0.29 at 4.8 m out, bed 0.95;
+  g4-V2-d0.6-shore-fov60.png: eye (-985.8,3.74,513.3) -> (-989.9,0.91,512.8) fov 60, dist 4.9 m
+  g4-V2-d0.6-shore-fov20-crappie.png: eye (-985.8,3.74,513.3) -> (-989.3,0.93,509.7) fov 20, dist 5.8 m
+  g4-V2-d0.6-shore-fov20-buffalo-alt-Fish2.png: eye (-985.8,3.74,513.3) -> (-989.6,0.89,511.3) fov 20, dist 5.2 m
+  g4-V2-d0.6-shore-fov20-spotted-bass.png: eye (-985.8,3.74,513.3) -> (-989.6,0.95,512.9) fov 20, dist 4.7 m
+  g4-V2-d0.6-shore-fov20-smallmouth.png: eye (-985.8,3.74,513.3) -> (-990.0,0.94,514.4) fov 20, dist 5.1 m
+  g4-V2-d0.6-shore-fov20-buffalo.png: eye (-985.8,3.74,513.3) -> (-990.8,0.86,515.9) fov 20, dist 6.3 m
+  row V2 d1.0: crappie TL 0.31 m len 0.31 h 0.15 at 5.2 m out, bed 1.21; buffalo-alt-Fish2 TL 0.57 m len 0.57 h 0.24 at 4.5 m out, bed 1.29; spotted-bass TL 0.34 m len 0.34 h 0.13 at 4.0 m out, bed 1.19; smallmouth TL 0.38 m len 0.38 h 0.14 at 4.5 m out, bed 1.20; buffalo TL 0.57 m len 0.57 h 0.29 at 5.8 m out, bed 1.34;
+  g4-V2-d1.0-shore-fov60.png: eye (-985.8,3.74,513.3) -> (-991.1,0.51,512.7) fov 60, dist 6.2 m
+  g4-V2-d1.0-shore-fov20-crappie.png: eye (-985.8,3.74,513.3) -> (-990.5,0.53,509.5) fov 20, dist 6.8 m
+  g4-V2-d1.0-shore-fov20-buffalo-alt-Fish2.png: eye (-985.8,3.74,513.3) -> (-990.8,0.49,511.1) fov 20, dist 6.3 m
+  g4-V2-d1.0-shore-fov20-spotted-bass.png: eye (-985.8,3.74,513.3) -> (-990.8,0.55,512.7) fov 20, dist 5.9 m
+  g4-V2-d1.0-shore-fov20-smallmouth.png: eye (-985.8,3.74,513.3) -> (-991.2,0.54,514.3) fov 20, dist 6.3 m
+  g4-V2-d1.0-shore-fov20-buffalo.png: eye (-985.8,3.74,513.3) -> (-992.0,0.46,515.8) fov 20, dist 7.4 m
+  row V2 flash d0.3: crappie TL 0.31 m len 0.31 h 0.15 at 3.8 m out, bed 0.54; buffalo-alt-Fish2 TL 0.57 m len 0.57 h 0.24 at 2.6 m out, bed 0.61; spotted-bass TL 0.34 m len 0.34 h 0.13 at 1.9 m out, bed 0.51; smallmouth TL 0.38 m len 0.38 h 0.14 at 2.6 m out, bed 0.52; buffalo TL 0.57 m len 0.57 h 0.29 at 4.2 m out, bed 0.66;
+  g4-V2-d0.3-flash-shore-fov20.png: eye (-985.8,3.74,513.3) -> (-989.0,1.21,512.9) fov 20, dist 4.0 m
+  g4-rise-dimple-shore-fov60.png: eye (-985.8,3.74,513.3) -> (-990.8,1.61,512.7) fov 60, dist 5.4 m
+  g4-rise-dimple-shore-fov20.png: eye (-985.8,3.74,513.3) -> (-990.8,1.61,512.7) fov 20, dist 5.4 m
+  g4-rise-dimple-bluffheight-fov60.png: eye (-967.0,28.21,515.7) -> (-990.8,1.61,512.7) fov 60, dist 35.8 m
+  row gar bask: gar TL 0.90 m len 0.90 h 0.13 at 1.2 m out, bed 0.22;
+  g4-gar-bask-shore-fov60.png: eye (-985.8,3.74,513.3) -> (-988.3,1.53,515.1) fov 60, dist 3.7 m
+  g4-gar-bask-shore-fov20.png: eye (-985.8,3.74,513.3) -> (-988.3,1.53,515.1) fov 20, dist 3.7 m
+  g4-gar-bask-bluffheight-fov20.png: eye (-967.0,28.21,515.7) -> (-988.3,1.53,515.1) fov 20, dist 34.1 m
+  row deep dry: bluegill TL 0.19 m len 0.19 h 0.11 at dry; crappie TL 0.31 m len 0.31 h 0.15 at dry; gizzard-shad TL 0.30 m len 0.30 h 0.13 at dry; buffalo-alt-Fish2 TL 0.57 m len 0.57 h 0.24 at dry;
+  g4-dry-deep.png: eye (-998.1,2.33,511.8) -> (-989.8,2.03,512.8) fov 45, dist 8.4 m
+  dry order left to right from the camera: see the row line above (bluegill, crappie, gizzard-shad, buffalo-alt-Fish2)
+  row bass dry: largemouth TL 0.38 m len 0.38 h 0.15 at dry; spotted-bass TL 0.34 m len 0.34 h 0.13 at dry; smallmouth TL 0.38 m len 0.38 h 0.14 at dry; white-bass TL 0.31 m len 0.31 h 0.14 at dry; sauger TL 0.34 m len 0.34 h 0.09 at dry; skipjack TL 0.36 m len 0.36 h 0.13 at dry;
+  g4-dry-bass.png: eye (-1002.7,2.34,511.2) -> (-989.8,2.04,512.8) fov 45, dist 13.0 m
+  dry order left to right from the camera: see the row line above (largemouth, spotted-bass, smallmouth, white-bass, sauger, skipjack)
+  row big dry: channel-cat TL 0.55 m len 0.55 h 0.16 at dry; flathead TL 0.76 m len 0.76 h 0.20 at dry; blue-cat TL 0.81 m len 0.81 h 0.25 at dry; drum TL 0.40 m len 0.40 h 0.18 at dry; buffalo TL 0.57 m len 0.57 h 0.29 at dry; common-carp TL 0.47 m len 0.47 h 0.22 at dry; gar TL 0.90 m len 0.90 h 0.13 at dry;
+  g4-dry-big.png: eye (-1005.0,2.31,510.9) -> (-989.8,2.01,512.8) fov 45, dist 15.4 m
+  dry order left to right from the camera: see the row line above (channel-cat, flathead, blue-cat, drum, buffalo, common-carp, gar)
+  row gar phase 0.00: gar TL 0.90 m len 0.90 h 0.13 at dry;
+  row gar phase 0.25: gar TL 0.90 m len 0.90 h 0.13 at dry;
+  row gar phase 0.50: gar TL 0.90 m len 0.90 h 0.13 at dry;
+  row gar phase 0.75: gar TL 0.90 m len 0.90 h 0.13 at dry;
+  g4-gar-swim-strip-top.png: eye (-989.8,3.65,512.8) -> (-989.8,2.05,512.8) fov 60, dist 1.6 m
+instancing check (f-td 5.4 f): supportsInstancing True, SRP Batcher True, enableInstancing true, 4 instances x 3 submeshes via RenderMeshInstanced; 7989 pixels changed vs the empty frame, per instance region (left to right) 1996/1992/1989/2012, bar > 400 each; per-instance tint not tested pre-gate (colours are per material until the Phase 1 instanced properties) PASS (g4-instancing-check.png)
+  row bluff 0.3: bluegill TL 0.19 m len 0.19 h 0.11 at 1.6 m out, bed 10.00; largemouth TL 0.38 m len 0.38 h 0.15 at 0.0 m out, bed 10.00; common-carp TL 0.47 m len 0.47 h 0.22 at 1.6 m out, bed 10.00;
+bluff-top eye (413.8,28.17,1793.2) is 26.56 above W; nearest fish 52.4 m from the eye
+  g4-bluff-real-fov20-record-V2off.png: eye (413.8,28.17,1793.2) -> (452.9,1.23,1770.8) fov 20, dist 52.4 m
+rule V2 (R_sub 25 m): 3 sub-surface fish hidden
+  g4-bluff-real-V2-fov60.png: eye (413.8,28.17,1793.2) -> (452.9,1.23,1770.8) fov 60, dist 52.4 m
+  g4-bluff-real-V2-fov20.png: eye (413.8,28.17,1793.2) -> (452.9,1.23,1770.8) fov 20, dist 52.4 m
+water material: Assets/World/BellsBend/Water/BellsBendWater.mat
+Assets/Scenes/LookDev/FishLookDev.unity in build list: False (correct: not in the build list)
+
+done
