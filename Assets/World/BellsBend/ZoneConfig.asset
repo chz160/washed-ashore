@@ -20,6 +20,7 @@ MonoBehaviour:
   roadBuffer: 20
   clearingSpawnRadius: 40
   clearingMarkerRadius: 20
+  clearingTowerRadius: 19.3
   demSlopeBlurReal: 30
   cliffSlopeDeg: 40
   roads:
@@ -30,6 +31,8 @@ MonoBehaviour:
     verge: 1.5
     falloff: 8
     gravel: 0
+    paintOnly: 0
+    paintWeight: 0.4
   - osmNames:
     - Pecan Valley Road
     id: 2
@@ -37,6 +40,8 @@ MonoBehaviour:
     verge: 1
     falloff: 6
     gravel: 0
+    paintOnly: 0
+    paintWeight: 0.4
   - osmNames:
     - Tidwell Hollow Road
     id: 3
@@ -44,6 +49,8 @@ MonoBehaviour:
     verge: 1
     falloff: 6
     gravel: 1
+    paintOnly: 0
+    paintWeight: 0.4
   - osmNames:
     - Cleeces Rerry Road
     id: 4
@@ -51,6 +58,8 @@ MonoBehaviour:
     verge: 1
     falloff: 6
     gravel: 0
+    paintOnly: 0
+    paintWeight: 0.4
   - osmNames:
     - Cleeces Ferry Road
     id: 5
@@ -58,6 +67,17 @@ MonoBehaviour:
     verge: 0.5
     falloff: 4
     gravel: 1
+    paintOnly: 0
+    paintWeight: 0.4
+  - osmNames:
+    - Lookout Tower Track
+    id: 6
+    core: 3
+    verge: 1
+    falloff: 0
+    gravel: 1
+    paintOnly: 1
+    paintWeight: 0.4
   roadSmoothWindow: 30
   roadCutFillCap: 3
   roadBluffExclusion: 30

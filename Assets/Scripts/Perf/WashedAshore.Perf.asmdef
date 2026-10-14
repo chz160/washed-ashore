@@ -3,7 +3,8 @@
     "rootNamespace": "WashedAshore.Perf",
     "references": [
         "WashedAshore.Gameplay",
-        "WashedAshore.Fish"
+        "WashedAshore.Fish",
+        "WashedAshore.Level"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

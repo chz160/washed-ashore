@@ -1,0 +1,19 @@
+{
+    "name": "WashedAshore.Lookout",
+    "rootNamespace": "WashedAshore.Lookout",
+    "references": [
+        "Unity.InputSystem",
+        "WashedAshore.World",
+        "WashedAshore.Interaction",
+        "WashedAshore.Gameplay"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

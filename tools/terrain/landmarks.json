@@ -76,6 +76,21 @@
    "lon": -86.937,
    "approx": true,
    "note": "Cluster spans 36.177-36.193 N at -86.937; marker at its centre."
+  },
+  {
+   "id": "LookoutTower",
+   "name": "Lookout tower (Central Ridge Summit)",
+   "lat": 36.1655,
+   "lon": -86.9065,
+   "approx": false,
+   "note": "Lookout tower POC spec, fixed input (USGS 244 m, highest sampled point in the bend). 'site' is the level designer's placement: the tower centre is the projected point plus the offset (game metres, on the knob's top, spec limit 10 m), yaw in degrees, the painted road the access track runs to, and a game-XZ box [xmin, zmin, xmax, zmax] the track stays out of (the 512 m wildlife and bird habitat window around PlayerSpawn plus 40 m, so the track paint can't shift their grass readings). Used by tools/terrain/tower_track.py.",
+   "site": {
+    "offsetX": 1.85,
+    "offsetZ": 0.94,
+    "yawDeg": 0,
+    "trackTargetRoad": "Old Hickory Boulevard",
+    "trackAvoidBox": [-448, -1187, 144, -595]
+   }
   }
  ]
 }

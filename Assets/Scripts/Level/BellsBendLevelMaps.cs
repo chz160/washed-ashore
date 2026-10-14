@@ -11,15 +11,21 @@ namespace WashedAshore.Level
 
         public const byte ZoneOutside = 0, ZoneRoad = 1, ZoneRoadBuffer = 2, ZoneBank = 3, ZoneRidge = 4,
             ZoneHollows = 5, ZoneFormerFields = 6, ZoneClearing = 7, ZoneNorthVista = 8, CliffBit = 0x80;
-        public const byte RoadNone = 0, RoadOldHickory = 1, RoadPecanValley = 2, RoadTidwellHollow = 3, RoadCleecesFerry = 4, RoadCleecesTrack = 5;
+        public const byte RoadNone = 0, RoadOldHickory = 1, RoadPecanValley = 2, RoadTidwellHollow = 3, RoadCleecesFerry = 4, RoadCleecesTrack = 5, RoadTowerTrack = 6;
 
         public static readonly string[] ZoneNames = { "Outside", "Z0_Road", "Z1_RoadBuffer", "Z2_Bank", "Z4a_Ridge", "Z4b_Hollows", "Z5_FormerFields", "Z6_Clearing", "ZN_NorthVista" };
-        public static readonly string[] RoadNames = { "", "Old Hickory Blvd", "Pecan Valley Rd", "Tidwell Hollow Rd", "Cleeces Ferry Rd", "Cleeces Ferry track" };
+        public static readonly string[] RoadNames = { "", "Old Hickory Blvd", "Pecan Valley Rd", "Tidwell Hollow Rd", "Cleeces Ferry Rd", "Cleeces Ferry track", "Lookout tower track" };
 
         public Vector2 originXZ;
         public float zoneCell = 5f, roadCell = 2f;
         public int zoneW, zoneH, roadW, roadH;
         public Texture2D zoneTex, roadTex;
+
+        // Lookout tower site (BellsBendTowerSite): centre XZ, tree-free radius, access-track centreline (paint only, road id 6).
+        public Vector2 towerCentre;
+        public float towerClearRadius;
+        public float towerBaseRadius;   // half-diagonal of the base square
+        public Vector2[] towerTrack = new Vector2[0];
 
         byte[] zones, roads;
 

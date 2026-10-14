@@ -80,6 +80,12 @@ public static class BellsBendRoads
         foreach (var ch in res.chains)
         {
             var spec = ch.spec;
+            if (spec.paintOnly)
+            {
+                float trackLen = 0f; for (int i = 1; i < ch.pts.Count; i++) trackLen += Vector2.Distance(ch.pts[i - 1], ch.pts[i]);
+                rep.Append($"{ch.name}[paint only {spec.core}+{spec.verge}x2 w{spec.paintWeight}] len={trackLen:F0}m levelled=0; ");
+                continue;
+            }
             var pts = Resample(ch.pts, 1f);
             int k = pts.Count;
             var h0 = pts.Select(p => BellsBendTiles.Sample(grid, m, p.x, p.y)).ToArray();
@@ -151,7 +157,8 @@ public static class BellsBendRoads
         int n = lg.w * lg.h;
         res.id = new byte[n]; res.weight = new byte[n]; res.dist = Enumerable.Repeat(999f, n).ToArray();
         float distCap = zc.roadBuffer + 5f;
-        foreach (var ch in res.chains)
+        // Paint-only chains go last and only into cells no road has claimed: they add no zone, buffer or centreline distance.
+        foreach (var ch in res.chains.OrderBy(c => c.spec.paintOnly))
         {
             var spec = ch.spec;
             for (int i = 1; i < ch.pts.Count; i++)
@@ -164,8 +171,16 @@ public static class BellsBendRoads
                         var p = lg.Center(c, r);
                         float d = Vector2.Distance(p, a + ab * Mathf.Clamp01(Vector2.Dot(p - a, ab) / l2));
                         int idx = r * lg.w + c;
-                        if (d < res.dist[idx]) res.dist[idx] = d;
                         float half = spec.core * 0.5f;
+                        if (spec.paintOnly)
+                        {
+                            if (res.id[idx] != 0 && res.id[idx] != spec.id) continue;
+                            float pw = d <= half ? 1f : d <= spec.PaintHalf ? 1f - Smooth((d - half) / spec.verge) : 0f;
+                            byte pb = (byte)Mathf.RoundToInt(pw * spec.paintWeight * 255f);
+                            if (pb > res.weight[idx]) { res.weight[idx] = pb; res.id[idx] = spec.id; }
+                            continue;
+                        }
+                        if (d < res.dist[idx]) res.dist[idx] = d;
                         float w = d <= half ? 1f : d <= spec.PaintHalf ? 1f - Smooth((d - half) / spec.verge) : 0f;
                         byte wb = (byte)Mathf.RoundToInt(w * 255f);
                         if (wb > res.weight[idx]) { res.weight[idx] = wb; res.id[idx] = spec.id; }
@@ -182,7 +197,7 @@ public static class BellsBendRoads
     {
         var sb = new StringBuilder();
         float sumAll = 0f; int cntAll = 0; maxAll = 0f;
-        foreach (var grp in r.chains.GroupBy(c => c.spec.id))
+        foreach (var grp in r.chains.Where(c => !c.spec.paintOnly).GroupBy(c => c.spec.id))
         {
             float sum = 0f, max = 0f; int cnt = 0, missing = 0;
             foreach (var ch in grp)

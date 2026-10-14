@@ -10,7 +10,7 @@ using WashedAshore.World;
 
 // Level-designer: one rerunnable entry for the Bells Bend level (replaces WorldBuilder's 512 m terrain).
 //   unity command eval "return BellsBendLevel.BuildAll();"
-// Order: RAW tiles (tools/terrain) -> road levelling -> Terrain tiles -> spawn -> markers -> zones/LevelMaps
+// Order: RAW tiles (tools/terrain) -> road levelling -> lookout tower pad -> Terrain tiles -> spawn -> markers -> zones/LevelMaps
 //        -> barrier -> WorldBounds backstop -> water quads (BellsBendWater) -> save World.unity -> L1/L4/L6 evidence + look shots.
 // Art (BellsBendGround) runs after this; then BellsBendLevel.ZoneReport() and LookShots() for L5/look checks.
 public static class BellsBendLevel
@@ -33,6 +33,7 @@ public static class BellsBendLevel
         {
             if (EditorSceneManager.GetActiveScene().path != ScenePath) EditorSceneManager.OpenScene(ScenePath);
             var zc = LoadZoneConfig();
+            Step(BellsBendTowerSite.EnsureRoadSpec(zc));
             var m = BellsBendData.LoadManifest(cfg);
             Step(BellsBendWater.Guard(cfg, m)); // W3: fail before any write if the lake mask changed or the line moved
             var v = BellsBendData.LoadVectors(cfg);
@@ -52,6 +53,7 @@ public static class BellsBendLevel
             if (roads.cappedLog.Length > 0)
                 BellsBendData.WriteText("bells-bend-road-capped-segments.md", "# Road levelling: cut/fill-capped segments (terrain-following grade kept)\n\n| Road | Metres along chain | From-to (x,z) |\n|---|---|---|\n" + roads.cappedLog);
 
+            Step(BellsBendTowerSite.LevelPad(fin, raw, m, v, out _));
             Step(L2Touch(raw, fin, m, cfg, roads, rg));
             Step("tiles: " + BellsBendTiles.Write(m, fin));
             Step($"seam max step={BellsBendTiles.MaxSeamError():F4}m");
@@ -61,11 +63,13 @@ public static class BellsBendLevel
             Step(BellsBendZones.PlaceMarkers(fin, m, v, cfg));
             Step(BellsBendZones.Classify(raw, BellsBendData.LoadDemGrid(m), fin, m, v, cfg, zc, roads, rg, shore, spawn, out var zones, out var zg));
             Step(BellsBendZones.WriteMaps(zg, zones, rg, roads, shore));
+            Step(BellsBendTowerSite.WriteSite(v, zc));
 
             if (!cfg) cfg = BellsBendData.LoadConfig(); // an import above can reload the MapConfig asset
             Step(BarrierBuilder.Build(cfg));
             Step(WorldBoundsBuilder.Build(cfg, false));
             Step(BellsBendWater.Build(cfg, m, BellsBendWater.LoadReport(cfg), false));
+            Step(BellsBendTowerSite.Place());
             var scene = EditorSceneManager.GetActiveScene();
             EditorSceneManager.MarkSceneDirty(scene);
             EditorSceneManager.SaveScene(scene);

@@ -204,9 +204,12 @@ public static class BellsBendZones
                 zones[i] = (byte)bestZ;
             }
 
-        // Z6 clearings (override everything but road): spawn 40 m, markers 20 m except terrain features.
+        // Z6 clearings (override everything but road): spawn 40 m, markers 20 m except terrain features;
+        // a sited structure (the lookout tower) clears around its own centre instead of its marker, and only cells wholly
+        // inside its radius (art removes the trees in the partial cells exactly, so nothing beyond the radius changes).
         var clear = new List<(Vector2 p, float r)> { (new Vector2(spawn.x, spawn.z), zc.clearingSpawnRadius) };
-        clear.AddRange(v.landmarks.Where(l => !NoClearing.Contains(l.id)).Select(l => (l.xz, zc.clearingMarkerRadius)));
+        clear.AddRange(v.landmarks.Where(l => !NoClearing.Contains(l.id) && !l.hasSite).Select(l => (l.xz, zc.clearingMarkerRadius)));
+        clear.AddRange(v.landmarks.Where(l => l.hasSite).Select(l => (l.xz + l.siteOffset, zc.clearingTowerRadius - zc.zoneCell * 0.7072f)));
         foreach (var (cp, cr) in clear)
         {
             zg.Range(cp - Vector2.one * cr, cp + Vector2.one * cr, out int c0, out int r0, out int c1, out int r1);

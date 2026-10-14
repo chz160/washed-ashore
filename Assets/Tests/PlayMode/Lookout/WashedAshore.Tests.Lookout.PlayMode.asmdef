@@ -1,0 +1,28 @@
+{
+    "name": "WashedAshore.Tests.Lookout.PlayMode",
+    "rootNamespace": "WashedAshore.Tests.Lookout.PlayMode",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "Unity.InputSystem",
+        "Unity.InputSystem.TestFramework",
+        "UnityEngine.UI",
+        "WashedAshore.World",
+        "WashedAshore.Interaction",
+        "WashedAshore.Gameplay",
+        "WashedAshore.Lookout"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -89,6 +89,7 @@ public static class BellsBendVegetation
         float top = T.Zones.Where(z => z != null).Max(z => z.treesPerHa / z.clumpCover);
         Scatter(o, d.size, Mathf.Sqrt(10000f / top), 1, (p, rng) =>
         {
+            if (maps.InTowerRing(p, out _)) return; // the lookout tower's tree-free ring, exact to its radius
             byte zone = maps.Zone(p);
             var z = T.Get(zone);
             if (z == null || z.treesPerHa <= 0f || maps.RoadWeight(p) > 0f) return;

@@ -1,7 +1,7 @@
 {
  "generator": "tools/terrain/build_terrain.py",
  "buildTag": "dev",
- "builtUtc": "2026-10-06T11:04:55Z",
+ "builtUtc": "2026-10-11T05:23:29Z",
  "mapConfig": {
   "horizontalScale": 0.5,
   "verticalScale": 0.7,
@@ -37,7 +37,7 @@
   "manifestPath": "Data/terrain/build/manifest.json",
   "WaterLevelY": 1.6099999999999979
  },
- "mapConfigSha256_16": "d18800230508b305",
+ "mapConfigSha256_16": "a161fbd20cebf260",
  "frame": {
   "utmEpsg": 26916,
   "originE": 507317,

@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0acc6af2f16a0419da1ef145bc5e8a, type: 3}
+  m_Name: LookoutTuning
+  m_EditorClassIdentifier: WashedAshore.Lookout::WashedAshore.Lookout.LookoutTuning
+  hatchSeconds: 1.4
+  hatchOpenAngle: 92
+  hatchCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  hatchStopHeadroom: 0.15
+  hatchSwingDepth: 0.05
+  hatchHeadroomMargin: 0.05
+  hatchDuckMinEyeHeight: 1
+  hatchDuckRun: 0.6
+  eyeClearance: 0.2
+  sashSeconds: 0.9
+  sashOpenAngle: 35
+  firefinderFov: 45
+  firefinderEyeHeight: 1.3
+  firefinderEyeBack: 0.33
+  firefinderBlendSeconds: 0.4
+  firefinderMouseDegPerCount: 0.06
+  firefinderStickDegPerSec: 60
+  firefinderKeyFastDegPerSec: 45
+  firefinderKeySlowDegPerSec: 12
+  firefinderKeySlowSeconds: 0.5
+  firefinderTapSeconds: 0.2
+  firefinderPitchMin: -25
+  firefinderPitchMax: 5
+  firefinderStartBearing: 135
+  firefinderPromptSeconds: 4
+  openVerb: Open
+  closeVerb: Close
+  useVerb: Use
+  leaveVerb: Leave
+  hatchNoun: hatch
+  sashNoun: window
+  firefinderNoun: firefinder

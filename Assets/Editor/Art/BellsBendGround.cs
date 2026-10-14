@@ -16,11 +16,27 @@ public static class BellsBendGround
     const float TexelMetres = 1f;   // alphamap target spacing
     const float DetailMetres = 2f;  // detail cell spacing
 
-    public static string Build()
+    public static string Build() => Build(null);
+
+    /// <summary>Repaints only the tiles the lookout tower site touches: the clearing and the access track (+ 10 m).</summary>
+    public static string BuildTowerSite()
+    {
+        var lm = AssetDatabase.LoadAssetAtPath<WashedAshore.Level.BellsBendLevelMaps>(WashedAshore.Level.BellsBendLevelMaps.AssetPath);
+        if (!lm || lm.towerClearRadius <= 0f) return "error: no tower site in LevelMaps (run BellsBendTowerSite.Build())";
+        var pts = lm.towerTrack.Concat(new[] { lm.towerCentre - Vector2.one * lm.towerClearRadius, lm.towerCentre + Vector2.one * lm.towerClearRadius }).ToArray();
+        var min = pts.Aggregate(Vector2.Min) - Vector2.one * 10f; var max = pts.Aggregate(Vector2.Max) + Vector2.one * 10f;
+        return Build(Rect.MinMaxRect(min.x, min.y, max.x, max.y));
+    }
+
+    /// <summary>Paints every tile, or only the tiles overlapping <paramref name="area"/> (world XZ). A tile is always repainted whole.</summary>
+    public static string Build(Rect? area)
     {
         var maps = BellsBendMaps.Load();
         var tiles = Tiles();
         if (tiles.Length == 0) return "error: no Terrain_<col>_<row> tiles under '" + TerrainRoot + "'";
+        if (area.HasValue)
+            tiles = tiles.Where(t => area.Value.Overlaps(new Rect(t.transform.position.x, t.transform.position.z, t.terrainData.size.x, t.terrainData.size.z))).ToArray();
+        if (tiles.Length == 0) return "error: no tile overlaps the area";
         var sw = System.Diagnostics.Stopwatch.StartNew();
         var layers = A.Load(true);
         var veg = BellsBendVegetation.Prototypes();
@@ -41,7 +57,7 @@ public static class BellsBendGround
         var scene = tiles[0].gameObject.scene;
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
-        return $"tiles={tiles.Length} layers={layers.Length} treeInstances={trees} detailInstances={details} seconds={sw.Elapsed.TotalSeconds:F0} " +
+        return $"tiles={tiles.Length}[{string.Join(",", tiles.Select(t => t.name))}] layers={layers.Length} treeInstances={trees} detailInstances={details} seconds={sw.Elapsed.TotalSeconds:F0} " +
                $"treeProtos=[{string.Join(",", veg.trees.Select(p => p.name))}] detailProtos=[{string.Join(",", BellsBendVegetation.DetailSpecs.Select(s => s.key))}]";
     }
 
