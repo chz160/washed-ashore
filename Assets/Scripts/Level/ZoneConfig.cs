@@ -18,6 +18,8 @@ namespace WashedAshore.Level
         public float roadBuffer = 20f;
         public float clearingSpawnRadius = 40f;
         public float clearingMarkerRadius = 20f;
+        [Tooltip("Lookout tower: tree-free radius from the tower centre (base half-diagonal 4.3 m + the 15 m ring). Z6 = cells wholly inside it; art removes the other trees inside it exactly.")]
+        public float clearingTowerRadius = 19.3f;
         [Tooltip("Real metres; DEM box blur used for demSlope only.")]
         public float demSlopeBlurReal = 30f;
         public float cliffSlopeDeg = 40f;
@@ -53,6 +55,9 @@ namespace WashedAshore.Level
             public byte id;
             public float core, verge, falloff;
             public bool gravel;
+            [Tooltip("Painted into the road map at paintWeight only: no levelling, no Z0/Z1 zones, never over another road.")]
+            public bool paintOnly;
+            [Range(0f, 0.49f)] public float paintWeight = 0.4f;
             public float PaintHalf => core * 0.5f + verge;
         }
     }

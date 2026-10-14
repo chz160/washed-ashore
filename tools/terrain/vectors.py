@@ -14,6 +14,7 @@ RESEARCH = Path("_bmad-output/research/domain-bells-bend-map-2026-10-05")
 SHORELINE = RESEARCH / "digests/shoreline.geojson"
 ROADS = RESEARCH / "digests/roads.geojson"
 HERE = Path(__file__).resolve().parent
+TOWER_TRACK = HERE / "tower_track.json"
 REQUIRED_ROADS = ("Old Hickory Boulevard", "Pecan Valley Road", "Tidwell Hollow Road",
                   "Cleeces Ferry Road", "Cleeces Rerry Road")
 
@@ -136,6 +137,10 @@ def export(root, out_dir, frame, shore, cfg, north_z_data):
         roads.append({"name": p.get("name"), "highway": p.get("highway"), "surface": p.get("surface"),
                       "osm_id": p.get("osm_id"), "zone": p.get("zone"), "bridge": p.get("bridge") == "yes",
                       "required": p.get("name") in REQUIRED_ROADS, "points": _xz_list(x, z)})
+    if TOWER_TRACK.exists():  # authored in game XZ by tower_track.py; the level build paints it without levelling
+        t = json.loads(TOWER_TRACK.read_text(encoding="utf-8"))
+        roads.append({"name": t["name"], "highway": "track", "surface": "grass", "osm_id": None, "zone": None,
+                      "bridge": False, "required": False, "authored": True, "points": t["points"]})
     wx, wz = float(bx[0]), float(bz[0])
     ex, ez = float(bx[-1]), float(bz[-1])
     data = {

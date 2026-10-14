@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using WashedAshore.Interaction;
 
 namespace WashedAshore.Gameplay
 {
     /// <summary>
     /// Grounded first-person walk on a CharacterController. Tuning defaults come from
     /// _bmad-output/poc/controller-tuning.md; every number is a serialized field.
-    /// Wading and swimming live in PlayerController.Water.cs.
+    /// Wading and swimming live in PlayerController.Water.cs, stair lanes in Climb/PlayerController.Climb.cs,
+    /// the camera seam in PlayerController.View.cs.
     /// </summary>
     [RequireComponent(typeof(CharacterController))]
     public partial class PlayerController : MonoBehaviour
@@ -45,12 +47,17 @@ namespace WashedAshore.Gameplay
         InputAction stickLookAction;
         InputAction sprintAction;
         InputAction jumpAction;
+        Interactor interactor;
         Vector3 horizontalVelocity;
         float verticalVelocity;
         float pitch;
 
         public bool IsGrounded => controller != null && controller.isGrounded;
         public float WalkSpeed => walkSpeed;
+        /// <summary>Upper limit on the walk target speed set by a place that wants a slower walk (the lookout stairs); 0 = none.</summary>
+        public float WalkSpeedCap { get; set; }
+        /// <summary>Metres the controller is pulled back down onto the ground after a step that left it airborne; 0 = off.</summary>
+        public float GroundSnapDistance { get; set; }
         public float SprintSpeed => sprintSpeed;
         public float JumpHeight => jumpHeight;
         public float Gravity => gravity;
@@ -75,6 +82,10 @@ namespace WashedAshore.Gameplay
             jumpAction = new InputAction("Jump", InputActionType.Button, "<Keyboard>/space");
             jumpAction.AddBinding("<Gamepad>/buttonSouth");
             SetupWater();
+            SetupClimb();
+            SetupView();
+            // The shared gamepad South: the Interactor runs first and takes the press while a prompt shows.
+            interactor = GetComponentInChildren<Interactor>();
         }
 
         void OnEnable()
@@ -102,6 +113,7 @@ namespace WashedAshore.Gameplay
             stickLookAction.Dispose();
             sprintAction.Dispose();
             jumpAction.Dispose();
+            TeardownClimb();
         }
 
         void Start()
@@ -127,6 +139,19 @@ namespace WashedAshore.Gameplay
             Cursor.visible = false;
         }
 
+        /// <summary>
+        /// Slims and shortens (or restores) the capsule for a place the authored one cannot fit, such as the lookout stairs; the
+        /// feet stay where they are. The new radius is also the radius the climb code treats as authored, so it does not grow it back.
+        /// </summary>
+        public void SetWalkCapsule(float radius, float height)
+        {
+            float bottom = controller.center.y - controller.height * 0.5f;
+            controller.radius = radius;
+            controller.height = height;
+            controller.center = new Vector3(controller.center.x, bottom + height * 0.5f, controller.center.z);
+            authoredRadius = radius;
+        }
+
         public void Respawn()
         {
             if (spawnPoint == null && !string.IsNullOrEmpty(spawnPointName))
@@ -148,6 +173,7 @@ namespace WashedAshore.Gameplay
             if (TerrainQuery.TryGroundHeight(position, out float ground))
                 position.y = ground + spawnHeightOffset;
 
+            ClearClimb();
             // CharacterController overrides transform writes while enabled.
             controller.enabled = false;
             transform.SetPositionAndRotation(position, Quaternion.Euler(0f, spawnPoint.eulerAngles.y, 0f));
@@ -155,6 +181,7 @@ namespace WashedAshore.Gameplay
             horizontalVelocity = Vector3.zero;
             verticalVelocity = 0f;
             waterMode = WaterMode.Dry; // the next frame's depth decides (spec §2: no stale state)
+            Teleported?.Invoke();
         }
 
         void Update()
@@ -172,6 +199,7 @@ namespace WashedAshore.Gameplay
 
         void Look(float dt)
         {
+            if (controlSuspended) return;
             Vector2 mouseDelta = ShouldApplyMouseLook(Application.platform, Cursor.lockState)
                 ? lookAction.ReadValue<Vector2>()
                 : Vector2.zero;
@@ -179,28 +207,50 @@ namespace WashedAshore.Gameplay
                 + stickLookAction.ReadValue<Vector2>() * (stickLookSpeed * dt);
             transform.Rotate(0f, delta.x, 0f, Space.Self);
             pitch = Mathf.Clamp(pitch - delta.y, minPitch, maxPitch);
-            if (cameraPivot != null)
+            if (cameraPivot != null && !viewPoseOverridden)
                 cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
         }
 
         void Move(float dt)
         {
             UpdateWater();
-            Vector2 input = Vector2.ClampMagnitude(moveAction.ReadValue<Vector2>(), 1f);
-            Vector3 target = MoveTarget(input, sprintAction.IsPressed(), dt);
+            Vector2 input = controlSuspended ? Vector2.zero : Vector2.ClampMagnitude(moveAction.ReadValue<Vector2>(), 1f);
+            bool sprint = !controlSuspended && sprintAction.IsPressed();
+            // Stair lanes: one check, and off any climb area the walk below runs as before.
+            if (ClimbActive && ClimbMove(input, sprint, dt)) return;
+            Vector3 target = climbArea != null ? ClimbWalkTarget(input) : MoveTarget(input, sprint, dt);
+            if (WalkSpeedCap > 0f) target = Vector3.ClampMagnitude(target, WalkSpeedCap);
             float rate = MoveRate(target, input.sqrMagnitude > 0f);
             horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, target, rate * dt);
 
             if (waterMode == WaterMode.Swim)
                 verticalVelocity = SwimVerticalVelocity(dt);
-            else if (controller.isGrounded && CanJump && jumpAction.WasPressedThisFrame())
+            else if (controller.isGrounded && CanJump && JumpPressed())
                 verticalVelocity = Mathf.Sqrt(2f * jumpHeight * -gravity);
             else if (controller.isGrounded && verticalVelocity < 0f)
                 verticalVelocity = groundedStickVelocity;
             else
                 verticalVelocity = Mathf.Max(verticalVelocity + gravity * dt, terminalVelocity);
 
+            bool wasGrounded = controller.isGrounded;
             controller.Move((horizontalVelocity + Vector3.up * verticalVelocity) * dt);
+            // Walking down a steep ramp the horizontal step leaves the feet in the air; snap back onto it (never after a jump).
+            if (GroundSnapDistance > 0f && wasGrounded && !controller.isGrounded && verticalVelocity <= 0f && waterMode == WaterMode.Dry)
+            {
+                controller.Move(Vector3.down * GroundSnapDistance);
+                if (controller.isGrounded) verticalVelocity = groundedStickVelocity;
+            }
+        }
+
+        /// <summary>
+        /// A jump press that counts: not while control is suspended or inside a climb area (silently ignored),
+        /// and not a gamepad South press the Interactor took for a prompt. Space always jumps.
+        /// </summary>
+        bool JumpPressed()
+        {
+            if (!jumpAction.WasPressedThisFrame() || controlSuspended || ClimbJumpLocked) return false;
+            bool fromGamepad = jumpAction.activeControl != null && jumpAction.activeControl.device is Gamepad;
+            return !InteractionRules.JumpBlocked(fromGamepad, interactor != null && interactor.TookPressThisFrame);
         }
 
         void GuardFallThrough()

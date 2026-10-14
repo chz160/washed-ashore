@@ -1,0 +1,23 @@
+{
+    "name": "WashedAshore.Lookout.Editor",
+    "rootNamespace": "WashedAshore.Lookout.Editor",
+    "references": [
+        "Unity.InputSystem",
+        "UnityEngine.UI",
+        "WashedAshore.World",
+        "WashedAshore.Interaction",
+        "WashedAshore.Gameplay",
+        "WashedAshore.Lookout"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

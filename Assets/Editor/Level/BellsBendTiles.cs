@@ -82,6 +82,48 @@ public static class BellsBendTiles
                $"baseY={m.terrainBaseY} height={m.terrainHeight} Y=[{min:F2},{max:F2}] groupingID={GroupingId} connectedTiles={connected}";
     }
 
+    /// <summary>The built tiles' heights stitched into one world grid [row = z, col = x] in Unity Y (LoadRawGrid plus the level edits).</summary>
+    public static float[,] ReadBuilt(BellsBendData.Manifest m)
+    {
+        int n = m.res - 1;
+        var g = new float[m.tilesZ * n + 1, m.tilesX * n + 1];
+        foreach (var t in m.tiles)
+        {
+            var path = $"{TileDir}/TD_{t.ix}_{t.iz}.asset";
+            var data = AssetDatabase.LoadAssetAtPath<TerrainData>(path);
+            if (!data || data.heightmapResolution != m.res) throw new FileNotFoundException("Built tile missing or resized; run BellsBendLevel.BuildAll()", path);
+            var h = data.GetHeights(0, 0, m.res, m.res);
+            for (int r = 0; r < m.res; r++)
+                for (int c = 0; c < m.res; c++)
+                    g[t.iz * n + r, t.ix * n + c] = h[r, c] * m.terrainHeight + m.terrainBaseY;
+        }
+        return g;
+    }
+
+    /// <summary>Writes grid samples [c0..c1] x [r0..r1] (inclusive, world grid indices) into the tiles that hold them; nothing else is touched.</summary>
+    public static string WriteRegion(BellsBendData.Manifest m, float[,] grid, int c0, int r0, int c1, int r1)
+    {
+        int n = m.res - 1; var names = new List<string>();
+        foreach (var t in m.tiles.OrderBy(t => t.iz).ThenBy(t => t.ix))
+        {
+            int tc0 = Mathf.Max(c0 - t.ix * n, 0), tc1 = Mathf.Min(c1 - t.ix * n, n), tr0 = Mathf.Max(r0 - t.iz * n, 0), tr1 = Mathf.Min(r1 - t.iz * n, n);
+            if (tc0 > tc1 || tr0 > tr1) continue;
+            var path = $"{TileDir}/TD_{t.ix}_{t.iz}.asset";
+            var data = AssetDatabase.LoadAssetAtPath<TerrainData>(path);
+            if (!data) throw new FileNotFoundException("Built tile missing; run BellsBendLevel.BuildAll()", path);
+            var h = new float[tr1 - tr0 + 1, tc1 - tc0 + 1];
+            for (int r = tr0; r <= tr1; r++)
+                for (int c = tc0; c <= tc1; c++)
+                    h[r - tr0, c - tc0] = Mathf.Clamp01((grid[t.iz * n + r, t.ix * n + c] - m.terrainBaseY) / m.terrainHeight);
+            data.SetHeights(tc0, tr0, h);
+            data.SyncHeightmap();
+            EditorUtility.SetDirty(data);
+            names.Add($"TD_{t.ix}_{t.iz}[{tc0}..{tc1},{tr0}..{tr1}]");
+        }
+        AssetDatabase.SaveAssets();
+        return string.Join(" ", names);
+    }
+
     static string NameAt(Terrain t, int dx, int dz)
     {
         var p = t.name.Split('_');

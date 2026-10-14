@@ -11834,7 +11834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: WashedAshore.Gameplay::WashedAshore.Gameplay.PlayerController
   cameraPivot: {fileID: 1813842455}
-  spawnPoint: {fileID: 1472675113}
+  spawnPoint: {fileID: 1988935799}
   spawnPointName: PlayerSpawn
   walkSpeed: 5
   sprintSpeed: 8
@@ -25610,6 +25610,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.7, y: 4.5, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &570861952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 570861953}
+  m_Layer: 0
+  m_Name: LM_LookoutTower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &570861953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570861952}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 546.15, y: 90.75118, z: -230.94}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 891510086}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &571028882
 GameObject:
   m_ObjectHideFlags: 0
@@ -26876,6 +26907,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611229727}
   m_Mesh: {fileID: 4300000, guid: 3be63d6787ec5344da13390e9e1dc140, type: 2}
+--- !u!1001 &615453332
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2392957510669542388, guid: bbdc973454980dc4e842997c40dd22d3, type: 3}
+      propertyPath: m_Name
+      value: LookoutTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937797111267520807, guid: bbdc973454980dc4e842997c40dd22d3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 548
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937797111267520807, guid: bbdc973454980dc4e842997c40dd22d3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 90.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937797111267520807, guid: bbdc973454980dc4e842997c40dd22d3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -230
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937797111267520807, guid: bbdc973454980dc4e842997c40dd22d3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937797111267520807, guid: bbdc973454980dc4e842997c40dd22d3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937797111267520807, guid: bbdc973454980dc4e842997c40dd22d3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937797111267520807, guid: bbdc973454980dc4e842997c40dd22d3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937797111267520807, guid: bbdc973454980dc4e842997c40dd22d3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937797111267520807, guid: bbdc973454980dc4e842997c40dd22d3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937797111267520807, guid: bbdc973454980dc4e842997c40dd22d3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bbdc973454980dc4e842997c40dd22d3, type: 3}
 --- !u!1 &616789486
 GameObject:
   m_ObjectHideFlags: 0
@@ -40064,6 +40152,7 @@ Transform:
   - {fileID: 1333243824}
   - {fileID: 2058485500}
   - {fileID: 1035884346}
+  - {fileID: 570861953}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &892460916
@@ -92733,6 +92822,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987952115}
   m_Mesh: {fileID: 4300000, guid: 3006422f2f5816c4f8ab6d1a12b7873e, type: 2}
+--- !u!1 &1988935798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1988935799}
+  m_Layer: 0
+  m_Name: TowerBaseSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1988935799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988935798}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.51065445, z: 0, w: 0.85978603}
+  m_LocalPosition: {x: 544.02, y: 90.75118, z: -232.17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1988995721
 GameObject:
   m_ObjectHideFlags: 0
@@ -100434,3 +100554,5 @@ SceneRoots:
   - {fileID: 981621744}
   - {fileID: 387424561}
   - {fileID: 705674301}
+  - {fileID: 615453332}
+  - {fileID: 1988935799}

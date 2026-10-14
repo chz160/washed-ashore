@@ -17,6 +17,12 @@ About 4 min with an empty cache (9 x 67 MB downloads), about 15 s from cache.
 - `_bmad-output/research/domain-bells-bend-map-2026-10-05/digests/shoreline.geojson`
   (playable polygon, inner bank) and `roads.geojson` (OSM, ODbL).
 - `landmarks.json` (L7 markers) and `l2_sample_points.json` (L2 EPQS points), both in this folder.
+  The `LookoutTower` entry also carries the tower's `site` block (centre offset, yaw, track target).
+- `tower_track.json`: the lookout tower's access track in game XZ, written by `tower_track.py`
+  (least-grade route on the built tiles from the tower pad to Old Hickory Boulevard). It is exported
+  as the road "Lookout Tower Track"; the level build paints it and never levels along it. To
+  regenerate: `build_terrain.py`, then `tower_track.py`, then `build_terrain.py` again
+  (`tower_track.py --check` recomputes and compares without writing).
 - USGS 3DEP ImageServer `exportImage`, 1 m, EPSG:26916 (NAD83 / UTM 16N), fetched in
   4096 m chunks on a fixed lattice and cached in `Data/terrain/cache/` (git-ignored).
 

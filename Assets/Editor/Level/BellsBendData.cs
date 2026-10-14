@@ -18,7 +18,12 @@ public static class BellsBendData
 
     public class Tile { public string file, demFile; public int ix, iz; public Vector3 position; }
     public class Road { public string name, highway; public bool required; public List<Vector2> points; }
-    public class Landmark { public string id, name; public Vector2 xz; public bool inside; }
+    public class Landmark
+    {
+        public string id, name; public Vector2 xz; public bool inside;
+        // Optional "site" block (LookoutTower): where the level designer put the structure relative to the projected point.
+        public bool hasSite; public Vector2 siteOffset; public float siteYaw;
+    }
 
     public class Manifest
     {
@@ -82,7 +87,16 @@ public static class BellsBendData
         foreach (Dictionary<string, object> r in (List<object>)j["roads"])
             v.roads.Add(new Road { name = r["name"] as string, highway = r["highway"] as string, required = r["required"] is bool b && b, points = Pts(r["points"]) });
         foreach (Dictionary<string, object> l in (List<object>)j["landmarks"])
-            v.landmarks.Add(new Landmark { id = (string)l["id"], name = (string)l["name"], xz = new Vector2(F(l["x"]), F(l["z"])), inside = l["insidePolygon"] is bool b && b });
+        {
+            var lm = new Landmark { id = (string)l["id"], name = (string)l["name"], xz = new Vector2(F(l["x"]), F(l["z"])), inside = l["insidePolygon"] is bool b && b };
+            if (l.TryGetValue("site", out var so) && so is Dictionary<string, object> s)
+            {
+                lm.hasSite = true;
+                lm.siteOffset = new Vector2(F(s["offsetX"]), F(s["offsetZ"]));
+                lm.siteYaw = F(s["yawDeg"]);
+            }
+            v.landmarks.Add(lm);
+        }
         return v;
     }
 

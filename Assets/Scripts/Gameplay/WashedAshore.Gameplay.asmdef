@@ -3,7 +3,8 @@
     "rootNamespace": "WashedAshore.Gameplay",
     "references": [
         "Unity.InputSystem",
-        "WashedAshore.World"
+        "WashedAshore.World",
+        "WashedAshore.Interaction"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
