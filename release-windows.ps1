@@ -1,18 +1,34 @@
 <#
 .SYNOPSIS
-    Publishes the Windows build (Builds/Windows) as a zip on the GitHub Releases page.
+    Publishes the Windows, Linux and macOS builds as assets of one GitHub release.
 
 .DESCRIPTION
-    Copies Builds/Windows to a staging folder (leaving out the folders Unity
-    marks "DoNotShip", build provenance and log files), zips it, and creates a
-    GitHub release with the zip attached, using the gh CLI.
+    For each platform, copies its build folder (Builds/Windows, Builds/Linux,
+    Builds/Mac) to a staging folder, leaving out the folders Unity marks
+    "DoNotShip", build provenance and log files, and packages it:
 
-    The version is the current time as yyyy.MM.dd.HHmm, for example
-    2026.10.06.1430, and the tag is that version with a "v" in front. The tag
-    points at the current commit, which must already be pushed.
+        Windows  WashedAshore-<version>-win64.zip
+        Linux    washed-ashore_<version>_amd64.deb
+                 Installs to /opt/washed-ashore, adds a "washed-ashore" command
+                 and a menu entry. Built here, so dpkg is not needed.
+        macOS    WashedAshore-<version>-mac.zip, holding WashedAshore.app. The
+                 executables inside keep their execute bit. The app is not code
+                 signed or notarized, so players right-click > Open the first time.
+
+    All the packages go on one release, created with the gh CLI. The version is
+    the current time as yyyy.MM.dd.HHmm, for example 2026.10.06.1430, and the
+    tag is that version with a "v" in front. The tag points at the current
+    commit, which must already be pushed.
+
+    The web build is not part of this. Use deploy-web.ps1 for that.
+
+.PARAMETER Platform
+    Which platforms to release: windows, linux, mac. Give a list to pick some,
+    for example -Platform windows,linux. Leave it off to release all three.
 
 .PARAMETER Build
-    Rebuild the Windows player with the unity CLI before releasing.
+    Rebuild the selected players with the unity CLI before releasing. The Unity
+    editor needs the Build Support module for each platform installed.
 
 .PARAMETER Notes
     Release notes. Defaults to the commit the release is tagged on.
@@ -26,10 +42,11 @@
 .EXAMPLE
     .\release-windows.ps1
     .\release-windows.ps1 -Build -Notes "Added birds"
-    .\release-windows.ps1 -Prerelease
+    .\release-windows.ps1 -Platform windows,mac -Prerelease
 #>
 [CmdletBinding()]
 param(
+    [string[]]$Platform = @("windows", "linux", "mac"),
     [switch]$Build,
     [string]$Notes,
     [switch]$Prerelease,
@@ -38,10 +55,244 @@ param(
 
 $ErrorActionPreference = "Stop"
 $root = $PSScriptRoot
-$winDir = Join-Path $root "Builds\Windows"
 $repo = "chz160/washed-ashore"
 $version = Get-Date -Format "yyyy.MM.dd.HHmm"
 $tag = "v$version"
+# "-File" hands a list over as one comma-joined string, so split it here.
+$requested = @($Platform | ForEach-Object { $_ -split "," } | ForEach-Object { $_.Trim().ToLower() } | Where-Object { $_ })
+$unknown = @($requested | Where-Object { @("windows", "linux", "mac") -notcontains $_ })
+if ($unknown) { throw "Unknown platform '$($unknown -join ', ')'. Use windows, linux and/or mac." }
+$platforms = @("windows", "linux", "mac") | Where-Object { $requested -contains $_ }
+
+$targets = @{
+    windows = @{ Label = "Windows"; UnityTarget = "StandaloneWindows64"; Dir = "Windows"; Output = "WashedAshorePOC.exe" }
+    linux   = @{ Label = "Linux";   UnityTarget = "StandaloneLinux64";   Dir = "Linux";   Output = "WashedAshore.x86_64" }
+    mac     = @{ Label = "macOS";   UnityTarget = "StandaloneOSX";       Dir = "Mac";     Output = "WashedAshore.app" }
+}
+
+# Writes the .deb. A .deb is an "ar" archive of debian-binary, control.tar.gz and data.tar.gz, and
+# its tar members need Unix modes and root ownership, which Windows' own tools cannot set.
+Add-Type -TypeDefinition @'
+using System;
+using System.IO;
+using System.Text;
+
+public sealed class DebTar : IDisposable
+{
+    private readonly Stream _out;
+    public DebTar(Stream output) { _out = output; }
+
+    public void AddDir(string path) { Header(path.TrimEnd('/') + "/", 0, 493, '5', ""); }          // 0755
+
+    public void AddSymlink(string path, string target) { Header(path, 0, 511, '2', target); }      // 0777
+
+    public void AddFile(string path, string source, bool executable)
+    {
+        long size = new FileInfo(source).Length;
+        Header(path, size, executable ? 493 : 420, '0', "");                                       // 0755 / 0644
+        using (FileStream fs = File.OpenRead(source)) { fs.CopyTo(_out); }
+        Pad(size);
+    }
+
+    public void AddBytes(string path, byte[] data, bool executable)
+    {
+        Header(path, data.Length, executable ? 493 : 420, '0', "");
+        _out.Write(data, 0, data.Length);
+        Pad(data.Length);
+    }
+
+    public void Dispose()
+    {
+        _out.Write(new byte[1024], 0, 1024);   // two empty blocks end the archive
+        _out.Flush();
+    }
+
+    private void Pad(long size)
+    {
+        int rem = (int)(size % 512);
+        if (rem != 0) _out.Write(new byte[512 - rem], 0, 512 - rem);
+    }
+
+    private void Header(string path, long size, int mode, char type, string link)
+    {
+        // ustar splits a long path into a 155-byte prefix and a 100-byte name at a slash.
+        string name = path, prefix = "";
+        if (Encoding.UTF8.GetByteCount(name) > 100)
+        {
+            int cut = -1;
+            for (int i = 0; i < path.Length - 1; i++)
+            {
+                if (path[i] == '/' && Encoding.UTF8.GetByteCount(path.Substring(0, i)) <= 155
+                    && Encoding.UTF8.GetByteCount(path.Substring(i + 1)) <= 100) cut = i;
+            }
+            if (cut < 0) throw new InvalidOperationException("Path too long for a tar header: " + path);
+            prefix = path.Substring(0, cut);
+            name = path.Substring(cut + 1);
+        }
+        if (Encoding.UTF8.GetByteCount(link) > 100) throw new InvalidOperationException("Link target too long: " + link);
+
+        byte[] h = new byte[512];
+        Put(h, 0, 100, name);
+        Octal(h, 100, 8, mode);
+        Octal(h, 108, 8, 0);          // uid
+        Octal(h, 116, 8, 0);          // gid
+        Octal(h, 124, 12, size);
+        Octal(h, 136, 12, 0);         // mtime: 1970 keeps the package reproducible
+        for (int i = 148; i < 156; i++) h[i] = (byte)' ';
+        h[156] = (byte)type;
+        Put(h, 157, 100, link);
+        Put(h, 257, 6, "ustar");
+        h[263] = (byte)'0'; h[264] = (byte)'0';
+        Put(h, 265, 32, "root");
+        Put(h, 297, 32, "root");
+        Put(h, 345, 155, prefix);
+
+        long sum = 0;
+        for (int i = 0; i < 512; i++) sum += h[i];
+        string chk = Convert.ToString(sum, 8).PadLeft(6, '0');
+        Put(h, 148, 6, chk);
+        h[154] = 0; h[155] = (byte)' ';
+        _out.Write(h, 0, 512);
+    }
+
+    private static void Put(byte[] h, int offset, int len, string s)
+    {
+        byte[] b = Encoding.UTF8.GetBytes(s);
+        Array.Copy(b, 0, h, offset, Math.Min(b.Length, len));
+    }
+
+    private static void Octal(byte[] h, int offset, int len, long value)
+    {
+        string s = Convert.ToString(value, 8).PadLeft(len - 1, '0');
+        if (s.Length > len - 1) throw new InvalidOperationException("Value too large for a tar field: " + value);
+        Put(h, offset, len - 1, s);
+    }
+
+    public static void WriteAr(string archive, string[] names, string[] files)
+    {
+        using (FileStream o = File.Create(archive))
+        {
+            byte[] magic = Encoding.ASCII.GetBytes("!<arch>\n");
+            o.Write(magic, 0, magic.Length);
+            for (int i = 0; i < names.Length; i++)
+            {
+                long size = new FileInfo(files[i]).Length;
+                string head = (names[i] + "/").PadRight(16) + "0".PadRight(12) + "0".PadRight(6) + "0".PadRight(6)
+                    + "100644".PadRight(8) + size.ToString().PadRight(10) + "`\n";
+                byte[] hb = Encoding.ASCII.GetBytes(head);
+                o.Write(hb, 0, hb.Length);
+                using (FileStream fs = File.OpenRead(files[i])) { fs.CopyTo(o); }
+                if (size % 2 == 1) o.WriteByte((byte)'\n');
+            }
+        }
+    }
+}
+'@
+
+# Zip a folder under a top-level folder name. Unlike ZipFile.CreateFromDirectory, this records Unix
+# permissions, so executables stay executable on macOS and Linux.
+Add-Type -AssemblyName System.IO.Compression
+function New-ReleaseZip {
+    param([string]$SourceDir, [string]$TopName, [string]$ZipPath, [scriptblock]$IsExecutable)
+    $src = (Resolve-Path $SourceDir).Path.TrimEnd("\", "/")
+    $fs = [IO.File]::Create($ZipPath)
+    try {
+        $zip = New-Object IO.Compression.ZipArchive($fs, [IO.Compression.ZipArchiveMode]::Create)
+        try {
+            foreach ($f in Get-ChildItem $src -Recurse -File -Force) {
+                $rel = $f.FullName.Substring($src.Length + 1).Replace("\", "/")
+                $entry = $zip.CreateEntry("$TopName/$rel", [IO.Compression.CompressionLevel]::Optimal)
+                $mode = if (& $IsExecutable $rel) { 493 } else { 420 }   # 0755 / 0644
+                $entry.ExternalAttributes = (32768 + $mode) -shl 16      # S_IFREG + mode
+                $entry.LastWriteTime = $f.LastWriteTime
+                $in = [IO.File]::OpenRead($f.FullName)
+                $out = $entry.Open()
+                try { $in.CopyTo($out) } finally { $out.Dispose(); $in.Dispose() }
+            }
+        } finally { $zip.Dispose() }
+    } finally { $fs.Dispose() }
+}
+
+function Compress-Gzip {
+    param([string]$Path, [string]$Destination)
+    $in = [IO.File]::OpenRead($Path)
+    $out = [IO.File]::Create($Destination)
+    try {
+        $gz = New-Object IO.Compression.GZipStream($out, [IO.Compression.CompressionLevel]::Optimal)
+        try { $in.CopyTo($gz) } finally { $gz.Dispose() }
+    } finally { $out.Dispose(); $in.Dispose() }
+}
+
+# Copies a build folder, leaving out what must not ship.
+function Copy-CleanBuild {
+    param([string]$Source, [string]$Destination)
+    Copy-Item $Source $Destination -Recurse
+    Get-ChildItem $Destination -Recurse -Directory | Where-Object Name -match "DoNotShip|DontShip" |
+        Sort-Object { $_.FullName.Length } -Descending | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+    Get-ChildItem $Destination -Recurse -Include "*.provenance.json", "*.log" | Remove-Item -Force
+}
+
+function Find-Player {
+    param([string]$Key, [string]$Dir)
+    switch ($Key) {
+        "windows" {
+            Get-ChildItem $Dir -Filter "*.exe" -File -ErrorAction SilentlyContinue |
+                Where-Object Name -ne "UnityCrashHandler64.exe" | Select-Object -First 1
+        }
+        "linux" { Get-ChildItem $Dir -Filter "*.x86_64" -File -ErrorAction SilentlyContinue | Select-Object -First 1 }
+        "mac" { Get-ChildItem $Dir -Filter "*.app" -Directory -ErrorAction SilentlyContinue | Select-Object -First 1 }
+    }
+}
+
+function New-DebPackage {
+    param([string]$Stage, [string]$Player, [string]$DebPath, [string]$Work)
+
+    $gameDir = Join-Path $Stage "WashedAshore"
+    $installDir = "opt/washed-ashore"
+
+    $dataTar = Join-Path $Work "data.tar"
+    $fs = [IO.File]::Create($dataTar)
+    $tar = New-Object DebTar($fs)
+    $installedBytes = 0
+    try {
+        foreach ($d in "opt", $installDir, "usr", "usr/bin", "usr/share", "usr/share/applications") { $tar.AddDir($d) }
+        foreach ($d in Get-ChildItem $gameDir -Recurse -Directory) {
+            $tar.AddDir("$installDir/" + $d.FullName.Substring($gameDir.Length + 1).Replace("\", "/"))
+        }
+        foreach ($f in Get-ChildItem $gameDir -Recurse -File) {
+            $rel = $f.FullName.Substring($gameDir.Length + 1).Replace("\", "/")
+            $exec = ($f.Name -eq $Player) -or ($f.Extension -eq ".so")
+            $tar.AddFile("$installDir/$rel", $f.FullName, $exec)
+            $installedBytes += $f.Length
+        }
+        $tar.AddSymlink("usr/bin/washed-ashore", "/$installDir/$Player")
+        $desktop = "[Desktop Entry]`nType=Application`nName=Washed Ashore`nComment=Washed Ashore`n" +
+            "Exec=/$installDir/$Player`nPath=/$installDir`nIcon=applications-games`nCategories=Game;`nTerminal=false`n"
+        $tar.AddBytes("usr/share/applications/washed-ashore.desktop", [Text.Encoding]::UTF8.GetBytes($desktop), $false)
+    } finally { $tar.Dispose(); $fs.Dispose() }
+
+    $maintainer = "$(& git -C $root config user.name) <$(& git -C $root config user.email)>"
+    if ($maintainer -eq " <>") { $maintainer = "Washed Ashore <noreply@example.com>" }
+    $control = "Package: washed-ashore`nVersion: $version`nSection: games`nPriority: optional`n" +
+        "Architecture: amd64`nInstalled-Size: $([int][Math]::Ceiling($installedBytes / 1024))`n" +
+        "Maintainer: $maintainer`nDepends: libc6`nDescription: Washed Ashore`n A game of survival and exploration.`n"
+    $controlTar = Join-Path $Work "control.tar"
+    $fs = [IO.File]::Create($controlTar)
+    $tar = New-Object DebTar($fs)
+    try {
+        $tar.AddDir(".")
+        $tar.AddBytes("control", [Text.Encoding]::UTF8.GetBytes($control), $false)
+    } finally { $tar.Dispose(); $fs.Dispose() }
+
+    $parts = Join-Path $Work "deb-parts"
+    New-Item -ItemType Directory $parts | Out-Null
+    [IO.File]::WriteAllText((Join-Path $parts "debian-binary"), "2.0`n", (New-Object Text.UTF8Encoding($false)))
+    Compress-Gzip $controlTar (Join-Path $parts "control.tar.gz")
+    Compress-Gzip $dataTar (Join-Path $parts "data.tar.gz")
+    [DebTar]::WriteAr($DebPath,
+        [string[]]@("debian-binary", "control.tar.gz", "data.tar.gz"),
+        [string[]]@((Join-Path $parts "debian-binary"), (Join-Path $parts "control.tar.gz"), (Join-Path $parts "data.tar.gz")))
+}
 
 if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
     throw "gh not found. Install the GitHub CLI from https://cli.github.com, then run 'gh auth login'."
@@ -59,44 +310,72 @@ if (& git -C $root status --porcelain --untracked-files=no) {
 }
 
 if ($Build) {
-    Write-Host "Building the Windows player (this takes a few minutes)..." -ForegroundColor Cyan
-    & unity build $root `
-        --target StandaloneWindows64 `
-        --output-path (Join-Path $winDir "WashedAshorePOC.exe") `
-        --log-file (Join-Path $root "Builds\build-windows-release.log") `
-        --no-tail --timeout 3600
-    if ($LASTEXITCODE -ne 0) { throw "Unity build failed. See Builds\build-windows-release.log." }
+    foreach ($key in $platforms) {
+        $t = $targets[$key]
+        $log = "Builds\build-$($t.Dir.ToLower())-release.log"
+        Write-Host "Building the $($t.Label) player (this takes a few minutes)..." -ForegroundColor Cyan
+        & unity build $root `
+            --target $t.UnityTarget `
+            --output-path (Join-Path $root "Builds\$($t.Dir)\$($t.Output)") `
+            --log-file (Join-Path $root $log) `
+            --no-tail --timeout 3600
+        if ($LASTEXITCODE -ne 0) { throw "Unity build for $($t.Label) failed. See $log." }
+    }
 }
 
-$exe = Get-ChildItem $winDir -Filter "*.exe" -File -ErrorAction SilentlyContinue |
-    Where-Object Name -ne "UnityCrashHandler64.exe" | Select-Object -First 1
-if (-not $exe) {
-    throw "No Windows build at $winDir. Build it first, or run with -Build."
+# Check every build exists before packaging anything.
+$players = @{}
+foreach ($key in $platforms) {
+    $t = $targets[$key]
+    $dir = Join-Path $root "Builds\$($t.Dir)"
+    $player = Find-Player $key $dir
+    if (-not $player) { throw "No $($t.Label) build at $dir. Build it first, or run with -Build." }
+    $players[$key] = $player
 }
 
-# Stage a clean copy inside a "WashedAshore" folder, so the zip extracts into one folder.
 $stageRoot = Join-Path ([IO.Path]::GetTempPath()) "washed-ashore-release"
-$stage = Join-Path $stageRoot "WashedAshore"
 if (Test-Path $stageRoot) { Remove-Item $stageRoot -Recurse -Force }
 New-Item -ItemType Directory $stageRoot | Out-Null
-Copy-Item $winDir $stage -Recurse
-Get-ChildItem $stage -Directory | Where-Object Name -match "DoNotShip|DontShip" | Remove-Item -Recurse -Force
-Get-ChildItem $stage -Recurse -Include "*.provenance.json", "*.log" | Remove-Item -Force
 
-$zip = Join-Path $stageRoot "WashedAshore-$version-win64.zip"
-Write-Host "Zipping $version..." -ForegroundColor Cyan
-Add-Type -AssemblyName System.IO.Compression.FileSystem
-[IO.Compression.ZipFile]::CreateFromDirectory($stage, $zip, [IO.Compression.CompressionLevel]::Optimal, $true)
+$assets = @()
+foreach ($key in $platforms) {
+    $t = $targets[$key]
+    $stage = Join-Path $stageRoot $key
+    New-Item -ItemType Directory $stage | Out-Null
+    Copy-CleanBuild (Join-Path $root "Builds\$($t.Dir)") (Join-Path $stage "WashedAshore")
+    Write-Host "Packaging $($t.Label)..." -ForegroundColor Cyan
 
-# GitHub rejects release assets of 2 GiB or more.
-$zipMb = (Get-Item $zip).Length / 1MB
-if ($zipMb -ge 2048) { throw ("The zip is {0:N0} MB, over GitHub's 2 GiB limit for a release file." -f $zipMb) }
-$built = (Get-ChildItem $stage -Recurse -File | Sort-Object LastWriteTime | Select-Object -Last 1).LastWriteTime
-Write-Host ("Releasing {0} from the build of {1:yyyy-MM-dd HH:mm} ({2:N1} MB zipped)" -f $tag, $built, $zipMb) -ForegroundColor Cyan
+    switch ($key) {
+        "windows" {
+            $asset = Join-Path $stageRoot "WashedAshore-$version-win64.zip"
+            New-ReleaseZip (Join-Path $stage "WashedAshore") "WashedAshore" $asset { param($rel) $false }
+        }
+        "mac" {
+            $asset = Join-Path $stageRoot "WashedAshore-$version-mac.zip"
+            # Unity's player binary and its native libraries must stay executable inside the bundle.
+            New-ReleaseZip (Join-Path $stage "WashedAshore") "WashedAshore" $asset {
+                param($rel) $rel -match "/Contents/MacOS/" -or $rel -match "\.(dylib|bundle)$"
+            }
+        }
+        "linux" {
+            $asset = Join-Path $stageRoot "washed-ashore_${version}_amd64.deb"
+            New-DebPackage $stage $players[$key].Name $asset $stage
+        }
+    }
 
-if (-not $Notes) { $Notes = "Windows build of $(& git -C $root log -1 --format='%h %s' $commit)" }
-$releaseArgs = @(
-    "release", "create", $tag, $zip,
+    # GitHub rejects release assets of 2 GiB or more.
+    $mb = (Get-Item $asset).Length / 1MB
+    if ($mb -ge 2048) { throw ("{0} is {1:N0} MB, over GitHub's 2 GiB limit for a release file." -f (Split-Path $asset -Leaf), $mb) }
+    Write-Host ("  {0} ({1:N1} MB)" -f (Split-Path $asset -Leaf), $mb)
+    $assets += $asset
+}
+
+if (-not $Notes) {
+    $names = ($platforms | ForEach-Object { $targets[$_].Label }) -join ", "
+    $Notes = "$names build of $(& git -C $root log -1 --format='%h %s' $commit)"
+}
+Write-Host "Releasing $tag ($(($platforms | ForEach-Object { $targets[$_].Label }) -join ', '))..." -ForegroundColor Cyan
+$releaseArgs = @("release", "create", $tag) + $assets + @(
     "--repo", $repo,
     "--target", $commit,
     "--title", "Washed Ashore $version",
