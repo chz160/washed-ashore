@@ -95,3 +95,12 @@ __pycache__/
 
 # Temporary scenes the Unity Test Runner leaves behind when a run is interrupted
 /Assets/InitTestScene*
+
+# Ruflo local secrets and runtime data
+.env
+.env.local
+.env.*.local
+.claude-flow/data/
+.claude-flow/logs/
+.claude-flow/sessions/
+.swarm/
