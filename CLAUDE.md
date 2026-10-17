@@ -1,8 +1,5 @@
 # washed-ashore (Washed Ashore)
 
-## Ruflow SDLC
-Read the instructions in `docs/ruflo-instructions.md` for how control the ruflow game studio studio-pod.
-
 ## Web build size (deferred Addressables work)
 
 `deploy-web.ps1` moves files over the 25 MiB Cloudflare Pages limit to the R2 bucket `washed-ashore-game-data`. That's a stopgap. **Before opening the northern region** (`MapConfig.gateOpen`, or any playable land north of the north line), **or when the deploy warns that `Web.data` is over 100 MB**, raise the Addressables split with Noah first. See `_bmad-output/planning-artifacts/deferred-addressables-content-streaming.md`.
