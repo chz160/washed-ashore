@@ -9,7 +9,7 @@ using WashedAshore.World;
 // WaterMaps.png, RG8 on the LevelMaps road grid (2 m cells, same origin and extent):
 //   R = LevelMaps shore distance byte, copied as-is (128 + signed m; + inland). No shoreline is recomputed.
 //   G = bed depth below WaterLevelY, clamp(W - terrain height, 0, 4 m) / 4 * 255, from the built tiles.
-// Bilinear and non-readable, because inline samplers don't work on WebGL2 (GLES3).
+// Bilinear and non-readable (keeps the GL Core fallback simple).
 // Also writes the tileable ripple texture once and points BellsBendWater.mat at the water shader.
 // Called by w-level's BellsBendWater.Build() (by reflection) after the quads exist, behind its hash and line guards.
 // Deterministic: same tiles + LevelMaps + MapConfig give the same bytes.
@@ -225,7 +225,7 @@ public static class BellsBendWaterMaps
         imp.maxTextureSize = 8192; imp.textureCompression = TextureImporterCompression.Uncompressed;
         var ps = imp.GetDefaultPlatformTextureSettings(); ps.format = fmt; ps.maxTextureSize = 8192; ps.textureCompression = TextureImporterCompression.Uncompressed;
         imp.SetPlatformTextureSettings(ps);
-        foreach (var platform in new[] { "Standalone", "WebGL" })
+        foreach (var platform in new[] { "Standalone" })
         {
             var o = imp.GetPlatformTextureSettings(platform);
             o.overridden = true; o.format = fmt; o.maxTextureSize = 8192; o.textureCompression = TextureImporterCompression.Uncompressed;

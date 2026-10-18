@@ -12,7 +12,7 @@ using WashedAshore.Level;
 using WashedAshore.World;
 
 // Technical-artist checks for the Bells Bend water look (spec W5, W10 evidence; no player window):
-//   1. the water shader compiles for PC (D3D11) and web (GLES3x / WebGL), every keyword combination it uses;
+//   1. the water shader compiles for D3D11 (Win64), Vulkan and GL Core (Linux64) and Metal (OSX); a target whose module is missing is reported skipped, never compiled, every keyword combination it uses;
 //   2. the downstream sign: the shader's flow direction, mirrored on the CPU, runs clockwise round the bend;
 //   3. offscreen editor-camera look shots (bank, bluff top, water level, shallow edge, west neck step, lip, north line).
 // Run headless: unity run <project> -- -executeMethod BellsBendWaterLook.RunBatch
@@ -50,7 +50,7 @@ public static class BellsBendWaterLook
         return sb.ToString();
     }
 
-    // ---------------- 1. shader compile, PC and web ----------------
+    // ---------------- 1. shader compile, all desktop graphics APIs ----------------
 
     public static string CheckShader()
     {
@@ -59,19 +59,25 @@ public static class BellsBendWaterLook
         var sb = new StringBuilder($"shader {shader.name}: hasError={ShaderUtil.ShaderHasError(shader)}");
         foreach (var m in ShaderUtil.GetShaderMessages(shader)) sb.Append($"\n  {m.severity} {m.platform} line {m.line}: {m.message}");
         var pass = ShaderUtil.GetShaderData(shader).GetSubshader(0).GetPass(0);
-        var targets = new[] { (ShaderCompilerPlatform.D3D, BuildTarget.StandaloneWindows64), (ShaderCompilerPlatform.GLES3x, BuildTarget.WebGL) };
+        var targets = new[] { (ShaderCompilerPlatform.D3D, BuildTarget.StandaloneWindows64), (ShaderCompilerPlatform.Vulkan, BuildTarget.StandaloneLinux64), (ShaderCompilerPlatform.OpenGLCore, BuildTarget.StandaloneLinux64), (ShaderCompilerPlatform.Metal, BuildTarget.StandaloneOSX) };
         var sets = new[] { new string[0], new[] { "FOG_LINEAR" }, new[] { "FOG_EXP2" }, new[] { "_WATER_DEBUG_HEIGHT" } };
-        int bad = 0;
+        int bad = 0, total = 0;
+        var skipped = new List<string>();
         foreach (var (platform, target) in targets)
+        {
+            if (!BuildPipeline.IsBuildTargetSupported(BuildPipeline.GetBuildTargetGroup(target), target)) { skipped.Add($"{platform}/{target}"); continue; }
             foreach (var kw in sets)
                 foreach (var stage in new[] { ShaderType.Vertex, ShaderType.Fragment })
                 {
+                    total++;
                     var r = pass.CompileVariant(stage, kw, platform, target);
                     if (r.Success) continue;
                     bad++;
                     sb.Append($"\n  FAIL {platform} {stage} [{string.Join(",", kw)}]: " + string.Join(" | ", r.Messages.Select(m => $"line {m.line}: {m.message}")));
                 }
-        sb.Append($"\n  variants compiled: {targets.Length * sets.Length * 2 - bad}/{targets.Length * sets.Length * 2} (D3D + GLES3x/WebGL)");
+        }
+        sb.Append($"\n  variants compiled: {total - bad}/{total} (D3D, Vulkan, GL Core, Metal)");
+        foreach (var sk in skipped) sb.Append($"\n  SKIPPED {sk}: target unavailable (module not installed), not compiled");
         if (bad > 0 || ShaderUtil.ShaderHasError(shader)) throw new System.InvalidOperationException(sb.ToString());
         return sb.ToString();
     }

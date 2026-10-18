@@ -99,9 +99,9 @@ namespace WashedAshore.Tests.EditMode.FishRendering
         }
 
         [TestCase(60f, 5f, 1f, 0.02f)]   // walking camera, full murk alpha
-        [TestCase(30f, 5f, 1f, 0.02f)]   // web
+        [TestCase(30f, 5f, 1f, 0.02f)]   // low frame rate
         [TestCase(60f, 2.5f, 0.3f, 0.01f)] // f-td r3: a 0.3-alpha fish at 2.5 m/s, bound ~0.0052
-        [TestCase(30f, 2.5f, 0.3f, 0.01f)] // web
+        [TestCase(30f, 2.5f, 0.3f, 0.01f)] // low frame rate
         public void ShallowV1_WalkingOut22To26m_FadesSmoothlyAcrossTheBand(float fps, float speed, float murkAlpha, float slack)
         {
             // Brief 3 m edge band (f-td bound): per frame the drawn alpha may drop at most murkAlpha x speed x dt / band + slack,

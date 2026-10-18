@@ -71,8 +71,6 @@ crashlytics-build.properties
 # Washed Ashore
 # Vendor source zips: some exceed GitHub's 100 MB file limit; the imported assets live under Assets/ThirdParty.
 /vendor/
-# Cloudflare Wrangler cache (deploy-web.ps1)
-.wrangler/
 
 # Test run output (generated locally; not committed)
 /[Tt]est[Rr]esults/
@@ -89,9 +87,6 @@ crashlytics-build.properties
 # Terrain pipeline (tools/terrain): DEM download cache and Python bytecode
 /Data/terrain/cache/
 __pycache__/
-
-# Burst output written during WebGL builds; regenerated on every web build (deploy-web.ps1 uploads Builds/Web only)
-/Data/Plugins/
 
 # Temporary scenes the Unity Test Runner leaves behind when a run is interrupted
 /Assets/InitTestScene*

@@ -1,8 +1,10 @@
 # washed-ashore (Washed Ashore)
 
-## Web build size (deferred Addressables work)
+## Build size (deferred Addressables work)
 
-`deploy-web.ps1` moves files over the 25 MiB Cloudflare Pages limit to the R2 bucket `washed-ashore-game-data`. That's a stopgap. **Before opening the northern region** (`MapConfig.gateOpen`, or any playable land north of the north line), **or when the deploy warns that `Web.data` is over 100 MB**, raise the Addressables split with Noah first. See `_bmad-output/planning-artifacts/deferred-addressables-content-streaming.md`.
+**Before opening the northern region** (`MapConfig.gateOpen`, or any playable land north of the north line), raise the Addressables split with Noah first. The size trigger is being re-set in #12. See `_bmad-output/planning-artifacts/deferred-addressables-content-streaming.md`.
+
+**Targets: Windows, Linux, macOS (macOS is an unsigned test build).** The web build is retired (2026-10-14, #14): see `_bmad-output/poc/web-retired.md`. Web criteria and "breaking the web build = automatic FAIL" in older specs and reports no longer bind.
 
 ## Model facing (rigged FBX)
 

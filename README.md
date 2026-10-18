@@ -2,6 +2,10 @@
 
 A quarter century after the collapse, you wash ashore with nothing. Open-world, multiplayer, survival RPG with permadeath, realistic scarcity, and a world that remembers. This is the current working pitch for the project and remains open to refinement as the design evolves.
 
+## Platforms
+
+Windows, Linux and macOS (macOS is an unsigned test build for now). There is one quality level, PC. The web build is retired; see `_bmad-output/poc/web-retired.md`.
+
 ## Setting & Premise
 
 - Open world, first-person, post-apocalyptic survival RPG

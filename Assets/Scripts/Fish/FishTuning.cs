@@ -186,7 +186,7 @@ namespace WashedAshore.Fish
         public float jumpBodyDrawRadius = 40f;
         [Tooltip("Nothing holds within this of the player, metres (N2, N7).")]
         public float personalSpace = 2.5f;
-        [Tooltip("Cells planned per frame at most; the rest queue nearest-first (web hitch guard).")]
+        [Tooltip("Cells planned per frame at most; the rest queue nearest-first (hitch guard).")]
         public int maxCellPlansPerFrame = 2;
         [Tooltip("A cell that couldn't go live (cap, or in view) waits this long before it's planned again, seconds.")]
         public float blockedRetrySeconds = 1f;

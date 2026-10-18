@@ -75,7 +75,6 @@ namespace WashedAshore.Perf
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Boot()
         {
-            if (Application.platform == RuntimePlatform.WebGLPlayer) return;
             var args = System.Environment.GetCommandLineArgs();
             far = Number(args, FarArg, "WA_FV_FAR");
             trees = Number(args, TreesArg, "WA_FV_TREES");

@@ -15,9 +15,7 @@ namespace WashedAshore.Perf
     /// -waterFpsWalk instead walks water W10's shore route (park -> the east low bank -> McCord Bluff) and writes
     /// bells-bend-fps-shore.json; the R2 route stays the -bbFpsWalk default.
     /// Fish F9: -bbFishOff deactivates the Fish root (the fish-off arm of the fish-on vs fish-off budget), and the JSON
-    /// records fish on/off with the most live and most drawn fish seen on the walk. On WebGL (no command line) the page
-    /// URL drives it: ?fpswalk=shore runs the shore walk and &amp;fishoff=1 is the fish-off arm; the JSON is printed to the
-    /// browser console between [FPSJSON] and [/FPSJSON] (f-qa reads it from there; no file on WebGL).
+    /// records fish on/off with the most live and most drawn fish seen on the walk.
     /// </summary>
     public class BellsBendFpsWalk : MonoBehaviour
     {
@@ -32,16 +30,6 @@ namespace WashedAshore.Perf
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Boot()
         {
-            if (Application.platform == RuntimePlatform.WebGLPlayer)
-            {
-                string walk = Query("fpswalk");
-                if (walk == null) return;
-                shore = walk == "shore";
-                fishOff = Query("fishoff") == "1";
-                Debug.Log($"[BellsBendFps] web walk requested: route {(shore ? "shore" : "r2")}, fish {(fishOff ? "off" : "on")}");
-                new GameObject("BellsBendFpsWalk").AddComponent<BellsBendFpsWalk>();
-                return;
-            }
             var args = System.Environment.GetCommandLineArgs();
             if (!args.Contains(Arg) && !args.Contains(ShoreArg)) return;
             shore = args.Contains(ShoreArg);
@@ -51,27 +39,12 @@ namespace WashedAshore.Perf
             new GameObject("BellsBendFpsWalk").AddComponent<BellsBendFpsWalk>();
         }
 
-        /// <summary>A query parameter of the page URL (WebGL), or null.</summary>
-        static string Query(string key)
-        {
-            string url = Application.absoluteURL ?? "";
-            int q = url.IndexOf('?');
-            if (q < 0) return null;
-            foreach (var pair in url.Substring(q + 1).Split('&', '#'))
-            {
-                int eq = pair.IndexOf('=');
-                string k = eq < 0 ? pair : pair.Substring(0, eq);
-                if (k == key) return eq < 0 ? "" : System.Uri.UnescapeDataString(pair.Substring(eq + 1));
-            }
-            return null;
-        }
-
         IEnumerator Start()
         {
             Application.runInBackground = true;
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = -1;
-            if (Application.platform != RuntimePlatform.WebGLPlayer) Screen.SetResolution(Width, Height, FullScreenMode.Windowed);
+            Screen.SetResolution(Width, Height, FullScreenMode.Windowed);
             yield return null;
             yield return null;
 
@@ -240,8 +213,7 @@ namespace WashedAshore.Perf
                 $"\"fish\":{(fishOff || !FishPopulation.Active ? "false" : "true")},\"fishLiveMax\":{fishLiveMax},\"fishDrawnMax\":{fishDrawnMax}," +
                 $"\"tiles\":{Terrain.activeTerrains.Length},\"tree_instances\":{trees}" + (shore ? ",\"route_name\":\"shore\",\"shore_leg\":" + LegStats(legMs) + "}" : "}");
             Debug.Log("[BellsBendFps] " + json);
-            Debug.Log("[FPSJSON]" + json + "[/FPSJSON]");   // one line, easy to cut from a browser console or Player.log
-            if (Application.platform == RuntimePlatform.WebGLPlayer) return;
+            Debug.Log("[FPSJSON]" + json + "[/FPSJSON]");   // one line, easy to cut from Player.log
             var dir = Path.GetDirectoryName(Application.consoleLogPath);
             if (string.IsNullOrEmpty(dir)) dir = Application.persistentDataPath;
             var tag = (shore ? "-shore" : "") + (wildlifeOff ? "-nowildlife" : "") + (birdsOff ? "-nobirds" : "") + (fishOff ? "-nofish" : "");
