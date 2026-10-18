@@ -4,7 +4,7 @@
 // distance copied into WaterMaps R (north of the line: from bed depth, recorded exception).
 // Ripple normals are the analytic gradient of the shared f(x, z, t) in WaterSurface.hlsl, plus two
 // flow-advected micro-normal layers (visual only). Sky/probe reflection with Schlick Fresnel, dulled to
-// overcast. No refraction, no planar camera, no _Time (the flow phase comes from WaterBody), no inline samplers (WebGL2).
+// overcast. No refraction, no planar camera, no _Time (the flow phase comes from WaterBody), no inline samplers (keeps the GL Core fallback simple).
 // Premultiplied output: rgb = light the surface adds, a = how much of the scene behind shows through.
 Shader "WashedAshore/BellsBendWater"
 {

@@ -3,7 +3,7 @@
 // about that axis to face the camera (yaw only), so it never shows edge-on and never tilts. Alpha blended with the
 // coverage baked into the atlas' far-card region; fades in with distance as the geometry LODs fade out. It is the one
 // thing in the scene exempt from the 120-520 m fog: it carries its own haze toward unity_FogColor, capped below 1, so
-// the tower still reads at 1 km without glowing. One pass, no depth or opaque texture (WebGL2-safe), ZWrite off, drawn
+// the tower still reads at 1 km without glowing. One pass, no depth or opaque texture (keeps the GL Core fallback simple), ZWrite off, drawn
 // just after the water (Transparent+5). Nothing emissive: the lit term is the sky's ambient plus the main light.
 Shader "WashedAshore/LookoutFarCard"
 {

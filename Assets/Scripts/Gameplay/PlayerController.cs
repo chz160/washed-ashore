@@ -118,20 +118,9 @@ namespace WashedAshore.Gameplay
 
         void Start()
         {
-            if (ShouldLockOnStart(Application.platform))
-                LockCursor();
+            LockCursor();
             Respawn();
         }
-
-        // Browsers only grant pointer lock after a user click and release it themselves on
-        // Esc, so WebGL locks on click. Every other platform locks on Start as before.
-        // Pure so EditMode tests can cover each platform without building for it.
-        public static bool ShouldLockOnStart(RuntimePlatform p) => p != RuntimePlatform.WebGLPlayer;
-
-        public static bool ShouldRelockOnClick(RuntimePlatform p) => p == RuntimePlatform.WebGLPlayer;
-
-        public static bool ShouldApplyMouseLook(RuntimePlatform p, CursorLockMode lockState) =>
-            p != RuntimePlatform.WebGLPlayer || lockState == CursorLockMode.Locked;
 
         static void LockCursor()
         {
@@ -187,11 +176,6 @@ namespace WashedAshore.Gameplay
         void Update()
         {
             float dt = Time.deltaTime;
-            // WebGL: the browser drops pointer lock on Esc; the next click asks for it again.
-            if (ShouldRelockOnClick(Application.platform)
-                && Cursor.lockState != CursorLockMode.Locked
-                && Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
-                LockCursor();
             Look(dt);
             Move(dt);
             GuardFallThrough();
@@ -200,9 +184,7 @@ namespace WashedAshore.Gameplay
         void Look(float dt)
         {
             if (controlSuspended) return;
-            Vector2 mouseDelta = ShouldApplyMouseLook(Application.platform, Cursor.lockState)
-                ? lookAction.ReadValue<Vector2>()
-                : Vector2.zero;
+            Vector2 mouseDelta = lookAction.ReadValue<Vector2>();
             Vector2 delta = mouseDelta * lookSensitivity
                 + stickLookAction.ReadValue<Vector2>() * (stickLookSpeed * dt);
             transform.Rotate(0f, delta.x, 0f, Space.Self);

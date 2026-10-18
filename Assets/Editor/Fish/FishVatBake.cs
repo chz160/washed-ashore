@@ -15,7 +15,7 @@ namespace WashedAshore.Fish.Editor
     /// loop as FishSwimLoop plays it, the version FishImportCheck grades as passing) and an instanced FishUnderwater material.
     /// Then FishBodies.asset (f-engineer's type: one body per brief variant, in fish-targets.json order) and
     /// Art/FishRenderSet.asset. No yaw anywhere: the clip is baked after the import facing fix.
-    /// Format: RGBAHalf (xyz position, w = two 5-bit octahedral normal components), or with <see cref="Rgba32"/> the WebGL2
+    /// Format: RGBAHalf (xyz position, w = two 5-bit octahedral normal components), or with <see cref="Rgba32"/> the low-end
     /// fallback (positions quantised to the clip box + an RGBA32 normal texture); f-td 5.4(e).
     /// Run: unity command eval "return WashedAshore.Fish.Editor.FishVatBake.Bake();"
     /// </summary>

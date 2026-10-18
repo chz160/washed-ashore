@@ -20,8 +20,6 @@
     tag is that version with a "v" in front. The tag points at the current
     commit, which must already be pushed.
 
-    The web build is not part of this. Use deploy-web.ps1 for that.
-
 .PARAMETER Platform
     Which platforms to release: windows, linux, mac. Give a list to pick some,
     for example -Platform windows,linux. Leave it off to release all three.
@@ -35,6 +33,9 @@
 
 .PARAMETER Prerelease
     Mark the release as a pre-release.
+
+.PARAMETER StageOnly
+    Build the packages into Builds/release-local and stop. Does not need gh, does not tag or upload anything.
 
 .PARAMETER Draft
     Create the release as a draft, so it is not public until you publish it on GitHub.
@@ -50,7 +51,8 @@ param(
     [switch]$Build,
     [string]$Notes,
     [switch]$Prerelease,
-    [switch]$Draft
+    [switch]$Draft,
+    [switch]$StageOnly
 )
 
 $ErrorActionPreference = "Stop"
@@ -294,15 +296,17 @@ function New-DebPackage {
         [string[]]@((Join-Path $parts "debian-binary"), (Join-Path $parts "control.tar.gz"), (Join-Path $parts "data.tar.gz")))
 }
 
-if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
+if (-not $StageOnly -and -not (Get-Command gh -ErrorAction SilentlyContinue)) {
     throw "gh not found. Install the GitHub CLI from https://cli.github.com, then run 'gh auth login'."
 }
-& gh auth status *> $null
-if ($LASTEXITCODE -ne 0) { throw "gh is not logged in. Run 'gh auth login' first." }
+if (-not $StageOnly) {
+    & gh auth status *> $null
+    if ($LASTEXITCODE -ne 0) { throw "gh is not logged in. Run 'gh auth login' first." }
+}
 
 # The tag is created on GitHub, so the commit has to be there already.
 $commit = (& git -C $root rev-parse HEAD).Trim()
-if (-not (& git -C $root branch -r --contains $commit)) {
+if (-not $StageOnly -and -not (& git -C $root branch -r --contains $commit)) {
     throw "Commit $($commit.Substring(0, 7)) is not on GitHub yet. Push it first."
 }
 if (& git -C $root status --porcelain --untracked-files=no) {
@@ -352,6 +356,8 @@ foreach ($key in $platforms) {
         }
         "mac" {
             $asset = Join-Path $stageRoot "WashedAshore-$version-mac.zip"
+            # Unsigned build: ship the how-to-open note next to the app.
+            Copy-Item (Join-Path $root "tools/release/README-macOS.txt") (Join-Path $stage "WashedAshore/README-macOS.txt") -Force
             # Unity's player binary and its native libraries must stay executable inside the bundle.
             New-ReleaseZip (Join-Path $stage "WashedAshore") "WashedAshore" $asset {
                 param($rel) $rel -match "/Contents/MacOS/" -or $rel -match "\.(dylib|bundle)$"
@@ -368,6 +374,15 @@ foreach ($key in $platforms) {
     if ($mb -ge 2048) { throw ("{0} is {1:N0} MB, over GitHub's 2 GiB limit for a release file." -f (Split-Path $asset -Leaf), $mb) }
     Write-Host ("  {0} ({1:N1} MB)" -f (Split-Path $asset -Leaf), $mb)
     $assets += $asset
+}
+
+if ($StageOnly) {
+    $out = Join-Path $root "Builds/release-local"
+    New-Item -ItemType Directory $out -Force | Out-Null
+    foreach ($a in $assets) { Copy-Item $a $out }
+    Write-Host "Staged locally in $out (nothing uploaded):" -ForegroundColor Green
+    Get-ChildItem $out | ForEach-Object { Write-Host ("  {0} ({1:N1} MB)" -f $_.Name, ($_.Length / 1MB)) }
+    return
 }
 
 if (-not $Notes) {

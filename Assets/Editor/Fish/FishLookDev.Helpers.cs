@@ -89,8 +89,11 @@ namespace WashedAshore.Fish.Editor
             foreach (var shader in shaders)
             {
                 int bad = 0, n = 0;
+                var skipped = new List<string>();
                 var pass = ShaderUtil.GetShaderData(shader).GetSubshader(0).GetPass(0);
-                foreach (var (platform, target) in new[] { (UnityEditor.Rendering.ShaderCompilerPlatform.D3D, BuildTarget.StandaloneWindows64), (UnityEditor.Rendering.ShaderCompilerPlatform.GLES3x, BuildTarget.WebGL) })
+                foreach (var (platform, target) in new[] { (UnityEditor.Rendering.ShaderCompilerPlatform.D3D, BuildTarget.StandaloneWindows64), (UnityEditor.Rendering.ShaderCompilerPlatform.Vulkan, BuildTarget.StandaloneLinux64), (UnityEditor.Rendering.ShaderCompilerPlatform.OpenGLCore, BuildTarget.StandaloneLinux64), (UnityEditor.Rendering.ShaderCompilerPlatform.Metal, BuildTarget.StandaloneOSX) })
+                {
+                    if (!BuildPipeline.IsBuildTargetSupported(BuildPipeline.GetBuildTargetGroup(target), target)) { skipped.Add($"{platform}/{target}"); continue; }
                     foreach (var kw in new[] { new string[0], new[] { "FOG_LINEAR" }, new[] { "INSTANCING_ON" } })
                         foreach (var stage in new[] { UnityEditor.Rendering.ShaderType.Vertex, UnityEditor.Rendering.ShaderType.Fragment })
                         {
@@ -100,7 +103,9 @@ namespace WashedAshore.Fish.Editor
                             bad++;
                             sb.Append($"\n  FAIL {shader.name} {platform} {stage} [{string.Join(",", kw)}]: " + string.Join(" | ", r.Messages.Select(m => $"line {m.line}: {m.message}")));
                         }
-                sb.Insert(0, $"shader {shader.name}: hasError={ShaderUtil.ShaderHasError(shader)}, variants compiled {n - bad}/{n} (D3D + GLES3x/WebGL)\n");
+                }
+                var skipText = string.Concat(skipped.Select(sk => $"  SKIPPED {sk}: target unavailable (module not installed), not compiled\n"));
+                sb.Insert(0, $"shader {shader.name}: hasError={ShaderUtil.ShaderHasError(shader)}, variants compiled {n - bad}/{n} (D3D, Vulkan, GL Core, Metal)\n" + skipText);
                 if (bad > 0 || ShaderUtil.ShaderHasError(shader)) throw new System.InvalidOperationException(sb.ToString());
             }
             return sb.ToString().TrimEnd();
