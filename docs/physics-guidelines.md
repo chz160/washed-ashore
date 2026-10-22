@@ -69,7 +69,7 @@ If a system needs more than one model (for example, an animal that ragdolls on d
 
 | System | How it moves | Physics | Decision |
 |---|---|---|---|
-| **Player** | `CharacterController.Move` with manual gravity | Kinematic controller, no Rigidbody | ✅ Right model. Before #13, move it from `Update`/`deltaTime` to a fixed input tick (rule 2) |
+| **Player** | `CharacterController.Move` with manual gravity | Kinematic controller, no Rigidbody | ✅ Right model. Before #13, move it from `Update`/`deltaTime` to a fixed input tick (rule 2, #46) |
 | **Player character body** (stances, first-person body) | Animated under the Player. Stances resize the controller after a headroom check | **No colliders, no Rigidbodies, no ragdoll** on the body. Stance checks use NonAlloc overlaps with explicit masks and `Ignore` | ✅ Right for now. Hitboxes (rule 3) and a death ragdoll (rule 8) come with combat or death. Animators are `AlwaysAnimate`; revisit for remote players and the server |
 | **Wade and swim** | Analytic: depth = water surface minus terrain height | No water colliders or triggers | ✅ Correct (rule 11) |
 | **Fish** | Simulated virtually, not as GameObjects, with analytic steering; drawn with instancing and baked vertex animation | **Deliberately none.** Rule F10 ("fish never collide"), enforced in `FishSceneSetup` and `FishLiveSetTests` | ✅ Correct (rules 6 and 7). Fish mustn't bump the swimmer or block queries. **For fishing:** the bobber and line use queries plus the water function, and only a **hooked** fish becomes a real object, simulated on the server and kinematic (or a scripted fight). The school never gets colliders |
@@ -85,12 +85,12 @@ If a system needs more than one model (for example, an animal that ragdolls on d
 
 ## Known gaps (fix as these areas are touched)
 
-1. **The Layer Collision Matrix is all on, and the layers are too few.** The player is on `Default`. There's no `Player`, `Wildlife`, `Interactable`, `Hitbox`, `Prop` or `Ragdoll` layer. Add the layers, then switch off the unused pairs (rule 22).
-2. **Allocations in per-frame or burst code:** `WorldBoundsClamp.ClampBodies` and `RobinFlightPlanner`'s `SphereCastAll` (rule 17).
-3. **Colliders moved by transform with no kinematic Rigidbody:** `Hinge` leaves, `WindowSash`, `BoundaryGate` (rules 9 and 10).
-4. **The climb fit test** (`PlayerController.Climb.cs`) masks `~excludeLayers`, which includes `WorldBounds` and `Ignore Raycast`. Use a named `WorldLayers` mask.
-5. **Single-player assumptions** that need removing before #13: player lookups with `FindGameObjectWithTag("Player")` (`TowerWalkZones`, `TrapDoor`, `WildlifeAgent`, `WorldBoundsClamp`), and player state that `TowerWalkZones` keeps (it caches a single player's controller).
-6. **No explicit cooking options** on the tower's convex MeshColliders. The defaults work, but set them explicitly when the builder is next edited (rule 21).
+1. **(#43) The Layer Collision Matrix is all on, and the layers are too few.** The player is on `Default`. There's no `Player`, `Wildlife`, `Interactable`, `Hitbox`, `Prop` or `Ragdoll` layer. Add the layers, then switch off the unused pairs (rule 22).
+2. **(#44) Allocations in per-frame or burst code:** `WorldBoundsClamp.ClampBodies` and `RobinFlightPlanner`'s `SphereCastAll` (rule 17).
+3. **(#45) Colliders moved by transform with no kinematic Rigidbody:** `Hinge` leaves, `WindowSash`, `BoundaryGate` (rules 9 and 10).
+4. **(#43) The climb fit test** (`PlayerController.Climb.cs`) masks `~excludeLayers`, which includes `WorldBounds` and `Ignore Raycast`. Use a named `WorldLayers` mask.
+5. **(#46) Single-player assumptions** that need removing before #13: player lookups with `FindGameObjectWithTag("Player")` (`TowerWalkZones`, `TrapDoor`, `WildlifeAgent`, `WorldBoundsClamp`), and player state that `TowerWalkZones` keeps (it caches a single player's controller).
+6. **(#45) No explicit cooking options** on the tower's convex MeshColliders. The defaults work, but set them explicitly when the builder is next edited (rule 21).
 
 ## Checklist for any new system or pod
 
