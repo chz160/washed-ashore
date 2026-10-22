@@ -6,6 +6,18 @@
 
 **Targets: Windows, Linux, macOS (macOS is an unsigned test build).** The web build is retired (2026-10-14, #14): see `_bmad-output/poc/web-retired.md`. Web criteria and "breaking the web build = automatic FAIL" in older specs and reports no longer bind.
 
+## Physics: when to use it and when not to
+
+**Before adding or changing anything that moves, collides or runs physics queries, read [`docs/physics-guidelines.md`](docs/physics-guidelines.md) and follow it.** In short:
+- The player is a kinematic CharacterController.
+- Animals, birds and fish use scripted or analytic motion, with no colliders unless gameplay needs them.
+- Dynamic Rigidbodies are simulated only on the server, and only when something must tumble and settle.
+- Cosmetic physics runs on each client.
+- Every query uses a named layer mask, `QueryTriggerInteraction` set and NonAlloc.
+- No collider moves without a kinematic Rigidbody.
+
+Every spec states which motion model its system uses.
+
 ## Model facing (rigged FBX)
 
 Unity's forward is +Z. Most vendor rigged FBX files arrive facing -Z, among them Quaternius animals and characters (see `_bmad-output/poc/vendor-facing-survey.md`). `Assets/Editor/Wildlife/ModelFacingPostprocessor.cs` fixes this at import time: it detects the facing and bakes a 180° yaw into the armature root, the mesh node and the clips.
