@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5d779a25e848454fa1c9bd4e1741f05, type: 3}
+  m_Name: Women_Worker
+  m_EditorClassIdentifier: WashedAshore.Character.Appearance::WashedAshore.Character.Appearance.CharacterAppearance
+  id: Women_Worker
+  bodyType: 1
+  skeleton: {fileID: 5205586927680372122, guid: 408bb29a3eef2794e9f5e2d7c13fa80c, type: 3}
+  controller: {fileID: 9100000, guid: cb37ee3561d8f584395680448b5f6994, type: 2}
+  shadowController: {fileID: 22100000, guid: b3ec315d127250748b5a6e833d8c575f, type: 2}
+  rangeLowView: {fileID: 22100000, guid: 80e2708753265d54cb55dc6ff12ccc9e, type: 2}
+  rangeHighView: {fileID: 22100000, guid: 28333d28dd9e0b347987f3cc47672af2, type: 2}
+  rangeLowShadow: {fileID: 22100000, guid: 587178ba44f2a91459fbd8c0f635b7a4, type: 2}
+  rangeHighShadow: {fileID: 22100000, guid: 7eefb4ac75aa54548a612431bd5203ed, type: 2}
+  head: {fileID: 919132149155446097, guid: ea0aca775b08e9a4f9db68d86000bd7b, type: 3}
+  body: {fileID: 919132149155446097, guid: 2853b25608b6c1642878957a12fef2ff, type: 3}
+  legs: {fileID: 919132149155446097, guid: 70a0397366f52d541bc442344e0ea0f1, type: 3}
+  feet: {fileID: 919132149155446097, guid: d45af5ee3d5e7ed4c978ce7258bb6b45, type: 3}
+  skeletonScale: 1
+  tints: []
+  poseBounds:
+    m_Center: {x: -0.002177, y: 0.7892734, z: 0.6245442}
+    m_Extent: {x: 0.7989776, y: 1.1566504, z: 1.3630629}
+  hasPoseBounds: 1

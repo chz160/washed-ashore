@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using WashedAshore.Birds;
 using WashedAshore.Fish;
+using WashedAshore.Wildlife;
 using WashedAshore.Gameplay;
 
 namespace WashedAshore.Perf
@@ -21,11 +23,27 @@ namespace WashedAshore.Perf
     {
         public const string Arg = "-bbFpsWalk", ShoreArg = "-waterFpsWalk";
         // Optional A8/B8-style arms: deactivate the scene roots before the warm-up.
-        const string WildlifeOffArg = "-bbWildlifeOff", BirdsOffArg = "-bbBirdsOff", FishOffArg = "-bbFishOff";
-        static bool wildlifeOff, birdsOff, fishOff, shore;
+        const string WildlifeOffArg = "-bbWildlifeOff", BirdsOffArg = "-bbBirdsOff", FishOffArg = "-bbFishOff", BodyOffArg = "-bbBodyOff";
+        static bool wildlifeOff, birdsOff, fishOff, bodyOff, shore;
+        static float meanSpeed;
+        static int smrCount, animatorCount;
         static int fishLiveMax, fishDrawnMax;
         const float Speed = 5f, Eye = 1.7f, Warmup = 4f, RidgeSearch = 1500f, Grid = 10f;
+        // Fixed deterministic route (td): open ground, the tower base, a 20 s look-down at +60; about 2 min of walking per arm with the first 15 s discarded.
+        const float FixedWarmup = 15f, FixedRouteSeconds = 120f, LookDownSeconds = 20f, LookDownPitch = 60f;
+        const int FixedSeed = 101;   // the same wildlife, bird and fish seed in every arm
+        static readonly List<double> lookMs = new List<double>();
         const int Width = 1920, Height = 1080;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void FixSeeds()
+        {
+            var a = System.Environment.GetCommandLineArgs();
+            if (!a.Contains(Arg)) return;   // the shore route keeps its own setup
+            WildlifeRandom.OverrideSeed(FixedSeed);
+            BirdRandom.OverrideSeed(FixedSeed);
+            FishRandom.OverrideSeed(FixedSeed);
+        }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Boot()
@@ -36,6 +54,7 @@ namespace WashedAshore.Perf
             wildlifeOff = args.Contains(WildlifeOffArg);
             birdsOff = args.Contains(BirdsOffArg);
             fishOff = args.Contains(FishOffArg);
+            bodyOff = args.Contains(BodyOffArg);
             new GameObject("BellsBendFpsWalk").AddComponent<BellsBendFpsWalk>();
         }
 
@@ -55,40 +74,91 @@ namespace WashedAshore.Perf
                 if (fishOff && root.name == "Fish") root.SetActive(false);
             }
             var player = FindAnyObjectByType<PlayerController>();
-            if (player)
-            {
-                player.enabled = false;
-                var cc = player.GetComponent<CharacterController>();
-                if (cc) cc.enabled = false;
-            }
+            // The PlayerController stays ENABLED in both arms: the real controller moves at Speed along the route (a scripted move input), so the
+            // real view code feeds the real animator. The arms differ only in -bbBodyOff, which keeps the character body from being assembled at all.
             var cam = Camera.main;
             var mover = player ? player.transform : cam.transform;
 
             var route = shore ? ShoreRoute() : Route();
             float total = 0f;
             for (int i = 1; i < route.Count; i++) total += Vector3.Distance(route[i - 1], route[i]);
+            if (player) StartAt(player, route[0], route.Count > 1 ? route[1] : route[0]);
             var ms = new List<double>();
             var legMs = new List<double>(); // shore route only: frames from the first bank waypoint on (w-qa W10)
             float legStart = shore ? ShoreLegStart(route) : float.MaxValue;
-            float t = -Warmup;
-            while (true)
+            float warm = shore ? Warmup : FixedWarmup;
+            float t = -warm, walked = 0f, timed = 0f;
+            int target = 1;
+            Vector3 last = mover.position;
+            float timeLimit = warm + total / Speed * 3f + 60f;
+            while (target < route.Count)
             {
-                float d = Mathf.Max(0f, t) * Speed;
-                if (d >= total) break;
-                Place(mover, route, d);
+                if (player)
+                {
+                    Vector3 to = route[target] - mover.position;
+                    to.y = 0f;
+                    if (to.magnitude < 3f) { target++; continue; }
+                    mover.rotation = Quaternion.LookRotation(to.normalized);
+                    player.ExternalMoveInput = Vector2.up;
+                }
+                else
+                {
+                    float dist = Mathf.Max(0f, t) * Speed;
+                    if (dist >= total) break;
+                    Place(mover, route, dist);
+                }
                 yield return null;
                 CountFish();
                 float dt = Time.unscaledDeltaTime;
+                Vector3 now = mover.position;
+                float step = new Vector2(now.x - last.x, now.z - last.z).magnitude;
+                last = now;
                 if (t >= 0f)
                 {
                     ms.Add(dt * 1000.0);
-                    if (d >= legStart) legMs.Add(dt * 1000.0);
+                    walked += step;
+                    timed += dt;
+                    if (walked >= legStart) legMs.Add(dt * 1000.0);
                 }
                 t += dt;
+                if (t > timeLimit) { Debug.LogWarning("[BellsBendFps] the controller did not finish the route in time; writing what was walked."); break; }
+            }
+            if (player) player.ExternalMoveInput = null;
+            meanSpeed = timed > 0f ? walked / timed : 0f;
+            if (!shore && player)
+            {
+                // 20 s standing at the end of the route (the tower base), looking down at +60 (no input).
+                player.SetLook(player.Yaw, LookDownPitch);
+                float held = 0f;
+                while (held < LookDownSeconds)
+                {
+                    yield return null;
+                    float dtl = Time.unscaledDeltaTime;
+                    lookMs.Add(dtl * 1000.0);
+                    held += dtl;
+                }
+            }
+            if (player)
+            {
+                smrCount = player.GetComponentsInChildren<SkinnedMeshRenderer>(true).Length;
+                animatorCount = player.GetComponentsInChildren<Animator>(true).Length;
             }
             Write(ms, route, total, legMs);
             if (WaterLookShots.Requested) yield return WaterLookShots.Run(); // W5/W10 look shots ride on the same launch
             Application.Quit();
+        }
+
+        /// <summary>Puts the enabled player on the ground at the route start facing the first leg (the controller then walks).</summary>
+        static void StartAt(PlayerController player, Vector3 at, Vector3 toward)
+        {
+            var cc = player.GetComponent<CharacterController>();
+            var tile = TerrainQuery.TileAtOrNearest(at);
+            at.y = (tile ? tile.SampleHeight(at) + tile.transform.position.y : at.y) + 0.5f;
+            var dir = toward - at;
+            dir.y = 0f;
+            if (cc) cc.enabled = false;
+            player.transform.SetPositionAndRotation(at, dir.sqrMagnitude > 1e-4f ? Quaternion.LookRotation(dir.normalized) : player.transform.rotation);
+            if (cc) cc.enabled = true;
         }
 
         static void CountFish()
@@ -106,25 +176,26 @@ namespace WashedAshore.Perf
             var pts = new List<Vector3>();
             var spawn = GameObject.Find("PlayerSpawn");
             var centre = GameObject.Find("LM_OutdoorCenter");
+            var tower = GameObject.Find("TowerBaseSpawn");
             if (spawn) pts.Add(spawn.transform.position);
             if (centre) pts.Add(centre.transform.position);
-            var from = pts.Count > 0 ? pts[pts.Count - 1] : Vector3.zero;
-            // The ridge: the highest land within RidgeSearch of the park, sampled on a coarse grid.
-            Vector3 best = from;
-            float bestY = float.MinValue;
-            for (float z = -RidgeSearch; z <= RidgeSearch; z += Grid)
-                for (float x = -RidgeSearch; x <= RidgeSearch; x += Grid)
-                {
-                    if (x * x + z * z > RidgeSearch * RidgeSearch) continue;
-                    var p = from + new Vector3(x, 0f, z);
-                    var tile = TerrainQuery.TileAt(p);
-                    if (!tile) continue;
-                    float y = tile.SampleHeight(p) + tile.transform.position.y;
-                    if (y > bestY) { bestY = y; best = p; }
-                }
-            pts.Add(best);
+            if (tower) pts.Add(tower.transform.position);
+            // Pad deterministically to FixedRouteSeconds of walking: alternate the open ground and the tower base, then end at the tower base.
+            float len = 0f;
+            for (int i = 1; i < pts.Count; i++) len += Flat(pts[i - 1], pts[i]);
+            bool toCentre = true;
+            while (centre && tower && pts.Count >= 2 && len < Speed * FixedRouteSeconds)
+            {
+                var next = (toCentre ? centre : tower).transform.position;
+                len += Flat(pts[pts.Count - 1], next);
+                pts.Add(next);
+                toCentre = !toCentre;
+            }
+            if (tower && pts.Count > 0 && Flat(pts[pts.Count - 1], tower.transform.position) > 1f) pts.Add(tower.transform.position);
             return pts;
         }
+
+        static float Flat(Vector3 a, Vector3 b) => Vector2.Distance(new Vector2(a.x, a.z), new Vector2(b.x, b.z));
 
         // Water W10 shore route: bank_stations 1410..1611 (the east low-bank run up to McCord Bluff), every 5th station,
         // 6 m inland; generated offline into TestResults/water-w4/support/shore-route.json. Ends on the McCord Bluff landmark.
@@ -211,12 +282,14 @@ namespace WashedAshore.Perf
                 $"\"share_frames_at_or_above_60\":{(s.Count == 0 ? 0 : s.Count(v => v <= 1000.0 / 60.0) / (double)s.Count):F4}," +
                 $"\"wildlife\":{(wildlifeOff ? "false" : "true")},\"birds\":{(birdsOff ? "false" : "true")}," +
                 $"\"fish\":{(fishOff || !FishPopulation.Active ? "false" : "true")},\"fishLiveMax\":{fishLiveMax},\"fishDrawnMax\":{fishDrawnMax}," +
-                $"\"tiles\":{Terrain.activeTerrains.Length},\"tree_instances\":{trees}" + (shore ? ",\"route_name\":\"shore\",\"shore_leg\":" + LegStats(legMs) + "}" : "}");
+                $"\"tiles\":{Terrain.activeTerrains.Length},\"tree_instances\":{trees}," +
+                $"\"body\":\"{(bodyOff ? "off" : "on")}\",\"bodyAnimated\":{(animatorCount > 0 ? "true" : "false")},\"viewBodyActive\":{(smrCount > 0 && !bodyOff ? "true" : "false")},\"smr_count\":{smrCount},\"animator_count\":{animatorCount}," +
+                $"\"mean_speed_mps\":{meanSpeed:F2},\"controller_enabled\":true,\"route_id\":\"{(shore ? "shore" : "bb")}\",\"seed\":{(shore ? 0 : FixedSeed)}" + (shore ? ",\"route_name\":\"shore\",\"shore_leg\":" + LegStats(legMs) + "}" : ",\"route_name\":\"fixed\",\"warmup_s\":15,\"fixed_seed\":101,\"lookdown_leg\":" + LegStats(lookMs) + "}");
             Debug.Log("[BellsBendFps] " + json);
             Debug.Log("[FPSJSON]" + json + "[/FPSJSON]");   // one line, easy to cut from Player.log
             var dir = Path.GetDirectoryName(Application.consoleLogPath);
             if (string.IsNullOrEmpty(dir)) dir = Application.persistentDataPath;
-            var tag = (shore ? "-shore" : "") + (wildlifeOff ? "-nowildlife" : "") + (birdsOff ? "-nobirds" : "") + (fishOff ? "-nofish" : "");
+            var tag = (shore ? "-shore" : "") + (wildlifeOff ? "-nowildlife" : "") + (birdsOff ? "-nobirds" : "") + (fishOff ? "-nofish" : "") + (bodyOff ? "-nobody" : "");
             File.WriteAllText(Path.Combine(dir, $"bells-bend-fps{tag}.json"), json);
         }
     }

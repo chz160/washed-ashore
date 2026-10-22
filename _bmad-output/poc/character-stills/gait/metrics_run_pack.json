@@ -1,0 +1,29 @@
+{
+ "label": "Pack Run",
+ "cycle_s": 0.8,
+ "frames": 24,
+ "mid_stance_hip_m": 0.812,
+ "peak_hip_in_flight_m": 0.878,
+ "peak_hip_m": 0.878,
+ "flight_fraction_of_cycle": 0.5,
+ "flight_s_per_step": 0.2,
+ "stance_knee_flexion_at_mid_stance_deg": 47.8,
+ "peak_knee_flexion_deg": {
+  "L": 127.0,
+  "R": 127.0
+ },
+ "elbow_flexion_deg": {
+  "min": 50.4,
+  "max": 80.9
+ },
+ "torso_lean_deg": {
+  "mean": 5.4,
+  "min": 4.8,
+  "max": 6.3
+ },
+ "finger_spread_deg_mean": 37.0,
+ "clip_speed_mps": 3.035,
+ "stride_m": 2.43,
+ "step_m": 1.21,
+ "cadence_steps_per_s_at_rate_1": 2.5
+}

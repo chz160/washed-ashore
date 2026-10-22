@@ -1,0 +1,29 @@
+{
+ "label": "OLD Sprint full (landed)",
+ "cycle_s": 0.567,
+ "frames": 34,
+ "mid_stance_hip_m": 0.746,
+ "peak_hip_in_flight_m": 0.825,
+ "peak_hip_m": 0.825,
+ "flight_fraction_of_cycle": 0.588,
+ "flight_s_per_step": 0.167,
+ "stance_knee_flexion_at_mid_stance_deg": 65.7,
+ "peak_knee_flexion_deg": {
+  "L": 105.5,
+  "R": 105.2
+ },
+ "elbow_flexion_deg": {
+  "min": 112.6,
+  "max": 130.0
+ },
+ "torso_lean_deg": {
+  "mean": 10.4,
+  "min": 10.4,
+  "max": 10.4
+ },
+ "finger_spread_deg_mean": 37.0,
+ "clip_speed_mps": 7.0,
+ "stride_m": 3.97,
+ "step_m": 1.98,
+ "cadence_steps_per_s_at_rate_1": 3.53
+}

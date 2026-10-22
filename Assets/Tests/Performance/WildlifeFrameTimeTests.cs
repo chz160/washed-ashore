@@ -43,6 +43,7 @@ namespace WashedAshore.Tests.Performance
             public int agentsActive;
             public int agentsOnNavMesh;
             public int animatorsEnabled;
+            public List<string> excludedPlayerAnimators = new List<string>();   // the player's view and shadow body Animators, left out of animatorsEnabled
             public int seed;
         }
 
@@ -129,12 +130,31 @@ namespace WashedAshore.Tests.Performance
                 }
                 else
                 {
+                    string excludedBad = CheckExcludedPlayerAnimators(r.excludedPlayerAnimators, ExpectedPlayerAnimators);
+                    Assert.IsNull(excludedBad, excludedBad);
                     Assert.AreEqual(0, r.agentsActive, "OFF run still has active NavMeshAgents");
                     Assert.AreEqual(0, r.animatorsEnabled, "OFF run still has enabled Animators");
                 }
             }
             Assert.AreEqual(0, agentCreateFailures, "Player logged 'Failed to create agent' (WL-BUG-1)");
             Assert.LessOrEqual(medOn, limitMs, $"Median {medOn:F2} ms with wildlife vs {medOff:F2} ms without");
+        }
+
+        /// <summary>The men's rig has exactly two player Animators (view body and shadow body). A filter that drops more would hide animals; fewer means the filter missed the player.</summary>
+        const int ExpectedPlayerAnimators = 2;
+
+        static string CheckExcludedPlayerAnimators(IReadOnlyList<string> names, int expected) =>
+            names.Count == expected ? null : $"The player-Animator filter excluded {names.Count} Animators, expected exactly {expected} on the men's rig: [{string.Join(", ", names)}]";
+
+        [Test]
+        public void ExcludedPlayerAnimators_WrongCount_TurnsRed()
+        {
+            var two = new List<string> { "Player/ViewBody", "Player/ShadowBody" };
+            Assert.IsNull(CheckExcludedPlayerAnimators(two, ExpectedPlayerAnimators), "two named player Animators must pass");
+            Assert.IsNotNull(CheckExcludedPlayerAnimators(two, 3), "forced failure: expected 3 with 2 found must fail");
+            Assert.IsNotNull(CheckExcludedPlayerAnimators(two.GetRange(0, 1), ExpectedPlayerAnimators), "a filter that finds only one must fail");
+            Assert.IsNotNull(CheckExcludedPlayerAnimators(new List<string>(), ExpectedPlayerAnimators), "a filter that finds none (the R3 fault) must fail");
+            Assert.IsNotNull(CheckExcludedPlayerAnimators(new List<string> { "Player/ViewBody", "Player/ShadowBody", "Deer/Animator" }, ExpectedPlayerAnimators), "a filter that also swallows an animal must fail");
         }
 
         static IEnumerator Walk(RunResult r)
@@ -186,9 +206,14 @@ namespace WashedAshore.Tests.Performance
             var agents = Object.FindObjectsByType<NavMeshAgent>(FindObjectsInactive.Exclude).Where(a => a.isActiveAndEnabled).ToList();
             r.agentsActive = agents.Count;
             r.agentsOnNavMesh = agents.Count(a => a.isOnNavMesh);
-            // Animal Animators only: the Birds root (added after this test) stays on in both runs and is not wildlife.
-            r.animatorsEnabled = Object.FindObjectsByType<Animator>(FindObjectsInactive.Exclude)
-                .Count(a => a.isActiveAndEnabled && a.GetComponentInParent<WashedAshore.Birds.BirdPopulation>() == null);
+            // Animal Animators only: the Birds root (added after this test) stays on in both runs and is not wildlife. The player's view and shadow body
+            // Animators (added by the player-character pod) are on in both runs too; they are excluded by name here and the names are printed and counted.
+            var enabledAnimators = Object.FindObjectsByType<Animator>(FindObjectsInactive.Exclude)
+                .Where(a => a.isActiveAndEnabled && a.GetComponentInParent<WashedAshore.Birds.BirdPopulation>() == null).ToList();
+            r.excludedPlayerAnimators = enabledAnimators.Where(a => a.GetComponentInParent<PlayerController>() != null)
+                .Select(a => $"{a.transform.root.name}/{a.name}").ToList();
+            r.animatorsEnabled = enabledAnimators.Count - r.excludedPlayerAnimators.Count;
+            Debug.Log($"[WildlifeFps] {(r.wildlife ? "ON" : "OFF")} run: {r.excludedPlayerAnimators.Count} player Animators excluded from the animal count: {string.Join(", ", r.excludedPlayerAnimators)}");
         }
 
         static void Place(Transform player, Terrain terrain, Vector2[] route, float distance, float eye)

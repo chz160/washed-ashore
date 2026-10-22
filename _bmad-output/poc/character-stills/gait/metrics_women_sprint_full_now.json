@@ -1,0 +1,29 @@
+{
+ "label": "Women Sprint_Full, on disk now",
+ "cycle_s": 0.667,
+ "frames": 40,
+ "mid_stance_hip_m": 0.865,
+ "peak_hip_in_flight_m": 0.925,
+ "peak_hip_m": 0.925,
+ "flight_fraction_of_cycle": 0.65,
+ "flight_s_per_step": 0.217,
+ "stance_knee_flexion_at_mid_stance_deg": 47.8,
+ "peak_knee_flexion_deg": {
+  "L": 111.5,
+  "R": 112.3
+ },
+ "elbow_flexion_deg": {
+  "min": 81.5,
+  "max": 99.0
+ },
+ "torso_lean_deg": {
+  "mean": 7.7,
+  "min": 7.7,
+  "max": 7.7
+ },
+ "finger_spread_deg_mean": 36.9,
+ "clip_speed_mps": 5.8,
+ "stride_m": 3.87,
+ "step_m": 1.93,
+ "cadence_steps_per_s_at_rate_1": 3.0
+}

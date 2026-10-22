@@ -58,7 +58,7 @@ namespace WashedAshore.Lookout
             InFlightZone = InFootprint && InAnyFlight(p, padFoot, padHead);
             OnRamp = InFootprint && InAnyFlight(p, 0.05f, 0.05f);
 
-            if (InFootprint && !slimmed) { savedRadius = body.radius; savedHeight = body.height; savedStep = body.stepOffset; body.stepOffset = towerStepOffset; player.SetWalkCapsule(towerRadius, towerHeight); slimmed = true; }
+            if (InFootprint && !slimmed) { savedRadius = body.radius; savedHeight = player.StandingHeight; savedStep = body.stepOffset; body.stepOffset = towerStepOffset; player.SetWalkCapsule(towerRadius, towerHeight); slimmed = true; }
             else if (!InFootprint && slimmed) { player.SetWalkCapsule(savedRadius, savedHeight); body.stepOffset = savedStep; slimmed = false; }
 
             // The cap follows what the player stands on, never the footprint: ground level and the pad stay at the game's walk speed.

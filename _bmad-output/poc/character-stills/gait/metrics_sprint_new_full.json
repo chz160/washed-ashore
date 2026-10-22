@@ -1,0 +1,29 @@
+{
+ "label": "NEW Sprint full (v2 arms)",
+ "cycle_s": 0.667,
+ "frames": 40,
+ "mid_stance_hip_m": 0.812,
+ "peak_hip_in_flight_m": 0.872,
+ "peak_hip_m": 0.872,
+ "flight_fraction_of_cycle": 0.65,
+ "flight_s_per_step": 0.217,
+ "stance_knee_flexion_at_mid_stance_deg": 48.4,
+ "peak_knee_flexion_deg": {
+  "L": 113.2,
+  "R": 113.6
+ },
+ "elbow_flexion_deg": {
+  "min": 81.8,
+  "max": 98.9
+ },
+ "torso_lean_deg": {
+  "mean": 10.4,
+  "min": 10.4,
+  "max": 10.4
+ },
+ "finger_spread_deg_mean": 37.0,
+ "clip_speed_mps": 5.631,
+ "stride_m": 3.75,
+ "step_m": 1.88,
+ "cadence_steps_per_s_at_rate_1": 3.0
+}

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5d779a25e848454fa1c9bd4e1741f05, type: 3}
+  m_Name: Men_Farmer
+  m_EditorClassIdentifier: WashedAshore.Character.Appearance::WashedAshore.Character.Appearance.CharacterAppearance
+  id: Men_Farmer
+  bodyType: 0
+  skeleton: {fileID: 245341772450538779, guid: 4ffb1a11221d6fa40be32bc947d4d4be, type: 3}
+  controller: {fileID: 9100000, guid: 205917b9edbf95c46b76b1317110bebf, type: 2}
+  shadowController: {fileID: 22100000, guid: 78779aef6e294c741a8837901b4d2990, type: 2}
+  rangeLowView: {fileID: 22100000, guid: b1421a1b85f57fd4396e531be97deade, type: 2}
+  rangeHighView: {fileID: 22100000, guid: 2af95846363c5814baac11d2501c66d2, type: 2}
+  rangeLowShadow: {fileID: 22100000, guid: 1f2d6d7c167bd9e4693828dab18231b3, type: 2}
+  rangeHighShadow: {fileID: 22100000, guid: d1fba2a544be723409f171b3a3d69241, type: 2}
+  head: {fileID: 919132149155446097, guid: 552ce4f7cbd49db4d85bd6c59b47bff7, type: 3}
+  body: {fileID: 919132149155446097, guid: 850472a90b7f2a94faba34bf14a893fb, type: 3}
+  legs: {fileID: 919132149155446097, guid: e2fce693849738a4a937772ea5e95bda, type: 3}
+  feet: {fileID: 919132149155446097, guid: debfbb1fd57fdf54fba8a6117a2133f4, type: 3}
+  skeletonScale: 1.03
+  tints: []
+  poseBounds:
+    m_Center: {x: -0.006152451, y: 0.8203854, z: 0.63129723}
+    m_Extent: {x: 0.8011312, y: 1.1461706, z: 1.3770164}
+  hasPoseBounds: 1

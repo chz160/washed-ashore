@@ -1,0 +1,20 @@
+{
+    "name": "WashedAshore.Character.Stance",
+    "rootNamespace": "WashedAshore.Character.Stance",
+    "references": [
+        "Unity.InputSystem",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "WashedAshore.Gameplay",
+        "WashedAshore.Character.Appearance"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
