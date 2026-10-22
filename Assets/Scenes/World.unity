@@ -11814,6 +11814,8 @@ GameObject:
   - component: {fileID: 267676272}
   - component: {fileID: 267676271}
   - component: {fileID: 267676270}
+  - component: {fileID: 267676274}
+  - component: {fileID: 267676273}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -11850,6 +11852,38 @@ MonoBehaviour:
   stickLookSpeed: 120
   minPitch: -85
   maxPitch: 85
+  stanceTuning:
+    crouchEye: 1.2
+    squatEye: 1
+    sitEye: 0.8
+    sleepEye: 0.2
+    eyeToCapsuleTop: 0.15
+    crouchSpeed: 1.75
+    crouchEnter: 0.25
+    crouchExit: 0.25
+    squatEnter: 0.4
+    squatExit: 0.4
+    sitEnter: 1
+    sitExit: 0.8
+    sleepEnter: 1.5
+    sleepExit: 1.5
+    sleepFirstSegment: 0.6
+    stillSpeed: 0.1
+    moveInputSqr: 0.01
+    sitMaxSlope: 25
+    sleepMaxSlope: 15
+    sleepMaxGroundVariation: 0.5
+    sitWidth: 0.6
+    sitLength: 0.9
+    sitBand: {x: 0.15, y: 0.6}
+    sleepWidth: 0.7
+    sleepLength: 1.9
+    sleepBand: {x: 0.15, y: 0.5}
+    sleepEyeClearance: 0.2
+    sleepPitch: -60
+    dimSeconds: 2
+    wakeUndimSeconds: 0.5
+    dimExposure: -2.7
   swimTuning: {fileID: 11400000, guid: 7fb1a231f2714080b4a60bb75ac90b40, type: 2}
 --- !u!143 &267676271
 CharacterController:
@@ -11892,6 +11926,42 @@ Transform:
   - {fileID: 1813842455}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &267676273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267676269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f14804149ba2887498f7bda5ab01c849, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WashedAshore.Character.Stance::WashedAshore.Character.Stance.FirstPersonBody
+  backOffset:
+    stand: 0.17
+    crouch: 0.17
+    squat: 0.17
+    sit: 0.17
+    sleep: 0.17
+  headNameToken: Head
+  footDrop: 0.05
+--- !u!114 &267676274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267676269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a848a96b08d4343ba9946e400bed54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WashedAshore.Character.Stance::WashedAshore.Character.Stance.PlayerCharacterView
+  appearance: {fileID: 11400000, guid: fb7e3f9d0e79eb04abc8212912d69b41, type: 2}
+  firstPersonBody: {fileID: 267676273}
+  landAfterAir: 0.25
+  jumpStartVelocity: 1.5
 --- !u!1 &267841388
 GameObject:
   m_ObjectHideFlags: 0

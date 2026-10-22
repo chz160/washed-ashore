@@ -1,0 +1,26 @@
+{
+    "name": "WashedAshore.Tests.EditMode.Character",
+    "rootNamespace": "WashedAshore.Tests.EditMode.Character",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "WashedAshore.Character.Appearance",
+        "WashedAshore.Character.Editor",
+        "WashedAshore.Wildlife.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

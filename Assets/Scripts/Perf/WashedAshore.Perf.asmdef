@@ -4,7 +4,9 @@
     "references": [
         "WashedAshore.Gameplay",
         "WashedAshore.Fish",
-        "WashedAshore.Level"
+        "WashedAshore.Level",
+        "WashedAshore.Wildlife",
+        "WashedAshore.Birds"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

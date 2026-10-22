@@ -1,0 +1,41 @@
+{
+ "Adventurer_Head.fbx": {
+  "eye_in_head_bone_local": [
+   0.00034,
+   0.10368,
+   0.10326
+  ],
+  "up_m": 0.1037,
+  "forward_m": 0.1033,
+  "lateral_m": 0.0003,
+  "eye_vertices": 48,
+  "method": "smallest material furthest forward (Brown)"
+ },
+ "Casual_Head.fbx": {
+  "eye_in_head_bone_local": [
+   0.00034,
+   0.10383,
+   0.10327
+  ],
+  "up_m": 0.1038,
+  "forward_m": 0.1033,
+  "lateral_m": 0.0003,
+  "eye_vertices": 48,
+  "method": "smallest material furthest forward (Brown)"
+ },
+ "Formal_Head.fbx": {
+  "error": "C:\\Users\\noah\\AppData\\Local\\Temp\\claude\\C--Tools-ruflo-studio\\d30412c9-b209-4b7a-8cb4-af7df6b6cb3b\\scratchpad\\artist\\stage15\\Assets\\ThirdParty\\Quaternius\\ModularCharacters\\Women\\Parts\\Formal\\Formal_Head.fbx: no eye material"
+ },
+ "Worker_Head.fbx": {
+  "eye_in_head_bone_local": [
+   0.00034,
+   0.10368,
+   0.10326
+  ],
+  "up_m": 0.1037,
+  "forward_m": 0.1033,
+  "lateral_m": 0.0003,
+  "eye_vertices": 48,
+  "method": "smallest material furthest forward (Brown)"
+ }
+}

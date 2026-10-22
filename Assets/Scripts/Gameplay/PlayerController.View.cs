@@ -60,7 +60,7 @@ namespace WashedAshore.Gameplay
         {
             if (cameraPivot == null) return;
             viewPoseOverridden = eyeHeightOverridden = false;
-            cameraPivot.localPosition = authoredPivotPosition;
+            cameraPivot.localPosition = new Vector3(authoredPivotPosition.x, StanceEye, authoredPivotPosition.z);
             cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
             if (viewCamera != null) viewCamera.fieldOfView = authoredFov;
         }
@@ -72,7 +72,11 @@ namespace WashedAshore.Gameplay
             horizontalVelocity = Vector3.zero;
         }
 
-        public void ResumeControl() => controlSuspended = false;
+        public void ResumeControl()
+        {
+            controlSuspended = false;
+            stanceResumeFrame = Time.frameCount;   // the press that ended the focus must not also change stance
+        }
 
         /// <summary>Sets where the player looks: body yaw and view pitch (degrees; positive pitch looks down).</summary>
         public void SetLook(float yaw, float lookPitch)

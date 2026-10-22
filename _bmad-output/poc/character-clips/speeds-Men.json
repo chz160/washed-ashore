@@ -1,0 +1,141 @@
+{
+ "scale": 1.03,
+ "clips": [
+  {
+   "name": "Run",
+   "speed": 3.1261
+  },
+  {
+   "name": "Run_Back",
+   "speed": 3.1261
+  },
+  {
+   "name": "Run_Left",
+   "speed": 3.125
+  },
+  {
+   "name": "Run_Right",
+   "speed": 3.125
+  },
+  {
+   "name": "Run_Shoot",
+   "speed": 3.1261
+  },
+  {
+   "name": "Walk",
+   "speed": 1.3771
+  },
+  {
+   "name": "CrouchWalk",
+   "speed": 1.786
+  },
+  {
+   "name": "CrouchWalkBack",
+   "speed": 1.786
+  },
+  {
+   "name": "CrouchWalkBack_High",
+   "speed": 1.786
+  },
+  {
+   "name": "CrouchWalkBack_Low",
+   "speed": 1.786
+  },
+  {
+   "name": "CrouchWalkLeft",
+   "speed": 1.786
+  },
+  {
+   "name": "CrouchWalkLeft_High",
+   "speed": 1.786
+  },
+  {
+   "name": "CrouchWalkLeft_Low",
+   "speed": 1.786
+  },
+  {
+   "name": "CrouchWalkRight",
+   "speed": 1.786
+  },
+  {
+   "name": "CrouchWalkRight_High",
+   "speed": 1.786
+  },
+  {
+   "name": "CrouchWalkRight_Low",
+   "speed": 1.786
+  },
+  {
+   "name": "CrouchWalk_High",
+   "speed": 1.786
+  },
+  {
+   "name": "CrouchWalk_Low",
+   "speed": 1.786
+  },
+  {
+   "name": "Jog",
+   "speed": 4.4784
+  },
+  {
+   "name": "JogBack",
+   "speed": 4.4784
+  },
+  {
+   "name": "JogBack_Full",
+   "speed": 4.4784
+  },
+  {
+   "name": "JogLeft",
+   "speed": 4.4784
+  },
+  {
+   "name": "JogLeft_Full",
+   "speed": 4.4784
+  },
+  {
+   "name": "JogRight",
+   "speed": 4.4784
+  },
+  {
+   "name": "JogRight_Full",
+   "speed": 4.4784
+  },
+  {
+   "name": "Jog_Full",
+   "speed": 4.4784
+  },
+  {
+   "name": "Sprint",
+   "speed": 5.7999
+  },
+  {
+   "name": "SprintBack",
+   "speed": 5.7999
+  },
+  {
+   "name": "SprintBack_Full",
+   "speed": 5.7999
+  },
+  {
+   "name": "SprintLeft",
+   "speed": 5.7999
+  },
+  {
+   "name": "SprintLeft_Full",
+   "speed": 5.7999
+  },
+  {
+   "name": "SprintRight",
+   "speed": 5.7999
+  },
+  {
+   "name": "SprintRight_Full",
+   "speed": 5.7999
+  },
+  {
+   "name": "Sprint_Full",
+   "speed": 5.7999
+  }
+ ]
+}

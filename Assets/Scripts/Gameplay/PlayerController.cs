@@ -56,6 +56,8 @@ namespace WashedAshore.Gameplay
         public float WalkSpeed => walkSpeed;
         /// <summary>Upper limit on the walk target speed set by a place that wants a slower walk (the lookout stairs); 0 = none.</summary>
         public float WalkSpeedCap { get; set; }
+        /// <summary>When set, this move vector (x right, y forward) replaces the Move action: the FPS probe walks the real controller with it. Null in play.</summary>
+        public Vector2? ExternalMoveInput { get; set; }
         /// <summary>Metres the controller is pulled back down onto the ground after a step that left it airborne; 0 = off.</summary>
         public float GroundSnapDistance { get; set; }
         public float SprintSpeed => sprintSpeed;
@@ -84,6 +86,7 @@ namespace WashedAshore.Gameplay
             SetupWater();
             SetupClimb();
             SetupView();
+            SetupStance();
             // The shared gamepad South: the Interactor runs first and takes the press while a prompt shows.
             interactor = GetComponentInChildren<Interactor>();
         }
@@ -95,6 +98,7 @@ namespace WashedAshore.Gameplay
             stickLookAction.Enable();
             sprintAction.Enable();
             jumpAction.Enable();
+            EnableStance();
         }
 
         void OnDisable()
@@ -104,6 +108,7 @@ namespace WashedAshore.Gameplay
             stickLookAction.Disable();
             sprintAction.Disable();
             jumpAction.Disable();
+            DisableStance();
         }
 
         void OnDestroy()
@@ -113,6 +118,7 @@ namespace WashedAshore.Gameplay
             stickLookAction.Dispose();
             sprintAction.Dispose();
             jumpAction.Dispose();
+            DisposeStance();
             TeardownClimb();
         }
 
@@ -139,6 +145,7 @@ namespace WashedAshore.Gameplay
             controller.height = height;
             controller.center = new Vector3(controller.center.x, bottom + height * 0.5f, controller.center.z);
             authoredRadius = radius;
+            OnWalkCapsuleSet(height);
         }
 
         public void Respawn()
@@ -170,6 +177,7 @@ namespace WashedAshore.Gameplay
             horizontalVelocity = Vector3.zero;
             verticalVelocity = 0f;
             waterMode = WaterMode.Dry; // the next frame's depth decides (spec §2: no stale state)
+            ResetStance();
             Teleported?.Invoke();
         }
 
@@ -177,13 +185,14 @@ namespace WashedAshore.Gameplay
         {
             float dt = Time.deltaTime;
             Look(dt);
+            StanceTick(dt);
             Move(dt);
             GuardFallThrough();
         }
 
         void Look(float dt)
         {
-            if (controlSuspended) return;
+            if (controlSuspended || StanceLookLocked) return;
             Vector2 mouseDelta = lookAction.ReadValue<Vector2>();
             Vector2 delta = mouseDelta * lookSensitivity
                 + stickLookAction.ReadValue<Vector2>() * (stickLookSpeed * dt);
@@ -196,18 +205,19 @@ namespace WashedAshore.Gameplay
         void Move(float dt)
         {
             UpdateWater();
-            Vector2 input = controlSuspended ? Vector2.zero : Vector2.ClampMagnitude(moveAction.ReadValue<Vector2>(), 1f);
+            Vector2 input = controlSuspended ? Vector2.zero : Vector2.ClampMagnitude(ExternalMoveInput ?? moveAction.ReadValue<Vector2>(), 1f);
             bool sprint = !controlSuspended && sprintAction.IsPressed();
             // Stair lanes: one check, and off any climb area the walk below runs as before.
             if (ClimbActive && ClimbMove(input, sprint, dt)) return;
             Vector3 target = climbArea != null ? ClimbWalkTarget(input) : MoveTarget(input, sprint, dt);
             if (WalkSpeedCap > 0f) target = Vector3.ClampMagnitude(target, WalkSpeedCap);
+            if (StanceSpeedLimit >= 0f) target = Vector3.ClampMagnitude(target, StanceSpeedLimit);
             float rate = MoveRate(target, input.sqrMagnitude > 0f);
             horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, target, rate * dt);
 
             if (waterMode == WaterMode.Swim)
                 verticalVelocity = SwimVerticalVelocity(dt);
-            else if (controller.isGrounded && CanJump && JumpPressed())
+            else if (controller.isGrounded && CanJump && stance == Stance.Stand && stanceJumpConsumedFrame != Time.frameCount && JumpPressed())
                 verticalVelocity = Mathf.Sqrt(2f * jumpHeight * -gravity);
             else if (controller.isGrounded && verticalVelocity < 0f)
                 verticalVelocity = groundedStickVelocity;

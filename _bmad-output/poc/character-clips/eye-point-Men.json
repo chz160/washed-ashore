@@ -1,0 +1,62 @@
+{
+ "Adventurer_Head.fbx": {
+  "eye_in_head_bone_local": [
+   0.0004,
+   0.10942,
+   0.10113
+  ],
+  "up_m": 0.1094,
+  "forward_m": 0.1011,
+  "lateral_m": 0.0003,
+  "eye_vertices": 48,
+  "method": "material named Eye"
+ },
+ "Casual2_Head.fbx": {
+  "eye_in_head_bone_local": [
+   0.0004,
+   0.10942,
+   0.10113
+  ],
+  "up_m": 0.1094,
+  "forward_m": 0.1011,
+  "lateral_m": 0.0003,
+  "eye_vertices": 48,
+  "method": "material named Eye"
+ },
+ "Casual_Head.fbx": {
+  "eye_in_head_bone_local": [
+   0.0004,
+   0.10942,
+   0.10113
+  ],
+  "up_m": 0.1094,
+  "forward_m": 0.1011,
+  "lateral_m": 0.0003,
+  "eye_vertices": 48,
+  "method": "material named Eye"
+ },
+ "Farmer_Head.fbx": {
+  "eye_in_head_bone_local": [
+   0.0004,
+   0.10942,
+   0.10113
+  ],
+  "up_m": 0.1094,
+  "forward_m": 0.1011,
+  "lateral_m": 0.0003,
+  "eye_vertices": 48,
+  "method": "material named Eye"
+ },
+ "Worker_Head.fbx": {
+  "eye_in_head_bone_local": [
+   0.0004,
+   0.10942,
+   0.10113
+  ],
+  "up_m": 0.1094,
+  "forward_m": 0.1011,
+  "lateral_m": 0.0003,
+  "eye_vertices": 48,
+  "method": "material named Eye"
+ }
+}
