@@ -3,6 +3,7 @@
     "rootNamespace": "WashedAshore.Perf",
     "references": [
         "WashedAshore.Gameplay",
+        "WashedAshore.World",
         "WashedAshore.Fish",
         "WashedAshore.Level",
         "WashedAshore.Wildlife",

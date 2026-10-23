@@ -44,11 +44,13 @@ namespace WashedAshore.Interaction
         {
             var canvasGo = new GameObject(CanvasName);
             canvasGo.transform.SetParent(transform, false);
+            canvasGo.layer = gameObject.layer; // built after load: stays on the owner's layer (the Player's, see PlayerController.ApplyPlayerLayer)
             var canvas = canvasGo.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
             var textGo = new GameObject(TextName);
             textGo.transform.SetParent(canvasGo.transform, false);
+            textGo.layer = gameObject.layer;
             textGo.SetActive(false);
             text = textGo.AddComponent<Text>();
             text.font = Resources.GetBuiltinResource<Font>(FontName);

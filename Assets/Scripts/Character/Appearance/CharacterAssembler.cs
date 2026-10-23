@@ -63,6 +63,7 @@ namespace WashedAshore.Character.Appearance
                 smr.bones = mapped;
                 if (smr.rootBone) smr.rootBone = body.Bone(smr.rootBone.name);
                 smr.transform.SetParent(body.transform, false);
+                smr.gameObject.layer = body.gameObject.layer; // a swapped part joins its body's layer (the Player's for the player)
                 smr.updateWhenOffscreen = false;
                 ApplyPoseBounds(body, smr);
                 fresh.Add(smr);

@@ -68,6 +68,7 @@ namespace WashedAshore.Gameplay
         void Awake()
         {
             controller = GetComponent<CharacterController>();
+            ApplyPlayerLayer();
 
             moveAction = new InputAction("Move", InputActionType.Value);
             moveAction.AddCompositeBinding("2DVector")
@@ -122,8 +123,16 @@ namespace WashedAshore.Gameplay
             TeardownClimb();
         }
 
+        /// <summary>
+        /// Puts the Player root and everything under it (controller, camera pivot, shadow and view bodies, prompt, debug camera) on the
+        /// Player layer (#43, td ruling). Set by script, never by a scene value, so edit-time tools and the NavMesh bake see what they
+        /// saw before. Re-run after any body is built; objects made later under the root copy their parent's layer.
+        /// </summary>
+        public void ApplyPlayerLayer() => WashedAshore.World.WorldLayers.SetLayerRecursive(transform, WashedAshore.World.WorldLayers.Player);
+
         void Start()
         {
+            ApplyPlayerLayer(); // every Awake has run: the other scripts' children are on the Player layer too
             LockCursor();
             Respawn();
         }

@@ -41,7 +41,7 @@ namespace WashedAshore.Tests.PlayMode.Fish
             Vector3 d = point - eye;
             float len = d.magnitude;
             if (len < 1e-3f) return false;
-            int mask = ~((1 << WorldLayers.Water) | (1 << WorldLayers.WorldBounds));
+            int mask = WorldLayers.SightMask; // follows the product sightline mask (td addendum1 C)
             int n = Physics.RaycastNonAlloc(eye, d / len, hits, len, mask, QueryTriggerInteraction.Ignore);
             for (int i = 0; i < n; i++)
             {

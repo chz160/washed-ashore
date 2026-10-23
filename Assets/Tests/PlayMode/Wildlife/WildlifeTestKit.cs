@@ -205,10 +205,7 @@ namespace WashedAshore.Tests.Wildlife
 
         public static int OccluderMask()
         {
-            int mask = 1 << LayerMask.NameToLayer("Default");
-            var t = TerrainQuery.TileAtOrNearest(Vector3.zero); // every tile shares one layer
-            if (t) mask |= 1 << t.gameObject.layer;
-            return mask & ~WashedAshore.World.WorldLayers.NonGroundMask; // water and invisible fences never occlude (water W4)
+            return WashedAshore.World.WorldLayers.SightMask; // follows the product sightline mask (td addendum1 C): the solid world; water and invisible fences never occlude (water W4)
         }
 
         public static bool IsVisible(Camera cam, Plane[] planes, WildlifeAgent a, float maxDistance, int mask, Transform player)

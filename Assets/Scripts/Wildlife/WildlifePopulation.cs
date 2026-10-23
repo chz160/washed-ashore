@@ -51,7 +51,14 @@ namespace WashedAshore.Wildlife
                 Debug.LogWarning($"WildlifePopulation: {PlacementError}", this);
                 return;
             }
-            if (ActiveSeed == bakedSeed && GetComponentsInChildren<WildlifeHerd>().Length > 0) return;
+            if (ActiveSeed == bakedSeed && GetComponentsInChildren<WildlifeHerd>().Length > 0)
+            {
+                // #43: the animals baked into the scene never pass through Spawn, so their members join the Wildlife layer here, at runtime only (the scene YAML stays as baked).
+                foreach (var herd in GetComponentsInChildren<WildlifeHerd>(true))
+                    foreach (Transform member in herd.transform)
+                        WashedAshore.World.WorldLayers.SetLayerRecursive(member, WashedAshore.World.WorldLayers.Wildlife);
+                return;
+            }
 
             var plan = WildlifeRules.PlanGroups(tuning, ActiveSeed, Ground, playerSpawn.position,
                 Route(tuning, playerSpawn.position), out string error);
@@ -120,6 +127,7 @@ namespace WashedAshore.Wildlife
                 {
                     var go = instantiate(g.species, group.transform, g.members[i], Quaternion.Euler(0f, g.yaws[i], 0f));
                     go.name = $"{prefix}_{i + 1}";
+                    WashedAshore.World.WorldLayers.SetLayerRecursive(go.transform, WashedAshore.World.WorldLayers.Wildlife); // #43, like BirdPopulation.SetLayer; the vendor prefab stays untouched
                 }
             }
         }

@@ -123,14 +123,14 @@ namespace WashedAshore.Interaction
         }
 
         /// <summary>
-        /// The usable interactable on a ray; null when there is none. One Physics.Raycast: WorldLayers.SightMask,
+        /// The usable interactable on a ray; null when there is none. One Physics.Raycast: WorldLayers.InteractMask,
         /// triggers ignored, nearest hit only.
         /// </summary>
         public IInteractable Aim(Vector3 origin, Vector3 direction)
         {
             float range = InteractionRules.Range(settings.interactRange, InteractionSettings.RangeCap);
             aimedAt = null;
-            if (!Physics.Raycast(origin, direction, out RaycastHit hit, range, WorldLayers.SightMask, QueryTriggerInteraction.Ignore))
+            if (!Physics.Raycast(origin, direction, out RaycastHit hit, range, WorldLayers.InteractMask, QueryTriggerInteraction.Ignore))
                 return null;
             if (!ReferenceEquals(hit.collider, lastHit))
             {

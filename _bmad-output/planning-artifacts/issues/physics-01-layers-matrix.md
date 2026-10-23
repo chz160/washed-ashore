@@ -14,7 +14,7 @@ Give every kind of object its own physics layer, and switch off the layer pairs 
 |---|---|---|
 | L1 | **New layers:** at least Player, Wildlife, Interactable and Prop, with Hitbox and Ragdoll reserved. Each has a named mask in `WorldLayers`. The player's controller and body are on Player | TagManager diff; `WorldLayers` diff |
 | L2 | **A minimal collision matrix.** Only pairs that gameplay needs are on, and each one is written up in a table in `docs/physics-guidelines.md` | DynamicsManager diff; the table |
-| L3 | **Every query uses a named `WorldLayers` mask.** The climb `~excludeLayers` mask is replaced, and a grep finds no `~0` and no `~excludeLayers` | grep output |
+| L3 | **Every query uses a named `WorldLayers` mask.** The climb `~excludeLayers` mask is replaced, and a grep of `Assets/Scripts` and `Assets/Editor` finds no `~0` and no `~excludeLayers`. Five test lines keep `~0` on purpose, as "is anything there" probes (director, `gate/physics-layers-43-amend1-l3`): `QaLanding6StillsTests:183`, `TowerWalkTests:153`, `WaterSwimAroundTests:289`, `WorldBoundsSweepTests.Support:89` and `:111`. Any other `~0` in tests needs its own ruling | grep output |
 | L4 | **No behaviour change.** EditMode and PlayMode suites pass (apart from the known #19 failures), TowerWalkTests up time is 26.6 s ±10%, and wildlife, birds and fish tests pass | Test XML |
 | L5 | **Physics Profiler before and after** at the perf protocol spots: Broadphase and Narrowphase counts don't go up | Profiler capture |
 

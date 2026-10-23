@@ -15,7 +15,7 @@ namespace WashedAshore.Tests.EditMode
 {
     /// <summary>
     /// Water spec W4 layer audit (headless): Water is built-in layer 4, every invisible boundary collider (backstop and
-    /// barrier extensions) is on WorldBounds, the player's layer still collides with both, and robin, sightline and
+    /// barrier extensions) is on WorldBounds, the player's layer still collides with the bounds (and, per #43, not Water), and robin, sightline and
     /// NavMesh masks leave both out. Reads the saved World scene; re-run after the water quads exist (w-qa W11).
     /// </summary>
     public class LayerAuditTests
@@ -55,10 +55,14 @@ namespace WashedAshore.Tests.EditMode
         }
 
         [Test]
-        public void PhysicsMatrix_PlayerLayerStillCollidesWithBoundsAndWater()
+        public void PhysicsMatrix_PlayerStillCollidesWithBoundsAndTheWorld()
         {
-            Assert.IsFalse(Physics.GetIgnoreLayerCollision(defaultLayer, bounds), "Default x WorldBounds must collide (fence and backstop)");
-            Assert.IsFalse(Physics.GetIgnoreLayerCollision(defaultLayer, water), "Default x Water changed; the W4 plan leaves the matrix alone");
+            // #43: the player is on its own layer now; the fence and backstop only ever block the player, and Water has no collider (W4).
+            int player = WorldLayers.Player;
+            Assert.IsFalse(Physics.GetIgnoreLayerCollision(player, bounds), "Player x WorldBounds must collide (fence and backstop)");
+            Assert.IsFalse(Physics.GetIgnoreLayerCollision(player, defaultLayer), "Player x Default must collide (ground, tower)");
+            Assert.IsTrue(Physics.GetIgnoreLayerCollision(player, water), "Player x Water is OFF (td ruling adr/physics-layers-43: Water has no collider; Water.cs:38 already excludes it)");
+            Assert.IsTrue(Physics.GetIgnoreLayerCollision(defaultLayer, bounds), "Default x WorldBounds is OFF: the boundaries only block the player");
         }
 
         [Test]

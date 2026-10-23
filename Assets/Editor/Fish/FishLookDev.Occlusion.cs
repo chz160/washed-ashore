@@ -77,7 +77,7 @@ namespace WashedAshore.Fish.Editor
                 }
             }
             Physics.SyncTransforms();
-            return Physics.Raycast(eye, dir, out var hit, len - 0.25f) ? "collider:" + hit.collider.name : "";
+            return Physics.Raycast(eye, dir, out var hit, len - 0.25f, WashedAshore.World.WorldLayers.SightMask, QueryTriggerInteraction.Ignore) ? "collider:" + hit.collider.name : "";
         }
 
         /// <summary>Projected height (px) of a flat quad (width x length along heading) on the water, in the 1920x1080 frame.</summary>

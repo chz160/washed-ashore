@@ -273,7 +273,7 @@ namespace WashedAshore.Gameplay
             Vector3 bottom = feet + Vector3.up * (r + lastClimbTuning.capsuleFitLift);
             Vector3 top = feet + controller.center + Vector3.up * (controller.height * 0.5f - authoredRadius);
             if (bottom.y > top.y) bottom = top;
-            int hits = Physics.OverlapCapsuleNonAlloc(bottom, top, r, fitBuffer, ~controller.excludeLayers.value, QueryTriggerInteraction.Ignore);
+            int hits = Physics.OverlapCapsuleNonAlloc(bottom, top, r, fitBuffer, WashedAshore.World.WorldLayers.PlayerCollisionMask, QueryTriggerInteraction.Ignore);
             fitBlocker = null;
             if (hits >= fitBuffer.Length) return false;
             for (int i = 0; i < hits; i++)

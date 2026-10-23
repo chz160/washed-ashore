@@ -262,7 +262,7 @@ namespace WashedAshore.Gameplay
             controller.center = new Vector3(controller.center.x, bottom + height * 0.5f, controller.center.z);
         }
 
-        int StanceMask => Physics.DefaultRaycastLayers & ~WorldLayers.NonGroundMask;
+        int StanceMask => WorldLayers.StanceMask;
 
         bool IsOwn(Collider c) => c.transform.IsChildOf(transform);
 

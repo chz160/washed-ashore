@@ -78,17 +78,141 @@ If a system needs more than one model (for example, an animal that ragdolls on d
 | **Lookout tower** | Invisible static ramp colliders; `TowerWalkZones` tunes the controller | Static box and convex mesh colliders | ✅ Correct. Ramp speeds are final (#8) |
 | **Hatch, sash, firefinder** (`Hinge`, not in `World.unity` yet) | Scripted hinge state | `TrapDoor` turns its collider off while swinging. `WindowSash` rotates a collider by transform | ⚠️ The sash must follow rule 9 before it ships |
 | **Boundary gate** | Gate leaves rotated by transform | Static `BoxCollider`s rotated when configured | ⚠️ Fine while it only changes at configuration time. It needs rule 9 if the gate opens during play |
-| **Interaction** (`Interactor`) | Camera raycast | `SightMask`, `Ignore`, no allocations | ✅ Correct (rule 16) |
+| **Interaction** (`Interactor`) | Camera raycast | `InteractMask`, `Ignore`, no allocations | ✅ Correct (rule 16) |
 | **Floating objects** (`WaterFloat`) | Water function, kinematic Rigidbody | Not used in any scene yet | ✅ Ready for server use |
 | **World bounds** | `WorldBoundsClamp` snaps players and bodies back | Static boxes on the `WorldBounds` layer | ⚠️ `FindObjectsByType<Rigidbody>()` runs every `LateUpdate` (rule 17). Make bodies register themselves before props exist |
 | **Terrain and trees** | Terrain tile colliders, tree colliders on | **The tree LOD prefabs have no colliders, so players walk through trees** | ⚠️ Tracked in issue 21 |
 
+## Layers and the Layer Collision Matrix (#43, 2026-10-21)
+
+Ruled by td (`studio:engineering` `adr/physics-layers-43`). Rule 22: every kind of object has its own layer, and the matrix turns off every pair that never interacts. Layer indices never move (the scene stores numbers). All layers are looked up by name in `WorldLayers`, which throws if one is missing.
+
+| # | Layer | Holds today | Set by |
+|---|---|---|---|
+| 0 | Default | Terrain, trees, the lookout tower, placed scene colliders | Scene (unchanged) |
+| 4 | Water | Water renderers only (no colliders) | Scene (unchanged) |
+| 8 | Birds | Bird renderers (no colliders) | `BirdPopulation` at spawn (unchanged) |
+| 9 | WorldBounds | The invisible backstop and fence colliders | Scene (unchanged) |
+| 10 | Player | The Player root: the `CharacterController`, the camera pivot, the shadow and view bodies, the prompt | `PlayerController.ApplyPlayerLayer`, in `Awake`, in `Start` and after every body build. No scene value |
+| 11 | Wildlife | Spawned animals (no colliders) | `WildlifePopulation.Spawn`, on the runtime instance; baked animals in `WildlifePopulation.Awake` (runtime only) |
+| 12 | Interactable | Empty. #40 owns the wiring | none yet |
+| 13 | Prop | Empty | none yet |
+| 14 | Hitbox | Reserved (#13), empty | none |
+| 15 | Ragdoll | Reserved (death ragdoll), empty | none |
+
+Layers 3, 6, 7 and 16-31 stay empty. The tower and the scene props stay on `Default`: moving them would change nothing in this pod.
+
+**Vendor layering (C5).** No ThirdParty asset, FBX import setting or vendor prefab is re-layered; none has a layer or a collider. The layers are set on runtime instances only:
+
+| Vendor kind | What | Where in code | Why |
+|---|---|---|---|
+| Modular character FBX (player shadow and view bodies, swapped parts) | Player layer | `PlayerController.ApplyPlayerLayer`, called by `PlayerCharacterView.Build`; `CharacterAssembler.Attach` copies the body's layer to a swapped part | Everything under the Player root is the Player's |
+| Wildlife prefabs (variants of vendor FBX) | Wildlife layer | `WildlifePopulation.Spawn`; baked animals in `WildlifePopulation.Awake` (runtime only) | Animals get their own layer ahead of hunting (#13) |
+
+**Matrix: pairs that are ON** (everything else is OFF, including pairs with layers that don't exist yet):
+
+| Pair | Why |
+|---|---|
+| Player x Default | The ground, the tower and placed colliders block the player |
+| Player x WorldBounds | The invisible boundaries exist only to block the player |
+| Player x Prop | Props block the player once they exist |
+| Player x Interactable | Solid interactables (hatch lid, sash) block the player once #40 moves them there |
+| Default x Default, Default x Prop, Default x Interactable, Prop x Prop, Prop x Interactable, Interactable x Interactable | A dynamic prop or debris body must rest on the world and on other props (W9). Today these pairs make no contacts (static and kinematic bodies only), so they cost nothing |
+
+**Pairs turned OFF, one by one, and their visible effect today (C3).** No OFF pair has a visible effect today: the only body that makes contacts is the player's `CharacterController`; there are no dynamic Rigidbodies, no triggers and no collision callbacks. Pairs with layers 3, 6, 7 and 16-31 are OFF too and have no objects.
+
+| Pair turned OFF | Visible effect today? | Why none |
+|---|---|---|
+| Default x TransparentFX | None | No colliders on TransparentFX; static and kinematic bodies only |
+| Default x Ignore Raycast | None | No colliders on Ignore Raycast; static and kinematic bodies only |
+| Default x Water | None | No colliders on Water; static and kinematic bodies only |
+| Default x UI | None | No colliders on UI; static and kinematic bodies only |
+| Default x Birds | None | No colliders on Birds; static and kinematic bodies only |
+| Default x WorldBounds | None | No other body exists (only the player is blocked by the boundaries); `WorldBoundsClamp` moves Rigidbodies by script |
+| Default x Wildlife | None | No colliders on Wildlife; static and kinematic bodies only |
+| Default x Hitbox | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Default x Ragdoll | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| TransparentFX x TransparentFX | None | No colliders on these layers |
+| TransparentFX x Ignore Raycast | None | No colliders on Ignore Raycast, TransparentFX; static and kinematic bodies only |
+| TransparentFX x Water | None | No colliders on TransparentFX, Water; static and kinematic bodies only |
+| TransparentFX x UI | None | No colliders on TransparentFX, UI; static and kinematic bodies only |
+| TransparentFX x Birds | None | No colliders on Birds, TransparentFX; static and kinematic bodies only |
+| TransparentFX x WorldBounds | None | No other body exists (only the player is blocked by the boundaries); `WorldBoundsClamp` moves Rigidbodies by script |
+| TransparentFX x Player | None | No colliders on TransparentFX |
+| TransparentFX x Wildlife | None | No colliders on TransparentFX, Wildlife; static and kinematic bodies only |
+| TransparentFX x Interactable | None | No colliders on TransparentFX; static and kinematic bodies only |
+| TransparentFX x Prop | None | No colliders on TransparentFX; static and kinematic bodies only |
+| TransparentFX x Hitbox | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| TransparentFX x Ragdoll | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Ignore Raycast x Ignore Raycast | None | No colliders on these layers |
+| Ignore Raycast x Water | None | No colliders on Ignore Raycast, Water; static and kinematic bodies only |
+| Ignore Raycast x UI | None | No colliders on Ignore Raycast, UI; static and kinematic bodies only |
+| Ignore Raycast x Birds | None | No colliders on Birds, Ignore Raycast; static and kinematic bodies only |
+| Ignore Raycast x WorldBounds | None | No other body exists (only the player is blocked by the boundaries); `WorldBoundsClamp` moves Rigidbodies by script |
+| Ignore Raycast x Player | None | No colliders on Ignore Raycast |
+| Ignore Raycast x Wildlife | None | No colliders on Ignore Raycast, Wildlife; static and kinematic bodies only |
+| Ignore Raycast x Interactable | None | No colliders on Ignore Raycast; static and kinematic bodies only |
+| Ignore Raycast x Prop | None | No colliders on Ignore Raycast; static and kinematic bodies only |
+| Ignore Raycast x Hitbox | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Ignore Raycast x Ragdoll | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Water x Water | None | No colliders on these layers |
+| Water x UI | None | No colliders on UI, Water; static and kinematic bodies only |
+| Water x Birds | None | No colliders on Birds, Water; static and kinematic bodies only |
+| Water x WorldBounds | None | No other body exists (only the player is blocked by the boundaries); `WorldBoundsClamp` moves Rigidbodies by script |
+| Water x Player | None | Water has no colliders, and `PlayerController.Water.cs:38` already puts Water in `controller.excludeLayers` |
+| Water x Wildlife | None | No colliders on Water, Wildlife; static and kinematic bodies only |
+| Water x Interactable | None | No colliders on Water; static and kinematic bodies only |
+| Water x Prop | None | No colliders on Water; static and kinematic bodies only |
+| Water x Hitbox | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Water x Ragdoll | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| UI x UI | None | No colliders on these layers |
+| UI x Birds | None | No colliders on Birds, UI; static and kinematic bodies only |
+| UI x WorldBounds | None | No other body exists (only the player is blocked by the boundaries); `WorldBoundsClamp` moves Rigidbodies by script |
+| UI x Player | None | No colliders on UI |
+| UI x Wildlife | None | No colliders on UI, Wildlife; static and kinematic bodies only |
+| UI x Interactable | None | No colliders on UI; static and kinematic bodies only |
+| UI x Prop | None | No colliders on UI; static and kinematic bodies only |
+| UI x Hitbox | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| UI x Ragdoll | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Birds x Birds | None | No colliders on these layers |
+| Birds x WorldBounds | None | No other body exists (only the player is blocked by the boundaries); `WorldBoundsClamp` moves Rigidbodies by script |
+| Birds x Player | None | Wildlife and birds have no colliders; the player already walks through animals today and still does |
+| Birds x Wildlife | None | No colliders on Birds, Wildlife; static and kinematic bodies only |
+| Birds x Interactable | None | No colliders on Birds; static and kinematic bodies only |
+| Birds x Prop | None | No colliders on Birds; static and kinematic bodies only |
+| Birds x Hitbox | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Birds x Ragdoll | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| WorldBounds x WorldBounds | None | No other body exists (only the player is blocked by the boundaries); `WorldBoundsClamp` moves Rigidbodies by script |
+| WorldBounds x Wildlife | None | No other body exists (only the player is blocked by the boundaries); `WorldBoundsClamp` moves Rigidbodies by script |
+| WorldBounds x Interactable | None | No other body exists (only the player is blocked by the boundaries); `WorldBoundsClamp` moves Rigidbodies by script |
+| WorldBounds x Prop | None | No other body exists (only the player is blocked by the boundaries); `WorldBoundsClamp` moves Rigidbodies by script |
+| WorldBounds x Hitbox | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| WorldBounds x Ragdoll | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Player x Player | None | Single player; #13 decides |
+| Player x Wildlife | None | Wildlife and birds have no colliders; the player already walks through animals today and still does |
+| Player x Hitbox | None | No colliders on Hitbox |
+| Player x Ragdoll | None | No colliders on Ragdoll |
+| Wildlife x Wildlife | None | No colliders on these layers |
+| Wildlife x Interactable | None | No colliders on Wildlife; static and kinematic bodies only |
+| Wildlife x Prop | None | No colliders on Wildlife; static and kinematic bodies only |
+| Wildlife x Hitbox | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Wildlife x Ragdoll | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Interactable x Hitbox | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Interactable x Ragdoll | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Prop x Hitbox | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Prop x Ragdoll | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Hitbox x Hitbox | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Hitbox x Ragdoll | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+| Ragdoll x Ragdoll | None | Reserved layer, nothing on it; reviewed when its first collider arrives (#13 hunting hitboxes, death ragdoll) |
+
+Queries (raycasts, overlaps, casts) do not read the matrix; only contacts do. Query masks are the named masks in `WorldLayers`: `WorldSolidMask` (Default, Prop, Interactable), `SightMask`, `StanceMask` and `InteractMask` (all the same set, never the player), `PlayerCollisionMask` (exactly the Player row: the world plus WorldBounds; the climb fit test), `RobinObstacleMask` (the world, the terrain's layer and the player, so robins still avoid the player) and `NavBakeMask` (every layer but Water, a bake filter). `PhysicsLayersTests` fails if the matrix, the layer indices or any of these masks drifts from this section.
+
 ## Known gaps (fix as these areas are touched)
 
-1. **(#43) The Layer Collision Matrix is all on, and the layers are too few.** The player is on `Default`. There's no `Player`, `Wildlife`, `Interactable`, `Hitbox`, `Prop` or `Ragdoll` layer. Add the layers, then switch off the unused pairs (rule 22).
+1. ~~**(#43) The Layer Collision Matrix is all on, and the layers are too few.**~~ Done in #43: see *Layers and the Layer Collision Matrix* above.
 2. **(#44) Allocations in per-frame or burst code:** `WorldBoundsClamp.ClampBodies` and `RobinFlightPlanner`'s `SphereCastAll` (rule 17).
 3. **(#45) Colliders moved by transform with no kinematic Rigidbody:** `Hinge` leaves, `WindowSash`, `BoundaryGate` (rules 9 and 10).
-4. **(#43) The climb fit test** (`PlayerController.Climb.cs`) masks `~excludeLayers`, which includes `WorldBounds` and `Ignore Raycast`. Use a named `WorldLayers` mask.
+4. ~~**(#43) The climb fit test** masked `~excludeLayers`.~~ Done in #43: it uses `WorldLayers.PlayerCollisionMask`.
 5. **(#46) Single-player assumptions** that need removing before #13: player lookups with `FindGameObjectWithTag("Player")` (`TowerWalkZones`, `TrapDoor`, `WildlifeAgent`, `WorldBoundsClamp`), and player state that `TowerWalkZones` keeps (it caches a single player's controller).
 6. **(#45) No explicit cooking options** on the tower's convex MeshColliders. The defaults work, but set them explicitly when the builder is next edited (rule 21).
 
