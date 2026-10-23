@@ -327,7 +327,7 @@ namespace WashedAshore.Perf
                 foreach (var r in FindObjectsByType<Renderer>())
                     if (r.gameObject.layer == waterLayer) water = Mathf.Max(water, r.bounds.max.y);
                 // Viewpoints: the ones given with -fvRidgeEye, else chosen from open ground by map zone (FarViewRidge.Choose).
-                int solid = Physics.DefaultRaycastLayers & ~(1 << Mathf.Max(0, waterLayer)) & ~(1 << Mathf.Max(0, LayerMask.NameToLayer("WorldBounds")));
+                int solid = WashedAshore.World.WorldLayers.SightMask;
                 var chosen = FarViewRidge.Choose(summit, aim, RidgeEye, water, solid, RidgeEyes, out string chooseInfo);
                 var views = new List<string>();
                 for (int v = 0; v < chosen.Count; v++)

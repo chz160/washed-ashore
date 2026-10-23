@@ -29,7 +29,7 @@ namespace WashedAshore.Wildlife.Level
         public static string LastReport = "not run";
 
         /// <summary>Every layer except Water.</summary>
-        public static int BakeLayerMask => ~(1 << WorldLayers.Water);
+        public static int BakeLayerMask => WorldLayers.NavBakeMask;
 
         public static void RunDeferred(int seed = SceneSeed)
         {

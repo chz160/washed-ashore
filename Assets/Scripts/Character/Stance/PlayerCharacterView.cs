@@ -94,6 +94,7 @@ namespace WashedAshore.Character.Stance
             }
             if (firstPersonBody == null) firstPersonBody = GetComponent<FirstPersonBody>() ?? gameObject.AddComponent<FirstPersonBody>();
             viewCopy = CharacterAssembler.AssembleViewCopy(characterBody, transform);
+            if (player != null) player.ApplyPlayerLayer(); // both bodies, every renderer and bone, on the Player layer (#43)
             firstPersonBody.Bind(player, characterBody.transform, viewCopy != null ? viewCopy.Body.transform : null);
             characterBody.SlotChanged += OnSlotChanged;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD

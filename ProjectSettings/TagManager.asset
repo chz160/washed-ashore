@@ -15,12 +15,12 @@ TagManager:
   - 
   - Birds
   - WorldBounds
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Wildlife
+  - Interactable
+  - Prop
+  - Hitbox
+  - Ragdoll
   - 
   - 
   - 

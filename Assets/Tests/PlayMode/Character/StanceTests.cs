@@ -154,7 +154,7 @@ namespace WashedAshore.Tests.PlayMode.Character
             Press(Key.Space);
             for (float tj = 0f; tj < 1.2f; tj += Time.deltaTime) { yield return null; peak = Mathf.Max(peak, player.transform.position.y); }
             Release();
-            string above = Physics.Raycast(player.transform.position + Vector3.up * 1.9f, Vector3.up, out RaycastHit up, 20f) ? $"{up.collider.name} at {up.distance:F2} m above the head" : "nothing within 20 m";
+            string above = Physics.Raycast(player.transform.position + Vector3.up * 1.9f, Vector3.up, out RaycastHit up, 20f, WashedAshore.World.WorldLayers.PlayerCollisionMask, QueryTriggerInteraction.Ignore) ? $"{up.collider.name} at {up.distance:F2} m above the head" : "nothing within 20 m";
             Assert.AreEqual(1.2f, peak - y0, 0.08f, "standing jump height; overhead: " + above);
         }
 

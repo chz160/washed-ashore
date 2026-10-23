@@ -16,13 +16,8 @@ namespace WashedAshore.Birds
         const float Step = 1f;
         static readonly float[] Offsets = { 0f, 30f, -30f, 60f, -60f, 90f, -90f, 120f };
 
-        /// <summary>Default plus the terrain's layer, never Water or the invisible WorldBounds fences (water W4).</summary>
-        public static int ObstacleMask(Terrain terrain)
-        {
-            int mask = LayerMask.GetMask("Default");
-            if (terrain) mask |= 1 << terrain.gameObject.layer;
-            return mask & ~WashedAshore.World.WorldLayers.NonGroundMask;
-        }
+        /// <summary>The solid world, the terrain's layer and the player, never Water or the invisible WorldBounds fences (water W4; #43 C2).</summary>
+        public static int ObstacleMask(Terrain terrain) => WashedAshore.World.WorldLayers.RobinObstacleMask(terrain);
 
         /// <summary>Robin habitat for a landing or a hop: inside the map, grass, gentle, no rock, no collider, and A4.</summary>
         public static bool GroundOk(BirdPlacementRules.Site site, BirdTerrain ground, RobinTuning t, Vector3 p, int mask, float minFromRoute)
