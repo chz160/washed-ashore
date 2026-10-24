@@ -58,8 +58,15 @@ namespace WashedAshore.Wildlife
         public bool IsLand(Vector3 p) => TerrainQuery.TileAt(p) != null && Height(p) >= MinGroundY;
 
         /// <summary>Distance from the point to the nearest window edge (negative outside).</summary>
-        public float EdgeDistance(Vector3 p) =>
-            Mathf.Min(p.x - Origin.x, p.z - Origin.z, Origin.x + Size.x - p.x, Origin.z + Size.y - p.z);
+        public float EdgeDistance(Vector3 p)
+        {
+            // The loop Mathf.Min(params float[]) runs, inline, over the same four operands in the same order: the params overload allocated an array per call (#44).
+            float m = p.x - Origin.x, b = p.z - Origin.z, c = Origin.x + Size.x - p.x, d = Origin.z + Size.y - p.z;
+            if (b < m) m = b;
+            if (c < m) m = c;
+            if (d < m) m = d;
+            return m;
+        }
 
         /// <summary>Splat weight of <paramref name="layer"/> under the point (layer 0 is grass).</summary>
         public float Splat(Vector3 p, int layer)

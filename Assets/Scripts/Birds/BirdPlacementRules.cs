@@ -187,14 +187,24 @@ namespace WashedAshore.Birds
             static float Nearest(Dictionary<Vector2Int, List<Tree>> cells, Vector3 p, float max)
             {
                 float best = float.PositiveInfinity; var xz = Flat(p);
-                Visit(cells, xz, max, tr => best = Mathf.Min(best, Vector2.Distance(tr.xz, xz)));
+                int x0 = Mathf.FloorToInt((xz.x - max) / Cell), x1 = Mathf.FloorToInt((xz.x + max) / Cell);
+                int z0 = Mathf.FloorToInt((xz.y - max) / Cell), z1 = Mathf.FloorToInt((xz.y + max) / Cell);
+                for (int x = x0; x <= x1; x++)
+                    for (int z = z0; z <= z1; z++)
+                        if (cells.TryGetValue(new Vector2Int(x, z), out var list))
+                            foreach (var tr in list) best = Mathf.Min(best, Vector2.Distance(tr.xz, xz)); // direct loop: a capturing lambda allocated per call (#44)
                 return best <= max ? best : float.PositiveInfinity;
             }
 
             public bool RockNear(Vector3 p, float r)
             {
                 bool hit = false; var xz = Flat(p);
-                Visit(rockCells, xz, r, q => hit |= Vector2.Distance(q, xz) <= r);
+                int x0 = Mathf.FloorToInt((xz.x - r) / Cell), x1 = Mathf.FloorToInt((xz.x + r) / Cell);
+                int z0 = Mathf.FloorToInt((xz.y - r) / Cell), z1 = Mathf.FloorToInt((xz.y + r) / Cell);
+                for (int x = x0; x <= x1; x++)
+                    for (int z = z0; z <= z1; z++)
+                        if (rockCells.TryGetValue(new Vector2Int(x, z), out var list))
+                            foreach (var q in list) hit |= Vector2.Distance(q, xz) <= r;
                 return hit;
             }
 
@@ -449,15 +459,6 @@ namespace WashedAshore.Birds
                 var k = new Vector2Int(Mathf.FloorToInt(xz.x / Cell), Mathf.FloorToInt(xz.y / Cell));
                 if (!cells.TryGetValue(k, out var list)) cells[k] = list = new List<T>();
                 list.Add(item);
-            }
-
-            static void Visit<T>(Dictionary<Vector2Int, List<T>> cells, Vector2 xz, float r, Action<T> onItem)
-            {
-                int x0 = Mathf.FloorToInt((xz.x - r) / Cell), x1 = Mathf.FloorToInt((xz.x + r) / Cell);
-                int z0 = Mathf.FloorToInt((xz.y - r) / Cell), z1 = Mathf.FloorToInt((xz.y + r) / Cell);
-                for (int x = x0; x <= x1; x++)
-                    for (int z = z0; z <= z1; z++)
-                        if (cells.TryGetValue(new Vector2Int(x, z), out var list)) foreach (var i in list) onItem(i);
             }
 
             static float PrototypeHeight(GameObject prefab)

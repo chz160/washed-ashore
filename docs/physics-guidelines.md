@@ -49,7 +49,7 @@ If a system needs more than one model (for example, an animal that ragdolls on d
 
 ### Queries
 16. **Every query passes an explicit layer mask, a finite distance, and `QueryTriggerInteraction.Ignore`** (or a deliberate `Collide`). Use the named masks in `WorldLayers`. Never use `~0` or masks of nearly every layer.
-17. **Use the NonAlloc query variants with preallocated buffers** (`RaycastNonAlloc`, `OverlapSphereNonAlloc` and so on). Size each buffer for the worst case; hits beyond it are silently dropped. **Don't use `RaycastAll`, `SphereCastAll`, or `FindObjectsByType` in per-frame code.**
+17. **Use the NonAlloc query variants with preallocated buffers** (`RaycastNonAlloc`, `OverlapSphereNonAlloc` and so on). Size each buffer for the worst case; hits beyond it are silently dropped. **Don't use `RaycastAll`, `SphereCastAll`, or `FindObjectsByType` in per-frame code.** A cast that fills its buffer fails closed (the heading is blocked) and is counted, as `RobinFlightPlanner.Blocks` does. A Rigidbody that can leave the map carries `WorldBoundsBody` (`WaterFloat` requires it; an EditMode check and a Start log catch any that do not).
 18. **Batch large sets of queries** (server line of sight, AI sensing) with `RaycastCommand`/`SpherecastCommand`.
 19. **`Physics.autoSyncTransforms` stays off.** If you move a transform and query it in the same frame, call `Physics.SyncTransforms()` first.
 
@@ -74,13 +74,13 @@ If a system needs more than one model (for example, an animal that ragdolls on d
 | **Wade and swim** | Analytic: depth = water surface minus terrain height | No water colliders or triggers | ✅ Correct (rule 11) |
 | **Fish** | Simulated virtually, not as GameObjects, with analytic steering; drawn with instancing and baked vertex animation | **Deliberately none.** Rule F10 ("fish never collide"), enforced in `FishSceneSetup` and `FishLiveSetTests` | ✅ Correct (rules 6 and 7). Fish mustn't bump the swimmer or block queries. **For fishing:** the bobber and line use queries plus the water function, and only a **hooked** fish becomes a real object, simulated on the server and kinematic (or a scripted fight). The school never gets colliders |
 | **Land animals** | NavMesh agent moved by script, snapped to the heightmap | No colliders or Rigidbodies | ✅ Correct (rule 6). Kinematic colliders on a layer when hunting arrives |
-| **Birds** | Scripted flocks and robin flight paths | No colliders. Robins use sphere and capsule checks when flushed or landing | ✅ Model correct. ⚠️ `RobinFlightPlanner` uses `SphereCastAll`, which allocates (rule 17) |
+| **Birds** | Scripted flocks and robin flight paths | No colliders. Robins use sphere and capsule checks when flushed or landing | ✅ Model correct. Flush casts use `SphereCastNonAlloc` with a 64-hit buffer; a full buffer blocks the heading and is counted (rule 17, #44) |
 | **Lookout tower** | Invisible static ramp colliders; `TowerWalkZones` tunes the controller | Static box and convex mesh colliders | ✅ Correct. Ramp speeds are final (#8) |
 | **Hatch, sash, firefinder** (`Hinge`, not in `World.unity` yet) | Scripted hinge state | `TrapDoor` turns its collider off while swinging. `WindowSash` rotates a collider by transform | ⚠️ The sash must follow rule 9 before it ships |
 | **Boundary gate** | Gate leaves rotated by transform | Static `BoxCollider`s rotated when configured | ⚠️ Fine while it only changes at configuration time. It needs rule 9 if the gate opens during play |
 | **Interaction** (`Interactor`) | Camera raycast | `InteractMask`, `Ignore`, no allocations | ✅ Correct (rule 16) |
 | **Floating objects** (`WaterFloat`) | Water function, kinematic Rigidbody | Not used in any scene yet | ✅ Ready for server use |
-| **World bounds** | `WorldBoundsClamp` snaps players and bodies back | Static boxes on the `WorldBounds` layer | ⚠️ `FindObjectsByType<Rigidbody>()` runs every `LateUpdate` (rule 17). Make bodies register themselves before props exist |
+| **World bounds** | `WorldBoundsClamp` snaps players and bodies back | Static boxes on the `WorldBounds` layer | ✅ Bodies and the player register themselves (`WorldBoundsBody`, `PlayerController`); no scene search per frame (rule 17, #44) |
 | **Terrain and trees** | Terrain tile colliders, tree colliders on | **The tree LOD prefabs have no colliders, so players walk through trees** | ⚠️ Tracked in issue 21 |
 
 ## Layers and the Layer Collision Matrix (#43, 2026-10-21)
@@ -210,10 +210,10 @@ Queries (raycasts, overlaps, casts) do not read the matrix; only contacts do. Qu
 ## Known gaps (fix as these areas are touched)
 
 1. ~~**(#43) The Layer Collision Matrix is all on, and the layers are too few.**~~ Done in #43: see *Layers and the Layer Collision Matrix* above.
-2. **(#44) Allocations in per-frame or burst code:** `WorldBoundsClamp.ClampBodies` and `RobinFlightPlanner`'s `SphereCastAll` (rule 17).
+2. ~~**(#44) Allocations in per-frame or burst code:** `WorldBoundsClamp.ClampBodies` and `RobinFlightPlanner`'s `SphereCastAll` (rule 17).~~ Done in #44: bodies register with the clamp, and the planner uses a fixed cast buffer.
 3. **(#45) Colliders moved by transform with no kinematic Rigidbody:** `Hinge` leaves, `WindowSash`, `BoundaryGate` (rules 9 and 10).
 4. ~~**(#43) The climb fit test** masked `~excludeLayers`.~~ Done in #43: it uses `WorldLayers.PlayerCollisionMask`.
-5. **(#46) Single-player assumptions** that need removing before #13: player lookups with `FindGameObjectWithTag("Player")` (`TowerWalkZones`, `TrapDoor`, `WildlifeAgent`, `WorldBoundsClamp`), and player state that `TowerWalkZones` keeps (it caches a single player's controller).
+5. **(#46) Single-player assumptions** that need removing before #13: player lookups with `FindGameObjectWithTag("Player")` (`TowerWalkZones`, `TrapDoor`, `WildlifeAgent`), and player state that `TowerWalkZones` keeps (it caches a single player's controller).
 6. **(#45) No explicit cooking options** on the tower's convex MeshColliders. The defaults work, but set them explicitly when the builder is next edited (rule 21).
 
 ## Checklist for any new system or pod
