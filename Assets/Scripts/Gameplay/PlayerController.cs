@@ -100,6 +100,7 @@ namespace WashedAshore.Gameplay
             sprintAction.Enable();
             jumpAction.Enable();
             EnableStance();
+            WorldBoundsClamp.Register(controller);
         }
 
         void OnDisable()
@@ -110,6 +111,7 @@ namespace WashedAshore.Gameplay
             sprintAction.Disable();
             jumpAction.Disable();
             DisableStance();
+            WorldBoundsClamp.Unregister(controller);
         }
 
         void OnDestroy()

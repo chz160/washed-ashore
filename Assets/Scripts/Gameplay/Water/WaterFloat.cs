@@ -11,7 +11,7 @@ namespace WashedAshore.Gameplay
     /// It is also floated once when enabled, so a body spawned in a frame without a physics step is never
     /// drawn (or seen by a server) at its spawn height (w-td).
     /// </summary>
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody), typeof(WorldBoundsBody))]
     public class WaterFloat : MonoBehaviour
     {
         [Tooltip("How far the pivot sits below the surface, metres (negative = above).")]

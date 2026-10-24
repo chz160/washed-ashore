@@ -16,6 +16,24 @@ namespace WashedAshore.Birds
         const float Step = 1f;
         static readonly float[] Offsets = { 0f, 30f, -30f, 60f, -60f, 90f, -90f, 120f };
 
+        /// <summary>
+        /// Hits one flight-segment cast can hold (#44). A cast that fills the buffer is treated as BLOCKED (see
+        /// <see cref="Blocks"/>), so any size of 2 or more gives the same flight results as the old SphereCastAll and a robin
+        /// never flies through something because a hit was dropped; 64 (about 3 KB) is margin, so the fail-closed branch is
+        /// rare. <see cref="MaxCastHits"/> records the largest real cast, and PhysicsAllocTests logs it.
+        /// </summary>
+        public const int CastBufferSize = 64;
+        static readonly RaycastHit[] castHits = new RaycastHit[CastBufferSize];
+
+        /// <summary>How many casts filled the buffer and so blocked their heading (a test or a log can read it).</summary>
+        public static int FullBufferHits { get; private set; }
+
+        /// <summary>The largest hit count any cast has returned so far (supporting only; safety rests on full = blocked).</summary>
+        public static int MaxCastHits { get; private set; }
+
+        /// <summary>How many casts have run, so a test can show the flush path really cast (MaxCastHits of 0 alone cannot).</summary>
+        public static int CastCount { get; private set; }
+
         /// <summary>The solid world, the terrain's layer and the player, never Water or the invisible WorldBounds fences (water W4; #43 C2).</summary>
         public static int ObstacleMask(Terrain terrain) => WashedAshore.World.WorldLayers.RobinObstacleMask(terrain);
 
@@ -49,8 +67,10 @@ namespace WashedAshore.Birds
             for (int h = 0; h < Mathf.Min(t.headings, Offsets.Length); h++)
             {
                 Vector3 dir = Quaternion.Euler(0f, jitter + Offsets[h], 0f) * away;
-                foreach (float d in new[] { rng.Range(t.landDistance), t.landDistance.y, t.landDistance.x })
+                float drawn = rng.Range(t.landDistance); // drawn once per heading, as before: the random sequence is unchanged
+                for (int k = 0; k < 3; k++)
                 {
+                    float d = k == 0 ? drawn : k == 1 ? t.landDistance.y : t.landDistance.x;
                     Vector3 land = ground.OnGround(start + dir * d);
                     if (Flat(land, threat) <= threatD || !LandingOk(site, ground, t, land, mask)) continue;
                     if (TryPath(ground, t, rng, start, land, true, ignore, mask, path)) return true;
@@ -136,8 +156,7 @@ namespace WashedAshore.Birds
                 Vector3 d = q - p;
                 float len = d.magnitude;
                 if (len < 0.001f) continue;
-                foreach (var hit in Physics.SphereCastAll(p, r, d / len, len, mask, QueryTriggerInteraction.Ignore))
-                    if (!ignore || !hit.collider.transform.IsChildOf(ignore)) return false;
+                if (CastBlocked(p, r, d / len, len, mask, ignore)) return false;
                 int n = Mathf.CeilToInt(len / Step);
                 for (int k = 0; k <= n; k++)
                 {
@@ -147,6 +166,32 @@ namespace WashedAshore.Birds
                 }
             }
             return true;
+        }
+
+        /// <summary>True if the sphere cast hits anything outside <paramref name="ignore"/>, or fills the buffer.</summary>
+        public static bool CastBlocked(Vector3 origin, float radius, Vector3 direction, float length, int mask, Transform ignore)
+        {
+            int n = Physics.SphereCastNonAlloc(origin, radius, direction, castHits, length, mask, QueryTriggerInteraction.Ignore);
+            CastCount++;
+            if (n > MaxCastHits) MaxCastHits = n;
+            return Blocks(castHits, n, ignore);
+        }
+
+        /// <summary>
+        /// The blocking rule for <paramref name="count"/> hits in <paramref name="hits"/>: a full buffer may hide a
+        /// blocker, so it blocks (counted in <see cref="FullBufferHits"/>); otherwise any hit outside
+        /// <paramref name="ignore"/> blocks, as the old SphereCastAll loop did.
+        /// </summary>
+        public static bool Blocks(RaycastHit[] hits, int count, Transform ignore)
+        {
+            if (count >= hits.Length)
+            {
+                FullBufferHits++;
+                return true;
+            }
+            for (int i = 0; i < count; i++)
+                if (!ignore || !hits[i].collider.transform.IsChildOf(ignore)) return true;
+            return false;
         }
 
         public static float Flat(Vector3 a, Vector3 b) => Vector2.Distance(new Vector2(a.x, a.z), new Vector2(b.x, b.z));

@@ -20,6 +20,21 @@ namespace WashedAshore.Tests.PlayMode
             yield return null;
         }
 
+        const string BodyPrefabPath = "Assets/Tests/PlayMode/WorldBounds/ClampTestBody.prefab";
+
+        /// <summary>A test prefab carrying Rigidbody + WorldBoundsBody, the way loot or a prop will be authored. Tests never register it by hand.</summary>
+        static GameObject BodyPrefab()
+        {
+            GameObject prefab = null;
+#if UNITY_EDITOR
+            prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(BodyPrefabPath);
+#endif
+            Assert.IsNotNull(prefab, $"No test prefab at {BodyPrefabPath}");
+            Assert.IsNotNull(prefab.GetComponent<Rigidbody>(), "test prefab has no Rigidbody");
+            Assert.IsNotNull(prefab.GetComponent<WorldBoundsBody>(), "test prefab has no WorldBoundsBody");
+            return prefab;
+        }
+
         static float MidLandX(WorldBoundsRule rule)
         {
             var xs = WorldBoundsTestKit.LandPointsAlongLine(rule, WorldBoundsTestKit.Config().WaterLevelY, 1);
@@ -72,10 +87,10 @@ namespace WashedAshore.Tests.PlayMode
             Assert.IsTrue(TerrainQuery.TryGroundHeight(new Vector3(x, 0f, rule.LineZAt(x) + 10f), out float ground));
             yield return null;
 
-            var box = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            // Spawned the way loot or a prop is: instantiated from a prefab, nothing registers it by hand.
+            var box = Object.Instantiate(BodyPrefab(), new Vector3(x, ground + 2f, rule.LineZAt(x) + 10f), Quaternion.identity);
             box.name = "ClampTestBox";
-            box.transform.position = new Vector3(x, ground + 2f, rule.LineZAt(x) + 10f);
-            var rb = box.AddComponent<Rigidbody>();
+            var rb = box.GetComponent<Rigidbody>();
             rb.linearVelocity = new Vector3(0f, 0f, 5f);
             int frame = Time.frameCount;
             LogAssert.Expect(LogType.Warning, new Regex("^WorldBoundsClamp: ClampTestBox was"));
@@ -119,10 +134,9 @@ namespace WashedAshore.Tests.PlayMode
             try
             {
                 yield return null;
-                var box = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                var box = Object.Instantiate(BodyPrefab(), new Vector3(x, ground + 2f, rule.LineZAt(x) + 10f), Quaternion.identity);
                 box.name = "ClampTestBox";
-                box.transform.position = new Vector3(x, ground + 2f, rule.LineZAt(x) + 10f);
-                var rb = box.AddComponent<Rigidbody>();
+                var rb = box.GetComponent<Rigidbody>();
                 int frame = Time.frameCount;
                 LogAssert.Expect(LogType.Warning, new Regex("^WorldBoundsClamp: ClampTestBox was"));
                 yield return null;
@@ -138,6 +152,45 @@ namespace WashedAshore.Tests.PlayMode
                 Application.logMessageReceived -= Watch;
                 Object.Destroy(clutter);
             }
+        }
+
+        /// <summary>#44 A1: a body registers itself in OnEnable and leaves in OnDisable, so a disabled, destroyed or re-enabled body is handled.</summary>
+        [UnityTest]
+        public IEnumerator WorldBoundsBody_RegistersOnEnable_AndLeavesOnDisableAndDestroy()
+        {
+            yield return LoadWorld();
+            int start = WorldBoundsClamp.RegisteredBodies;
+            var go = Object.Instantiate(BodyPrefab());
+            Assert.AreEqual(start + 1, WorldBoundsClamp.RegisteredBodies, "registered on spawn");
+            go.SetActive(false);
+            Assert.AreEqual(start, WorldBoundsClamp.RegisteredBodies, "left on disable");
+            go.SetActive(true);
+            Assert.AreEqual(start + 1, WorldBoundsClamp.RegisteredBodies, "registered again on re-enable");
+            Object.Destroy(go);
+            yield return null;
+            Assert.AreEqual(start, WorldBoundsClamp.RegisteredBodies, "left on destroy");
+        }
+
+        /// <summary>#44: a bare Rigidbody (no WorldBoundsBody) is not clamped. Spawn loot, crates and boats with the component.</summary>
+        [UnityTest]
+        public IEnumerator Rigidbody_WithoutTheComponent_IsNotRegistered()
+        {
+            yield return LoadWorld();
+            int start = WorldBoundsClamp.RegisteredBodies;
+            var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            go.AddComponent<Rigidbody>();
+            yield return null;
+            Assert.AreEqual(start, WorldBoundsClamp.RegisteredBodies);
+            Object.Destroy(go);
+        }
+
+        /// <summary>The player registers its CharacterController (replaces the once-a-second tag scan).</summary>
+        [UnityTest]
+        public IEnumerator Player_IsRegisteredByItsController()
+        {
+            yield return LoadWorld();
+            yield return null;
+            Assert.AreEqual(1, WorldBoundsClamp.RegisteredPlayers);
         }
 
         /// <summary>
