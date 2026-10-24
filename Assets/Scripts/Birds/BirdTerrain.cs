@@ -82,32 +82,7 @@ namespace WashedAshore.Birds
         public float CanopyTop(Vector3 p, float radius)
         {
             float top = Height(p);
-            Visit(p, radius, t => top = Mathf.Max(top, t.topY));
-            return top;
-        }
-
-        /// <summary>True if a sphere at <paramref name="p"/> touches a crown cylinder.</summary>
-        public bool InCrown(Vector3 p, float radius)
-        {
-            bool hit = false;
-            Visit(p, radius, t => hit |= p.y + radius >= t.CrownBottom && p.y - radius <= t.topY);
-            return hit;
-        }
-
-        /// <summary>True if any crown or trunk lies within <paramref name="radius"/> (flat) of <paramref name="p"/>.</summary>
-        public bool TreeNear(Vector3 p, float radius)
-        {
-            bool hit = false;
-            Visit(p, radius, _ => hit = true);
-            return hit;
-        }
-
-        void Visit(Vector3 p, float radius, System.Action<Tree> onHit)
-        {
-            var xz = new Vector2(p.x, p.z);
-            float reach = radius + maxRadius;
-            var min = Key(xz - Vector2.one * reach);
-            var max = Key(xz + Vector2.one * reach);
+            Cells(p, radius, out var xz, out var min, out var max);
             for (int x = min.x; x <= max.x; x++)
             for (int z = min.y; z <= max.y; z++)
             {
@@ -115,9 +90,55 @@ namespace WashedAshore.Birds
                 foreach (var t in list)
                 {
                     float r = t.radius + radius;
-                    if ((t.xz - xz).sqrMagnitude <= r * r) onHit(t);
+                    if ((t.xz - xz).sqrMagnitude <= r * r) top = Mathf.Max(top, t.topY);
                 }
             }
+            return top;
+        }
+
+        /// <summary>True if a sphere at <paramref name="p"/> touches a crown cylinder.</summary>
+        public bool InCrown(Vector3 p, float radius)
+        {
+            bool hit = false;
+            Cells(p, radius, out var xz, out var min, out var max);
+            for (int x = min.x; x <= max.x; x++)
+            for (int z = min.y; z <= max.y; z++)
+            {
+                if (!cells.TryGetValue(new Vector2Int(x, z), out var list)) continue;
+                foreach (var t in list)
+                {
+                    float r = t.radius + radius;
+                    if ((t.xz - xz).sqrMagnitude <= r * r) hit |= p.y + radius >= t.CrownBottom && p.y - radius <= t.topY;
+                }
+            }
+            return hit;
+        }
+
+        /// <summary>True if any crown or trunk lies within <paramref name="radius"/> (flat) of <paramref name="p"/>.</summary>
+        public bool TreeNear(Vector3 p, float radius)
+        {
+            bool hit = false;
+            Cells(p, radius, out var xz, out var min, out var max);
+            for (int x = min.x; x <= max.x; x++)
+            for (int z = min.y; z <= max.y; z++)
+            {
+                if (!cells.TryGetValue(new Vector2Int(x, z), out var list)) continue;
+                foreach (var t in list)
+                {
+                    float r = t.radius + radius;
+                    if ((t.xz - xz).sqrMagnitude <= r * r) hit = true;
+                }
+            }
+            return hit;
+        }
+
+        /// <summary>The point and the cell range that can hold a tree within <paramref name="radius"/> of it (the callers loop over it, so no delegate is allocated, #44).</summary>
+        void Cells(Vector3 p, float radius, out Vector2 xz, out Vector2Int min, out Vector2Int max)
+        {
+            xz = new Vector2(p.x, p.z);
+            float reach = radius + maxRadius;
+            min = Key(xz - Vector2.one * reach);
+            max = Key(xz + Vector2.one * reach);
         }
 
         static Vector2Int Key(Vector2 xz) => new Vector2Int(Mathf.FloorToInt(xz.x / Cell), Mathf.FloorToInt(xz.y / Cell));
