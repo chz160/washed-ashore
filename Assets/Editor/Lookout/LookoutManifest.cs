@@ -64,6 +64,7 @@ namespace WashedAshore.Lookout.Editor
             if (m.firefinder.colliders == null || m.firefinder.colliders.Length == 0) throw new InvalidOperationException("Lookout manifest: no firefinder.colliders");
             V(m.firefinder.axis, "firefinder.axis");
             if (m.cab == null || m.cab.floor_thickness <= 0f) throw new InvalidOperationException("Lookout manifest: no cab.floor_thickness");
+            if (m.cab.floor_y <= 0f) throw new InvalidOperationException("Lookout manifest: no cab.floor_y");
             return m;
         }
 

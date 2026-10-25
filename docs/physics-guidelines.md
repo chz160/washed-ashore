@@ -92,7 +92,7 @@ Ruled by td (`studio:engineering` `adr/physics-layers-43`). Rule 22: every kind 
 | 0 | Default | Terrain, trees, the lookout tower, placed scene colliders | Scene (unchanged) |
 | 4 | Water | Water renderers only (no colliders) | Scene (unchanged) |
 | 8 | Birds | Bird renderers (no colliders) | `BirdPopulation` at spawn (unchanged) |
-| 9 | WorldBounds | The invisible backstop and fence colliders, and the hatch swing blocker (`CLIP_BOX_HatchSwing_01`, on only while the leaf swings), and the hatch headroom stop (`HATCH_HeadroomStop`, under the closed leaf, on only while the hatch is Closed) | Scene (unchanged) |
+| 9 | WorldBounds | The invisible backstop and fence colliders; the four cab-band window walls (`CLIP_BOX_CabBand_01`–`04`, the blocker at each open sash); the hatch swing blocker (`CLIP_BOX_HatchSwing_01`, on only while the leaf swings); and the hatch headroom stop (`HATCH_HeadroomStop`, under the leaf, on while the hatch is Closed or Closing) | Backstop and fences: scene (unchanged). Cab band, swing blocker and headroom stop: the lookout build step (`WalkableTowerBuilder`), never by hand |
 | 10 | Player | The Player root: the `CharacterController`, the camera pivot, the shadow and view bodies, the prompt | `PlayerController.ApplyPlayerLayer`, in `Awake`, in `Start` and after every body build. No scene value |
 | 11 | Wildlife | Spawned animals (no colliders) | `WildlifePopulation.Spawn`, on the runtime instance; baked animals in `WildlifePopulation.Awake` (runtime only) |
 | 12 | Interactable | The hatch leaf collider (`COL_BOX_Hatch_01`), the four hinged-sash proxies (`COL_BOX_Sash*Hinged_01`) and the firefinder proxies (`COL_BOX_Pedestal_01`, `COL_CVX_FirefinderRing_01`) | The lookout build step (`WalkableTowerBuilder`), never by hand |
