@@ -15,6 +15,7 @@ namespace WashedAshore.Tests.PlayMode.Lookout
     /// lanes come from the manifest and don't move, so it has to report a lane-lateral escape on every flight and on
     /// the level stretches; a detector that stays silent fails the suite.
     /// </summary>
+    [Ignore("Retired by name (#40): the detector twin for the guided-path lane model; no lanes exist on the walkable tower.")]
     public class LookoutTwinTests : LookoutFixture
     {
         [UnityTest]

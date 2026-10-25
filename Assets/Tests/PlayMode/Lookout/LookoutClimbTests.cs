@@ -13,6 +13,7 @@ namespace WashedAshore.Tests.PlayMode.Lookout
     /// Spec C1 (tower-design-spec.md §9 T-C1a to T-C1f; tower-qa-plan.md C1): a scripted climb from the base to the
     /// cab floor and back down, through the Input System only. Targets come from LookoutTargets and the tuning assets.
     /// </summary>
+    [Ignore("Retired by name (#40, td R4): climbs the ClimbArea lanes, a guided path the walkable-tower restart (#7) removed; the tower walk is TowerWalkTests.")]
     public class LookoutClimbTests : LookoutFixture
     {
         /// <summary>The controller values that must never change, and the radius that may only be the area's inside it.</summary>

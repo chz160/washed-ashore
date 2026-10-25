@@ -92,6 +92,7 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             if (Player == null) return;
             float dt = Time.deltaTime;
             Vector3 feet = Player.transform.position, eye = Player.CameraPivot.position;
+            if (Area == null) { WalkableFrame(feet, eye, dt); return; }
             bool onLane = Player.OnLane, inArea = Player.ClimbArea != null, supported = Player.IsSupported;
             var t = Area.Tuning;
             Frames++;
@@ -150,6 +151,35 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             wasOnLane = onLane;
             wasInArea = inArea;
             wasSupported = supported;
+        }
+
+        /// <summary>
+        /// The walkable tower has no climb area, so only the lane-free checks run: no launch, no teleport, and the authored camera (FOV and roll)
+        /// while <see cref="ExpectAuthoredCamera"/> is set. Same bounds and wording as the guided frame check.
+        /// </summary>
+        void WalkableFrame(Vector3 feet, Vector3 eye, float dt)
+        {
+            Frames++;
+            MinRadius = Mathf.Min(MinRadius, capsule.radius);
+            if (hasLast && dt > 0f)
+            {
+                float up = (feet.y - lastFeet.y) / dt;
+                MaxUpwardSpeed = Mathf.Max(MaxUpwardSpeed, up);
+                float upLimit = Mathf.Sqrt(2f * Player.JumpHeight * -Player.Gravity) * LookoutTargets.LaunchFactor;
+                if (up > upLimit) Flag(ref Launches, $"launch: upward {up:F2} m/s (limit {upLimit:F2}) at {feet:F2}");
+                float eyeStep = Vector3.Distance(eye, lastEye), teleport = LookoutTargets.TeleportFactor * Player.SprintSpeed * dt;
+                if (eyeStep > teleport) Flag(ref Launches, $"teleport: eye step {eyeStep:F3} m > {teleport:F3} at {feet:F2}");
+            }
+            if (ExpectAuthoredCamera)
+            {
+                var cam = Player.ViewCamera;
+                float roll = Mathf.Abs(Mathf.DeltaAngle(0f, Player.CameraPivot.eulerAngles.z));
+                if (cam != null && !Mathf.Approximately(cam.fieldOfView, Player.AuthoredFov)) Flag(ref CameraBreaks, $"FOV {cam.fieldOfView} at {feet:F2}");
+                if (roll > LookoutTargets.CameraRollTolerance) Flag(ref CameraBreaks, $"camera roll {roll:F3} at {feet:F2}");
+            }
+            lastFeet = feet;
+            lastEye = eye;
+            hasLast = true;
         }
 
         static float LaneSpeedCap(ClimbTuning t, bool ascending) =>

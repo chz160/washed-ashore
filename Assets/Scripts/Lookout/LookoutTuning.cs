@@ -15,7 +15,7 @@ namespace WashedAshore.Lookout
         [Header("Trap door")]
         [Tooltip("Seconds to open or close. Never under 1.")]
         [Range(1f, 2.5f)] public float hatchSeconds = 1.4f;
-        [Tooltip("Open angle, degrees.")]
+        [Tooltip("Open angle, degrees: the manifest's hatch.open_angle_deg (an EditMode check holds them equal within 0.001; director #40 amend2 Q1).")]
         [Range(85f, 105f)] public float hatchOpenAngle = 92f;
         [Tooltip("Swing progress (0-1) against time (0-1). Monotonic; shared with the sashes.")]
         public AnimationCurve hatchCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
@@ -41,10 +41,10 @@ namespace WashedAshore.Lookout
         [Header("Firefinder")]
         [Tooltip("Vertical FOV at the sight, degrees.")]
         [Range(40f, 55f)] public float firefinderFov = 45f;
-        [Tooltip("Eye above the cab floor at the sight, m.")]
-        [Range(1.25f, 1.40f)] public float firefinderEyeHeight = 1.30f;
+        [Tooltip("Eye above the cab's walking surface (cab.floor_y) at the sight, m (spec of record, director #40 amend2 Q2).")]
+        [Range(1.21f, 1.26f)] public float firefinderEyeHeight = 1.22f;
         [Tooltip("Eye behind the pedestal axis, m.")]
-        [Range(0.30f, 0.40f)] public float firefinderEyeBack = 0.33f;
+        [Range(0.15f, 0.195f)] public float firefinderEyeBack = 0.185f;
         [Tooltip("Camera blend to and from the sight, s.")]
         [Range(0.2f, 0.8f)] public float firefinderBlendSeconds = 0.4f;
         [Tooltip("Bearing turn per mouse count, degrees.")]

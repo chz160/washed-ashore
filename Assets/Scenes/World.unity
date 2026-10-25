@@ -9147,7 +9147,6 @@ MonoBehaviour:
   - {x: 1, y: 1986.7}
   snapInset: 4.5
   groundOffset: 0.5
-  playerRescanInterval: 1
 --- !u!4 &212223445
 Transform:
   m_ObjectHideFlags: 0
@@ -11884,6 +11883,27 @@ MonoBehaviour:
     dimSeconds: 2
     wakeUndimSeconds: 0.5
     dimExposure: -2.7
+  lookDownTuning:
+    stand:
+    - {x: 20, y: 0}
+    - {x: 40, y: 0}
+    - {x: 45, y: 0.02}
+    - {x: 50, y: 0.04}
+    - {x: 55, y: 0.06}
+    - {x: 60, y: 0.07}
+    - {x: 65, y: 0.1}
+    - {x: 70, y: 0.16}
+    - {x: 75, y: 0.21}
+    - {x: 80, y: 0.23}
+    - {x: 85, y: 0.3}
+    crouch:
+    - {x: 20, y: 0}
+    - {x: 60, y: 0}
+    - {x: 65, y: 0.05}
+    - {x: 70, y: 0.06}
+    - {x: 75, y: 0.11}
+    - {x: 80, y: 0.125}
+    - {x: 85, y: 0.175}
   swimTuning: {fileID: 11400000, guid: 7fb1a231f2714080b4a60bb75ac90b40, type: 2}
 --- !u!143 &267676271
 CharacterController:
@@ -83670,6 +83690,8 @@ GameObject:
   - component: {fileID: 1813842455}
   - component: {fileID: 1813842457}
   - component: {fileID: 1813842456}
+  - component: {fileID: 1813842459}
+  - component: {fileID: 1813842458}
   m_Layer: 0
   m_Name: CameraPivot
   m_TagString: MainCamera
@@ -83751,6 +83773,32 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1813842458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813842454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e72c5d038f3a22478c11a2b347d01a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WashedAshore.Interaction::WashedAshore.Interaction.Interactor
+  settings: {fileID: 11400000, guid: d2ef65d019b24164ea4db6acea14f795, type: 2}
+  prompt: {fileID: 1813842459}
+--- !u!114 &1813842459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813842454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ec0ebdac7ede34a9a7d558369bcd52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WashedAshore.Interaction::WashedAshore.Interaction.InteractionPrompt
 --- !u!1 &1814733026
 GameObject:
   m_ObjectHideFlags: 0

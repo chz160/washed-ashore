@@ -15,6 +15,7 @@ namespace WashedAshore.Tests.PlayMode.Lookout
     /// same landing and cab patterns with the invisible walls off, where the detector has to report escapes.
     /// Getting from each station to the next after it is the stuck check: W toward a valid exit must keep making progress.
     /// </summary>
+    [Ignore("Retired by name (#40): strafes, sprints and jumps on every ClimbArea flight and landing of the guided path; no lanes exist on the walkable tower.")]
     public class LookoutStressTests : LookoutFixture
     {
         const float JumpEvery = 0.25f;

@@ -15,14 +15,10 @@ using WashedAshore.World;
 namespace WashedAshore.Tests.Lookout.PlayMode
 {
     /// <summary>
-    /// #45 (director amend1 and amend2): the hatch's and the sashes' moving leaves on the REAL tower. <see cref="RealTowerWiring"/> wires
-    /// the World scene's LookoutTower instance in memory through the real components' public Configure calls, mirroring
-    /// LookoutGameplaySetup.Apply (which cannot run: its reader is schema 4, the manifest schema 6). Real geometry, real TrapDoor,
-    /// WindowSash and Hinge; the stand-ins S1 to S5 are named in RealTowerWiring and logged by every test. Nothing is saved, no
-    /// Interactor is added (TrapDoor.CanInteract ignores its argument). The tower is not wired in World.unity (#40), so each test
-    /// wires it in memory; the scene is left unsaved.
-    /// Uses only API that exists on main, so it runs unchanged BEFORE and AFTER #45; the parts that only hold AFTER are in
-    /// <see cref="LookoutMoversRules"/> and are expected to be red on main.
+    /// #45 and #40: the hatch's and the sashes' moving leaves on the REAL built tower, read from the World scene. The build step saved the
+    /// hatch (closed, with its leaf collider and swing blocker), the four hinged sashes and the firefinder in the tower prefab, so there are no
+    /// stand-ins: nothing is wired in memory and nothing is saved. No Interactor is needed (TrapDoor.CanInteract ignores its argument).
+    /// The parts only #45 and #40 give are in <see cref="LookoutMoversRules"/>.
     /// </summary>
     public abstract class LookoutMoversBase
     {
@@ -48,7 +44,7 @@ namespace WashedAshore.Tests.Lookout.PlayMode
             if (player != null) player.enabled = true;
         }
 
-        /// <summary>Loads World and wires the real tower in memory (RealTowerWiring; no save).</summary>
+        /// <summary>Loads World and finds the real tower's hatch and sashes (no wiring, no save).</summary>
         protected IEnumerator LoadRealTower(bool needHatch = true, bool needSashes = true)
         {
             SceneManager.LoadScene("World", LoadSceneMode.Single);
@@ -61,16 +57,18 @@ namespace WashedAshore.Tests.Lookout.PlayMode
             var root = GameObject.Find("LookoutTower");
             Assert.IsNotNull(root, "No LookoutTower in World");
             tower = root.transform;
-            RealTowerWiring.Parts parts = default;
-            try { parts = RealTowerWiring.Wire(root); }
-            catch (Exception e) { Assert.Fail("RealTowerWiring.Wire threw: " + e); }
-            hatch = parts.hatch;
-            sashes = parts.sashes ?? new WindowSash[0];
-            Debug.Log("LookoutMovers: " + RealTowerWiring.StandInSentence);
-            if (parts.standIns != null) foreach (var s in parts.standIns) Debug.Log("LookoutMovers stand-in: " + s);
-            // each part is wired on its own: a failure in one fails only the tests that need it
-            if (needHatch) { Assert.IsNull(parts.hatchError, "hatch wiring failed: " + parts.hatchError); Assert.IsNotNull(hatch, "wiring did not give a TrapDoor"); }
-            if (needSashes) { Assert.IsNull(parts.sashError, "sash wiring failed: " + parts.sashError); Assert.Greater(sashes.Length, 0, "wiring did not give a WindowSash"); }
+            hatch = root.GetComponentInChildren<TrapDoor>(true);
+            sashes = root.GetComponentsInChildren<WindowSash>(true);
+            if (needHatch) Assert.IsNotNull(hatch, "the built tower has no TrapDoor");
+            if (needSashes) Assert.Greater(sashes.Length, 0, "the built tower has no WindowSash");
+            if (needHatch)
+            {
+                var leaf = hatch.transform;
+                Debug.Log($"LookoutMovers hatch at load: state={hatch.State} angle={hatch.Angle:F4} leaf localPosition=({leaf.localPosition.x:F6},{leaf.localPosition.y:F6},{leaf.localPosition.z:F6}) localRotation=({leaf.localRotation.x:F6},{leaf.localRotation.y:F6},{leaf.localRotation.z:F6},{leaf.localRotation.w:F6})");
+                Assert.AreEqual(HingeState.Closed, hatch.State, "the hatch starts closed");
+                Assert.Less(Quaternion.Angle(leaf.localRotation, Quaternion.identity), 0.01f, "the hatch leaf is authored closed (identity)");
+                Assert.IsNotNull(hatch.LeafCollider, "the hatch has its leaf collider");
+            }
             yield return null;
         }
 

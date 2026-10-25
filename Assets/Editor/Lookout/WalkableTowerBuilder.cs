@@ -17,7 +17,7 @@ namespace WashedAshore.Lookout.Editor
     ///              flight along the manifest's nosing line, and TowerWalkZones (slim capsule, raised slope limit)
     ///   Place      BellsBendTowerSite.Place() puts it on the Central Ridge Summit pad; the player's spawn is pointed at the base
     /// The guided-climb scheme is not used: no ClimbArea is added. Proxies that stop a walking body are dropped by name
-    /// (see <see cref="Dropped"/>) and the hatch is left open. Run:
+    /// (see <see cref="Dropped"/>); the hatch stays closed and LookoutGameplaySetup.Apply wires it, the sashes and the firefinder. Run:
     ///   Unity -batchmode -projectPath E:\GitHub\washed-ashore -executeMethod WashedAshore.Lookout.Editor.WalkableTowerBuilder.BuildBatch -quit
     /// or the menu Washed Ashore/Lookout/Build walkable tower. LOOKOUT_EXPORT_DIR overrides the export folder.
     /// </summary>
@@ -49,11 +49,10 @@ namespace WashedAshore.Lookout.Editor
         };
 
         /// <summary>Proxies removed because they stop a walking body (the guided climb needed them): the thin gate across each
-        /// stair mouth, the guided-climb stair solids (replaced by the ramps), the closed hatch leaf and its swing volume, and the two lower diagonal braces on
+        /// stair mouth, the guided-climb stair solids (replaced by the ramps), and the two lower diagonal braces on
         /// the west face (the X leaves a door under 0.6 m wide at head height, so the base of flight 1 could not be reached).</summary>
         public static bool Dropped(string name) =>
             name.StartsWith("CLIP_BOX_Gate_", StringComparison.Ordinal) || name.StartsWith("COL_BOX_Stair_", StringComparison.Ordinal)
-            || name == "COL_BOX_Hatch_01" || name == "CLIP_BOX_HatchSwing_01"
             || name == "COL_BOX_Brace_13" || name == "COL_BOX_Brace_14";
 
         [Serializable] class Obj { public string name, role; public string[] materials; }
@@ -106,12 +105,14 @@ namespace WashedAshore.Lookout.Editor
         {
             var towerRoot = scene.GetRootGameObjects().FirstOrDefault(g => g.name == "LookoutTower");
             if (!towerRoot) return;
-            foreach (var old in scene.GetRootGameObjects().Where(g => g.name == "TowerBaseSpawn").ToList()) UnityEngine.Object.DestroyImmediate(old);
+            // Reuse the one TowerBaseSpawn (a rerun must not create a new object, or the scene's fileIDs change every run); extras are removed.
+            var spawns = scene.GetRootGameObjects().Where(g => g.name == "TowerBaseSpawn").ToList();
+            for (int i = 1; i < spawns.Count; i++) UnityEngine.Object.DestroyImmediate(spawns[i]);
             var foot = towerRoot.GetComponentsInChildren<Transform>(true).First(t => t.name == "LANE_F01_Foot").position;
             Vector3 p = towerRoot.transform.TransformPoint(new Vector3(-3.98f, 0f, -2.17f));
             p.y = WashedAshore.Gameplay.TerrainQuery.TryGroundHeight(p, out float ground) ? ground : towerRoot.transform.position.y;
             Vector3 look = foot - p; look.y = 0f;
-            var go = new GameObject("TowerBaseSpawn");
+            var go = spawns.Count > 0 ? spawns[0] : new GameObject("TowerBaseSpawn");
             go.transform.SetPositionAndRotation(p, Quaternion.LookRotation(look, Vector3.up));
         }
 
@@ -238,13 +239,9 @@ namespace WashedAshore.Lookout.Editor
                 walk.footprintMin = new Vector3(extra.area_min[0] - ZoneFootprintMargin, -1f, extra.area_min[2] - ZoneFootprintMargin);
                 walk.footprintMax = new Vector3(extra.area_max[0] + ZoneFootprintMargin, 30f, extra.area_max[2] + ZoneFootprintMargin);
 
-                // Hatch left open (visual): the leaf swings up about its hinge; its collider and swing volume were dropped above.
-                if (byName.TryGetValue(extra.hatch.name, out var leaf) && leaf)
-                {
-                    var axis = new Vector3(extra.hatch.hinge_axis[0], extra.hatch.hinge_axis[1], extra.hatch.hinge_axis[2]);
-                    leaf.localRotation = Quaternion.AngleAxis(extra.hatch.open_angle_deg, axis);
-                    log.AppendLine($"hatch: {leaf.name} left open ({extra.hatch.open_angle_deg:F1} deg)");
-                }
+                // Interactions (#40): hatch (leaf left closed, as the model has it), hinged sashes, firefinder; layers by name; no ClimbArea.
+                LookoutGameplaySetup.Apply(root, LookoutManifest.Parse(json));
+                log.AppendLine("interactions: hatch, hinged sashes and firefinder wired (LookoutGameplaySetup.Apply)");
 
                 PrefabUtility.SaveAsPrefabAsset(root, PrefabPath, out bool saved);
                 if (!saved) throw new InvalidOperationException("could not save " + PrefabPath);

@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using WashedAshore.Gameplay;
 using WashedAshore.Interaction;
 using WashedAshore.World;
@@ -35,6 +37,9 @@ namespace WashedAshore.Lookout
         Vector3 fromPosition;
         Quaternion fromRotation;
         bool started;
+        // Director amend2 Q4: from entry to the end of the blend out no body and no body shadow shows. Exact values go back afterwards.
+        struct RendererState { public Renderer renderer; public bool enabled; public ShadowCastingMode shadows; }
+        readonly List<RendererState> hiddenBody = new List<RendererState>();
 
         public string Id => id;
         public Phase CurrentPhase => phase;
@@ -118,6 +123,7 @@ namespace WashedAshore.Lookout
             fromRotation = player.CameraPivot.rotation;
             fromFov = player.AuthoredFov;
             player.SuspendControl();
+            HideBody();
             player.Teleported += OnPlayerTeleported;
             turnLeftAction.Enable();
             lookAction.Enable();
@@ -220,7 +226,31 @@ namespace WashedAshore.Lookout
             if (player == null) return;
             player.Teleported -= OnPlayerTeleported;
             player.ClearViewOverride();
+            RestoreBody();
             player.ResumeControl();
+        }
+
+        /// <summary>Records every renderer under the player (view body and shadow body) with its enabled flag and shadow mode, then turns them all off.</summary>
+        void HideBody()
+        {
+            RestoreBody();
+            foreach (var r in player.GetComponentsInChildren<Renderer>(true))
+            {
+                hiddenBody.Add(new RendererState { renderer = r, enabled = r.enabled, shadows = r.shadowCastingMode });
+                r.enabled = false;
+                r.shadowCastingMode = ShadowCastingMode.Off;
+            }
+        }
+
+        void RestoreBody()
+        {
+            foreach (var s in hiddenBody)
+            {
+                if (s.renderer == null) continue;
+                s.renderer.enabled = s.enabled;
+                s.renderer.shadowCastingMode = s.shadows;
+            }
+            hiddenBody.Clear();
         }
     }
 }
