@@ -37,8 +37,8 @@ If a system needs more than one model (for example, an animal that ragdolls on d
 8. **Ragdolls start out kinematic and switch on at death.** To switch: turn off the Animator and the controller, then set `isKinematic = false`. The ragdoll is cosmetic and runs on each client. The server keeps the corpse's authoritative position, for example for looting.
 
 ### Props and world objects
-9. **Doors, hatches, gates and sashes are a replicated state** (an enum, or an angle and elapsed time) with scripted motion. Their moving colliders need a **kinematic Rigidbody moved with `MovePosition`/`MoveRotation`**, or they're switched off while they move (the `TrapDoor` pattern).
-10. **Never move a static collider (a collider with no Rigidbody) at runtime.** Every move forces PhysX to rebuild its spatial structure. Configure static colliders at build time only.
+9. **Doors, hatches, gates and sashes are a replicated state** (an enum, or an angle and elapsed time) with scripted motion. Their moving colliders need a **kinematic Rigidbody moved with `MovePosition`/`MoveRotation`**, or they're switched off while they move (the `TrapDoor` pattern). The hinged leaves here take the second option: `Hinge` switches every collider under the leaf off while it moves and on at rest, and never poses the leaf with a collider on (`TrapDoor`, `WindowSash`; one `Physics.SyncTransforms()` at each settle, since `autoSyncTransforms` is off). A component that moves transforms in play lists them in `IMovingTransforms`, and `MovingCollidersTests` fails on a collider under one that is neither switched off nor on a kinematic body.
+10. **Never move a static collider (a collider with no Rigidbody) at runtime.** Every move forces PhysX to rebuild its spatial structure. Configure static colliders at build time only. `BoundaryGate` never opens in play: its leaves are static colliders, so `Apply` refuses to move them in play and logs an error.
 11. **Floating objects use the shared water function** (`WaterMotion`, sampled the same way on the server and clients). Make them a Rigidbody only when something must collide with them.
 12. **Dynamic props are simulated on the server only.** Use `NetworkRigidbody` with `NetworkTransform`; NGO makes clients kinematic. **Collision events fire only on the server**, so send the gameplay results to clients by RPC.
 13. **Settle the body, then freeze it.** Once a prop sleeps, make it kinematic or static and network-dormant. Keep a budget of awake bodies for each server and each world cell, and despawn or merge stale loot.
@@ -55,7 +55,7 @@ If a system needs more than one model (for example, an animal that ragdolls on d
 
 ### Colliders and layers
 20. **Collider cost, cheapest first:** sphere, capsule, box, several primitives combined, convex mesh (up to 255 triangles), non-convex mesh. Non-convex meshes go on static geometry only, and Rigidbodies that aren't kinematic need convex meshes.
-21. **Bake MeshColliders ahead of time.** Keep Prebake Collision Meshes on, or call `Physics.BakeMesh` at load or on a worker thread. Never cook a mesh on the main thread during play.
+21. **Bake MeshColliders ahead of time.** Keep Prebake Collision Meshes on, or call `Physics.BakeMesh` at load or on a worker thread. Never cook a mesh on the main thread during play. The tower's convex MeshColliders set `cookingOptions` explicitly (`WalkableTowerBuilder.TowerCooking`, the value the default always gave).
 22. **Every category of object gets its own layer, and the Layer Collision Matrix turns off pairs that never interact.** Review the matrix whenever a layer is added.
 23. **Watch the collider count.** Rust hit Unity's limit of about 64k colliders through player building and had to merge tree colliders. Use terrain tree colliders and merged or compound colliders for dense static content.
 
@@ -211,10 +211,10 @@ Queries (raycasts, overlaps, casts) do not read the matrix; only contacts do. Qu
 
 1. ~~**(#43) The Layer Collision Matrix is all on, and the layers are too few.**~~ Done in #43: see *Layers and the Layer Collision Matrix* above.
 2. ~~**(#44) Allocations in per-frame or burst code:** `WorldBoundsClamp.ClampBodies` and `RobinFlightPlanner`'s `SphereCastAll` (rule 17).~~ Done in #44: bodies register with the clamp, and the planner uses a fixed cast buffer.
-3. **(#45) Colliders moved by transform with no kinematic Rigidbody:** `Hinge` leaves, `WindowSash`, `BoundaryGate` (rules 9 and 10).
+3. ~~**(#45) Colliders moved by transform with no kinematic Rigidbody:** `Hinge` leaves, `WindowSash`, `BoundaryGate` (rules 9 and 10).~~ Done in #45: hinged leaves switch their colliders off while moving, `BoundaryGate` refuses to move in play, and the tower's cooking options are explicit. The pre-baked collision import setting is tracked in #45 M3.
 4. ~~**(#43) The climb fit test** masked `~excludeLayers`.~~ Done in #43: it uses `WorldLayers.PlayerCollisionMask`.
 5. **(#46) Single-player assumptions** that need removing before #13: player lookups with `FindGameObjectWithTag("Player")` (`TowerWalkZones`, `TrapDoor`, `WildlifeAgent`), and player state that `TowerWalkZones` keeps (it caches a single player's controller).
-6. **(#45) No explicit cooking options** on the tower's convex MeshColliders. The defaults work, but set them explicitly when the builder is next edited (rule 21).
+6. ~~**(#45) No explicit cooking options** on the tower's convex MeshColliders. The defaults work, but set them explicitly when the builder is next edited (rule 21).~~ Done in #45: `WalkableTowerBuilder.TowerCooking` sets them explicitly.
 
 ## Checklist for any new system or pod
 

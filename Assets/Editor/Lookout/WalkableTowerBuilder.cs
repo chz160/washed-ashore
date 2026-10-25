@@ -23,6 +23,13 @@ namespace WashedAshore.Lookout.Editor
     /// </summary>
     public static class WalkableTowerBuilder
     {
+        /// <summary>
+        /// The convex tower colliders' cooking options, written out (#45 M3). It is the value the default has always given
+        /// (30 in the saved prefab), so the cooked hulls and the walked shape do not change.
+        /// </summary>
+        public const MeshColliderCookingOptions TowerCooking = MeshColliderCookingOptions.CookForFasterSimulation
+            | MeshColliderCookingOptions.EnableMeshCleaning | MeshColliderCookingOptions.WeldColocatedVertices | MeshColliderCookingOptions.UseFastMidphase;
+
         public const string Folder = "Assets/World/Lookout";
         public const string ModelPath = Folder + "/MC39_Lookout.fbx";
         public const string PrefabPath = Folder + "/LookoutTower.prefab";
@@ -198,7 +205,7 @@ namespace WashedAshore.Lookout.Editor
                     }
                     else
                     {
-                        var mc = t.gameObject.AddComponent<MeshCollider>(); mc.sharedMesh = mesh; mc.convex = true;
+                        var mc = t.gameObject.AddComponent<MeshCollider>(); mc.sharedMesh = mesh; mc.convex = true; mc.cookingOptions = TowerCooking;
                         UnityEngine.Object.DestroyImmediate(t.GetComponent<MeshRenderer>());
                         convex++;
                     }

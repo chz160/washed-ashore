@@ -1,6 +1,7 @@
 using UnityEngine;
 using WashedAshore.Gameplay;
 using WashedAshore.Interaction;
+using WashedAshore.World;
 
 namespace WashedAshore.Lookout
 {
@@ -12,7 +13,7 @@ namespace WashedAshore.Lookout
     /// open the top flight's lane is gated below it, and a prebuilt blocker fills the swing volume while it moves.
     /// It also lowers the eye under the floor on the top flight: a function of lane position only (§4 duck).
     /// </summary>
-    public class TrapDoor : MonoBehaviour, IInteractable
+    public class TrapDoor : MonoBehaviour, IInteractable, IMovingTransforms
     {
         [SerializeField] string id = "lookout.hatch";
         [SerializeField] LookoutTuning tuning;
@@ -38,7 +39,7 @@ namespace WashedAshore.Lookout
         PlayerController player;
         CharacterController playerCapsule;
         float passEyeHeight;
-        bool ducking, gateKnown;
+        bool ducking, gateKnown, collisionMoving;
 
         public string Id => id;
         public HingeState State => hinge.State;
@@ -52,6 +53,18 @@ namespace WashedAshore.Lookout
         public float OpeningLength => openingLength;
         public float FloorThickness => floorThickness;
         public Collider LeafCollider => leafCollider;
+
+        public System.Collections.Generic.IEnumerable<Transform> MovedTransforms { get { yield return hinge.Leaf; } }
+
+        /// <summary>Every collider under the leaf (the hatch proxy is adopted under it) plus the serialized leaf collider.</summary>
+        public System.Collections.Generic.IEnumerable<Collider> SwitchedOffWhileMoving
+        {
+            get
+            {
+                foreach (var c in hinge.Colliders) yield return c;
+                if (leafCollider != null) yield return leafCollider;
+            }
+        }
         /// <summary>The opening at floor-top height, world space (the tower stands upright).</summary>
         public Bounds OpeningBounds
         {
@@ -120,19 +133,29 @@ namespace WashedAshore.Lookout
                 hinge.Tick(Time.deltaTime, tuning.hatchOpenAngle, tuning.hatchSeconds, tuning.hatchCurve);
                 if (hinge.AtRest) Settle();
             }
-            else if (!gateKnown) Settle();
+            else if (!gateKnown) RefreshGate(); // gate only: the leaf is not posed again at rest
         }
 
         /// <summary>Pose, collision and the lane gate for the current state. Collision changes only in these discrete steps.</summary>
         void Settle()
         {
             hinge.Pose(tuning.hatchOpenAngle, tuning.hatchSeconds, tuning.hatchCurve);
-            // Start of a swing: blocker on, then leaf off. End: leaf on at its rest pose, then blocker off. The blocker's
-            // volume contains both rest poses, so the leaf's collider never appears or vanishes around a player.
-            bool moving = !hinge.AtRest;
+            // Start of a swing: blocker on, then every leaf collider off. End: leaf colliders on at the rest pose, then blocker off.
+            // The blocker's volume contains both rest poses, so the leaf's collider never appears or vanishes around a player.
+            bool moving = hinge.Moving;
             if (moving && swingBlocker != null) swingBlocker.enabled = true;
+            hinge.SetCollidersEnabled(!moving);
             if (leafCollider != null) leafCollider.enabled = !moving;
             if (!moving && swingBlocker != null) swingBlocker.enabled = false;
+            // autoSyncTransforms is off: once per settle, so a query in this frame sees the leaf at its rest pose (never per frame).
+            if (collisionMoving && !moving) Physics.SyncTransforms();
+            collisionMoving = moving;
+            RefreshGate();
+        }
+
+        /// <summary>The lane gate for the current state (no pose, no collision change).</summary>
+        void RefreshGate()
+        {
             if (climbArea == null || laneIndex < 0 || laneIndex >= climbArea.LaneCount) return;
             // A lane linked at the top of the hatch's flight (the step off onto the cab floor) is open only with the hatch.
             if (climbArea.TryLink(laneIndex, ClimbRules.End.Head, out int exitLane, out _)) climbArea.SetBlocked(exitLane, hinge.State != HingeState.Open);

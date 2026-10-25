@@ -1,5 +1,7 @@
 using UnityEngine;
+using WashedAshore.Gameplay;
 using WashedAshore.Interaction;
+using WashedAshore.World;
 
 namespace WashedAshore.Lookout
 {
@@ -8,17 +10,25 @@ namespace WashedAshore.Lookout
     /// rotates the sash's own transform, so its panes, missing panes and shards are the same objects open and
     /// closed. It never moves by itself, and the cab's boundary walls don't change with it.
     /// </summary>
-    public class WindowSash : MonoBehaviour, IInteractable
+    public class WindowSash : MonoBehaviour, IInteractable, IMovingTransforms
     {
         [SerializeField] string id = "lookout.sash";
         [SerializeField] LookoutTuning tuning;
         [SerializeField] Hinge hinge = new Hinge();
+
+        PlayerController player;
+        CharacterController playerCapsule;
+        Bounds swing;
+        bool swingKnown, swingTried, collisionMoving;
 
         public string Id => id;
         public HingeState State => hinge.State;
         /// <summary>Hinge angle, degrees from closed.</summary>
         public float Angle => hinge.Angle;
         public LookoutTuning Tuning => tuning;
+
+        public System.Collections.Generic.IEnumerable<Transform> MovedTransforms { get { yield return hinge.Leaf; } }
+        public System.Collections.Generic.IEnumerable<Collider> SwitchedOffWhileMoving => hinge.Colliders;
 
         public string Verb => hinge.State == HingeState.Open ? tuning.closeVerb : tuning.openVerb;
         public string Noun => tuning.sashNoun;
@@ -31,9 +41,46 @@ namespace WashedAshore.Lookout
             hinge.Configure(leaf, hingeAxis);
         }
 
-        void Awake() => hinge.Capture();
+        void Awake()
+        {
+            hinge.Capture();
+            Settle();
+        }
 
-        public bool CanInteract(Interactor by) => hinge.AtRest;
+        /// <summary>At rest, and the player's capsule is not in the volume the leaf sweeps (the leaf yields, never the player).</summary>
+        public bool CanInteract(Interactor by) => hinge.AtRest && !PlayerInTheSwing();
+
+        bool FindPlayer()
+        {
+            if (player != null) return true;
+            var tagged = GameObject.FindGameObjectWithTag("Player");
+            if (tagged == null || !tagged.TryGetComponent(out player) || !tagged.TryGetComponent(out playerCapsule)) { player = null; return false; }
+            return true;
+        }
+
+        bool PlayerInTheSwing()
+        {
+            if (!FindPlayer()) return false;
+            if (!swingTried)
+            {
+                swingTried = true;
+                swingKnown = hinge.TrySweptBounds(tuning.sashOpenAngle, out swing);
+            }
+            if (!swingKnown) return false;
+            float r = playerCapsule.radius + playerCapsule.skinWidth;
+            var capsule = new Bounds(player.transform.TransformPoint(playerCapsule.center), new Vector3(2f * r, playerCapsule.height, 2f * r));
+            return swing.Intersects(capsule);
+        }
+
+        /// <summary>The colliders are on only at rest; they are off for the whole swing, so the leaf never pushes anything.</summary>
+        void Settle()
+        {
+            bool moving = hinge.Moving;
+            hinge.SetCollidersEnabled(!moving);
+            // autoSyncTransforms is off: once per settle, never per frame.
+            if (collisionMoving && !moving) Physics.SyncTransforms();
+            collisionMoving = moving;
+        }
 
         public void Interact(Interactor by)
         {
@@ -46,11 +93,14 @@ namespace WashedAshore.Lookout
         {
             hinge.Apply(state, elapsed);
             hinge.Pose(tuning.sashOpenAngle, tuning.sashSeconds, tuning.hatchCurve);
+            Settle();
         }
 
         void Update()
         {
-            if (!hinge.AtRest) hinge.Tick(Time.deltaTime, tuning.sashOpenAngle, tuning.sashSeconds, tuning.hatchCurve);
+            if (hinge.AtRest) return;
+            hinge.Tick(Time.deltaTime, tuning.sashOpenAngle, tuning.sashSeconds, tuning.hatchCurve);
+            if (hinge.AtRest) Settle();
         }
     }
 }
