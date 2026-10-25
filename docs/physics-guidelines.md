@@ -92,10 +92,10 @@ Ruled by td (`studio:engineering` `adr/physics-layers-43`). Rule 22: every kind 
 | 0 | Default | Terrain, trees, the lookout tower, placed scene colliders | Scene (unchanged) |
 | 4 | Water | Water renderers only (no colliders) | Scene (unchanged) |
 | 8 | Birds | Bird renderers (no colliders) | `BirdPopulation` at spawn (unchanged) |
-| 9 | WorldBounds | The invisible backstop and fence colliders | Scene (unchanged) |
+| 9 | WorldBounds | The invisible backstop and fence colliders, and the hatch swing blocker (`CLIP_BOX_HatchSwing_01`, on only while the leaf swings), and the hatch headroom stop (`HATCH_HeadroomStop`, under the closed leaf, on only while the hatch is Closed) | Scene (unchanged) |
 | 10 | Player | The Player root: the `CharacterController`, the camera pivot, the shadow and view bodies, the prompt | `PlayerController.ApplyPlayerLayer`, in `Awake`, in `Start` and after every body build. No scene value |
 | 11 | Wildlife | Spawned animals (no colliders) | `WildlifePopulation.Spawn`, on the runtime instance; baked animals in `WildlifePopulation.Awake` (runtime only) |
-| 12 | Interactable | Empty. #40 owns the wiring | none yet |
+| 12 | Interactable | The hatch leaf collider (`COL_BOX_Hatch_01`), the four hinged-sash proxies (`COL_BOX_Sash*Hinged_01`) and the firefinder proxies (`COL_BOX_Pedestal_01`, `COL_CVX_FirefinderRing_01`) | The lookout build step (`WalkableTowerBuilder`), never by hand |
 | 13 | Prop | Empty | none yet |
 | 14 | Hitbox | Reserved (#13), empty | none |
 | 15 | Ragdoll | Reserved (death ragdoll), empty | none |
@@ -116,7 +116,7 @@ Layers 3, 6, 7 and 16-31 stay empty. The tower and the scene props stay on `Defa
 | Player x Default | The ground, the tower and placed colliders block the player |
 | Player x WorldBounds | The invisible boundaries exist only to block the player |
 | Player x Prop | Props block the player once they exist |
-| Player x Interactable | Solid interactables (hatch lid, sash) block the player once #40 moves them there |
+| Player x Interactable | Solid interactables (the hatch leaf, the hinged-sash proxies, the firefinder proxies) block the player; the closed hatch leaf is the cab floor from above and a ceiling from below (#40) |
 | Default x Default, Default x Prop, Default x Interactable, Prop x Prop, Prop x Interactable, Interactable x Interactable | A dynamic prop or debris body must rest on the world and on other props (W9). Today these pairs make no contacts (static and kinematic bodies only), so they cost nothing |
 
 **Pairs turned OFF, one by one, and their visible effect today (C3).** No OFF pair has a visible effect today: the only body that makes contacts is the player's `CharacterController`; there are no dynamic Rigidbodies, no triggers and no collision callbacks. Pairs with layers 3, 6, 7 and 16-31 are OFF too and have no objects.

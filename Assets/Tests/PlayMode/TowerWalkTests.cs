@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using WashedAshore.Gameplay;
+using WashedAshore.Lookout;
 
 namespace WashedAshore.Tests.PlayMode
 {
@@ -83,6 +84,13 @@ namespace WashedAshore.Tests.PlayMode
 
             Vector3 start = go.transform.position;
             var report = new StringBuilder($"start {start:F2}, cab floor world y {cab.y:F2}, walkSpeed {player.WalkSpeed}\n");
+            // Spec T7.1 / Q5 (td adr/lookout-interactions-40 part 11): the hatch starts CLOSED, so it is opened through the real TrapDoor state path before the timer
+            // starts; the 26.6 s +-10% bar then measures walking with the hatch open.
+            var hatchDoor = tower.GetComponentInChildren<TrapDoor>(true);
+            Assert.IsNotNull(hatchDoor, "the tower has no TrapDoor: run the build step");
+            hatchDoor.SetState(HingeState.Open, 0f);
+            Assert.AreEqual(HingeState.Open, hatchDoor.State, "the hatch is open before the walk");
+            report.AppendLine($"hatch opened before the timer: state {hatchDoor.State}, angle {hatchDoor.Angle:F2} at scene time {Time.time:F2}s");
             keyboard = Keyboard.current;
             Press(keyboard.wKey);
             bool held = true;
@@ -94,6 +102,7 @@ namespace WashedAshore.Tests.PlayMode
             foreach (var leg in new[] { ("UP", up), ("DOWN", down) })
             {
                 float t0 = Time.time;
+                report.AppendLine($"{leg.Item1} timer starts at scene time {t0:F2}s, hatch {hatchDoor.State}");
                 int index = 0;
                 float lastBest = float.MaxValue, lastProgress = Time.time;
                 Vector3 lastPos = go.transform.position;

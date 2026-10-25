@@ -1,37 +1,30 @@
 using System;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using WashedAshore.Gameplay;
 using WashedAshore.Interaction;
+using WashedAshore.World;
 
 namespace WashedAshore.Lookout.Editor
 {
     /// <summary>
-    /// Adds the gameplay parts to the built tower (spec C1-C3, I1-I4; tower-td-note §6): the climb area with its lanes,
-    /// the trap door, the hinged sashes and the firefinder, all from the model's lane empties and the build manifest.
-    /// TowerBuilder.Build calls <see cref="Apply(GameObject)"/> as its last step. Nothing is placed by hand: a missing
-    /// node or key throws, and running it twice changes nothing. <see cref="ApplyToPlayer"/> adds the Interactor and
-    /// the prompt to the Player in the open scene.
+    /// Adds the interactions to the built walkable tower (issue #40; td ruling adr/lookout-interactions-40): the trap door, the
+    /// hinged sashes and the firefinder, from the model's nodes and the build manifest. There is no ClimbArea and no lane:
+    /// the closed hatch stops the player by its leaf collider. WalkableTowerBuilder.Build calls <see cref="Apply(GameObject)"/>
+    /// before it saves the prefab. Nothing is placed by hand: a missing node or key throws, and running it twice changes
+    /// nothing. <see cref="ApplyToPlayer"/> adds the Interactor and the prompt to the Player in the open scene.
     /// </summary>
     public static class LookoutGameplaySetup
     {
-        // ---- names: the one table to change if the build's names change ----
-        public const string LaneFootFormat = "LANE_F{0:00}_Foot", LaneHeadFormat = "LANE_F{0:00}_Head";
-        public const string ClimbTuningPath = "Assets/Settings/ClimbTuning.asset";
         public const string InteractionSettingsPath = "Assets/Settings/InteractionSettings.asset";
         public const string LookoutTuningPath = "Assets/Settings/LookoutTuning.asset";
-        /// <summary>
-        /// Serialized reference fields on the gameplay components that may legitimately be empty in the saved prefab. None:
-        /// every reference this script sets is required, so the builder treats any null one as a failed build.
-        /// </summary>
-        public static readonly string[] OptionalNullFields = new string[0];
         public const string HatchId = "lookout.hatch", SashIdPrefix = "lookout.sash.", FirefinderId = "lookout.firefinder";
         public const string PlayerTag = "Player";
-
-        /// <summary>A lane empty must match the manifest's point within this, m.</summary>
-        const float LaneDataTolerance = 0.001f;
+        public const string CabBandPrefix = "CLIP_BOX_CabBand_";
+        public const int CabBandCount = 4;
+        /// <summary>Eye to the leaf's underside the stop must leave at the stopped position, m (director L2, near-plane-eye rule).</summary>
+        public const float EyeToLeafMin = 0.15f;
 
         [MenuItem("Washed Ashore/Lookout/Apply Gameplay To Selected Tower")]
         static void ApplyToSelection()
@@ -40,32 +33,24 @@ namespace WashedAshore.Lookout.Editor
             Apply(Selection.activeGameObject);
         }
 
-        /// <summary>Adds or refreshes every gameplay component under <paramref name="towerRoot"/> from the manifest beside the FBX.</summary>
+        /// <summary>Adds or refreshes every interaction component under <paramref name="towerRoot"/> from the manifest beside the FBX.</summary>
         public static void Apply(GameObject towerRoot) => Apply(towerRoot, LookoutManifest.Load());
 
         public static void Apply(GameObject towerRoot, LookoutManifest m)
         {
             if (towerRoot == null) throw new ArgumentNullException(nameof(towerRoot));
             Transform root = towerRoot.transform;
-            var climbTuning = LoadOrCreate<ClimbTuning>(ClimbTuningPath);
-            var lookoutTuning = LoadOrCreate<LookoutTuning>(LookoutTuningPath);
+            var lookoutTuning = LoadRequired<LookoutTuning>(LookoutTuningPath);
             string problem = lookoutTuning.Validate();
             if (problem != null) throw new InvalidOperationException($"LookoutTuning: {problem}");
+            int interactable = WorldLayers.Interactable, bounds = WorldLayers.WorldBounds;
 
-            var area = GetOrAdd<ClimbArea>(towerRoot);
-            StairLane[] lanes = ReadLanes(root, m, climbTuning);
-            var bounds = new Bounds();
-            bounds.SetMinMax(LookoutManifest.V(m.area_min, "area_min"), LookoutManifest.V(m.area_max, "area_max"));
-            area.Configure(climbTuning, lanes, bounds);
-            EditorUtility.SetDirty(area);
-
-            area.Rebuild();
-            if (area.LinkProblem != null) throw new InvalidOperationException($"Lanes: {area.LinkProblem}");
-            string taper = ClimbRules.TaperProblem(lanes, climbTuning);
-            if (taper != null) throw new InvalidOperationException($"ClimbTuning: {taper}");
-            // The hatch is on the top flight; an exit lane, if the model has one, comes after it and is linked to its head.
-            int topLane = m.flights.Length - 1;
-            ApplyHatch(root, m, area, topLane, lanes[topLane], lookoutTuning);
+            ApplyHatch(root, m, lookoutTuning, interactable, bounds);
+            // K1 (ADR part 10): the cab-band clip walls are player-only walls; off Default, the aim ray reaches the sash proxies inside them.
+            int bands = 0;
+            foreach (var t in root.GetComponentsInChildren<Transform>(true))
+                if (t.name.StartsWith(CabBandPrefix, StringComparison.Ordinal)) { RequireCollider(t); t.gameObject.layer = bounds; bands++; }
+            if (bands != CabBandCount) throw new InvalidOperationException($"Expected {CabBandCount} '{CabBandPrefix}*' nodes, found {bands}");
             int hinged = 0;
             foreach (var sash in m.sashes)
             {
@@ -74,6 +59,7 @@ namespace WashedAshore.Lookout.Editor
                 Transform proxy = Require(root, sash.collider);
                 RequireCollider(proxy);
                 Adopt(proxy, leaf);
+                proxy.gameObject.layer = interactable;
                 var component = GetOrAdd<WindowSash>(leaf.gameObject);
                 component.Configure(SashIdPrefix + sash.name, lookoutTuning, leaf, leaf.InverseTransformDirection(root.TransformDirection(LookoutManifest.V(sash.hinge_axis, sash.name + ".hinge_axis"))));
                 EditorUtility.SetDirty(component);
@@ -89,151 +75,144 @@ namespace WashedAshore.Lookout.Editor
                 Transform proxy = Require(root, name);
                 RequireCollider(proxy);
                 Adopt(proxy, pedestal);
+                proxy.gameObject.layer = interactable;
             }
             Vector3 axis = LookoutManifest.V(m.firefinder.axis, "firefinder.axis");
             var firefinder = GetOrAdd<Firefinder>(pedestal.gameObject);
-            firefinder.Configure(FirefinderId, lookoutTuning, alidade, root, new Vector3(axis.x, m.targets.cab_floor_y, axis.z));
+            firefinder.Configure(FirefinderId, lookoutTuning, alidade, root, new Vector3(axis.x, m.cab.floor_y, axis.z));   // walking surface (manifest floor_note), not the steel datum (targets.cab_floor_y)
             EditorUtility.SetDirty(firefinder);
-            Debug.Log($"LookoutGameplaySetup: {lanes.Length} lanes, hatch on lane {topLane + 1}, {hinged} hinged sashes, firefinder on '{pedestal.name}' under '{towerRoot.name}'.");
+            Debug.Log($"LookoutGameplaySetup: hatch, {hinged} hinged sashes, firefinder on '{pedestal.name}' under '{towerRoot.name}'.");
         }
-
-        /// <summary>Lane ends from the FBX empties (tower-td-note §6 condition 8), checked against the manifest; width from the manifest.</summary>
-        static StairLane[] ReadLanes(Transform root, LookoutManifest m, ClimbTuning climbTuning)
-        {
-            var lanes = new List<StairLane>();
-            for (int i = 0; i < m.flights.Length; i++)
-            {
-                var flight = m.flights[i];
-                if (flight.index != i + 1) throw new InvalidOperationException($"Lookout manifest: flights[{i}].index is {flight.index}, expected {i + 1} (bottom up)");
-                Vector3 foot = root.InverseTransformPoint(Require(root, string.Format(LaneFootFormat, flight.index)).position);
-                Vector3 head = root.InverseTransformPoint(Require(root, string.Format(LaneHeadFormat, flight.index)).position);
-                CheckPoint(foot, LookoutManifest.V(flight.foot, "flights.foot"), $"LANE_F{flight.index:00}_Foot");
-                CheckPoint(head, LookoutManifest.V(flight.head, "flights.head"), $"LANE_F{flight.index:00}_Head");
-                if (head.y <= foot.y) throw new InvalidOperationException($"Lane {flight.index}: head is not above its foot");
-                if (flight.width <= 0f) throw new InvalidOperationException($"Lookout manifest: flights[{i}].width missing");
-                if (flight.foot_run_room < 0f) throw new InvalidOperationException($"Lookout manifest: flights[{i}].foot_run_room missing");
-                if (flight.head_run_room < 0f) throw new InvalidOperationException($"Lookout manifest: flights[{i}].head_run_room missing");
-                var lane = new StairLane(foot, head, flight.width, footLeavesArea: i == 0, flight.foot_run_room, flight.head_run_room);
-                // A built-in run's mouth is the flight's own; a linked run-out's goes on its outermost segment below.
-                if (flight.foot_run_out == null || !flight.foot_run_out.Present) SetMouth(ref lane, false, flight.foot_mouth, ClimbRules.FootRun(lane, climbTuning), $"flight {flight.index} foot");
-                if (flight.head_run_out == null || !flight.head_run_out.Present) SetMouth(ref lane, true, flight.head_mouth, ClimbRules.HeadRun(lane, climbTuning), $"flight {flight.index} head");
-                lanes.Add(lane);
-            }
-            // Exit lanes after the flights: positions from their empties, no level run of their own (the hand-over is at the head empty).
-            if (m.exit_lanes != null)
-                foreach (var exit in m.exit_lanes)
-                {
-                    Vector3 foot = root.InverseTransformPoint(Require(root, exit.foot_empty).position);
-                    Vector3 head = root.InverseTransformPoint(Require(root, exit.head_empty).position);
-                    CheckPoint(foot, LookoutManifest.V(exit.foot, "exit_lanes.foot"), exit.foot_empty);
-                    CheckPoint(head, LookoutManifest.V(exit.head, "exit_lanes.head"), exit.head_empty);
-                    if (exit.width <= 0f) throw new InvalidOperationException($"Lookout manifest: exit lane {exit.index} has no width");
-                    var lane = new StairLane(foot, head, exit.width, false, 0f, 0f);
-                    if (!ClimbRules.IsLevel(lane)) throw new InvalidOperationException($"Exit lane {exit.index} is not level ({lane.Pitch:F1} deg); it runs on the floor plane");
-                    SetMouth(ref lane, true, exit.head_mouth, lane.Length, $"exit lane {exit.index}");
-                    lanes.Add(lane);
-                }
-            // Linked run-outs after those: one level lane per segment, chained from the flight end to the hand-over point.
-            for (int i = 0; i < m.flights.Length; i++)
-            {
-                var flight = m.flights[i];
-                AddRunOut(root, lanes, lanes[i].head, flight.head_run_out, flight.head_mouth, flight.width, head: true, $"flight {flight.index} head");
-                AddRunOut(root, lanes, lanes[i].foot, flight.foot_run_out, flight.foot_mouth, flight.width, head: false, $"flight {flight.index} foot");
-            }
-            return lanes.ToArray();
-        }
-
-        /// <summary>A run-out's level must match its flight end's within this, m (tower-td-note §12 condition 3).</summary>
-        const float RunOutLevelTolerance = 0.01f;
 
         /// <summary>
-        /// Level lanes for a linked run-out. Every lane runs "up" toward the flight's head side, like the flights:
-        /// beyond a head the lanes lead away (foot at the junction, head toward the hand-over point); below a foot they
-        /// lead in (foot toward the hand-over point, head at the junction). The outermost end is free and hands over there.
+        /// The leaf stays as the model has it (closed): Hinge takes the authored rotation as closed. The leaf collider goes under
+        /// the leaf on Interactable; the swing blocker stays outside it, on WorldBounds, disabled at rest (ADR R1a, R2).
         /// </summary>
-        static void AddRunOut(Transform root, List<StairLane> lanes, Vector3 laneEnd, LookoutManifest.RunOut runOut, LookoutManifest.Mouth mouth, float width, bool head, string what)
-        {
-            if (runOut == null || !runOut.Present) return;
-            Vector3 inner = laneEnd;
-            for (int k = 0; k < runOut.empties.Length; k++)
-            {
-                string name = runOut.empties[k];
-                Vector3 outer = root.InverseTransformPoint(Require(root, name).position);
-                if (Mathf.Abs(outer.y - laneEnd.y) > RunOutLevelTolerance)
-                    throw new InvalidOperationException($"{name} ({what} run-out) is {outer.y - laneEnd.y:+0.000;-0.000} m off its deck; a run-out is level");
-                // No built-in run on a run-out lane: its free end is the hand-over point itself.
-                var lane = head ? new StairLane(inner, outer, width, false, 0f, 0f) : new StairLane(outer, inner, width, false, 0f, 0f);
-                if (lane.Length <= ClimbArea.LinkTolerance) throw new InvalidOperationException($"{name} ({what} run-out) is on top of the point before it");
-                // The outermost segment's free end is the hand-over point: the mouth is there.
-                if (k == runOut.empties.Length - 1) SetMouth(ref lane, head, mouth, lane.Length, $"{what} run-out");
-                lanes.Add(lane);
-                inner = outer;
-            }
-        }
-
-        /// <summary>The manifest's left_dir must point to the side this reader takes for "left" at least this closely (a dot product).</summary>
-        const float SideAgreement = 0.99f;
-
-        /// <summary>
-        /// Writes a free end's reach profiles onto its lane. The manifest gives left and right standing at the free end
-        /// looking toward the stair; a lane's own sides are those of someone facing up it (foot to head). The two agree
-        /// at a free foot and are mirrored at a free head; the manifest's left_dir is checked against that, so a
-        /// profile can't land on the wrong side. Profiles are stored never increasing from the free end.
-        /// </summary>
-        static void SetMouth(ref StairLane lane, bool head, LookoutManifest.Mouth mouth, float stretchLength, string what)
-        {
-            if (mouth == null || !mouth.Present) throw new InvalidOperationException($"Lookout manifest: no join mouth (left.reach / right.reach) for {what}");
-            if (mouth.reach_spacing <= 0f) throw new InvalidOperationException($"Lookout manifest: no reach_spacing in the join mouth for {what}");
-            if (Mathf.Abs(mouth.stretch_length - stretchLength) > LaneDataTolerance)
-                throw new InvalidOperationException($"{what}: the final level stretch is {stretchLength:F4} m here but {mouth.stretch_length:F4} m in the manifest's join mouth");
-            // Left of someone at the free end looking toward the stair: up the lane from a free foot, down it from a free head.
-            Vector3 facing = head ? -lane.AxisHorizontal : lane.AxisHorizontal;
-            Vector3 left = -Vector3.Cross(Vector3.up, facing);
-            if (Vector3.Dot(left, LookoutManifest.V(mouth.left_dir, "mouth.left_dir").normalized) < SideAgreement)
-                throw new InvalidOperationException($"{what}: the manifest's left_dir {LookoutManifest.V(mouth.left_dir, "mouth.left_dir"):F3} is not this reader's left {left:F3}");
-            foreach (var side in new[] { mouth.left, mouth.right })
-            {
-                if ((side.reach.Length - 1) * mouth.reach_spacing < stretchLength - mouth.reach_spacing - LaneDataTolerance)
-                    throw new InvalidOperationException($"{what}: {side.reach.Length} reach samples at {mouth.reach_spacing} m do not cover the {stretchLength:F3} m stretch");
-                foreach (float sample in side.reach)
-                    if (sample < 0f || float.IsNaN(sample)) throw new InvalidOperationException($"{what}: a reach sample is {sample}");
-            }
-            float[] mine = ClimbRules.NonIncreasing(head ? mouth.right.reach : mouth.left.reach), other = ClimbRules.NonIncreasing(head ? mouth.left.reach : mouth.right.reach);
-            lane.reachSpacing = mouth.reach_spacing;
-            if (head) { lane.headReachLeft = mine; lane.headReachRight = other; }
-            else { lane.footReachLeft = mine; lane.footReachRight = other; }
-        }
-
-        static void CheckPoint(Vector3 empty, Vector3 manifest, string name)
-        {
-            if (Vector3.Distance(empty, manifest) > LaneDataTolerance)
-                throw new InvalidOperationException($"{name} is at {empty:F4} in the FBX but {manifest:F4} in the manifest");
-        }
-
-        static void ApplyHatch(Transform root, LookoutManifest m, ClimbArea area, int laneIndex, StairLane lane, LookoutTuning tuning)
+        static void ApplyHatch(Transform root, LookoutManifest m, LookoutTuning tuning, int interactable, int bounds)
         {
             Transform leaf = Require(root, m.hatch.name);
             Transform proxy = Require(root, m.hatch.collider);
             Collider leafCollider = RequireCollider(proxy);
             Adopt(proxy, leaf);
+            proxy.gameObject.layer = interactable;
             Transform blocker = Require(root, m.hatch.swing_volume);
+            if (blocker == leaf || blocker.IsChildOf(leaf)) throw new InvalidOperationException($"'{blocker.name}' is under the hatch leaf; the swing blocker must stay outside it");
             Collider swingBlocker = RequireCollider(blocker);
             swingBlocker.enabled = false;
+            blocker.gameObject.layer = bounds;
 
             Vector3 a = LookoutManifest.V(m.hatch.opening_min, "hatch.opening_min"), b = LookoutManifest.V(m.hatch.opening_max, "hatch.opening_max");
             Vector3 min = Vector3.Min(a, b), max = Vector3.Max(a, b);
             // Along the top flight's run the opening is its clear length; the leaf's width (hinge to free edge) is the manifest's.
-            Vector3 run = lane.AxisHorizontal;
+            var top = m.flights[m.flights.Length - 1];
+            Vector3 run = LookoutManifest.V(top.head, "top flight head") - LookoutManifest.V(top.foot, "top flight foot");
+            run.y = 0f;
+            if (run.sqrMagnitude < 1e-6f) throw new InvalidOperationException("Lookout manifest: the top flight has no horizontal run");
+            run.Normalize();
             Vector3 size = max - min;
             float length = Mathf.Abs(run.x) * size.x + Mathf.Abs(run.z) * size.z;
-            float width = m.hatch.leaf_width;
             if (length <= 0f) throw new InvalidOperationException("Lookout manifest: hatch opening has no length along the top flight");
             Vector3 hinge = leaf.InverseTransformDirection(root.TransformDirection(LookoutManifest.V(m.hatch.hinge_axis, "hatch.hinge_axis")));
 
+            var walk = root.GetComponent<TowerWalkZones>();
+            if (walk == null) throw new InvalidOperationException("The tower has no TowerWalkZones; the headroom stop's depth needs its capsule height");
+            float standingEye = StandingEyeHeight();
+            float depth = StopDepth(tuning, top, length, m.cab.floor_thickness, walk.towerHeight, standingEye);
+            Debug.Log($"LookoutGameplaySetup: headroom stop depth {depth:F4} m (standing eye {standingEye:F4}, capsule top {walk.towerHeight:F4}, hatchStopHeadroom {tuning.hatchStopHeadroom:F4}).");
+            Collider headroomStop = EnsureHeadroomStop(root, min, max, m.hatch.opening_min[1] - m.cab.floor_thickness, depth, bounds);
+
             var door = GetOrAdd<TrapDoor>(leaf.gameObject);
-            door.Configure(HatchId, tuning, leaf, hinge, leafCollider, swingBlocker, area, laneIndex, root, min, max, length, m.cab.floor_thickness, width);
+            door.Configure(HatchId, tuning, leaf, hinge, leafCollider, swingBlocker, null, -1, root, min, max, length, m.cab.floor_thickness, m.hatch.leaf_width,
+                LookoutManifest.V(top.foot, "top flight foot"), LookoutManifest.V(top.head, "top flight head"), top.width, headroomStop);
             EditorUtility.SetDirty(door);
             EditorUtility.SetDirty(swingBlocker);
+        }
+
+        /// <summary>
+        /// The depth the build gives the headroom stop, and what the tests compare it with (td part 15, director amend4):
+        /// <see cref="HeadroomDepth"/> from the game's own eye height and capsule top. Above <see cref="StopDepthCeiling"/>
+        /// it throws: that goes back to the director.
+        /// </summary>
+        public static float StopDepth(LookoutTuning tuning, LookoutManifest.Flight top, float openingLength, float floorThickness, float capsuleHeight, float standingEye)
+        {
+            float depth = HeadroomDepth(top, openingLength, floorThickness, tuning, capsuleHeight, standingEye);
+            if (depth > StopDepthCeiling) throw new InvalidOperationException($"Headroom stop depth {depth:F4} m is above {StopDepthCeiling} m: back to the director (amend4)");
+            return depth;
+        }
+
+        /// <summary>Director amend4: a derived stop deeper than this goes back to the director.</summary>
+        public const float StopDepthCeiling = 0.25f;
+
+        /// <summary>
+        /// The derived depth of the stop's lower face below the floor's underside (ADR part 10 K3): the larger of hatchStopHeadroom and
+        /// EyeToLeafMin + how far the eye, ducked at the stopped position, stands above the tower capsule's top. The stopped
+        /// position depends on the depth (the capsule top meets the stop's lower face), so this iterates to a fixed point.
+        /// Same curve TrapDoor uses for the duck (LookoutRules.PassEyeHeight and HatchEyeHeight).
+        /// </summary>
+        public static float HeadroomDepth(LookoutManifest.Flight top, float openingLength, float floorThickness, LookoutTuning tuning, float capsuleHeight, float standingEye)
+        {
+            Vector3 foot = LookoutManifest.V(top.foot, "top flight foot"), head = LookoutManifest.V(top.head, "top flight head");
+            float horizontal = new Vector2(head.x - foot.x, head.z - foot.z).magnitude;
+            if (horizontal <= 1e-4f || head.y <= foot.y) throw new InvalidOperationException("Lookout manifest: the top flight does not rise");
+            float pitch = Mathf.Atan2(head.y - foot.y, horizontal) * Mathf.Rad2Deg;
+            float pass = LookoutRules.PassEyeHeight(openingLength, pitch, floorThickness, tuning.eyeClearance, tuning.hatchDuckMinEyeHeight, standingEye);
+            float depth = tuning.hatchStopHeadroom;
+            for (int i = 0; i < 100; i++)
+            {
+                // Feet below the cab floor top when the capsule top meets the stop's lower face; the run is that drop along the flight.
+                float run = (floorThickness + depth + capsuleHeight) / Mathf.Tan(pitch * Mathf.Deg2Rad);
+                float eye = LookoutRules.HatchEyeHeight(run, openingLength, pitch, pass, standingEye, tuning.hatchDuckRun, tuning.eyeClearance);
+                float next = Mathf.Max(tuning.hatchStopHeadroom, EyeToLeafMin + Mathf.Max(0f, eye - capsuleHeight));
+                if (Mathf.Abs(next - depth) < 1e-5f) return next;
+                depth = next;
+            }
+            throw new InvalidOperationException("The headroom stop's depth did not settle");
+        }
+
+        /// <summary>The Player's authored camera pivot height in World.unity (the standing eye height), read from the scene; opened additively and closed again when it was not open.</summary>
+        public static float StandingEyeHeight()
+        {
+            var scene = UnityEditor.SceneManagement.EditorSceneManager.GetSceneByPath(WalkableTowerBuilder.WorldScene);
+            bool opened = false;
+            if (!scene.isLoaded) { scene = EditorSceneManager.OpenScene(WalkableTowerBuilder.WorldScene, OpenSceneMode.Additive); opened = true; }
+            try
+            {
+                var players = new System.Collections.Generic.List<PlayerController>();
+                foreach (var go in scene.GetRootGameObjects()) players.AddRange(go.GetComponentsInChildren<PlayerController>(true));
+                if (players.Count != 1) throw new InvalidOperationException($"Expected exactly one Player in {WalkableTowerBuilder.WorldScene}, found {players.Count}");
+                var pivot = new SerializedObject(players[0]).FindProperty("cameraPivot")?.objectReferenceValue as Transform;
+                if (pivot == null) throw new InvalidOperationException("The Player's cameraPivot is not set");
+                Debug.Log($"LookoutGameplaySetup: standing eye height {pivot.localPosition.y:F4} read from {WalkableTowerBuilder.WorldScene} (read only).");
+                return pivot.localPosition.y;
+            }
+            finally { if (opened) EditorSceneManager.CloseScene(scene, true); }
+        }
+
+        public const string HeadroomStopName = "HATCH_HeadroomStop";
+
+        /// <summary>
+        /// The stop from below (ADR part 4 B): a box over the opening's footprint from hatchStopHeadroom under the cab floor's
+        /// underside up to the underside, on WorldBounds, under the tower root (never under the leaf). Disabled at build (td part 6); TrapDoor
+        /// switches it on while the hatch is closed and off while it swings or stands open. One object, found by name on a rerun.
+        /// </summary>
+        static Collider EnsureHeadroomStop(Transform root, Vector3 openMin, Vector3 openMax, float undersideY, float headroom, int bounds)
+        {
+            Transform t = root.Find(HeadroomStopName);
+            if (t == null)
+            {
+                t = new GameObject(HeadroomStopName).transform;
+                t.SetParent(root, false);
+            }
+            t.localRotation = Quaternion.identity;
+            t.localScale = Vector3.one;
+            t.localPosition = new Vector3((openMin.x + openMax.x) * 0.5f, undersideY - headroom * 0.5f, (openMin.z + openMax.z) * 0.5f);
+            t.gameObject.layer = bounds;
+            var box = GetOrAdd<BoxCollider>(t.gameObject);
+            box.isTrigger = false;
+            box.center = Vector3.zero;
+            box.size = new Vector3(openMax.x - openMin.x, headroom, openMax.z - openMin.z);
+            box.enabled = false;
+            return box;
         }
 
         /// <summary>
@@ -243,7 +222,7 @@ namespace WashedAshore.Lookout.Editor
         [MenuItem("Washed Ashore/Lookout/Apply Interactor To Player")]
         public static void ApplyToPlayer()
         {
-            var settings = LoadOrCreate<InteractionSettings>(InteractionSettingsPath);
+            var settings = LoadRequired<InteractionSettings>(InteractionSettingsPath);
             string problem = settings.Validate();
             if (problem != null) throw new InvalidOperationException($"InteractionSettings: {problem}");
             var tagged = GameObject.FindGameObjectsWithTag(PlayerTag);
@@ -264,37 +243,25 @@ namespace WashedAshore.Lookout.Editor
             Debug.Log($"LookoutGameplaySetup: Interactor and prompt on '{camera.name}' in {scene.path}.");
         }
 
-        /// <summary>Creates the three tuning assets with their defaults where they don't exist yet, and checks them. Rerunnable; touches no scene.</summary>
-        [MenuItem("Washed Ashore/Lookout/Create Tuning Assets")]
-        public static void CreateTuningAssets()
+        /// <summary>Batchmode entry (-executeMethod): opens World.unity, runs <see cref="ApplyToPlayer"/>, exits 0, or 1 on any error.</summary>
+        public static void ApplyToPlayerAndExit()
         {
-            var climbTuning = LoadOrCreate<ClimbTuning>(ClimbTuningPath);
-            LoadOrCreate<InteractionSettings>(InteractionSettingsPath);
-            var lookoutTuning = LoadOrCreate<LookoutTuning>(LookoutTuningPath);
-            string problem = lookoutTuning.Validate();
-            if (problem != null) throw new InvalidOperationException($"LookoutTuning: {problem}");
-            if (climbTuning == null) throw new InvalidOperationException($"Could not create {ClimbTuningPath}");
-            AssetDatabase.SaveAssets();
-            Debug.Log($"LookoutGameplaySetup: tuning assets present at {ClimbTuningPath}, {InteractionSettingsPath}, {LookoutTuningPath}.");
-        }
-
-        /// <summary>Batchmode entry (-executeMethod): creates the tuning assets and quits with 0, or 1 on any error.</summary>
-        public static void CreateTuningAssetsAndExit()
-        {
-            try { CreateTuningAssets(); EditorApplication.Exit(0); }
+            try
+            {
+                EditorSceneManager.OpenScene(WalkableTowerBuilder.WorldScene, OpenSceneMode.Single);
+                ApplyToPlayer();
+                EditorApplication.Exit(0);
+            }
             catch (Exception e) { Debug.LogException(e); EditorApplication.Exit(1); }
         }
 
         // ---- helpers ----
 
-        static T LoadOrCreate<T>(string path) where T : ScriptableObject
+        /// <summary>The tuning assets are layers-engineer's: they must exist; this script never creates them.</summary>
+        static T LoadRequired<T>(string path) where T : ScriptableObject
         {
             var asset = AssetDatabase.LoadAssetAtPath<T>(path);
-            if (asset != null) return asset;
-            asset = ScriptableObject.CreateInstance<T>();
-            AssetDatabase.CreateAsset(asset, path);
-            AssetDatabase.SaveAssets();
-            Debug.Log($"LookoutGameplaySetup: created {path} with the spec's defaults.");
+            if (asset == null) throw new InvalidOperationException($"{path} is missing");
             return asset;
         }
 

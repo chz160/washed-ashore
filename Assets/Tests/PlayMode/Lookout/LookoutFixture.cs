@@ -84,19 +84,24 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             hatch = root.GetComponentInChildren<TrapDoor>();
             firefinder = root.GetComponentInChildren<Firefinder>();
             sashes = root.GetComponentsInChildren<WindowSash>();
-            Assert.IsNotNull(area, "Tower has no ClimbArea");
+            // The walkable tower has no ClimbArea (#40): area stays null and only the guided-path tests (retired) need it.
             Assert.IsNotNull(hatch, "Tower has no TrapDoor");
             Assert.IsNotNull(firefinder, "Tower has no Firefinder");
-            climb = area.Tuning;
             lookout = hatch.Tuning;
-            Assert.IsNotNull(climb, "ClimbArea has no ClimbTuning");
             Assert.IsNotNull(lookout, "TrapDoor has no LookoutTuning");
-            Assert.Greater(area.LaneCount, 0, "ClimbArea has no lanes");
 
             watch = player.gameObject.AddComponent<LookoutWatch>();
             watch.Player = player;
             watch.Area = area;
             watch.Tower = tower;
+            if (area == null)
+            {
+                yield return null;
+                yield break;
+            }
+            climb = area.Tuning;
+            Assert.IsNotNull(climb, "ClimbArea has no ClimbTuning");
+            Assert.Greater(area.LaneCount, 0, "ClimbArea has no lanes");
             watch.AuthoredSlack = climb.laneLateralSlack;
             watch.AuthoredTaper = climb.laneTaperLength;
             watch.AuthoredGlideDegrees = climb.laneGlideMaxDegrees;
@@ -222,17 +227,19 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             float turned = 0f, lastYaw = player.Yaw;
             float wantYaw = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float wantPitch = -Mathf.Asin(Mathf.Clamp(direction.normalized.y, -1f, 1f)) * Mathf.Rad2Deg;
-            Vector2 pending = Vector2.zero;   // sent last frame, applied this frame
+            // The delta set at the end of a frame is applied in the next frame's Update, before this loop resumes, so the yaw and pitch read here
+            // already contain it (K40 diagnostic, td part 44): the error is the measured one, with no 'pending' term. When the error is within one step the
+            // correction is damped (half the error) so it converges whether the input lags by none or by one frame.
             for (float t = 0f; t < AimTimeout; t += Time.deltaTime)
             {
                 turned += Mathf.Abs(Mathf.DeltaAngle(lastYaw, player.Yaw));
                 lastYaw = player.Yaw;
-                var error = new Vector2(Mathf.DeltaAngle(player.Yaw, wantYaw), wantPitch - player.Pitch) - pending;
-                if (Mathf.Abs(error.x) < AimDone && Mathf.Abs(error.y) < AimDone && pending == Vector2.zero) break;
+                var error = new Vector2(Mathf.DeltaAngle(player.Yaw, wantYaw), wantPitch - player.Pitch);
+                if (Mathf.Abs(error.x) < AimDone && Mathf.Abs(error.y) < AimDone) break;
                 float step = LookoutTargets.ScriptTurnDegPerSec * Time.deltaTime;
-                pending = new Vector2(Mathf.Clamp(error.x, -step, step), Mathf.Clamp(error.y, -step, step));
+                Vector2 send = new Vector2(Correction(error.x, step), Correction(error.y, step));
                 // Mouse up looks up: pitch falls as delta.y rises.
-                Set(mouse.delta, new Vector2(pending.x, -pending.y) / degPerCount, queueEventOnly: true);
+                Set(mouse.delta, new Vector2(send.x, -send.y) / degPerCount, queueEventOnly: true);
                 yield return null;
             }
             yield return null;
@@ -243,6 +250,8 @@ namespace WashedAshore.Tests.PlayMode.Lookout
         }
 
         protected float LastTurn { get; private set; }
+
+        static float Correction(float error, float step) => Mathf.Abs(error) >= step ? Mathf.Sign(error) * step : error * 0.5f;
 
         /// <summary>Looks at a world point from the eye.</summary>
         protected IEnumerator LookAt(Vector3 point) => Face(point - player.CameraPivot.position);
@@ -276,6 +285,17 @@ namespace WashedAshore.Tests.PlayMode.Lookout
         protected IEnumerator ReachCab()
         {
             yield return LoadTower();
+            if (area == null)
+            {
+                // Walkable tower: the walk up is TowerWalkTests' job; here the player is placed on the cab floor, clear of the hatch.
+                var spot = ClearOfHatch;
+                yield return StartAt(spot, 0f);
+                // Reaching the cab means coming up through the hatch, which leaves it open (the Cab tests close it from here): open it through the real state path.
+                hatch.SetState(HingeState.Open, 0f);
+                yield return null;
+                Debug.Log($"LookoutFixture.ReachCab: hatch opened by SetState(Open, 0f): state {hatch.State}, feet {player.transform.position:F3}");
+                yield break;
+            }
             yield return StartAtBase();
             yield return WalkTo(area.Lane(0).Point(-ClimbRules.FootRun(area.Lane(0), climb) * 0.5f, 0f), 15f);
             yield return ClimbUp(new ClimbLog());

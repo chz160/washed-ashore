@@ -33,9 +33,22 @@ namespace WashedAshore.Tests.PlayMode.Lookout
         /// </summary>
         int AddRenderMeshProbes(List<Collider> made)
         {
+            var excluded = new List<string>();
             foreach (var filter in tower.GetComponentsInChildren<MeshFilter>())
             {
-                if (filter.GetComponent<Renderer>() == null || filter.sharedMesh == null) continue;
+                var renderer = filter.GetComponent<Renderer>();
+                if (renderer == null || filter.sharedMesh == null) continue;
+                // td parts 66 and 68: only what the eye can see from the cab. The impostor sits in the last LOD (LOD0 is at 0.4) and never draws here.
+                var group = filter.GetComponentInParent<LODGroup>();
+                if (group != null)
+                {
+                    // Unity always draws a renderer that is in none of the group's LODs, so only one listed in a later LOD and not in LOD0 is left out.
+                    var lods = group.GetLODs();
+                    bool inLod0 = lods.Length > 0 && System.Array.IndexOf(lods[0].renderers, renderer) >= 0;
+                    bool inLaterLod = false;
+                    for (int i = 1; i < lods.Length && !inLaterLod; i++) inLaterLod = System.Array.IndexOf(lods[i].renderers, renderer) >= 0;
+                    if (!inLod0 && inLaterLod) { excluded.Add(filter.name); continue; }
+                }
                 var go = new GameObject("RenderProbe_" + filter.name) { layer = WorldLayers.Water };
                 go.transform.SetParent(filter.transform, false);
                 var mc = go.AddComponent<MeshCollider>();
@@ -43,7 +56,29 @@ namespace WashedAshore.Tests.PlayMode.Lookout
                 made.Add(mc);
             }
             Physics.SyncTransforms();
+            Debug.Log($"LookoutCabTests render probes: {made.Count} made; excluded as not drawn from the cab (a later LOD): {(excluded.Count == 0 ? "none" : string.Join(", ", excluded))}");
             return 1 << WorldLayers.Water;
+        }
+
+        /// <summary>On an R8 hit (td part 59 (2)): every render-mesh probe and collider inside the sphere, with its name, layer and distance from the eye, plus the eye and the ring point.</summary>
+        static string PathOf(Transform t) { var s = t.name; for (t = t.parent; t != null; t = t.parent) s = t.name + "/" + s; return s; }
+
+        void LogInsideTheSphere(Vector3 eye, float clear, float degrees, Vector3 point, int renderMask, int way, int index)
+        {
+            var sb = new System.Text.StringBuilder($"LookoutCabTests R8 HIT at walk-ring point {degrees:F1} deg (way {way}, index {index} of {RingPoints}; point {point:F3}; eye {eye:F3}; sphere {clear:F2} m): ");
+            foreach (var c in Physics.OverlapSphere(eye, clear, renderMask | WorldLayers.SightMask | (1 << WorldLayers.WorldBounds), QueryTriggerInteraction.Ignore))
+            {
+                string kind = (renderMask & (1 << c.gameObject.layer)) != 0 ? "render-mesh probe" : "collider";
+                float d;
+                if (c is MeshCollider mc && !mc.convex && mc.sharedMesh != null)
+                {
+                    d = float.MaxValue;   // a non-convex mesh has no ClosestPoint: the nearest vertex in world space
+                    foreach (var v in mc.sharedMesh.vertices) d = Mathf.Min(d, Vector3.Distance(mc.transform.TransformPoint(v), eye));
+                }
+                else d = Vector3.Distance(c.ClosestPoint(eye), eye);
+                sb.Append($"[{kind} {c.name} PATH {PathOf(c.transform)} layer {c.gameObject.layer} {(c is MeshCollider ? "nearest vertex" : "closest point")} {d:F4} m] ");
+            }
+            Debug.Log(sb.ToString());
         }
 
         /// <summary>T-C3a, T-C3b: with the hatch closed, walk the ring both ways; at every point the eye clears every sill and stays eyeClearance from every surface.</summary>
@@ -78,6 +113,7 @@ namespace WashedAshore.Tests.PlayMode.Lookout
                     bool nearCollider = Physics.CheckSphere(eye, clear, WorldLayers.SightMask | (1 << WorldLayers.WorldBounds), QueryTriggerInteraction.Ignore);
                     if (nearMesh || nearCollider) minClear = 0f;
                     rows.Add($"{{\"deg\":{degrees:F1},\"nearMesh\":{(nearMesh ? "true" : "false")},\"nearCollider\":{(nearCollider ? "true" : "false")}}}");
+                    if (nearMesh || nearCollider) LogInsideTheSphere(eye, clear, degrees, point, renderMask, way, k);
                     Assert.IsFalse(nearMesh, $"a render mesh within {clear} m of the eye at ring point {degrees:F0} (R8)");
                     Assert.IsFalse(nearCollider, $"a collider within {clear} m of the eye at ring point {degrees:F0} (R8)");
                 }

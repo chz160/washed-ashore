@@ -9,7 +9,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using WashedAshore.Lookout;
 using WashedAshore.Lookout.Editor;
-using WashedAshore.Tests.Lookout.PlayMode;
 using WashedAshore.World;
 
 namespace WashedAshore.Tests.Lookout.EditMode
@@ -76,23 +75,13 @@ namespace WashedAshore.Tests.Lookout.EditMode
             Assert.IsEmpty(bad, "colliders moved without a kinematic body or a switch-off:\n" + string.Join("\n", bad));
         }
 
-        /// <summary>Today's assets hold no hatch or sash, so the scan also runs on a tower wired through the real components' Configure calls (RealTowerWiring; nothing saved).</summary>
+        /// <summary>The committed tower prefab holds the hatch, the sashes and the firefinder (#40: the build step wires them), so the scan runs on it as saved.</summary>
         [Test]
-        public void ConfiguredTower_HasAHatchAndSashes_AndEveryMovedColliderIsGuarded()
+        public void BuiltTower_HasAHatchAndSashes_AndEveryMovedColliderIsGuarded()
         {
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(TowerPrefab);
-            Assert.IsNotNull(prefab, "No tower prefab at " + TowerPrefab);
-            var root = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
-            // In Edit mode the children of a prefab instance cannot be reparented (Adopt would fail: "Setting the parent of a transform which resides in a Prefab instance is not possible"), so the in-memory instance is unpacked first. Same nodes, same geometry; nothing is saved.
-            PrefabUtility.UnpackPrefabInstance(root, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
+            var root = PrefabUtility.LoadPrefabContents(TowerPrefab);
             try
             {
-                // The real components, wired as LookoutGameplaySetup.Apply does (its manifest reader is schema 4, the manifest is 6): RealTowerWiring.
-                var wired = RealTowerWiring.Wire(root);
-                Assert.IsNull(wired.hatchError, "hatch wiring failed: " + wired.hatchError);
-                Assert.IsNull(wired.sashError, "sash wiring failed: " + wired.sashError);
-                Assert.IsNull(wired.firefinderError, "firefinder wiring failed: " + wired.firefinderError);
-                Assert.IsNotNull(wired.hatch, "wiring gave no hatch");
                 var owners = OwnersIn(root).ToList();
                 Assert.GreaterOrEqual(owners.Count(o => o is TrapDoor), 1, "no hatch found");
                 Assert.GreaterOrEqual(owners.Count(o => o is WindowSash), 1, "no sash found");
@@ -103,7 +92,7 @@ namespace WashedAshore.Tests.Lookout.EditMode
                     Assert.IsNotEmpty(sash.SwitchedOffWhileMoving.ToList(), sash.Id + ": no collider is switched off while its leaf moves");
                 Assert.IsEmpty(Violations(owners), "unguarded moving colliders");
             }
-            finally { UnityEngine.Object.DestroyImmediate(root); }
+            finally { PrefabUtility.UnloadPrefabContents(root); }
         }
 
         // ---- the scan is alive: a synthetic mover must be flagged ----

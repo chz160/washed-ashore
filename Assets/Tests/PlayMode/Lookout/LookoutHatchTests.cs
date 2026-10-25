@@ -13,6 +13,7 @@ namespace WashedAshore.Tests.PlayMode.Lookout
     /// Spec I2 (tower-design-spec.md §4, T-I2a to T-I2e; tower-qa-plan.md I2): the trap door's sequence, its
     /// animation, the refused presses, that it never moves by itself, and the eye duck under the floor.
     /// </summary>
+    [Ignore("Retired by name (#40): A, B and E are built on the lane gate, the duck on a lane and ClimbArea; replaced by LookoutHatchWalkTests on the real hatch.")]
     public class LookoutHatchTests : LookoutFixture
     {
         IEnumerator AimAtHatch()

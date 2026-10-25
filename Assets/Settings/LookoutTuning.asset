@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LookoutTuning
   m_EditorClassIdentifier: WashedAshore.Lookout::WashedAshore.Lookout.LookoutTuning
   hatchSeconds: 1.4
-  hatchOpenAngle: 92
+  hatchOpenAngle: 91.1518
   hatchCurve:
     serializedVersion: 2
     m_Curve:
@@ -47,8 +47,8 @@ MonoBehaviour:
   sashSeconds: 0.9
   sashOpenAngle: 35
   firefinderFov: 45
-  firefinderEyeHeight: 1.3
-  firefinderEyeBack: 0.33
+  firefinderEyeHeight: 1.22
+  firefinderEyeBack: 0.185
   firefinderBlendSeconds: 0.4
   firefinderMouseDegPerCount: 0.06
   firefinderStickDegPerSec: 60
