@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using WashedAshore.Gameplay;
 using WashedAshore.Interaction;
+using WashedAshore.World;
 
 namespace WashedAshore.Lookout
 {
@@ -11,7 +12,7 @@ namespace WashedAshore.Lookout
     /// leaves. The bearing is read off the engraved ring against the alidade's pointer: nothing on screen prints
     /// it. The camera goes through the PlayerController's view seam and is put back exactly on leaving.
     /// </summary>
-    public class Firefinder : MonoBehaviour, IInteractable, IInteractionFocus
+    public class Firefinder : MonoBehaviour, IInteractable, IInteractionFocus, IMovingTransforms
     {
         public enum Phase { Idle, Entering, InUse, Leaving }
 
@@ -43,6 +44,10 @@ namespace WashedAshore.Lookout
         /// <summary>View pitch at the sight, degrees (negative looks down).</summary>
         public float Elevation => elevation;
         public Transform Alidade => alidade;
+
+        /// <summary>The alidade turns in play. It carries no collider (its collision proxies sit under the pedestal), so nothing is switched off.</summary>
+        public System.Collections.Generic.IEnumerable<Transform> MovedTransforms { get { if (alidade != null) yield return alidade; } }
+        public System.Collections.Generic.IEnumerable<Collider> SwitchedOffWhileMoving => System.Array.Empty<Collider>();
         public LookoutTuning Tuning => tuning;
 
         public string Verb => tuning.useVerb;
