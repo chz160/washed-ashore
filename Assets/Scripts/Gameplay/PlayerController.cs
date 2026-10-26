@@ -176,14 +176,40 @@ namespace WashedAshore.Gameplay
                 Debug.LogWarning($"PlayerController: no spawn point (looked for '{spawnPointName}'); staying at {transform.position}.", this);
                 return;
             }
-            Vector3 position = spawnPoint.position;
-            if (TerrainQuery.TryGroundHeight(position, out float ground))
+            PlaceAt(spawnPoint.position, spawnPoint.eulerAngles.y, true);
+        }
+
+        /// <summary>Makes <paramref name="point"/> the spawn point and respawns there. Later respawns (the fall-through guard) return to it.</summary>
+        public void SetSpawnPoint(Transform point)
+        {
+            if (point == null) throw new System.ArgumentNullException(nameof(point));
+            spawnPoint = point;
+            Respawn();
+        }
+
+        /// <summary>
+        /// Respawns at <paramref name="position"/> facing world yaw <paramref name="yaw"/> (degrees) under Respawn's rules, without changing the spawn point.
+        /// <paramref name="snapToGround"/> true puts the feet at the terrain height plus the spawn offset; false keeps position.y.
+        /// </summary>
+        public void SpawnAt(Vector3 position, float yaw, bool snapToGround = true)
+        {
+            if (!IsFinite(position) || float.IsNaN(yaw) || float.IsInfinity(yaw))
+                throw new System.ArgumentException($"SpawnAt needs a finite position and yaw (got {position}, {yaw}).");
+            PlaceAt(position, yaw, snapToGround);
+        }
+
+        static bool IsFinite(Vector3 v) =>
+            !(float.IsNaN(v.x) || float.IsInfinity(v.x) || float.IsNaN(v.y) || float.IsInfinity(v.y) || float.IsNaN(v.z) || float.IsInfinity(v.z));
+
+        void PlaceAt(Vector3 position, float yaw, bool snapToGround)
+        {
+            if (snapToGround && TerrainQuery.TryGroundHeight(position, out float ground))
                 position.y = ground + spawnHeightOffset;
 
             ClearClimb();
             // CharacterController overrides transform writes while enabled.
             controller.enabled = false;
-            transform.SetPositionAndRotation(position, Quaternion.Euler(0f, spawnPoint.eulerAngles.y, 0f));
+            transform.SetPositionAndRotation(position, Quaternion.Euler(0f, yaw, 0f));
             controller.enabled = true;
             horizontalVelocity = Vector3.zero;
             verticalVelocity = 0f;

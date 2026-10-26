@@ -9,6 +9,7 @@ using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using WashedAshore.Gameplay;
+using WashedAshore.Tests.Support;
 using WashedAshore.Wildlife;
 
 namespace WashedAshore.Tests.Performance
@@ -30,6 +31,8 @@ namespace WashedAshore.Tests.Performance
         const int MinSamples = 1000;
         const float MaxFpsDrop = 0.10f;
         const int Width = 1920, Height = 1080;
+        /// <summary>The start point of the walk: the test measures the wildlife system on the route laid out from PlayerSpawn (option a). Spec: spec-playmode-spawn-19.</summary>
+        const string SpecStart = TestSpawn.PlayerSpawnPoint;
 
 
         class RunResult
@@ -110,7 +113,7 @@ namespace WashedAshore.Tests.Performance
                 $"\"graphics_api\":\"{SystemInfo.graphicsDeviceType}\"," +
                 $"\"quality\":\"{QualitySettings.names[QualitySettings.GetQualityLevel()]}\"," +
                 $"\"failed_to_create_agent\":{agentCreateFailures}," +
-                $"\"route_speed_mps\":{WalkSpeed},\"warmup_s\":{WarmupSeconds},\"runs\":[" +
+                $"\"spawn\":\"{TestSpawn.FrameTimeStart(SpecStart)}\",\"route_speed_mps\":{WalkSpeed},\"warmup_s\":{WarmupSeconds},\"runs\":[" +
                 string.Join(",", runs.Select(Json)) + "]," +
                 $"\"pooled\":{{\"on_median_ms\":{medOn:F3},\"off_median_ms\":{medOff:F3}," +
                 $"\"on_median_fps\":{1000 / medOn:F1},\"off_median_fps\":{1000 / medOff:F1}," +
@@ -177,10 +180,11 @@ namespace WashedAshore.Tests.Performance
 
             var player = Object.FindAnyObjectByType<PlayerController>();
             Assert.IsNotNull(player, "No PlayerController");
-            // Scripted walk: the same path every run, independent of input and physics.
-            player.enabled = false;
-            var cc = player.GetComponent<CharacterController>();
-            if (cc) cc.enabled = false;
+            // Start point first (before warm-up, outside the measured windows), then park for the scripted walk: the same path every run,
+            // independent of input and physics. Rail per studio:decisions gate/playmode-spawn-19-amend1 and studio:engineering adr/playmode-spawn-19/part5:
+            // Parked.Move writes the transform each frame with PlayerController and CharacterController off throughout.
+            yield return TestSpawn.At(TestSpawn.FrameTimeStart(SpecStart));
+            var parked = TestSpawn.Park(player);
             Terrain terrain = Terrain.activeTerrain;
             Assert.IsNotNull(terrain, "No active Terrain");
             float eye = player.transform.position.y - Ground(terrain, player.transform.position);
@@ -191,7 +195,7 @@ namespace WashedAshore.Tests.Performance
             float t = -WarmupSeconds;
             while (t < RunSeconds)
             {
-                Place(player.transform, terrain, route, Mathf.Repeat(Mathf.Max(0f, t) * WalkSpeed, total), eye);
+                Place(parked, terrain, route, Mathf.Repeat(Mathf.Max(0f, t) * WalkSpeed, total), eye);
                 yield return null;
                 float dt = Time.unscaledDeltaTime;
                 if (t >= 0f) r.ms.Add(dt * 1000.0);
@@ -216,7 +220,7 @@ namespace WashedAshore.Tests.Performance
             Debug.Log($"[WildlifeFps] {(r.wildlife ? "ON" : "OFF")} run: {r.excludedPlayerAnimators.Count} player Animators excluded from the animal count: {string.Join(", ", r.excludedPlayerAnimators)}");
         }
 
-        static void Place(Transform player, Terrain terrain, Vector2[] route, float distance, float eye)
+        static void Place(TestSpawn.Parked player, Terrain terrain, Vector2[] route, float distance, float eye)
         {
             for (int i = 1; i < route.Length; i++)
             {
@@ -228,7 +232,7 @@ namespace WashedAshore.Tests.Performance
                 var pos = new Vector3(p.x, 0f, p.y);
                 pos.y = Ground(terrain, pos) + eye;
                 Vector2 dir = b - a;
-                player.SetPositionAndRotation(pos, Quaternion.LookRotation(new Vector3(dir.x, 0f, dir.y)));
+                player.Move(pos, Quaternion.LookRotation(new Vector3(dir.x, 0f, dir.y)));
                 return;
             }
         }

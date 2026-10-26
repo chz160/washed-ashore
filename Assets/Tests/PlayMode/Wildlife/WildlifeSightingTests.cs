@@ -128,6 +128,8 @@ namespace WashedAshore.Tests.Wildlife
             }
             Assert.IsEmpty(loadErrors, "Errors while loading World");
 
+            // Option (a), spec-playmode-spawn-19 4.2: the route and the animals are laid out from PlayerSpawn, so the walk starts there. #15 rewrites this.
+            yield return WashedAshore.Tests.Support.TestSpawn.At(WashedAshore.Tests.Support.TestSpawn.PlayerSpawnPoint);
             var player = Player();
             yield return WaitGrounded(player);
             yield return new WaitForSeconds(s.startDelayAfterGrounded);

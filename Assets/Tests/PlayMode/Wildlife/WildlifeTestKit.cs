@@ -68,11 +68,8 @@ namespace WashedAshore.Tests.Wildlife
 
         public static void Teleport(PlayerController player, Vector3 xz)
         {
-            var cc = player.GetComponent<CharacterController>();
             xz.y = TerrainQuery.Height(xz) + 0.5f;
-            cc.enabled = false;
-            player.transform.position = xz;
-            cc.enabled = true;
+            WashedAshore.Tests.Support.TestSpawn.Reposition(player, xz);
         }
 
         public static float Flat(Vector3 a, Vector3 b) => Vector2.Distance(new Vector2(a.x, a.z), new Vector2(b.x, b.z));

@@ -230,9 +230,7 @@ namespace WashedAshore.Tests.PlayMode.Fish
             yield return FishTestKit.Load(FishTestKit.Seeds[0], "f8spawn-" + where);
             // FishTestKit.Load parks the player for scripted walks; this check needs the real controller running.
             FishPopulation.Active.PlayerOverride = null;
-            var player = Object.FindAnyObjectByType<PlayerController>();
-            player.enabled = true;
-            if (player.TryGetComponent<CharacterController>(out var cc)) cc.enabled = true;
+            FishTestKit.Parked.Release();
             float wanted = float.NaN, actual = float.NaN;
             yield return FishF8Spawn.Spawn(where, (w, a) => { wanted = w; actual = a; });
             Assert.IsFalse(float.IsNaN(actual), "no camera");

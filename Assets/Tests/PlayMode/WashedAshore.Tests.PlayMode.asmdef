@@ -2,13 +2,15 @@
     "name": "WashedAshore.Tests.PlayMode",
     "rootNamespace": "WashedAshore.Tests.PlayMode",
     "references": [
+        "WashedAshore.Tests.Support",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Unity.InputSystem",
         "Unity.InputSystem.TestFramework",
         "WashedAshore.Gameplay",
         "WashedAshore.World",
-        "WashedAshore.Lookout"
+        "WashedAshore.Lookout",
+        "WashedAshore.Wildlife"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

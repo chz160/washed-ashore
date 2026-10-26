@@ -66,9 +66,7 @@ namespace WashedAshore.Tests.PlayMode.Character
 
         protected void Place(Vector3 at, float yaw)
         {
-            body.enabled = false;
-            player.transform.SetPositionAndRotation(at, Quaternion.Euler(0f, yaw, 0f));
-            body.enabled = true;
+            WashedAshore.Tests.Support.TestSpawn.Reposition(player, at, yaw);
         }
 
         protected IEnumerator Settle()

@@ -51,10 +51,7 @@ namespace WashedAshore.Tests.PlayMode
         {
             Assert.IsTrue(TerrainQuery.TryGroundHeight(xz, out float ground), $"No terrain at {xz}");
             xz.y = ground + above;
-            var cc = player.GetComponent<CharacterController>();
-            cc.enabled = false;
-            player.transform.SetPositionAndRotation(xz, Quaternion.Euler(0f, yaw, 0f));
-            cc.enabled = true;
+            WashedAshore.Tests.Support.TestSpawn.Reposition(player, xz, yaw);
         }
 
         /// <summary>

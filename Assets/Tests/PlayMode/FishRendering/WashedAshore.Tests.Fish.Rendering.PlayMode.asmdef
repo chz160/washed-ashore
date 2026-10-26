@@ -2,6 +2,7 @@
     "name": "WashedAshore.Tests.Fish.Rendering.PlayMode",
     "rootNamespace": "WashedAshore.Tests.PlayMode.FishRendering",
     "references": [
+        "WashedAshore.Tests.Support",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "WashedAshore.Fish",
