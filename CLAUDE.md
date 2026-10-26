@@ -33,3 +33,10 @@ Unity's forward is +Z. Most vendor rigged FBX files arrive facing -Z, among them
   - Weapons. These face +X; use a socket offset.
   These need their own handling when they're brought in.
 - **Rule and acceptance criteria:** `_bmad-output/planning-artifacts/poc-spec-wildlife-import-facing.md`.
+
+## Line endings and file hashes
+
+Git stores LF for every text file (`.gitattributes`, issue #62). Files Unity writes (`.unity .prefab .asset .meta .mat`, `.asmdef`, `Packages/manifest.json` and similar) are `eol=lf`: LF on disk on every machine. Files people edit (`.cs .md .json .py`) are `text=auto`: CRLF on Windows, LF on Mac and Linux. `.sh` is always LF; `.bat` and `.cmd` always CRLF.
+
+- **Hash approved files with `git hash-object <file>`**, never sha256 of the bytes on disk. A `text=auto` file is CRLF on disk and LF in git, so the two differ.
+- **Don't add line-ending-only changes.** If `git status` shows a file changed but `git diff --ignore-cr-at-eol` is empty, restore it; don't commit it.
