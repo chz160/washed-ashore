@@ -177,7 +177,7 @@ namespace WashedAshore.Character.Editor
             var speeds = LoadSpeeds(type);
             foreach (var fbx in new[] { AnimationsPath(type), AuthoredPath(type) })
             {
-                foreach (var clip in AssetDatabase.LoadAllAssetsAtPath(fbx).OfType<AnimationClip>().Where(c => !c.name.StartsWith("__preview__")))
+                foreach (var clip in AssetDatabase.LoadAllAssetsAtPath(fbx).OfType<AnimationClip>().Where(c => !c.name.StartsWith("__preview__")).OrderBy(c => c.name, StringComparer.Ordinal))
                 {
                     if (set.clips.Any(c => c.name == clip.name)) { log.Add($"WARNING duplicate clip name {clip.name} in {fbx}"); continue; }
                     speeds.TryGetValue(clip.name, out float speed);

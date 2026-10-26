@@ -28,6 +28,6 @@ MonoBehaviour:
   skeletonScale: 1.03
   tints: []
   poseBounds:
-    m_Center: {x: -0.006152451, y: 0.8203854, z: 0.63129723}
-    m_Extent: {x: 0.8011312, y: 1.1461706, z: 1.3770164}
+    m_Center: {x: -0.0061523914, y: 0.82038546, z: 0.63129723}
+    m_Extent: {x: 0.8011311, y: 1.1461707, z: 1.3770164}
   hasPoseBounds: 1
