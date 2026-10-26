@@ -1,3 +1,88 @@
+# Line endings (#62). Git stores LF for every text file.
+# A later line wins, so the LFS lines stay at the bottom and their -text beats the text rules.
+
+# Default: git decides text or binary. Text is stored LF and checked out with the
+# machine's ending (CRLF on Windows through core.autocrlf, LF on Mac and Linux).
+* text=auto
+
+# Files people edit: CRLF on Windows, LF on Mac and Linux.
+*.cs text=auto
+*.md text=auto
+*.json text=auto
+*.shader text=auto
+*.hlsl text=auto
+*.cginc text=auto
+*.txt text=auto
+*.py text=auto
+*.ps1 text=auto
+*.xml text=auto
+*.csv text=auto
+*.jsonl text=auto
+*.js text=auto
+*.html text=auto
+*.geojson text=auto
+*.diff text=auto
+*.sha256 text=auto
+
+# Scripts that must keep one ending.
+*.sh eol=lf
+*.bat eol=crlf
+*.cmd eol=crlf
+
+# Files Unity writes: LF on every machine, Windows included.
+*.unity eol=lf
+*.prefab eol=lf
+*.asset eol=lf
+*.meta eol=lf
+*.mat eol=lf
+*.anim eol=lf
+*.controller eol=lf
+*.overrideController eol=lf
+*.mask eol=lf
+*.physicMaterial eol=lf
+*.lighting eol=lf
+*.playable eol=lf
+*.signal eol=lf
+*.renderTexture eol=lf
+*.asmdef eol=lf
+*.asmref eol=lf
+*.inputactions eol=lf
+*.shadergraph eol=lf
+*.shadersubgraph eol=lf
+*.uss eol=lf
+*.uxml eol=lf
+*.terrainlayer eol=lf
+*.wlt eol=lf
+*.preset eol=lf
+*.mixer eol=lf
+*.spriteatlas eol=lf
+*.spriteatlasv2 eol=lf
+*.brush eol=lf
+*.fontsettings eol=lf
+*.guiskin eol=lf
+*.giparams eol=lf
+*.flare eol=lf
+*.cubemap eol=lf
+*.scenetemplate eol=lf
+ProjectSettings/ProjectVersion.txt eol=lf
+ProjectSettings/*.json eol=lf
+Packages/manifest.json eol=lf
+Packages/packages-lock.json eol=lf
+
+# Tracked files that tools rewrite with LF.
+_bmad-output/poc/character-facing-report.json eol=lf
+_bmad-output/poc/bells-bend-zone-report.json eol=lf
+_bmad-output/poc/bells-bend-overlay.txt eol=lf
+Assets/World/Lookout/MC39_Lookout.manifest.json eol=lf
+tools/terrain/tower_track.json eol=lf
+_bmad-output/poc/bells-bend-zone-sweep.csv eol=lf
+_bmad-output/poc/bells-bend-slope-histogram.csv eol=lf
+_bmad-output/poc/character-appearance-table.md eol=lf
+_bmad-output/poc/water-look/look-log.txt eol=lf
+
+# Evidence log with stray CRs inside lines: keep its bytes exactly as committed.
+_bmad-output/poc/water-evidence/water-qa/qa-probes.txt -text
+
 # Git LFS: binary assets
 # 3D models
 *.fbx filter=lfs diff=lfs merge=lfs -text
