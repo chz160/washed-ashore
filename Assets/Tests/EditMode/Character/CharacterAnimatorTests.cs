@@ -282,5 +282,41 @@ namespace WashedAshore.Tests.EditMode.Character
             foreach (var v in new[] { 1.25f, 1.75f, 2.5f })
                 Assert.That(CharacterClipSet.LocomotionRate(1, v), Is.InRange(0.699f, 1.401f), $"crouch rate at {v}");
         }
+
+        static AnimatorController Tiny(int destination, float threshold)
+        {
+            var c = new AnimatorController();
+            c.AddParameter("P", AnimatorControllerParameterType.Float);
+            c.AddLayer("Base");
+            var sm = c.layers[0].stateMachine;
+            var a = sm.AddState("A"); var b = sm.AddState("B"); var d = sm.AddState("C");
+            var t = a.AddTransition(destination == 0 ? b : d);
+            t.AddCondition(AnimatorConditionMode.Greater, threshold, "P");
+            b.AddTransition(a);
+            return c;
+        }
+
+        [Test]
+        public void ControllerDescriptionSeesAChangedDestinationOrCondition()
+        {
+            var one = Tiny(0, 0.5f); var same = Tiny(0, 0.5f); var moved = Tiny(1, 0.5f); var tuned = Tiny(0, 0.6f);
+            try
+            {
+                Assert.AreEqual(CharacterAnimatorBuilder.Describe(one), CharacterAnimatorBuilder.Describe(same), "two identical controllers describe equally");
+                Assert.AreNotEqual(CharacterAnimatorBuilder.Describe(one), CharacterAnimatorBuilder.Describe(moved), "a transition that points at another state changes the description");
+                Assert.AreNotEqual(CharacterAnimatorBuilder.Describe(one), CharacterAnimatorBuilder.Describe(tuned), "a changed condition threshold changes the description");
+            }
+            finally { foreach (var c in new[] { one, same, moved, tuned }) Object.DestroyImmediate(c); }
+        }
+
+        [TestCaseSource(nameof(Types))]
+        public void BuiltControllerDescribesItselfStably(BodyType type)
+        {
+            var controller = AssetDatabase.LoadAssetAtPath<AnimatorController>(CharacterAnimatorBuilder.ControllerPath(type));
+            Assert.IsNotNull(controller);
+            var text = CharacterAnimatorBuilder.Describe(controller);
+            Assert.AreEqual(text, CharacterAnimatorBuilder.Describe(controller));
+            StringAssert.Contains("transition Base Layer/Stand -> Base Layer/Crouch", text);
+        }
     }
 }

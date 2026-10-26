@@ -14,11 +14,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: WashedAshore.Character.Appearance::WashedAshore.Character.Appearance.CharacterClipSet
   bodyType: 0
   clips:
-  - name: Run_Shoot
-    clip: {fileID: 6461627435052548778, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 3.1261
+  - name: Death
+    clip: {fileID: 4447012609936615250, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 0
+  - name: Gun_Shoot
+    clip: {fileID: -6766124179129801036, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 0
+  - name: HitRecieve
+    clip: {fileID: -7655272897581899170, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 0
+  - name: HitRecieve_2
+    clip: {fileID: 4788885153652181527, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 0
+  - name: Idle
+    clip: {fileID: 9061338213343248790, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 0
+  - name: Idle_Gun
+    clip: {fileID: -6138785498203304139, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 0
+  - name: Idle_Gun_Pointing
+    clip: {fileID: -3115669507061637269, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 0
   - name: Idle_Gun_Shoot
     clip: {fileID: 7240862821619363866, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 0
+  - name: Idle_Neutral
+    clip: {fileID: 5568892555482406616, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 0
+  - name: Idle_Sword
+    clip: {fileID: 3016737739417287458, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 0
+  - name: Interact
+    clip: {fileID: -7342239243898120005, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 0
+  - name: Kick_Left
+    clip: {fileID: -896383910211620263, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 0
+  - name: Kick_Right
+    clip: {fileID: 439134432333356031, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
     speed: 0
   - name: Punch_Left
     clip: {fileID: -370596149276530123, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
@@ -26,104 +59,107 @@ MonoBehaviour:
   - name: Punch_Right
     clip: {fileID: -109958323448747609, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
     speed: 0
-  - name: Kick_Right
-    clip: {fileID: 439134432333356031, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+  - name: Roll
+    clip: {fileID: -7580519143377161132, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
     speed: 0
+  - name: Run
+    clip: {fileID: 1395189703230314720, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 3.1261
+  - name: Run_Back
+    clip: {fileID: 4505450311895319909, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 3.1261
   - name: Run_Left
     clip: {fileID: 701305088695040914, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
     speed: 3.125
-  - name: Run
-    clip: {fileID: 1395189703230314720, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+  - name: Run_Right
+    clip: {fileID: 6051821925488956567, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+    speed: 3.125
+  - name: Run_Shoot
+    clip: {fileID: 6461627435052548778, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
     speed: 3.1261
   - name: Sword_Slash
     clip: {fileID: 1844899424984560047, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
     speed: 0
-  - name: Idle_Sword
-    clip: {fileID: 3016737739417287458, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 0
-  - name: Death
-    clip: {fileID: 4447012609936615250, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 0
-  - name: Run_Back
-    clip: {fileID: 4505450311895319909, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 3.1261
-  - name: HitRecieve_2
-    clip: {fileID: 4788885153652181527, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 0
-  - name: Idle_Neutral
-    clip: {fileID: 5568892555482406616, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 0
-  - name: Run_Right
-    clip: {fileID: 6051821925488956567, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 3.125
-  - name: Wave
-    clip: {fileID: -9021793991225143758, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 0
-  - name: Idle
-    clip: {fileID: 9061338213343248790, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 0
-  - name: HitRecieve
-    clip: {fileID: -7655272897581899170, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 0
-  - name: Roll
-    clip: {fileID: -7580519143377161132, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 0
-  - name: Interact
-    clip: {fileID: -7342239243898120005, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 0
-  - name: Gun_Shoot
-    clip: {fileID: -6766124179129801036, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 0
-  - name: Idle_Gun
-    clip: {fileID: -6138785498203304139, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
-    speed: 0
   - name: Walk
     clip: {fileID: -5599002979973759676, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
     speed: 1.3771
-  - name: Idle_Gun_Pointing
-    clip: {fileID: -3115669507061637269, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+  - name: Wave
+    clip: {fileID: -9021793991225143758, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
     speed: 0
-  - name: Kick_Left
-    clip: {fileID: -896383910211620263, guid: 2a41b99ec38e5214faa6987d4de13cf5, type: 3}
+  - name: CrouchWalk
+    clip: {fileID: 4549679253066588936, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 1.786
+  - name: CrouchWalkBack
+    clip: {fileID: 7794917333920320565, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 1.786
+  - name: CrouchWalkBack_High
+    clip: {fileID: -6900490199560169540, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 1.786
+  - name: CrouchWalkBack_Low
+    clip: {fileID: -7987935023302050330, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 1.786
+  - name: CrouchWalkLeft
+    clip: {fileID: 89773386933620440, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 1.786
+  - name: CrouchWalkLeft_High
+    clip: {fileID: 471105081064121380, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 1.786
+  - name: CrouchWalkLeft_Low
+    clip: {fileID: -5529730623430562956, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 1.786
+  - name: CrouchWalkRight
+    clip: {fileID: 4958488196525039052, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 1.786
+  - name: CrouchWalkRight_High
+    clip: {fileID: 1562310635116831826, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 1.786
+  - name: CrouchWalkRight_Low
+    clip: {fileID: 7011809099886267023, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 1.786
+  - name: CrouchWalk_High
+    clip: {fileID: -1443191096413391237, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 1.786
+  - name: CrouchWalk_Low
+    clip: {fileID: 6111139285309183158, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 1.786
+  - name: Crouch_Idle
+    clip: {fileID: -1050459215147145426, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
-  - name: Sit_Enter_High
-    clip: {fileID: 133978680897975949, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+  - name: Crouch_Idle_High
+    clip: {fileID: 1481840495864329684, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
-  - name: Sit_Exit_High
-    clip: {fileID: 374213952668651245, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+  - name: Crouch_Idle_Low
+    clip: {fileID: 5551796197709159264, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
-  - name: Squat_Enter_Low
-    clip: {fileID: 1279168115857232732, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: Sleep_Down_High
-    clip: {fileID: 2720953501265878858, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: Squat_Enter_High
-    clip: {fileID: 4098026410525258223, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: Sit_Enter_Low
-    clip: {fileID: 4712431197792623069, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: Sit_Exit_Low
-    clip: {fileID: 5624384145844770382, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
+  - name: Jog
+    clip: {fileID: 4560708427556396910, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 4.4784
+  - name: JogBack
+    clip: {fileID: 819967476896397731, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 4.4784
+  - name: JogBack_Full
+    clip: {fileID: -3918786344561888849, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 4.4784
+  - name: JogLeft
+    clip: {fileID: -5398147428270288339, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 4.4784
+  - name: JogLeft_Full
+    clip: {fileID: -2455518733340467561, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 4.4784
+  - name: JogRight
+    clip: {fileID: 6638528915670520458, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 4.4784
   - name: JogRight_Full
     clip: {fileID: -956104472142944060, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 4.4784
-  - name: SprintRight_Full
-    clip: {fileID: 1065162751308994181, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 5.7999
-  - name: Sprint_Full
-    clip: {fileID: 4249537789955457077, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 5.7999
-  - name: SprintLeft_Full
-    clip: {fileID: 7814190046934635043, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 5.7999
-  - name: Sleep_Down
-    clip: {fileID: -9010554023172861222, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+  - name: Jog_Full
+    clip: {fileID: -3577203965325315136, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 4.4784
+  - name: Jump_Air
+    clip: {fileID: 83269477075060500, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
-  - name: Sleep_Loop
-    clip: {fileID: -8778234280413805161, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+  - name: Jump_Land
+    clip: {fileID: -7326212992105015716, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
   - name: Jump_Start
     clip: {fileID: -8742406123432500284, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
@@ -131,132 +167,96 @@ MonoBehaviour:
   - name: Sit_Enter
     clip: {fileID: -8572953495508101196, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
-  - name: Sit_Loop_Low
-    clip: {fileID: -8362382038790252401, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+  - name: Sit_Enter_High
+    clip: {fileID: 133978680897975949, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
-  - name: CrouchWalkBack_Low
-    clip: {fileID: -7987935023302050330, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 1.786
-  - name: Jump_Land
-    clip: {fileID: -7326212992105015716, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: CrouchWalkBack_High
-    clip: {fileID: -6900490199560169540, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 1.786
-  - name: CrouchWalkLeft_Low
-    clip: {fileID: -5529730623430562956, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 1.786
-  - name: JogLeft
-    clip: {fileID: -5398147428270288339, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 4.4784
-  - name: Squat_Hold_Low
-    clip: {fileID: -3871383867412108167, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: Sprint
-    clip: {fileID: -3349467246443827849, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 5.7999
-  - name: SprintLeft
-    clip: {fileID: -2542739893748545474, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 5.7999
-  - name: CrouchWalk_High
-    clip: {fileID: -1443191096413391237, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 1.786
-  - name: Crouch_Idle
-    clip: {fileID: -1050459215147145426, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: Jump_Air
-    clip: {fileID: 83269477075060500, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: CrouchWalkLeft
-    clip: {fileID: 89773386933620440, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 1.786
-  - name: CrouchWalkLeft_High
-    clip: {fileID: 471105081064121380, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 1.786
-  - name: JogBack
-    clip: {fileID: 819967476896397731, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 4.4784
-  - name: Crouch_Idle_High
-    clip: {fileID: 1481840495864329684, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: CrouchWalkRight_High
-    clip: {fileID: 1562310635116831826, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 1.786
-  - name: Squat_Exit
-    clip: {fileID: 1686758790591352675, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: Sleep_Loop_High
-    clip: {fileID: 2917757294295660493, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: Squat_Hold_High
-    clip: {fileID: 3614318459333573224, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: CrouchWalk
-    clip: {fileID: 4549679253066588936, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 1.786
-  - name: Jog
-    clip: {fileID: 4560708427556396910, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 4.4784
-  - name: CrouchWalkRight
-    clip: {fileID: 4958488196525039052, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 1.786
-  - name: Crouch_Idle_Low
-    clip: {fileID: 5551796197709159264, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+  - name: Sit_Enter_Low
+    clip: {fileID: 4712431197792623069, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
   - name: Sit_Exit
     clip: {fileID: 5914441479186998644, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
-  - name: CrouchWalk_Low
-    clip: {fileID: 6111139285309183158, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 1.786
-  - name: Sit_Loop_High
-    clip: {fileID: 6315308071123967863, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+  - name: Sit_Exit_High
+    clip: {fileID: 374213952668651245, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
-  - name: JogRight
-    clip: {fileID: 6638528915670520458, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 4.4784
-  - name: CrouchWalkRight_Low
-    clip: {fileID: 7011809099886267023, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 1.786
-  - name: SprintBack
-    clip: {fileID: 7299568354253419709, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 5.7999
-  - name: CrouchWalkBack
-    clip: {fileID: 7794917333920320565, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 1.786
-  - name: Squat_Enter
-    clip: {fileID: 8236631549641992343, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: Sleep_Wake
-    clip: {fileID: 8257232451203911209, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 0
-  - name: Squat_Hold
-    clip: {fileID: 8756907085408731928, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+  - name: Sit_Exit_Low
+    clip: {fileID: 5624384145844770382, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
   - name: Sit_Loop
     clip: {fileID: 8913264943039890243, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
-  - name: SprintRight
-    clip: {fileID: 9085695900429430942, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 5.7999
-  - name: SprintBack_Full
-    clip: {fileID: -5459373546230963841, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 5.7999
-  - name: JogBack_Full
-    clip: {fileID: -3918786344561888849, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 4.4784
-  - name: Jog_Full
-    clip: {fileID: -3577203965325315136, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 4.4784
-  - name: JogLeft_Full
-    clip: {fileID: -2455518733340467561, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
-    speed: 4.4784
-  - name: Squat_Exit_High
-    clip: {fileID: -8501086067820314285, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+  - name: Sit_Loop_High
+    clip: {fileID: 6315308071123967863, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Sit_Loop_Low
+    clip: {fileID: -8362382038790252401, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Sleep_Down
+    clip: {fileID: -9010554023172861222, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Sleep_Down_High
+    clip: {fileID: 2720953501265878858, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Sleep_Loop
+    clip: {fileID: -8778234280413805161, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Sleep_Loop_High
+    clip: {fileID: 2917757294295660493, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Sleep_Wake
+    clip: {fileID: 8257232451203911209, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
   - name: Sleep_Wake_High
     clip: {fileID: -7540948175644840744, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0
+  - name: Sprint
+    clip: {fileID: -3349467246443827849, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 5.7999
+  - name: SprintBack
+    clip: {fileID: 7299568354253419709, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 5.7999
+  - name: SprintBack_Full
+    clip: {fileID: -5459373546230963841, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 5.7999
+  - name: SprintLeft
+    clip: {fileID: -2542739893748545474, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 5.7999
+  - name: SprintLeft_Full
+    clip: {fileID: 7814190046934635043, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 5.7999
+  - name: SprintRight
+    clip: {fileID: 9085695900429430942, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 5.7999
+  - name: SprintRight_Full
+    clip: {fileID: 1065162751308994181, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 5.7999
+  - name: Sprint_Full
+    clip: {fileID: 4249537789955457077, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 5.7999
+  - name: Squat_Enter
+    clip: {fileID: 8236631549641992343, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Squat_Enter_High
+    clip: {fileID: 4098026410525258223, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Squat_Enter_Low
+    clip: {fileID: 1279168115857232732, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Squat_Exit
+    clip: {fileID: 1686758790591352675, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Squat_Exit_High
+    clip: {fileID: -8501086067820314285, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
   - name: Squat_Exit_Low
     clip: {fileID: -4686059380779632483, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Squat_Hold
+    clip: {fileID: 8756907085408731928, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Squat_Hold_High
+    clip: {fileID: 3614318459333573224, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
+    speed: 0
+  - name: Squat_Hold_Low
+    clip: {fileID: -3871383867412108167, guid: 26f6cd0bd2e2b8842bbece3b9cc8b5b2, type: 3}
     speed: 0

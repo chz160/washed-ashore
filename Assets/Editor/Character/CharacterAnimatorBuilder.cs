@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -41,9 +43,31 @@ namespace WashedAshore.Character.Editor
 
         static void Stance(AnimatorStateTransition t, AnimatorConditionMode mode, int value) => t.AddCondition(mode, value, "Stance");
 
+        static string BuildPath(BodyType type) => $"{CharacterAssetBuilder.ArtRoot}/CharacterAnimator_{type}_Build.controller";
+
+        /// <summary>
+        /// Builds the controller at a scratch path, then keeps the existing file when Describe says it is the same controller. New states and
+        /// transitions get random fileIDs, so a plain rebuild would rewrite the file in a different order every run (#62).
+        /// </summary>
         public static AnimatorController Build(BodyType type, CharacterClipSet clips)
         {
             var path = ControllerPath(type);
+            var scratch = BuildPath(type);
+            var fresh = BuildAt(type, clips, scratch);
+            var existing = AssetDatabase.LoadAssetAtPath<AnimatorController>(path);
+            if (existing != null && Describe(existing) == Describe(fresh))
+            {
+                AssetDatabase.DeleteAsset(scratch);
+                return existing;
+            }
+            if (existing != null) AssetDatabase.DeleteAsset(path);
+            var error = AssetDatabase.MoveAsset(scratch, path);
+            if (!string.IsNullOrEmpty(error)) throw new System.InvalidOperationException($"{type}: could not move {scratch} to {path}: {error}");
+            return AssetDatabase.LoadAssetAtPath<AnimatorController>(path);
+        }
+
+        static AnimatorController BuildAt(BodyType type, CharacterClipSet clips, string path)
+        {
             if (AssetDatabase.LoadAssetAtPath<AnimatorController>(path) != null) AssetDatabase.DeleteAsset(path);
             var c = AnimatorController.CreateAnimatorControllerAtPath(path);
             c.AddParameter("Stance", AnimatorControllerParameterType.Int);
@@ -128,6 +152,72 @@ namespace WashedAshore.Character.Editor
             EditorUtility.SetDirty(c);
             AssetDatabase.SaveAssets();
             return c;
+        }
+
+        /// <summary>
+        /// Text description of a controller made through the Unity API, with no fileIDs: parameters, layers, and per state machine the
+        /// states (sorted by name), their motions (clip GUID + local id, blend trees with all children), and every transition keyed by
+        /// source and destination names, with its settings and conditions in order.
+        /// </summary>
+        public static string Describe(AnimatorController c)
+        {
+            var sb = new StringBuilder();
+            var paths = new Dictionary<AnimatorState, string>();
+            foreach (var l in c.layers) CollectPaths(l.stateMachine, l.name, paths);
+            foreach (var p in c.parameters) sb.Append($"param {p.name} {p.type} {p.defaultFloat:R} {p.defaultInt} {p.defaultBool}\n");
+            foreach (var l in c.layers)
+            {
+                sb.Append($"layer {l.name} w={l.defaultWeight:R} blend={l.blendingMode} sync={l.syncedLayerIndex} ik={l.iKPass} mask={Ident(l.avatarMask)}\n");
+                DescribeMachine(sb, l.stateMachine, l.name, paths);
+            }
+            return sb.ToString();
+        }
+
+        static string Ident(Object o)
+        {
+            if (o == null) return "-";
+            return AssetDatabase.TryGetGUIDAndLocalFileIdentifier(o, out var guid, out long id) ? $"{guid}:{id}" : o.name;
+        }
+
+        static void CollectPaths(AnimatorStateMachine sm, string path, Dictionary<AnimatorState, string> paths)
+        {
+            foreach (var cs in sm.states) paths[cs.state] = path + "/" + cs.state.name;
+            foreach (var child in sm.stateMachines) CollectPaths(child.stateMachine, path + "/" + child.stateMachine.name, paths);
+        }
+
+        static void DescribeMachine(StringBuilder sb, AnimatorStateMachine sm, string path, Dictionary<AnimatorState, string> paths)
+        {
+            sb.Append($"machine {path} default={(sm.defaultState ? sm.defaultState.name : "-")}\n");
+            foreach (var cs in sm.states.OrderBy(x => x.state.name, System.StringComparer.Ordinal))
+            {
+                var s = cs.state; var sp = $"{path}/{s.name}";
+                sb.Append($"state {sp} pos={cs.position} speed={s.speed:R} speedP={s.speedParameterActive}:{s.speedParameter} tag={s.tag} wd={s.writeDefaultValues} mirror={s.mirror}:{s.mirrorParameterActive}:{s.mirrorParameter} cycle={s.cycleOffset:R}:{s.cycleOffsetParameterActive}:{s.cycleOffsetParameter} timeP={s.timeParameterActive}:{s.timeParameter} ik={s.iKOnFeet} behaviours={s.behaviours.Length}\n");
+                DescribeMotion(sb, s.motion, sp);
+                foreach (var t in s.transitions) DescribeTransition(sb, t, sp, paths);
+            }
+            foreach (var t in sm.anyStateTransitions) DescribeTransition(sb, t, path + "/*any", paths);
+            foreach (var t in sm.entryTransitions) DescribeTransition(sb, t, path + "/*entry", paths);
+            foreach (var child in sm.stateMachines.OrderBy(x => x.stateMachine.name, System.StringComparer.Ordinal)) DescribeMachine(sb, child.stateMachine, path + "/" + child.stateMachine.name, paths);
+        }
+
+        static void DescribeMotion(StringBuilder sb, Motion m, string at)
+        {
+            if (m is BlendTree t)
+            {
+                sb.Append($"tree {at} {t.blendType} {t.blendParameter} {t.blendParameterY} auto={t.useAutomaticThresholds}\n");
+                foreach (var ch in t.children) { sb.Append($"child pos={ch.position} th={ch.threshold:R} ts={ch.timeScale:R} cycle={ch.cycleOffset:R} mirror={ch.mirror} direct={ch.directBlendParameter}\n"); DescribeMotion(sb, ch.motion, at + "/child"); }
+            }
+            else sb.Append($"motion {at} {Ident(m)}\n");
+        }
+
+        static void DescribeTransition(StringBuilder sb, AnimatorTransitionBase t, string from, Dictionary<AnimatorState, string> paths)
+        {
+            var to = t.destinationState ? (paths.TryGetValue(t.destinationState, out var dest) ? dest : t.destinationState.name) : t.destinationStateMachine ? "machine:" + t.destinationStateMachine.name : "-";
+            sb.Append($"transition {from} -> {to} exit={t.isExit} mute={t.mute} solo={t.solo}");
+            if (t is AnimatorStateTransition st)
+                sb.Append($" exitTime={st.hasExitTime}:{st.exitTime:R} dur={st.hasFixedDuration}:{st.duration:R} offset={st.offset:R} interrupt={st.interruptionSource}:{st.orderedInterruption} self={st.canTransitionToSelf}");
+            sb.Append('\n');
+            foreach (var cond in t.conditions) sb.Append($"  if {cond.parameter} {cond.mode} {cond.threshold:R}\n");
         }
 
         public static string ShadowControllerPath(BodyType type) => $"{CharacterAssetBuilder.ArtRoot}/CharacterAnimator_{type}_Shadow.overrideController";
