@@ -2,6 +2,7 @@
     "name": "WashedAshore.Tests.PlayMode.Character",
     "rootNamespace": "WashedAshore.Tests.PlayMode.Character",
     "references": [
+        "WashedAshore.Tests.Support",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Unity.InputSystem",

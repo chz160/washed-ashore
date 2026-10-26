@@ -88,6 +88,8 @@ namespace WashedAshore.Tests.Birds
             run.patches = birds.Plan.patches;
             run.redraws = birds.Plan.redraws;
 
+            // Option (a), spec-playmode-spawn-19 4.3: the route and the birds are laid out from PlayerSpawn, so the walk starts there. #16 rewrites this.
+            yield return WashedAshore.Tests.Support.TestSpawn.At(WashedAshore.Tests.Support.TestSpawn.PlayerSpawnPoint);
             var player = WildlifeTestKit.Player();
             yield return WildlifeTestKit.WaitGrounded(player);
             var ws = wild.Tuning.sighting;

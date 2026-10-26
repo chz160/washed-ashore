@@ -85,7 +85,7 @@ namespace WashedAshore.Tests.PlayMode.FishRendering
             if (water) r.waterQueue = water.renderQueue;
 
             var player = UnityEngine.Object.FindAnyObjectByType<PlayerController>();
-            if (player) { player.enabled = false; var cc = player.GetComponent<CharacterController>(); if (cc) cc.enabled = false; }
+            if (player) WashedAshore.Tests.Support.TestSpawn.Park(player);
             cam = Camera.main;
             Assert.IsNotNull(cam, "no main camera");
             float W = FishPopulation.Active ? FishPopulation.Active.Water.WaterLevelY : 0f;

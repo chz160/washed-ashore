@@ -135,10 +135,7 @@ namespace WashedAshore.Tests.PlayMode
         /// <summary>Puts the player at <paramref name="xz"/> with feet at <paramref name="feetY"/>, facing <paramref name="yaw"/>.</summary>
         public static void Place(PlayerController player, Vector3 xz, float feetY, float yaw)
         {
-            var cc = player.GetComponent<CharacterController>();
-            cc.enabled = false;
-            player.transform.SetPositionAndRotation(new Vector3(xz.x, feetY, xz.z), Quaternion.Euler(0f, yaw, 0f));
-            cc.enabled = true;
+            WashedAshore.Tests.Support.TestSpawn.Reposition(player, new Vector3(xz.x, feetY, xz.z), yaw);
         }
 
         public static float Yaw(Vector3 dir) => Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;

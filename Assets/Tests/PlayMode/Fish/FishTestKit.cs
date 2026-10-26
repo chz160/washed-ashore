@@ -43,6 +43,9 @@ namespace WashedAshore.Tests.PlayMode.Fish
             }
         }
 
+        /// <summary>The handle for the player Load parked (scripted walks drive FishPopulation.PlayerOverride). Release it to run the real controller.</summary>
+        public static WashedAshore.Tests.Support.TestSpawn.Parked Parked { get; private set; }
+
         /// <summary>Loads World at <paramref name="seed"/>, checks the brief of record and starts the probe for <paramref name="suite"/>.</summary>
         public static IEnumerator Load(int seed, string suite)
         {
@@ -61,9 +64,9 @@ namespace WashedAshore.Tests.PlayMode.Fish
             Assert.AreEqual(seed, pop.ActiveSeed);
             var player = UnityEngine.Object.FindAnyObjectByType<PlayerController>();
             Assert.IsNotNull(player, "No PlayerController in World");
-            player.enabled = false;
-            var cc = player.GetComponent<CharacterController>();
-            if (cc) cc.enabled = false;
+            // The start is written here (spec-playmode-spawn-19 4.4-4.6): the fish tests start at PlayerSpawn, then the player is parked for the scripted walks.
+            yield return WashedAshore.Tests.Support.TestSpawn.At(WashedAshore.Tests.Support.TestSpawn.PlayerSpawnPoint);
+            Parked = WashedAshore.Tests.Support.TestSpawn.Park(player);
             var probe = pop.gameObject.AddComponent<FishProbe>();
             probe.Path = Path.Combine(ResultsDir, $"fish-probe-{suite}-{seed}.jsonl");
         }
@@ -73,6 +76,7 @@ namespace WashedAshore.Tests.PlayMode.Fish
             FishRandom.OverrideSeed(null);
             FishPopulation.OverrideEnabled(null);
             Time.captureDeltaTime = 0f;
+            Parked = null;
             if (FishPopulation.Active)
             {
                 FishPopulation.Active.PlayerOverride = null;
