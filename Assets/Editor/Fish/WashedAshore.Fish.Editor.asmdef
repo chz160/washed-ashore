@@ -8,8 +8,8 @@
 
         "WashedAshore.Level",
 
-        "WashedAshore.Level.Editor",
-        "WashedAshore.Fish",
+        "WashedAshore.Level.Editor",
+        "WashedAshore.Fish",
         "WashedAshore.Fish.Rendering"
     ],
     "includePlatforms": [
