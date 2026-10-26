@@ -14,7 +14,7 @@ Land animals exist only in one 512 m patch near Bells Bend Park. Make them popul
   | Wolf | 60 | 45 | 60 |
 
 - **The NavMesh covers about 1–1.5% of the map.** It's one Volume bake of 512 × 512 m (`WildlifeNavMesh.asset`, centre about (-152, 18, -891)). The map spans X -2087..2009 and Z -2492..2628. The code notes that "baking every Bells Bend tile would take minutes".
-- **The spawn:** the player starts at **Bells Bend Park** (-202.8, 15.9, -942.1). `TowerBaseSpawn` exists at the tower but isn't active (a `WalkableTowerBuilder` toggle).
+- **No fixed start point (Noah, 2026-10-25).** The final game will have no single spawn point; players will likely wash up at random places on the shore. Today the scene's dev start is `TowerBaseSpawn` at the lookout tower, about 1 km from the `PlayerSpawn` marker in Bells Bend Park that animals are still placed around. Tests place the player wherever they need with `TestSpawn` (#19).
 - **The model to learn from:** `FishPopulation.cs`:
   - 32 m cells whose contents are a pure function of (seed, cell)
   - Cells go live within `simRadiusIn` 50 and are dropped beyond `simRadiusOut` 60
@@ -53,7 +53,7 @@ A spawn out of one player's view can still be in another player's view, or right
 
 | # | Criterion | Evidence |
 |---|---|---|
-| L1 | **Anywhere on the map.** Animals populate the whole walkable map, with no `PlayerSpawn` dependency. Starting at `TowerBaseSpawn` gives the same density as starting at the park | PlayMode: start at 3 spawns; census within the band |
+| L1 | **Anywhere on the map.** Animals populate around wherever the player is, with no dependency on `PlayerSpawn`, `TowerBaseSpawn` or any other fixed point. The player placed anywhere on the walkable map (shore, park, tower, ridge) gets the same density | PlayMode: place the player with `TestSpawn` at 3 or more spots, including a shore spot; census within the band |
 | L2 | **NavMesh coverage.** The NavMesh covers all land where the habitat rules allow animals (≥ 95% of eligible cells), using the method from the gate | Coverage scan |
 | L3 | **Never in view.** **0** spawns or despawns inside any tested camera's frustum within line of sight and fog range, over a 20-minute walk at 3 seeds | A PlayMode spawn and despawn log, cross-checked against the frustum |
 | L4 | **Density holds.** On a long route crossing at least 6 tiles, animals per km² per habitat stay in the brief's band for ≥ 90% of samples | `TestResults/wildlife-density-route.json` |
