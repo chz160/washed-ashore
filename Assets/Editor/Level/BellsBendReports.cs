@@ -104,9 +104,9 @@ public static class BellsBendReports
         pass = pct >= 90f && bluffOk;
         var csv = new StringBuilder("bin_deg,samples,pct\n");
         string[] labels = { "0-5", "5-10", "10-15", "15-20", "20-25", "25-30", "30-35", "35-40", "40-45", ">45" };
-        for (int b = 0; b < 10; b++) csv.AppendLine($"{labels[b]},{bins[b]},{bins[b] * 100f / Mathf.Max(1, total):F2}");
-        csv.AppendLine($"# verticalScale={cfg.verticalScale} landSamples={total} pctAtOrBelow40={pct:F2} floorClampedSamples={floorCells} ({floorCells * 100f / Mathf.Max(1, total):F2}%)");
-        for (int b = 0; b < bluffs.Count; b++) csv.AppendLine($"# {bluffs[b].id}: areaOver40Within60m={bluffArea[b]:F0}m2 maxSlope={bluffMax[b]:F1}deg pass(>=200m2)={bluffArea[b] >= 200f}");
+        for (int b = 0; b < 10; b++) csv.Append($"{labels[b]},{bins[b]},{bins[b] * 100f / Mathf.Max(1, total):F2}").Append('\n');
+        csv.Append($"# verticalScale={cfg.verticalScale} landSamples={total} pctAtOrBelow40={pct:F2} floorClampedSamples={floorCells} ({floorCells * 100f / Mathf.Max(1, total):F2}%)").Append('\n');
+        for (int b = 0; b < bluffs.Count; b++) csv.Append($"# {bluffs[b].id}: areaOver40Within60m={bluffArea[b]:F0}m2 maxSlope={bluffMax[b]:F1}deg pass(>=200m2)={bluffArea[b] >= 200f}").Append('\n');
         var csvPath = BellsBendData.WriteText("bells-bend-slope-histogram.csv", csv.ToString());
         HistogramPng(bins, total);
         return $"L4 vs={cfg.verticalScale} land={total} pct<=40={pct:F2}% floorClamped={floorCells} ({floorCells * 100f / Mathf.Max(1, total):F2}%) " +

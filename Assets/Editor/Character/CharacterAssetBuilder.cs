@@ -63,15 +63,15 @@ namespace WashedAshore.Character.Editor
         public static string ContentTable()
         {
             var sb = new System.Text.StringBuilder();
-            sb.AppendLine("| Asset | Head | Body | Legs | Feet | Tints | Pose bounds | Controller | Shadow controller |");
-            sb.AppendLine("|---|---|---|---|---|---|---|---|---|");
+            sb.Append("| Asset | Head | Body | Legs | Feet | Tints | Pose bounds | Controller | Shadow controller |").Append('\n');
+            sb.Append("|---|---|---|---|---|---|---|---|---|").Append('\n');
             foreach (var kv in Outfits)
                 foreach (var o in kv.Value)
                 {
                     var a = AssetDatabase.LoadAssetAtPath<CharacterAppearance>(AppearancePath(kv.Key, o.folder));
                     string Part(CharacterSlot s) => a.GetPart(s) ? a.GetPart(s).name : "MISSING";
                     string tints = a.tints.Count == 0 ? "none" : string.Join("; ", a.tints.Select(t => $"{t.slot}/{t.materialName}={t.color}"));
-                    sb.AppendLine($"| {Path.GetFileName(AssetDatabase.GetAssetPath(a))} | {Part(CharacterSlot.Head)} | {Part(CharacterSlot.Body)} | {Part(CharacterSlot.Legs)} | {Part(CharacterSlot.Feet)} | {tints} | {(a.hasPoseBounds ? a.poseBounds.size.ToString("F2") : "none")} | {(a.controller ? a.controller.name : "none")} | {(a.shadowController ? a.shadowController.name : "none")} |");
+                    sb.Append($"| {Path.GetFileName(AssetDatabase.GetAssetPath(a))} | {Part(CharacterSlot.Head)} | {Part(CharacterSlot.Body)} | {Part(CharacterSlot.Legs)} | {Part(CharacterSlot.Feet)} | {tints} | {(a.hasPoseBounds ? a.poseBounds.size.ToString("F2") : "none")} | {(a.controller ? a.controller.name : "none")} | {(a.shadowController ? a.shadowController.name : "none")} |").Append('\n');
                 }
             return sb.ToString();
         }

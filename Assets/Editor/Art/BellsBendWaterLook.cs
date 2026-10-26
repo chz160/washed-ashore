@@ -40,13 +40,13 @@ public static class BellsBendWaterLook
     public static string Run()
     {
         var sb = new StringBuilder();
-        sb.AppendLine(CheckShader());
+        sb.Append(CheckShader()).Append('\n');
         if (EditorSceneManager.GetActiveScene().path != BellsBendLevel.ScenePath) EditorSceneManager.OpenScene(BellsBendLevel.ScenePath);
         var cfg = BellsBendData.LoadConfig();
-        sb.AppendLine(ApplyShaderDefaults());
-        sb.AppendLine(RippleDeterminism());
-        sb.AppendLine(FlowSignCheck(cfg));
-        sb.AppendLine(Shots(cfg));
+        sb.Append(ApplyShaderDefaults()).Append('\n');
+        sb.Append(RippleDeterminism()).Append('\n');
+        sb.Append(FlowSignCheck(cfg)).Append('\n');
+        sb.Append(Shots(cfg)).Append('\n');
         return sb.ToString();
     }
 

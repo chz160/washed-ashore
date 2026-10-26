@@ -153,7 +153,7 @@ public static class BellsBendLevel
                 foreach (var r in ridgeHRels)
                 {
                     zc.forestSlopeDeg = f; zc.ridgeHRel = r;
-                    sb.AppendLine($"{f},{r}," + BellsBendZones.Classify(raw, dem, fin, m, v, cfg, zc, roads, rg, shore, spawn, out _, out _));
+                    sb.Append($"{f},{r}," + BellsBendZones.Classify(raw, dem, fin, m, v, cfg, zc, roads, rg, shore, spawn, out _, out _)).Append('\n');
                 }
         }
         finally { zc.forestSlopeDeg = fs0; zc.ridgeHRel = rh0; }
