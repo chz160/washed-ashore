@@ -107,6 +107,8 @@ namespace WashedAshore.Tests.Lookout.PlayMode
             return b;
         }
 
+        // Recorded exception to TestSpawn (adr/63-climb-removal-plan-review): ForcedSwingStaysPut calls capsule.Move each frame, so this needs
+        // PlayerController off with the capsule ON, a state TestSpawn.Park has no call for (Park turns the capsule off too).
         protected void Place(Vector3 feet)
         {
             player.enabled = false;

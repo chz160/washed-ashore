@@ -10,7 +10,7 @@ namespace WashedAshore.Lookout.Editor
 {
     /// <summary>
     /// Adds the interactions to the built walkable tower (issue #40; td ruling adr/lookout-interactions-40): the trap door, the
-    /// hinged sashes and the firefinder, from the model's nodes and the build manifest. There is no ClimbArea and no lane:
+    /// hinged sashes and the firefinder, from the model's nodes and the build manifest. There is no guided path:
     /// the closed hatch stops the player by its leaf collider. WalkableTowerBuilder.Build calls <see cref="Apply(GameObject)"/>
     /// before it saves the prefab. Nothing is placed by hand: a missing node or key throws, and running it twice changes
     /// nothing. <see cref="ApplyToPlayer"/> adds the Interactor and the prompt to the Player in the open scene.
@@ -122,7 +122,7 @@ namespace WashedAshore.Lookout.Editor
             Collider headroomStop = EnsureHeadroomStop(root, min, max, m.hatch.opening_min[1] - m.cab.floor_thickness, depth, bounds);
 
             var door = GetOrAdd<TrapDoor>(leaf.gameObject);
-            door.Configure(HatchId, tuning, leaf, hinge, leafCollider, swingBlocker, null, -1, root, min, max, length, m.cab.floor_thickness, m.hatch.leaf_width,
+            door.Configure(HatchId, tuning, leaf, hinge, leafCollider, swingBlocker, root, min, max, length, m.cab.floor_thickness, m.hatch.leaf_width,
                 LookoutManifest.V(top.foot, "top flight foot"), LookoutManifest.V(top.head, "top flight head"), top.width, headroomStop);
             EditorUtility.SetDirty(door);
             EditorUtility.SetDirty(swingBlocker);

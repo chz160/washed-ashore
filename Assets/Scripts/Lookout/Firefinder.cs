@@ -109,7 +109,7 @@ namespace WashedAshore.Lookout
         {
             if (phase != Phase.Idle) return false;
             if (player == null) player = by.GetComponentInParent<PlayerController>();
-            return player != null && player.IsGrounded && !player.OnLane && !player.ViewOverridden;
+            return player != null && player.IsGrounded && !player.ViewOverridden;
         }
 
         public void Interact(Interactor by)

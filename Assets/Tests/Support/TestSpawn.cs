@@ -73,7 +73,7 @@ namespace WashedAshore.Tests.Support
 
             yield return null; // PlayerController.Start has run and respawned at the scene point
             place(player);
-            yield return new WaitForFixedUpdate(); // one physics step: water and climb volumes see the new spot
+            yield return new WaitForFixedUpdate(); // one physics step: water volumes see the new spot
             yield return null; // one Update: the controller's own Move runs, so IsGrounded means something
 
             Vector3 at = player.transform.position;

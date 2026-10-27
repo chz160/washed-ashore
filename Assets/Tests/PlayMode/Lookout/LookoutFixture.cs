@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using WashedAshore.Gameplay;
 using WashedAshore.Interaction;
 using WashedAshore.Lookout;
+using WashedAshore.Tests.Support;
 
 namespace WashedAshore.Tests.PlayMode.Lookout
 {
@@ -28,8 +29,6 @@ namespace WashedAshore.Tests.PlayMode.Lookout
         protected CharacterController capsule;
         protected Interactor interactor;
         protected Transform tower;
-        protected ClimbArea area;
-        protected ClimbTuning climb;
         protected LookoutTuning lookout;
         protected TrapDoor hatch;
         protected Firefinder firefinder;
@@ -37,11 +36,6 @@ namespace WashedAshore.Tests.PlayMode.Lookout
         protected LookoutWatch watch;
 
         float savedCapture, degPerCount;
-        /// <summary>
-        /// How many scripted waits ended on a condition sampled once per frame (walks, turns, untils). Each adds up to
-        /// one frame, half a frame on average; T-C1e subtracts waits x dt / 2 from a run's total (agreed with t-qa before any run).
-        /// </summary>
-        protected int ConditionWaits;
         readonly List<Key> held = new List<Key>();
 
         protected virtual float DeltaTime => LookoutTargets.SuiteDeltaTime;
@@ -80,11 +74,9 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             var root = GameObject.Find(LookoutTargets.TowerRoot);
             Assert.IsNotNull(root, $"No '{LookoutTargets.TowerRoot}' in {LookoutTargets.WorldScene}");
             tower = root.transform;
-            area = root.GetComponentInChildren<ClimbArea>();
             hatch = root.GetComponentInChildren<TrapDoor>();
             firefinder = root.GetComponentInChildren<Firefinder>();
             sashes = root.GetComponentsInChildren<WindowSash>();
-            // The walkable tower has no ClimbArea (#40): area stays null and only the guided-path tests (retired) need it.
             Assert.IsNotNull(hatch, "Tower has no TrapDoor");
             Assert.IsNotNull(firefinder, "Tower has no Firefinder");
             lookout = hatch.Tuning;
@@ -92,43 +84,13 @@ namespace WashedAshore.Tests.PlayMode.Lookout
 
             watch = player.gameObject.AddComponent<LookoutWatch>();
             watch.Player = player;
-            watch.Area = area;
-            watch.Tower = tower;
-            if (area == null)
-            {
-                yield return null;
-                yield break;
-            }
-            climb = area.Tuning;
-            Assert.IsNotNull(climb, "ClimbArea has no ClimbTuning");
-            Assert.Greater(area.LaneCount, 0, "ClimbArea has no lanes");
-            watch.AuthoredSlack = climb.laneLateralSlack;
-            watch.AuthoredTaper = climb.laneTaperLength;
-            watch.AuthoredGlideDegrees = climb.laneGlideMaxDegrees;
-            watch.AuthoredMouthFactor = climb.laneMouthWidthFactor;
-            watch.AuthoredAscendSpeed = climb.stairAscendSpeed;
-            watch.AuthoredMouthHeight = climb.laneMouthHeight;
-            watch.AuthoredCatchBand = climb.laneCatchBand;
-            watch.HatchLane = hatch.LaneIndex;
-            var built = ReadManifest();
-            var plan = built.targets;
-            // The detector's own lanes, from the manifest; and before anything else, the live lanes must be those lanes.
-            watch.Model = BuildModel(built);
-            AssertLiveLanesAreTheManifests(watch.Model);
-            watch.BaseHalf = plan.base_square * 0.5f;
-            watch.TopHalf = plan.top_square * 0.5f;
-            watch.CabFloorY = plan.cab_floor_y;
             yield return null;
         }
 
 #pragma warning disable 0649 // filled by JsonUtility
         [System.Serializable] protected class ManifestTargets { public float base_square, top_square, cab_floor_y; }
-        [System.Serializable] protected class ManifestSide { public float[] reach; }
-        [System.Serializable] protected class ManifestMouth { public float stretch_length = -1f, reach_spacing = -1f; public float[] left_dir; public ManifestSide left, right; }
-        [System.Serializable] protected class ManifestRunOut { public string[] empties; public float[] points_flat; }
-        [System.Serializable] protected class ManifestFlight { public int index; public float width; public float[] foot, head; public ManifestMouth foot_mouth, head_mouth; public ManifestRunOut foot_run_out, head_run_out; }
-        [System.Serializable] protected class ManifestExit { public float[] foot, head; public float width; public ManifestMouth head_mouth; }
-        [System.Serializable] protected class Manifest { public ManifestTargets targets; public ManifestFlight[] flights; public ManifestExit[] exit_lanes; }
+        [System.Serializable] protected class ManifestFlight { public int index; public float width; public float[] foot, head; }
+        [System.Serializable] protected class Manifest { public ManifestTargets targets; public ManifestFlight[] flights; }
 #pragma warning restore 0649
 
         /// <summary>The build manifest beside the FBX: the tower's plan and heights for the geometric checks.</summary>
@@ -143,35 +105,40 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             return manifest;
         }
 
-        /// <summary>The one transform write: the start pose. Disable, write, enable, as Respawn does.</summary>
+        /// <summary>
+        /// The start pose, through TestSpawn.Reposition: the same operations as the inline write before #63 (controller off, set the pose, on).
+        /// TestSpawn.At's placement check fails on these tower poses (adr/63-climb-removal-plan-review-amend2). Logs the target, the final feet and the horizontal miss; no assert.
+        /// </summary>
         protected IEnumerator StartAt(Vector3 feet, float yaw)
         {
-            capsule.enabled = false;
-            player.transform.SetPositionAndRotation(feet, Quaternion.Euler(0f, yaw, 0f));
-            capsule.enabled = true;
+            TestSpawn.Reposition(player, feet, yaw);
             watch.Forget();
             yield return WaitGrounded(3f);
-        }
-
-        /// <summary>Start pose at the placement script's base spawn, facing the first flight.</summary>
-        protected IEnumerator StartAtBase()
-        {
-            var spawn = GameObject.Find(LookoutTargets.BaseSpawn);
-            Assert.IsNotNull(spawn, $"No '{LookoutTargets.BaseSpawn}' in the scene");
-            Vector3 p = spawn.transform.position;
-            if (TerrainQuery.TryGroundHeight(p, out float ground)) p.y = Mathf.Max(p.y, ground) + capsule.skinWidth + capsule.stepOffset;
-            yield return StartAt(p, spawn.transform.eulerAngles.y);
+            Vector3 end = player.transform.position;
+            float miss = Flat(end - feet).magnitude;
+            Debug.Log($"LookoutFixture.StartAt: target {feet:F3} -> feet {end:F3}, miss {miss:F3} m");
         }
 
         protected IEnumerator WaitGrounded(float timeout)
         {
-            for (float t = 0f; t < timeout && !player.IsSupported; t += Time.deltaTime) yield return null;
-            Assert.IsTrue(player.IsSupported, $"Player not on the ground or a lane after {timeout} s at {player.transform.position:F2}");
+            for (float t = 0f; t < timeout && !player.IsGrounded; t += Time.deltaTime) yield return null;
+            Assert.IsTrue(player.IsGrounded, $"Player not on the ground after {timeout} s at {player.transform.position:F2}");
         }
 
         protected IEnumerator Wait(float seconds)
         {
             for (float t = 0f; t < seconds; t += Time.deltaTime) yield return null;
+        }
+
+        /// <summary>Waits a frame at a time until <paramref name="done"/> holds; fails with <paramref name="what"/> after <paramref name="timeout"/> seconds.</summary>
+        protected IEnumerator Until(System.Func<bool> done, float timeout, string what)
+        {
+            for (float t = 0f; t < timeout; t += Time.deltaTime)
+            {
+                if (done()) yield break;
+                yield return null;
+            }
+            Assert.IsTrue(done(), $"Timed out after {timeout:F0} s waiting to {what}. Player at {player.transform.position:F2}, hatch {hatch.State}. {watch.Summary()}");
         }
 
         // ---- input ------------------------------------------------------------------------------------------------
@@ -219,12 +186,11 @@ namespace WashedAshore.Tests.PlayMode.Lookout
 
         /// <summary>
         /// Turns by mouse, at the script's yaw rate in degrees per second (so the time taken doesn't depend on the frame
-        /// rate), until the player looks along <paramref name="direction"/> (yaw and pitch). The yaw turned is in <see cref="LastTurn"/>.
+        /// rate), until the player looks along <paramref name="direction"/> (yaw and pitch). 
         /// </summary>
         protected IEnumerator Face(Vector3 direction)
         {
             yield return Calibrate();
-            float turned = 0f, lastYaw = player.Yaw;
             float wantYaw = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float wantPitch = -Mathf.Asin(Mathf.Clamp(direction.normalized.y, -1f, 1f)) * Mathf.Rad2Deg;
             // The delta set at the end of a frame is applied in the next frame's Update, before this loop resumes, so the yaw and pitch read here
@@ -232,8 +198,6 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             // correction is damped (half the error) so it converges whether the input lags by none or by one frame.
             for (float t = 0f; t < AimTimeout; t += Time.deltaTime)
             {
-                turned += Mathf.Abs(Mathf.DeltaAngle(lastYaw, player.Yaw));
-                lastYaw = player.Yaw;
                 var error = new Vector2(Mathf.DeltaAngle(player.Yaw, wantYaw), wantPitch - player.Pitch);
                 if (Mathf.Abs(error.x) < AimDone && Mathf.Abs(error.y) < AimDone) break;
                 float step = LookoutTargets.ScriptTurnDegPerSec * Time.deltaTime;
@@ -243,13 +207,8 @@ namespace WashedAshore.Tests.PlayMode.Lookout
                 yield return null;
             }
             yield return null;
-            ConditionWaits++;
-            turned += Mathf.Abs(Mathf.DeltaAngle(lastYaw, player.Yaw));
-            LastTurn = turned;
             Assert.Less(Mathf.Abs(Mathf.DeltaAngle(player.Yaw, wantYaw)), AimDone * 3f, $"Could not turn to yaw {wantYaw:F1} (at {player.Yaw:F1})");
         }
-
-        protected float LastTurn { get; private set; }
 
         static float Correction(float error, float step) => Mathf.Abs(error) >= step ? Mathf.Sign(error) * step : error * 0.5f;
 
@@ -268,12 +227,11 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             {
                 float d = Flat(point - player.transform.position).magnitude;
                 // Past the closest approach: stop rather than circle it.
-                if (d < ReachedWithin || d > best + ReachedWithin || player.OnLane) break;
+                if (d < ReachedWithin || d > best + ReachedWithin) break;
                 best = Mathf.Min(best, d);
                 yield return null;
             }
             Let(Key.W);
-            ConditionWaits++;
             yield return null;
         }
 
@@ -281,24 +239,17 @@ namespace WashedAshore.Tests.PlayMode.Lookout
 
         // ---- the cab ----------------------------------------------------------------------------------------------
 
-        /// <summary>From a fresh scene: start at the base, walk to the first flight and climb into the cab (the hatch is opened from below).</summary>
+        /// <summary>From a fresh scene: place the player in the cab, clear of the hatch, and open the hatch.</summary>
         protected IEnumerator ReachCab()
         {
             yield return LoadTower();
-            if (area == null)
-            {
-                // Walkable tower: the walk up is TowerWalkTests' job; here the player is placed on the cab floor, clear of the hatch.
-                var spot = ClearOfHatch;
-                yield return StartAt(spot, 0f);
-                // Reaching the cab means coming up through the hatch, which leaves it open (the Cab tests close it from here): open it through the real state path.
-                hatch.SetState(HingeState.Open, 0f);
-                yield return null;
-                Debug.Log($"LookoutFixture.ReachCab: hatch opened by SetState(Open, 0f): state {hatch.State}, feet {player.transform.position:F3}");
-                yield break;
-            }
-            yield return StartAtBase();
-            yield return WalkTo(area.Lane(0).Point(-ClimbRules.FootRun(area.Lane(0), climb) * 0.5f, 0f), 15f);
-            yield return ClimbUp(new ClimbLog());
+            // The walk up is TowerWalkTests' job; here the player is placed on the cab floor, clear of the hatch.
+            var spot = ClearOfHatch;
+            yield return StartAt(spot, 0f);
+            // Reaching the cab means coming up through the hatch, which leaves it open (the Cab tests close it from here): open it through the real state path.
+            hatch.SetState(HingeState.Open, 0f);
+            yield return null;
+            Debug.Log($"LookoutFixture.ReachCab: hatch opened by SetState(Open, 0f): state {hatch.State}, feet {player.transform.position:F3}");
         }
 
         /// <summary>The pedestal axis at the player's floor height.</summary>

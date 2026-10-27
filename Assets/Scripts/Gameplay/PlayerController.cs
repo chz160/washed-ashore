@@ -7,7 +7,7 @@ namespace WashedAshore.Gameplay
     /// <summary>
     /// Grounded first-person walk on a CharacterController. Tuning defaults come from
     /// _bmad-output/poc/controller-tuning.md; every number is a serialized field.
-    /// Wading and swimming live in PlayerController.Water.cs, stair lanes in Climb/PlayerController.Climb.cs,
+    /// Wading and swimming live in PlayerController.Water.cs,
     /// the camera seam in PlayerController.View.cs.
     /// </summary>
     [RequireComponent(typeof(CharacterController))]
@@ -85,7 +85,7 @@ namespace WashedAshore.Gameplay
             jumpAction = new InputAction("Jump", InputActionType.Button, "<Keyboard>/space");
             jumpAction.AddBinding("<Gamepad>/buttonSouth");
             SetupWater();
-            SetupClimb();
+            WorldBoundsClamp.Snapped += OnSnapped;
             SetupView();
             SetupStance();
             // The shared gamepad South: the Interactor runs first and takes the press while a prompt shows.
@@ -122,7 +122,7 @@ namespace WashedAshore.Gameplay
             sprintAction.Dispose();
             jumpAction.Dispose();
             DisposeStance();
-            TeardownClimb();
+            WorldBoundsClamp.Snapped -= OnSnapped;
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace WashedAshore.Gameplay
 
         /// <summary>
         /// Slims and shortens (or restores) the capsule for a place the authored one cannot fit, such as the lookout stairs; the
-        /// feet stay where they are. The new radius is also the radius the climb code treats as authored, so it does not grow it back.
+        /// feet stay where they are.
         /// </summary>
         public void SetWalkCapsule(float radius, float height)
         {
@@ -155,7 +155,6 @@ namespace WashedAshore.Gameplay
             controller.radius = radius;
             controller.height = height;
             controller.center = new Vector3(controller.center.x, bottom + height * 0.5f, controller.center.z);
-            authoredRadius = radius;
             OnWalkCapsuleSet(height);
         }
 
@@ -206,7 +205,6 @@ namespace WashedAshore.Gameplay
             if (snapToGround && TerrainQuery.TryGroundHeight(position, out float ground))
                 position.y = ground + spawnHeightOffset;
 
-            ClearClimb();
             // CharacterController overrides transform writes while enabled.
             controller.enabled = false;
             transform.SetPositionAndRotation(position, Quaternion.Euler(0f, yaw, 0f));
@@ -239,14 +237,19 @@ namespace WashedAshore.Gameplay
                 cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
         }
 
+        /// <summary>A bounds snap is a teleport: the firefinder and the camera seam listen for it.</summary>
+        void OnSnapped(GameObject body, Vector3 from, Vector3 to)
+        {
+            if (body != gameObject) return;
+            Teleported?.Invoke();
+        }
+
         void Move(float dt)
         {
             UpdateWater();
             Vector2 input = controlSuspended ? Vector2.zero : Vector2.ClampMagnitude(ExternalMoveInput ?? moveAction.ReadValue<Vector2>(), 1f);
             bool sprint = !controlSuspended && sprintAction.IsPressed();
-            // Stair lanes: one check, and off any climb area the walk below runs as before.
-            if (ClimbActive && ClimbMove(input, sprint, dt)) return;
-            Vector3 target = climbArea != null ? ClimbWalkTarget(input) : MoveTarget(input, sprint, dt);
+            Vector3 target = MoveTarget(input, sprint, dt);
             if (WalkSpeedCap > 0f) target = Vector3.ClampMagnitude(target, WalkSpeedCap);
             if (StanceSpeedLimit >= 0f) target = Vector3.ClampMagnitude(target, StanceSpeedLimit);
             float rate = MoveRate(target, input.sqrMagnitude > 0f);
@@ -272,12 +275,12 @@ namespace WashedAshore.Gameplay
         }
 
         /// <summary>
-        /// A jump press that counts: not while control is suspended or inside a climb area (silently ignored),
+        /// A jump press that counts: not while control is suspended,
         /// and not a gamepad South press the Interactor took for a prompt. Space always jumps.
         /// </summary>
         bool JumpPressed()
         {
-            if (!jumpAction.WasPressedThisFrame() || controlSuspended || ClimbJumpLocked) return false;
+            if (!jumpAction.WasPressedThisFrame() || controlSuspended) return false;
             bool fromGamepad = jumpAction.activeControl != null && jumpAction.activeControl.device is Gamepad;
             return !InteractionRules.JumpBlocked(fromGamepad, interactor != null && interactor.TookPressThisFrame);
         }

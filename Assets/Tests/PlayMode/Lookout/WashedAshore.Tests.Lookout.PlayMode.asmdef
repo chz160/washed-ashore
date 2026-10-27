@@ -10,7 +10,8 @@
         "WashedAshore.World",
         "WashedAshore.Interaction",
         "WashedAshore.Gameplay",
-        "WashedAshore.Lookout"
+        "WashedAshore.Lookout",
+        "WashedAshore.Tests.Support"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

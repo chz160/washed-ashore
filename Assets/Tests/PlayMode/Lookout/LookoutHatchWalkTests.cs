@@ -11,7 +11,7 @@ using WashedAshore.World;
 namespace WashedAshore.Tests.PlayMode.Lookout
 {
     /// <summary>
-    /// #40 T3, td R1e: the hatch on the REAL built tower with no ClimbArea. The closed hatch is a floor from above (the cab floor, no step,
+    /// #40 T3, td R1e: the hatch on the REAL built tower (the walkable tower). The closed hatch is a floor from above (the cab floor, no step,
     /// bump or jitter), a ceiling from below (the player stops under it and is never inside it), and the camera's near-plane corners never
     /// enter the leaf collider or the swing blocker. Opening it from below shows "Open". If the camera check fails it is a design and look
     /// question for designer-40 and the director, not a collider change (td R1e).
