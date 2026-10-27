@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using WashedAshore.Gameplay;
+using WashedAshore.Tests.Support;
 
 namespace WashedAshore.Tests.PlayMode
 {
@@ -185,9 +186,7 @@ namespace WashedAshore.Tests.PlayMode
         static IEnumerator Measure(Spot s, CharacterController cc, PlayerController pc, List<ProfilerRecorder> recs, List<string> names, StringBuilder csv, StringBuilder log)
         {
             int fell0 = fellCount;
-            cc.enabled = false;
-            cc.transform.SetPositionAndRotation(s.Pos, Quaternion.Euler(0f, Yaw, 0f));   // yaw fixed at 0 for every spot, BEFORE and AFTER
-            cc.enabled = true;
+            TestSpawn.Reposition(pc, s.Pos, Yaw);   // yaw fixed at 0 for every spot, BEFORE and AFTER; same three operations as the old inline write
             pc.SetLook(Yaw, 0f);
             for (int i = 0; i < 60; i++) yield return null;   // settle onto the ground
             string c1 = Check(s, pc, cc);
@@ -223,9 +222,7 @@ namespace WashedAshore.Tests.PlayMode
 
         static IEnumerator Control(GameObject crate, Rigidbody rb, float ground, Vector3 spawnPos, CharacterController cc, PlayerController pc, List<ProfilerRecorder> recs, List<string> names, StringBuilder csv, string dir)
         {
-            cc.enabled = false;
-            cc.transform.SetPositionAndRotation(spawnPos, Quaternion.Euler(0f, Yaw, 0f));
-            cc.enabled = true;
+            TestSpawn.Reposition(pc, spawnPos, Yaw);
             pc.SetLook(Yaw, 0f);
             var sum = new double[recs.Count];
             var max = new long[recs.Count];

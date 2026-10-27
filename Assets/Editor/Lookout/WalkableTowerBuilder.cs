@@ -16,7 +16,7 @@ namespace WashedAshore.Lookout.Editor
     ///   Prefab     LookoutTower.prefab: materials, LODGroup, colliders from the FBX proxies, a smooth ramp collider per
     ///              flight along the manifest's nosing line, and TowerWalkZones (slim capsule, raised slope limit)
     ///   Place      BellsBendTowerSite.Place() puts it on the Central Ridge Summit pad; the player's spawn is pointed at the base
-    /// The guided-climb scheme is not used: no ClimbArea is added. Proxies that stop a walking body are dropped by name
+    /// There is no guided path: the tower is walked on ramps. Proxies that stop a walking body are dropped by name
     /// (see <see cref="Dropped"/>); the hatch stays closed and LookoutGameplaySetup.Apply wires it, the sashes and the firefinder. Run:
     ///   Unity -batchmode -projectPath E:\GitHub\washed-ashore -executeMethod WashedAshore.Lookout.Editor.WalkableTowerBuilder.BuildBatch -quit
     /// or the menu Washed Ashore/Lookout/Build walkable tower. LOOKOUT_EXPORT_DIR overrides the export folder.
@@ -239,7 +239,7 @@ namespace WashedAshore.Lookout.Editor
                 walk.footprintMin = new Vector3(extra.area_min[0] - ZoneFootprintMargin, -1f, extra.area_min[2] - ZoneFootprintMargin);
                 walk.footprintMax = new Vector3(extra.area_max[0] + ZoneFootprintMargin, 30f, extra.area_max[2] + ZoneFootprintMargin);
 
-                // Interactions (#40): hatch (leaf left closed, as the model has it), hinged sashes, firefinder; layers by name; no ClimbArea.
+                // Interactions (#40): hatch (leaf left closed, as the model has it), hinged sashes, firefinder; layers by name.
                 LookoutGameplaySetup.Apply(root, LookoutManifest.Parse(json));
                 log.AppendLine("interactions: hatch, hinged sashes and firefinder wired (LookoutGameplaySetup.Apply)");
 

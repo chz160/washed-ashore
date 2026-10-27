@@ -133,7 +133,7 @@ namespace WashedAshore.Gameplay
         }
 
         bool WaterBlocks => waterMode != WaterMode.Dry;
-        bool ZoneBlocks => walkCapsuleRestricted || climbArea != null || WalkSpeedCap > 0f;
+        bool ZoneBlocks => walkCapsuleRestricted || WalkSpeedCap > 0f;
 
         /// <summary>A lowered stance held where it is not allowed ends: at once in water, when the capsule fits elsewhere.</summary>
         void EnforceBlocks()

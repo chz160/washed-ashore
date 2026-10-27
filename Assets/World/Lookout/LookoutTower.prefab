@@ -10393,8 +10393,6 @@ MonoBehaviour:
     localAxis: {x: 0, y: 0, z: -1}
   leafCollider: {fileID: 4245598842969046589}
   swingBlocker: {fileID: 9009521018554064095}
-  climbArea: {fileID: 0}
-  laneIndex: -1
   frame: {fileID: 4937797111267520807}
   openingMin: {x: 0.2674, y: 26.3398, z: -0.8382}
   openingMax: {x: 0.9786, y: 26.3398, z: 0.6618}

@@ -9,8 +9,8 @@ namespace WashedAshore.Lookout
     /// The cab's trap door (spec I2, tower-design-spec.md §4, N13). Hinged and heavy; it only ever moves on a
     /// press. The leaf's collider is on only at rest (a floor when closed, flat against the wall when open, and the
     /// aim target in both); it is off for the whole swing, so nothing is ever pushed. It can't be used while the player's capsule is in the
-    /// swing volume (standing on it, or in the opening), so it can't trap, crush or launch. While it is not fully
-    /// open the top flight's lane is gated below it, and a prebuilt blocker fills the swing volume while it moves.
+    /// swing volume (standing on it, or in the opening), so it can't trap, crush or launch. A prebuilt blocker fills
+    /// the swing volume while it moves.
     /// It also lowers the eye under the floor on the top flight: a function of the feet's position on that flight only (§4 duck).
     /// </summary>
     public class TrapDoor : MonoBehaviour, IInteractable, IMovingTransforms
@@ -22,9 +22,6 @@ namespace WashedAshore.Lookout
         [SerializeField] Collider leafCollider;
         [Tooltip("Prebuilt WorldBounds box filling the swing volume: on only while the leaf moves.")]
         [SerializeField] Collider swingBlocker;
-        [SerializeField] ClimbArea climbArea;
-        [Tooltip("The lane that comes up through this hatch.")]
-        [SerializeField] int laneIndex;
         [Tooltip("The opening and floor are given in this transform's space (the tower root).")]
         [SerializeField] Transform frame;
         [Tooltip("Opening in the floor: min and max corners at floor-top height, frame space.")]
@@ -44,14 +41,13 @@ namespace WashedAshore.Lookout
         PlayerController player;
         CharacterController playerCapsule;
         float passEyeHeight;
-        bool ducking, gateKnown, collisionMoving;
+        bool ducking, collisionMoving;
 
         public string Id => id;
         public HingeState State => hinge.State;
         /// <summary>Hinge angle, degrees from closed.</summary>
         public float Angle => hinge.Angle;
         public LookoutTuning Tuning => tuning;
-        public int LaneIndex => laneIndex;
         /// <summary>The eye height used under the floor, from the built opening (§4).</summary>
         public float PassEyeHeight => passEyeHeight;
         /// <summary>Clear length of the opening along the top flight's run, m.</summary>
@@ -86,7 +82,7 @@ namespace WashedAshore.Lookout
 
         /// <summary>Wires everything (build script and tests).</summary>
         public void Configure(string stableId, LookoutTuning lookoutTuning, Transform leaf, Vector3 hingeAxis, Collider leafSolid,
-            Collider blocker, ClimbArea area, int lane, Transform frameTransform, Vector3 openMin, Vector3 openMax,
+            Collider blocker, Transform frameTransform, Vector3 openMin, Vector3 openMax,
             float lengthAlongRun, float thickness, float leafSweep,
             Vector3 topFlightFoot = default, Vector3 topFlightHead = default, float topFlightWidth = 0f, Collider headroom = null)
         {
@@ -95,8 +91,6 @@ namespace WashedAshore.Lookout
             hinge.Configure(leaf, hingeAxis);
             leafCollider = leafSolid;
             swingBlocker = blocker;
-            climbArea = area;
-            laneIndex = lane;
             frame = frameTransform;
             openingMin = openMin;
             openingMax = openMax;
@@ -109,20 +103,13 @@ namespace WashedAshore.Lookout
             headroomStop = headroom;
         }
 
-        bool HasLane => climbArea != null && laneIndex >= 0 && laneIndex < climbArea.LaneCount;
         /// <summary>Headroom stop box (WorldBounds), or null.</summary>
         public Collider HeadroomStop => headroomStop;
 
-        /// <summary>The top flight in frame space: the built data when given, else the lane (old wiring).</summary>
+        /// <summary>The top flight in frame space: the built data when given.</summary>
         bool TryFlight(out Vector3 foot, out Vector3 head, out float width)
         {
             if (flightWidth > 0f) { foot = flightFoot; head = flightHead; width = flightWidth; return true; }
-            if (HasLane)
-            {
-                ref readonly StairLane top = ref climbArea.Lane(laneIndex);
-                foot = frame.InverseTransformPoint(top.foot); head = frame.InverseTransformPoint(top.head); width = top.width;
-                return true;
-            }
             foot = head = Vector3.zero; width = 0f;
             return false;
         }
@@ -167,10 +154,9 @@ namespace WashedAshore.Lookout
                 hinge.Tick(Time.deltaTime, tuning.hatchOpenAngle, tuning.hatchSeconds, tuning.hatchCurve);
                 if (hinge.AtRest) Settle();
             }
-            else if (!gateKnown) RefreshGate(); // gate only: the leaf is not posed again at rest
         }
 
-        /// <summary>Pose, collision and the lane gate for the current state. Collision changes only in these discrete steps.</summary>
+        /// <summary>Pose and collision for the current state. Collision changes only in these discrete steps.</summary>
         void Settle()
         {
             hinge.Pose(tuning.hatchOpenAngle, tuning.hatchSeconds, tuning.hatchCurve);
@@ -187,28 +173,11 @@ namespace WashedAshore.Lookout
             // autoSyncTransforms is off: once per settle, so a query in this frame sees the leaf at its rest pose (never per frame).
             if (collisionMoving && !moving) Physics.SyncTransforms();
             collisionMoving = moving;
-            RefreshGate();
         }
-
-        /// <summary>The lane gate for the current state (no pose, no collision change).</summary>
-        void RefreshGate()
-        {
-            if (!HasLane) return;
-            // A lane linked at the top of the hatch's flight (the step off onto the cab floor) is open only with the hatch.
-            if (climbArea.TryLink(laneIndex, ClimbRules.End.Head, out int exitLane, out _)) climbArea.SetBlocked(exitLane, hinge.State != HingeState.Open);
-            if (hinge.State == HingeState.Open) { climbArea.SetGate(laneIndex, float.PositiveInfinity); gateKnown = true; return; }
-            // Not fully open: the head stays hatchStopHeadroom below the floor's underside. Needs the capsule's height.
-            gateKnown = FindPlayer();
-            climbArea.SetGate(laneIndex, gateKnown ? GateDistance() : 0f);
-        }
-
-        float GateDistance() => ClimbRules.GateUnder(climbArea.Lane(laneIndex), UndersideY(), playerCapsule.height, tuning.hatchStopHeadroom);
-
-        float UndersideY() => frame.TransformPoint(openingMin).y - floorThickness;
 
         /// <summary>
         /// §4 rule 1: any part of the capsule in the swing volume (the leaf's sweep over the opening, down to
-        /// hatchSwingDepth below the floor's underside), or on the lane above where the shut hatch would stop it.
+        /// hatchSwingDepth below the floor's underside).
         /// Closing is also refused, silently, while the capsule grown by its skin on every side overlaps the headroom stop's volume: closing switches
         /// the stop on, and a stop switched on around a player would push them (director amend5, td part 54/55). Opening keeps the swing-box rule only:
         /// a player resting at the stop touches its volume through the skin and must still be able to open the hatch.
@@ -227,7 +196,7 @@ namespace WashedAshore.Lookout
                 var grownFeet = new Vector3(feet.x, feet.y - skin, feet.z);
                 if (LookoutRules.CapsuleInBox(grownFeet, radius, playerCapsule.height + 2f * skin, stopMin, stopMax)) return true;
             }
-            return HasLane && player.OnLane && player.ClimbArea == climbArea && player.LaneIndex == laneIndex && player.LaneDistance > GateDistance();
+            return false;
         }
 
         /// <summary>The headroom stop's volume in frame space (from its box, so it is right while the stop is off); derived from the opening when there is no stop.</summary>
@@ -259,18 +228,8 @@ namespace WashedAshore.Lookout
             return true;
         }
 
-        /// <summary>Eye height above the feet at a lane parameter on the top lane (§4): position in, height out, nothing else.</summary>
-        public float EyeHeightAt(float laneDistance)
-        {
-            if (!HasLane) return player.AuthoredEyeHeight;
-            ref readonly StairLane top = ref climbArea.Lane(laneIndex);
-            float run = Mathf.Max(0f, top.Length - laneDistance) * top.RunPerMetre;
-            return LookoutRules.HatchEyeHeight(run, openingLength, top.Pitch, passEyeHeight, player.AuthoredEyeHeight,
-                tuning.hatchDuckRun, tuning.eyeClearance);
-        }
-
         /// <summary>
-        /// Eye height from the feet's position alone (§4 duck, lane-free): on the top flight when the feet's projection on
+        /// Eye height from the feet's position alone (§4 duck): on the top flight when the feet's projection on
         /// the foot-head segment is inside its width; the run is the horizontal distance to the head. Off the flight: standing.
         /// </summary>
         public float EyeHeightAtFeet(Vector3 worldFeet)
@@ -289,7 +248,7 @@ namespace WashedAshore.Lookout
                 tuning.hatchDuckRun, tuning.eyeClearance);
         }
 
-        /// <summary>The duck: eye height from the position on the top lane, the same going up, down or standing still.</summary>
+        /// <summary>The duck: eye height from the position on the top flight, the same going up, down or standing still.</summary>
         void LateUpdate()
         {
             if (player == null && !FindPlayer()) return;   // the duck must not stay dormant until something aims at the hatch (td part 61, P3)

@@ -46,7 +46,6 @@ namespace WashedAshore.Tests.PlayMode
             var player = go.GetComponent<PlayerController>();
             var tower = GameObject.Find("LookoutTower");
             Assert.IsNotNull(tower, "LookoutTower is not in World.unity: run WalkableTowerBuilder");
-            Assert.IsNull(Object.FindFirstObjectByType<ClimbArea>(), "a ClimbArea is in the scene: the guided climb must not take over");
             var tf = tower.GetComponentsInChildren<Transform>(true).ToDictionary(t => t.name, t => t, System.StringComparer.Ordinal);
             var body = go.GetComponent<CharacterController>();
             Vector3 P(string n) => tf[n].position;

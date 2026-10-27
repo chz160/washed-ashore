@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TestTools;
 using WashedAshore.Lookout;
+using WashedAshore.Tests.Support;
 
 namespace WashedAshore.Tests.PlayMode.Lookout
 {
@@ -210,7 +211,8 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             var home = player.transform.position;
             var rows = new System.Text.StringBuilder();
             int asserted = 0, boundary = 0;
-            capsule.enabled = false;
+            var rot = player.transform.rotation;
+            var parked = TestSpawn.Park(player);
             try
             {
                 for (int mm = -20; mm <= 20; mm++)
@@ -218,7 +220,7 @@ namespace WashedAshore.Tests.PlayMode.Lookout
                     float gap = mm * 0.001f;
                     float feetY = stopLower - capH - skin + gap;   // capsule top + skin - stop face == gap
                     float along = (feetY - foot.y) / tan;
-                    player.transform.position = foot + dirH * along + Vector3.up * (feetY - foot.y);
+                    parked.Move(foot + dirH * along + Vector3.up * (feetY - foot.y), rot);
                     bool can = hatch.CanInteract(interactor);
                     float realGap = player.transform.position.y + capH + skin - stopLower;
                     string note = Mathf.Abs(realGap) <= 0.0005f ? " BOUNDARY (not asserted)" : "";
@@ -233,8 +235,8 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             }
             finally
             {
-                player.transform.position = home;
-                capsule.enabled = true;
+                parked.Move(home, rot);
+                parked.Release();
             }
             Debug.Log($"LookoutHatchWalk E3: {asserted} rows asserted, {boundary} boundary; capsule h {capH:F3} skin {skin:F3}, stop face {stopLower:F4}; every row:\n{rows}");
             Assert.Greater(asserted, 30, "the sweep asserted the rows on both sides of the edge");
