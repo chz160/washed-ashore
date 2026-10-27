@@ -204,8 +204,8 @@ public static class BellsBendCoverage
             m.AppendLine($"**Result:** {(fails == 0 ? "PASS, every zone meets the brief" : $"{fails} check group(s) FAIL")}.");
             j.Append($"],\"cliffCells\":{whole.cliffCells},\"cliffRockPct\":{cliff * 100:F2},\"totalTrees\":{totalTrees},\"seed\":{T.Seed},\"failures\":{fails}}}");
             var root = Path.GetDirectoryName(Application.dataPath);
-            File.WriteAllText(Path.Combine(root, md), m.ToString());
             Directory.CreateDirectory(Path.Combine(root, "TestResults"));
+            File.WriteAllText(Path.Combine(root, md), m.ToString());
             File.WriteAllText(Path.Combine(root, json), j.ToString());
             return $"failures={fails} totalTrees={totalTrees} -> {md}";
         }
