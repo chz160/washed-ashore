@@ -53,7 +53,8 @@ namespace WashedAshore.Character.Editor
             try
             {
                 Debug.Log(BuildAll());
-                File.WriteAllText("_bmad-output/poc/character-appearance-table.md", ContentTable());
+                Directory.CreateDirectory("TestResults/character");
+                File.WriteAllText("TestResults/character/character-appearance-table.md", ContentTable());
                 EditorApplication.Exit(0);
             }
             catch (Exception e) { Debug.LogError(e); EditorApplication.Exit(1); }
@@ -190,12 +191,15 @@ namespace WashedAshore.Character.Editor
             return set;
         }
 
+        /// <summary>Per-clip speed and eye-point data read by the builder (data of record, not a report).</summary>
+        public const string ClipDataDir = "Data/character/clips";
+
         [Serializable] class SpeedEntry { public string name; public float speed; }
         [Serializable] class SpeedFile { public float scale = 1f; public List<SpeedEntry> clips; }
 
         static SpeedFile LoadSpeedFile(BodyType type)
         {
-            var file = Path.Combine("_bmad-output", "poc", "character-clips", $"speeds-{type}.json");
+            var file = Path.Combine(ClipDataDir, $"speeds-{type}.json");
             return File.Exists(file) ? JsonUtility.FromJson<SpeedFile>(File.ReadAllText(file)) : new SpeedFile { clips = new List<SpeedEntry>() };
         }
 

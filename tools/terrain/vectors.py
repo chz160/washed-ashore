@@ -159,5 +159,5 @@ def export(root, out_dir, frame, shore, cfg, north_z_data):
         "roads": roads,
         "landmarks": landmarks(root, frame, shore, roads_fc),
     }
-    (Path(out_dir) / "map_vectors.json").write_text(json.dumps(data, indent=1), encoding="utf-8")
+    (Path(out_dir) / "map_vectors.json").write_text(json.dumps(data, indent=1), encoding="utf-8", newline="\n")
     return data

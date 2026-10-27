@@ -245,8 +245,8 @@ public static class BellsBendReports
     {
         var tex = new Texture2D(W, H, TextureFormat.RGBA32, false);
         tex.SetPixels32(px); tex.Apply();
-        Directory.CreateDirectory(BellsBendData.PocDir);
-        var path = Path.Combine(BellsBendData.PocDir, file);
+        Directory.CreateDirectory(BellsBendData.ReportDir);
+        var path = Path.Combine(BellsBendData.ReportDir, file);
         File.WriteAllBytes(path, tex.EncodeToPNG());
         Object.DestroyImmediate(tex);
         return path;

@@ -62,7 +62,7 @@ namespace WashedAshore.Fish.Editor
             return sb.ToString();
         }
 
-        public const string FootprintDraftPath = "_bmad-output/poc/fish-targets-F17-draft.json";
+        public const string FootprintDraftPath = "Data/fish/fish-targets-F17-draft.json";
 
         /// <summary>
         /// Imports surfaceSigns.footprints[] (ruling/fish-sign-footprint-physical) into FishRenderSet.footprints: from the brief

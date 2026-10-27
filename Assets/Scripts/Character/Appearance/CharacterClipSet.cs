@@ -7,7 +7,7 @@ namespace WashedAshore.Character.Appearance
     /// <summary>
     /// The animation clips of one body type under stable names (pack clips and the clips authored by
     /// tools/blender/character), so the Animator and the tests never depend on FBX take names.
-    /// Names: see _bmad-output/poc/character-clip-manifest.md.
+    /// Names: see Data/character/character-clip-manifest.md.
     /// </summary>
     [CreateAssetMenu(menuName = "Washed Ashore/Character Clip Set", fileName = "CharacterClips")]
     public sealed class CharacterClipSet : ScriptableObject

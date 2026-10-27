@@ -172,7 +172,7 @@ def main():
         "rule": json.loads((Path(__file__).parent / "l2_sample_points.json").read_text())["rule"]
                 + " Compute expectedY from the live MapConfig, not previewExpectedY.",
         "previewConfig": {"datumMeters": cfg.datumMeters, "verticalScale": cfg.verticalScale},
-        "points": l2}, indent=1), encoding="utf-8")
+        "points": l2}, indent=1), encoding="utf-8", newline="\n")
     report.overlay_png(out_dir / "overlay.png", yq, cfg, step, gx0, gz0, ring_x, ring_z, cfg.northLineZ)
 
     cfg_hash = hashlib.sha256(Path(cfg.path).read_bytes()).hexdigest()[:16]
@@ -194,13 +194,13 @@ def main():
                                 "window": [e_min, n_min, width, height], **fetch_stats, "nodataFilled": holes},
         "shaping": {**shape_info, "shoreRampMeters": cfg.shoreRampMeters},
     }
-    (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=1), encoding="utf-8")
+    (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=1), encoding="utf-8", newline="\n")
     banks, stations = report.bank_stations(yq, pre_bank, cfg, gx0, gz0, step, inside, bank_x, bank_z,
                                            north_z_data, list(bluffs.values()))
     banks.update(loweredCells=shape_info["bankLoweredCells"], loweredMaxShoreDist=shape_info["bankLoweredMaxShoreDist"],
                  loweredOnPreSlopeOver40=shape_info["bankLoweredOnPreSlopeOver40"],
                  loweredWithinBluffExclusion=shape_info["bankLoweredWithinBluffExclusion"])
-    (out_dir / "bank_stations.json").write_text(json.dumps(stations), encoding="utf-8")
+    (out_dir / "bank_stations.json").write_text(json.dumps(stations), encoding="utf-8", newline="\n")
     cond3 = report.condition3(yq, cfg, inside, shore_dist, gx0, gz0, step)
     north_cut = {"enabled": bool(cfg.oppositeBankEnabled), "seed": cfg.oppositeBankSeed}
     if cfg.oppositeBankEnabled:
@@ -214,7 +214,7 @@ def main():
            "buildTag": args.tag, "lakeMaskSha256": lake_sha, "northCut": north_cut, "L1": l1, "L3": l3, "L4preview": l4, "banks": banks, "condition3": cond3,
            "floor": {k: shape_info[k] for k in ("insideCellsRaisedToMinLand", "insideFractionRaisedToMinLand")},
            "L2": l2, "seconds": round(time.time() - t_start, 1)}
-    (out_dir / "report.json").write_text(json.dumps(rep, indent=1), encoding="utf-8")
+    (out_dir / "report.json").write_text(json.dumps(rep, indent=1), encoding="utf-8", newline="\n")
     log(f"L1 mean shoreline deviation {l1['meanDeviation']} m (p95 {l1['p95Deviation']}, max {l1['maxDeviation']})")
     log(f"L3 max outside height {l3['maxHeightOutside']} (WaterLevelY {l3['WaterLevelY']}), "
         f"max within 150 m {l3['maxHeightOutsideWithin150m']}, beyond ramp {l3['maxHeightOutsideBeyondRamp']} "

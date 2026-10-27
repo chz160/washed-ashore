@@ -14,7 +14,7 @@ public static class BellsBendData
     public const string MapConfigPath = "Assets/World/MapConfig.asset";
     public const string WorldRoot = "Assets/World/BellsBend";
     public static string ProjectRoot => Path.GetDirectoryName(Application.dataPath);
-    public static string PocDir => Path.Combine(ProjectRoot, "_bmad-output", "poc");
+    public static string ReportDir => Path.Combine(ProjectRoot, "TestResults", "bells-bend");
 
     public class Tile { public string file, demFile; public int ix, iz; public Vector3 position; }
     public class Road { public string name, highway; public bool required; public List<Vector2> points; }
@@ -156,8 +156,8 @@ public static class BellsBendData
 
     public static string WriteText(string fileName, string content)
     {
-        Directory.CreateDirectory(PocDir);
-        var path = Path.Combine(PocDir, fileName);
+        Directory.CreateDirectory(ReportDir);
+        var path = Path.Combine(ReportDir, fileName);
         File.WriteAllText(path, content, new UTF8Encoding(false));
         return path;
     }

@@ -430,7 +430,7 @@ namespace WashedAshore.Tests.EditMode.Character
 
         static float[] EyeLocal(string head)
         {
-            var text = System.IO.File.ReadAllText("_bmad-output/poc/character-clips/eye-point-Men.json");
+            var text = System.IO.File.ReadAllText(System.IO.Path.Combine(CharacterAssetBuilder.ClipDataDir, "eye-point-Men.json"));
             int at = text.IndexOf("\"" + head + "\"", System.StringComparison.Ordinal);
             var m = System.Text.RegularExpressions.Regex.Match(text.Substring(at), "\"eye_in_head_bone_local\": \\[\\s*([-0-9.eE]+),\\s*([-0-9.eE]+),\\s*([-0-9.eE]+)");
             return new[] { float.Parse(m.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture), float.Parse(m.Groups[2].Value, System.Globalization.CultureInfo.InvariantCulture), float.Parse(m.Groups[3].Value, System.Globalization.CultureInfo.InvariantCulture) };

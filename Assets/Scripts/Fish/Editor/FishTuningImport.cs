@@ -5,13 +5,13 @@ using UnityEngine;
 using WashedAshore.Fish;
 
 /// <summary>
-/// Builds Assets/World/Fish/FishTuning.asset from f-designer's data of record, _bmad-output/poc/fish-targets.json
+/// Builds Assets/World/Fish/FishTuning.asset from f-designer's data of record, Data/fish/fish-targets.json
 /// (studio:design fish/targets), so no tuning number is typed in twice. Variant names resolve against FishBodies (the
 /// order f-artist's bake writes). Rerun after any brief revision; the asset is overwritten.
 /// </summary>
 public static class FishTuningImport
 {
-    public const string JsonPath = "_bmad-output/poc/fish-targets.json";
+    public const string JsonPath = "Data/fish/fish-targets.json";
     public const string AssetPath = "Assets/World/Fish/FishTuning.asset";
     public const string BodiesPath = "Assets/World/Fish/FishBodies.asset";
 
