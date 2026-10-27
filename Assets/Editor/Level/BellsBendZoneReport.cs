@@ -10,7 +10,7 @@ using WashedAshore.World;
 // Level-designer (L5 evidence): per-zone coverage after art's pass, in the design brief rev 2 definitions.
 // 5 m cells on land south of the line. Open = no tree within 8 m of the cell centre; shrub-covered = a
 // shrub/briar/kudzu detail instance in the cell; open-and-bare = open and not shrub-covered.
-//   unity command eval "return BellsBendZoneReport.Run();"   -> _bmad-output/poc/bells-bend-zone-report.json
+//   unity command eval "return BellsBendZoneReport.Run();"   -> TestResults/bells-bend/bells-bend-zone-report.json
 public static class BellsBendZoneReport
 {
     public static string[] TreePrefixes = { "CommonTree", "Pine", "TwistedTree", "DeadTree" };

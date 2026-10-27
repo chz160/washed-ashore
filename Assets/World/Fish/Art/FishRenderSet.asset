@@ -108,7 +108,7 @@ MonoBehaviour:
     armSeconds: 0
     lifeSec: {x: 4, y: 8}
     patchDiameter: {x: 3, y: 6}
-  footprintsSource: _bmad-output/poc/fish-targets.json (F18) sha256 02319b3dbf5cb70caf3638b56b710af2e7000db17cecfaed7bb40830cfb07670
+  footprintsSource: Data/fish/fish-targets.json (F18) sha256 9affab9a88cf13370f86f41430564328d561eaac3da85c86db97cf77d0f1f7ff
   footprintsSha: 42b4367b7d5aea576753c2a25b8638f90e7da593b918a08518d492abdf7f808f
   footprintsRev: F18
   variants:

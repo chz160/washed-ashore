@@ -10,11 +10,11 @@ using V = BellsBendVegetation;
 // Technical-artist L5 evidence: cover per zone on the brief's 5 m grid, graded against designer-2's
 // section (a) rev 2 (via BellsBendArtTargets). Reads what is on the tiles, not what the painter meant.
 // Open = no tree instance within 8 m; shrub-covered = a shrub/briar/kudzu detail instance in the cell.
-// Writes _bmad-output/poc/bells-bend-coverage.md and TestResults/bells-bend-coverage.json.
+// Writes TestResults/bells-bend-coverage.md and TestResults/bells-bend-coverage.json.
 // Run via: unity command eval "return BellsBendCoverage.Run();"
 public static class BellsBendCoverage
 {
-    const string Md = "_bmad-output/poc/bells-bend-coverage.md";
+    const string Md = "TestResults/bells-bend-coverage.md";
     const string Json = "TestResults/bells-bend-coverage.json";
 
     class Stat

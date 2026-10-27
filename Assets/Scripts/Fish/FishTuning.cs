@@ -155,7 +155,7 @@ namespace WashedAshore.Fish
 
     /// <summary>
     /// Fish tunables (adr/fish-1 §5.7): every designer-facing number lives here, none in code. Loaded from
-    /// _bmad-output/poc/fish-targets.json by the Editor importer; lives in Assets/World/Fish.
+    /// Data/fish/fish-targets.json by the Editor importer; lives in Assets/World/Fish.
     /// </summary>
     [CreateAssetMenu(fileName = "FishTuning", menuName = "Washed Ashore/Fish Tuning")]
     public class FishTuning : ScriptableObject

@@ -226,7 +226,7 @@ public static class BellsBendWater
         }
     }
 
-    /// <summary>W2 seam evidence: oblique and top-down shots of a four-tile water corner (fog off), PNGs in _bmad-output/poc.</summary>
+    /// <summary>W2 seam evidence: oblique and top-down shots of a four-tile water corner (fog off), PNGs in TestResults/bells-bend.</summary>
     public static string SeamShots()
     {
         var root = GameObject.Find(RootName);
@@ -255,8 +255,8 @@ public static class BellsBendWater
         var tex = new Texture2D(W, H, TextureFormat.RGBA32, false);
         tex.ReadPixels(new Rect(0, 0, W, H), 0, 0); tex.Apply();
         RenderTexture.active = prev; cam.targetTexture = null; RenderTexture.ReleaseTemporary(rt);
-        Directory.CreateDirectory(BellsBendData.PocDir);
-        var path = Path.Combine(BellsBendData.PocDir, file);
+        Directory.CreateDirectory(BellsBendData.ReportDir);
+        var path = Path.Combine(BellsBendData.ReportDir, file);
         File.WriteAllBytes(path, tex.EncodeToPNG());
         UnityEngine.Object.DestroyImmediate(tex); UnityEngine.Object.DestroyImmediate(go);
         RenderSettings.fog = fog;

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FishTuning
   m_EditorClassIdentifier: WashedAshore.Fish::WashedAshore.Fish.FishTuning
   briefRevision: F18
-  briefSha16: 02319b3dbf5cb70c
+  briefSha16: 9affab9a88cf1337
   bakedSeed: 101
   simHz: 15
   maxTurnPerFrame: 45

@@ -27,7 +27,7 @@ public static class BellsBendSky
     public const string MaterialPath = BellsBendData.WorldRoot + "/Sky/BellsBendSky.mat";
     public const string RootName = "Sky";
     const int Face = 512;
-    static string ShotDir => Path.Combine(BellsBendData.PocDir, "water-horizon");
+    static string ShotDir => Path.Combine(BellsBendData.ReportDir, "water-horizon");
 
     [MenuItem("Washed Ashore/Level/Build Bells Bend sky haze")]
     static void BuildMenu() => Debug.Log(Build());

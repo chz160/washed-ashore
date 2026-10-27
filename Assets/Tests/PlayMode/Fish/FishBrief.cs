@@ -7,12 +7,12 @@ using WashedAshore.Fish;
 namespace WashedAshore.Tests.PlayMode.Fish
 {
     /// <summary>
-    /// The brief of record for the fish suites: _bmad-output/poc/fish-targets.json, read at test time so no target is a
+    /// The brief of record for the fish suites: Data/fish/fish-targets.json, read at test time so no target is a
     /// constant in a test (f-qa review 6). Its SHA-256 prefix must equal the shipped FishTuning's briefSha16.
     /// </summary>
     static class FishBrief
     {
-        public const string JsonPath = "_bmad-output/poc/fish-targets.json";
+        public const string JsonPath = "Data/fish/fish-targets.json";
 
 #pragma warning disable 0649 // filled by JsonUtility
         [Serializable] public class Sightings

@@ -15,8 +15,8 @@ $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $repo = (Resolve-Path (Join-Path $PSScriptRoot "..\..\..")).Path
 if (-not $AssetsRoot) { $AssetsRoot = Join-Path $repo "Assets" }
-if (-not $Manifest) { $Manifest = Join-Path $repo "_bmad-output\poc\character-clip-manifest.md" }
-if (-not $Reports) { $Reports = Join-Path $repo "_bmad-output\poc\character-clips" }
+if (-not $Manifest) { $Manifest = Join-Path $repo "Data\character\character-clip-manifest.md" }
+if (-not $Reports) { $Reports = Join-Path $repo "Data\character\clips" }
 $blender = "C:\Program Files\Blender Foundation\Blender 5.2\blender.exe"
 
 # Outfits: director's ruling (gate/player-character-phase0). Excluded: Suit, Swat, Soldier, Punk, King, SpaceSuit, SciFi, Medieval, Witch, Beach.

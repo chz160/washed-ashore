@@ -16,7 +16,7 @@ namespace WashedAshore.Fish.Editor
     /// </summary>
     public static class FishLooks
     {
-        public const string TargetsPath = "_bmad-output/poc/fish-targets.json";
+        public const string TargetsPath = "Data/fish/fish-targets.json";
 
         public struct Look
         {

@@ -1,4 +1,4 @@
-"""Writes _bmad-output/poc/character-clip-manifest.md from the measure/author reports (run by build_character_assets.ps1).
+"""Writes Data/character/character-clip-manifest.md from the measure/author reports (run by build_character_assets.ps1).
 
 python make_manifest.py <reports dir> <out.md>
 """

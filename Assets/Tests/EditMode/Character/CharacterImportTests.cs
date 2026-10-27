@@ -72,7 +72,7 @@ namespace WashedAshore.Tests.EditMode.Character
         [Test]
         public void FacingDecisionIsTheSameOnEveryRiggedFile()
         {
-            var json = ModelFacingPostprocessor.FacingReport("_bmad-output/poc/character-facing-report.json");
+            var json = ModelFacingPostprocessor.FacingReport();
             var report = JsonUtility.FromJson<Wrapper>(json);
             var mine = report.models.Where(m => m.path.StartsWith(CharacterImportSettings.PackRoot + "/") || m.path.StartsWith(CharacterImportSettings.ClipFolder + "/")).ToList();
             Assert.IsNotEmpty(mine, "no character model in the facing report");

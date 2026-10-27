@@ -11,26 +11,27 @@ namespace WashedAshore.Character.Editor
     /// <summary>
     /// Stills of the assembled characters, rendered offscreen in a temporary additive scene (nothing is saved to a scene).
     /// Used for the H2 screenshots and the director's look-down / debug-camera stills of the default look.
-    /// Menu: Washed Ashore > Art > Character > Capture Stills.  Batch: CharacterStills.CaptureAll("_bmad-output/poc/character-stills").
+    /// Menu: Washed Ashore > Art > Character > Capture Stills.  Batch: CharacterStills.CaptureAll(StillsDir).
     /// Look-down camera: FOV 70, near 0.1, eye 1.65, body 0.10 m behind the pivot and 0.05 m down (engineer-2 research section 2, designer-2 section 4).
     /// </summary>
     public static class CharacterStills
     {
         const int W = 640, H = 800;
+        const string StillsDir = "TestResults/character-stills";
 
         [MenuItem("Washed Ashore/Art/Character/Capture Stills")]
-        static void Menu() => Debug.Log(CaptureAll("_bmad-output/poc/character-stills"));
+        static void Menu() => Debug.Log(CaptureAll(StillsDir));
 
         public static void BatchCapture()
         {
-            try { Debug.Log(CaptureAll("_bmad-output/poc/character-stills")); EditorApplication.Exit(0); }
+            try { Debug.Log(CaptureAll(StillsDir)); EditorApplication.Exit(0); }
             catch (System.Exception e) { Debug.LogError(e); EditorApplication.Exit(1); }
         }
 
         /// <summary>Debug-camera stills of the Jog and Sprint clips at four phases, side and front, of the default look (arm-into-body check).</summary>
         public static void BatchCaptureGait()
         {
-            try { Debug.Log(CaptureGait("_bmad-output/poc/character-stills/gait")); EditorApplication.Exit(0); }
+            try { Debug.Log(CaptureGait(StillsDir + "/gait")); EditorApplication.Exit(0); }
             catch (System.Exception e) { Debug.LogError(e); EditorApplication.Exit(1); }
         }
 

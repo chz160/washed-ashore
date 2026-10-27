@@ -8,7 +8,6 @@
 # Files people edit: CRLF on Windows, LF on Mac and Linux.
 *.cs text=auto
 *.md text=auto
-*.json text=auto
 *.shader text=auto
 *.hlsl text=auto
 *.cginc text=auto
@@ -17,12 +16,15 @@
 *.ps1 text=auto
 *.xml text=auto
 *.csv text=auto
-*.jsonl text=auto
 *.js text=auto
 *.html text=auto
-*.geojson text=auto
 *.diff text=auto
 *.sha256 text=auto
+
+# Data files: LF on every machine (#75).
+*.json eol=lf
+*.jsonl eol=lf
+*.geojson eol=lf
 
 # Scripts that must keep one ending.
 *.sh eol=lf
@@ -65,20 +67,6 @@
 *.cubemap eol=lf
 *.scenetemplate eol=lf
 ProjectSettings/ProjectVersion.txt eol=lf
-ProjectSettings/*.json eol=lf
-Packages/manifest.json eol=lf
-Packages/packages-lock.json eol=lf
-
-# Tracked files that tools rewrite with LF.
-_bmad-output/poc/character-facing-report.json eol=lf
-_bmad-output/poc/bells-bend-zone-report.json eol=lf
-_bmad-output/poc/bells-bend-overlay.txt eol=lf
-Assets/World/Lookout/MC39_Lookout.manifest.json eol=lf
-tools/terrain/tower_track.json eol=lf
-_bmad-output/poc/bells-bend-zone-sweep.csv eol=lf
-_bmad-output/poc/bells-bend-slope-histogram.csv eol=lf
-_bmad-output/poc/character-appearance-table.md eol=lf
-_bmad-output/poc/water-look/look-log.txt eol=lf
 
 # Evidence log with stray CRs inside lines: keep its bytes exactly as committed.
 _bmad-output/poc/water-evidence/water-qa/qa-probes.txt -text

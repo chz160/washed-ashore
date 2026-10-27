@@ -16,10 +16,10 @@ using WashedAshore.World;
 //   2. the downstream sign: the shader's flow direction, mirrored on the CPU, runs clockwise round the bend;
 //   3. offscreen editor-camera look shots (bank, bluff top, water level, shallow edge, west neck step, lip, north line).
 // Run headless: unity run <project> -- -executeMethod BellsBendWaterLook.RunBatch
-// Output: _bmad-output/poc/water-look/ (look-log.txt + PNGs). Read-only on assets; the scene is not saved.
+// Output: TestResults/bells-bend/water-look/ (look-log.txt + PNGs). Read-only on assets; the scene is not saved.
 public static class BellsBendWaterLook
 {
-    static string OutDir => Path.Combine(BellsBendData.PocDir, "water-look");
+    static string OutDir => Path.Combine(BellsBendData.ReportDir, "water-look");
 
     public static void RunBatch()
     {
