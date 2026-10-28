@@ -265,7 +265,11 @@ namespace WashedAshore.Gameplay
                 verticalVelocity = Mathf.Max(verticalVelocity + gravity * dt, terminalVelocity);
 
             bool wasGrounded = controller.isGrounded;
+            wallNormals.Clear();
+            Vector3 before = transform.position;
+            Vector3 intended = horizontalVelocity * dt;
             controller.Move((horizontalVelocity + Vector3.up * verticalVelocity) * dt);
+            SlideAfterMove(before, intended);
             // Walking down a steep ramp the horizontal step leaves the feet in the air; snap back onto it (never after a jump).
             if (GroundSnapDistance > 0f && wasGrounded && !controller.isGrounded && verticalVelocity <= 0f && waterMode == WaterMode.Dry)
             {
