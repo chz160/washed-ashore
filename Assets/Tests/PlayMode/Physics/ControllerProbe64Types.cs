@@ -46,6 +46,8 @@ namespace WashedAshore.Tests.PlayMode
         public bool stuck, through, seatFail;
         public string seatGap = "-", touched = "-", verdict = "", detail = "", mode = "", dtText = "";
         public Vector3 sectionEndFeet;
+        public int s4Events, s4Changing, s4Unmeasured;   // #8 S4: side-contact events in the main section, those that cut the window speed below the ratio, those with no speed before
+        public float s4MinRatio = float.NaN;
         public float dt, stepAtStart;
     }
 
