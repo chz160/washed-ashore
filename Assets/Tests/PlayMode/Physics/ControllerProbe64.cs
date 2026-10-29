@@ -340,6 +340,7 @@ namespace WashedAshore.Tests.PlayMode
                 File.AppendAllText(contactsPath, sb.ToString());
             }
             if (s.spanL > 0f) diag += "\n" + TowerChecks(s, res, f, onRamp, kS, kE, kLast);
+            if (s.tower) diag += "\n" + S4Contacts(s, res, f, frameK, kS, kE);
             res.detail = diag;
             if (res.stops > 0 || res.stuck) res.detail += "\n" + Detail(s, res, f[kLast], VW(kLast) / s.cap, grounded[kLast]);
             if (res.endStops > 0 && res.endStopK >= 0) res.detail += $"\n    end-zone stop first at frame {res.endStopK}, along {F(Along(s, f[res.endStopK]), 3)} (section ends at {kE}):\n" + Detail(s, res, f[res.endStopK], VW(res.endStopK) / s.cap, grounded[res.endStopK]);
@@ -463,7 +464,7 @@ namespace WashedAshore.Tests.PlayMode
         }
 
         /// <summary>Supplementary methods: they fail only when PROBE VALID is no.</summary>
-        static bool InfoOnly(string method) => method == "Probe64_DtSweep" || method == "Probe64_F5tDiag" || method == "Probe64_TowerStep";
+        static bool InfoOnly(string method) => method == "Probe64_DtSweep" || method == "Probe64_F5tDiag" || method == "Probe64_TowerStep" || method == "Probe64_S4";
 
         void Verdict(string method)
         {

@@ -80,7 +80,7 @@ namespace WashedAshore.Tests.PlayMode
             Emit($"hatch {hatch.State}; tower origin {towerRoot.position:F3}");
         }
 
-        ProbeRun TowerRun(int flight, bool up, float th, bool right)
+        ProbeRun TowerRun(int flight, bool up, float th, bool right, float a0Over = -1f, float lat0Over = -1f)
         {
             var fi = flights[flight - 1];
             Vector3 run = Flat(fi.head - fi.foot), runDir = run.normalized; float L = run.magnitude, rise = fi.head.y - fi.foot.y;
@@ -90,6 +90,8 @@ namespace WashedAshore.Tests.PlayMode
             // spec r4: F8 up starts at along 0.60 with lateral 0.07 (the F7 wall hull intrudes near the F8 foot); F8 down 0.45, all others 0.35 / 0.05
             bool f8up = up && flight == 8;
             float a0 = f8up ? 0.60f : !up && flight == 8 ? 0.45f : 0.35f, lat0 = f8up ? 0.07f : 0.05f;
+            if (a0Over >= 0f) a0 = a0Over;   // #8 S4 variant rows only (VARIANT start, not the spec row)
+            if (lat0Over >= 0f) lat0 = lat0Over;
             Vector3 refPt = up ? fi.foot : fi.head;
             Vector3 pos = refPt + d * a0 + (th > 0f ? toWall * lat0 : Vector3.zero);
             pos.y = (up ? fi.foot.y + a0 * rise / L : fi.head.y - a0 * rise / L) + 0.05f;
@@ -99,7 +101,7 @@ namespace WashedAshore.Tests.PlayMode
                 caseName = "T1", flight = flight.ToString(), dir = up ? "up" : "down", side = th > 0f ? (right ? "R" : "L") : "-", yawOff = th,
                 cap = 1.15f, r = 0.25f, expectedWalkCap = 1.15f, start = pos, yaw = pathYaw + (right ? th : -th), d = d, refPt = refPt, toWall = toWall,
                 aStart = a0, aEnd = L - 0.3f, runEnd = up && flight == 8 ? L - 0.1f : L + 0.1f, idealPath = Cos(th), useAt = false, tower = true,
-                refKey = $"T1-F{flight}-{(up ? "up" : "down")}-{dt:F4}", isRef = th == 0f, logContacts = up && (th == 10f || th == 20f || (th == 0f && flight >= 4))   // td part10: also the theta 0 up rows of F4-F8 (what is straight ahead at the head)
+                refKey = $"T1-F{flight}-{(up ? "up" : "down")}-{dt:F4}", isRef = th == 0f, logContacts = th == 30f || (up && (th == 10f || th == 20f || (th == 0f && flight >= 4)))   // td part10: also the theta 0 up rows of F4-F8 (what is straight ahead at the head)
             };
             s.wallCols = fi.walls;
             s.surfRef = up ? fi.foot.y : fi.head.y; s.surfFar = up ? fi.head.y : fi.foot.y; s.spanL = L;
