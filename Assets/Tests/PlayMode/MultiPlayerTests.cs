@@ -367,6 +367,54 @@ namespace WashedAshore.Tests.PlayMode
             Assert.GreaterOrEqual(teleB, 1, "B was never snapped");
         }
 
+        /// <summary>
+        /// The in-tick half (PR B form of T4b): each player runs its own command stream (forward for 120 ticks) from the ejection start pose, and
+        /// after EVERY tick, checked in CommandExecuted (after the hooks), neither is north of the line; each is snapped at least once. This is the
+        /// clamp's tick pass: the LateUpdate pass alone could not keep the players south after each tick.
+        /// </summary>
+        [UnityTest, Timeout(300000)]
+        public IEnumerator T4b_InTick_BothStaySouthAfterEveryTick() => RunInTick();
+
+        /// <summary>KF-T4b (in-tick): the clamp acts only on the first player, so the second ends up north after a tick; must FAIL and print its NorthOfLine.</summary>
+        [UnityTest, Timeout(300000), Explicit("Known-fail: must FAIL"), Category("KnownFail46")]
+        public IEnumerator KnownFail_T4b_InTick_ClampActsOnFirstPlayerOnly()
+        {
+            WorldBoundsClamp.TestFirstPlayerOnly = true;
+            yield return RunInTick();
+        }
+
+        IEnumerator RunInTick()
+        {
+            yield return TwoPlayers();
+            var clamp = WorldBoundsTestKit.Clamp();
+            var rule = clamp.Rule;
+            var xs = WorldBoundsTestKit.LandPointsAlongLine(rule, WorldBoundsTestKit.Config().WaterLevelY, 2);
+            Assert.AreEqual(2, xs.Count, "two land points along the line");
+            WorldBoundsTestKit.Teleport(a, new Vector3(xs[0], 0f, rule.LineZAt(xs[0]) - 1f), 0f);
+            WorldBoundsTestKit.Teleport(b, new Vector3(xs[1], 0f, rule.LineZAt(xs[1]) - 1f), 0f);
+            yield return Frames(2);
+            int teleA = 0, teleB = 0;
+            Action ca = () => teleA++, cb = () => teleB++;
+            a.Teleported += ca;
+            b.Teleported += cb;
+            float worstA = float.MinValue, worstB = float.MinValue;
+            int startA = a.Tick, startB = b.Tick;
+            a.CommandSource = t => t - startA <= 120 ? new PlayerCommand { Tick = t, Move = Vector2.up, Yaw = 0f } : (PlayerCommand?)null;
+            b.CommandSource = t => t - startB <= 120 ? new PlayerCommand { Tick = t, Move = Vector2.up, Yaw = 0f } : (PlayerCommand?)null;
+            a.CommandExecuted += _ => worstA = Mathf.Max(worstA, rule.NorthOfLine(a.transform.position));
+            b.CommandExecuted += _ => worstB = Mathf.Max(worstB, rule.NorthOfLine(b.transform.position));
+            while (a.Tick < startA + 120 || b.Tick < startB + 120) yield return null;
+            a.Teleported -= ca;
+            b.Teleported -= cb;
+            Debug.Log($"T4b in-tick: worst NorthOfLine after a tick A {worstA:F3} B {worstB:F3}; Teleported A {teleA} B {teleB}; dropped A {a.DroppedTicks} B {b.DroppedTicks}");
+            Assert.LessOrEqual(worstA, 0f, $"A was {worstA:F3} m north of the line after a tick");
+            Assert.LessOrEqual(worstB, 0f, $"B was {worstB:F3} m north of the line after a tick");
+            Assert.GreaterOrEqual(teleA, 1, "A was never snapped");
+            Assert.GreaterOrEqual(teleB, 1, "B was never snapped");
+            Assert.AreEqual(0L, a.DroppedTicks);
+            Assert.AreEqual(0L, b.DroppedTicks);
+        }
+
         /// <summary>Reads both players' distance north of the line at the end of every frame, after the clamp's LateUpdate.</summary>
         [DefaultExecutionOrder(20000)]
         sealed class AfterClampRecorder : MonoBehaviour

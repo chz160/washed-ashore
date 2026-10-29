@@ -170,7 +170,12 @@ namespace WashedAshore.Tests.PlayMode.Character
         }
 
         [UnityTest] public IEnumerator CrouchLow_EyeCapsuleClipsAndH5() => EndCase("crouch=low", "crouch", false, StanceKey.Crouch, Stance.Crouch, 1.10f);
-        [UnityTest] public IEnumerator SleepHigh_EyeCapsuleClipsAndH5() => EndCase("sleep=high", "sleep", true, StanceKey.Sleep, Stance.Sleep, 0.25f);
+        [UnityTest]
+        public IEnumerator SleepHigh_EyeCapsuleClipsAndH5()
+        {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern); its sibling EndCase tests stay unpinned
+            return EndCase("sleep=high", "sleep", true, StanceKey.Sleep, Stance.Sleep, 0.25f);
+        }
 
         [UnityTest]
         public IEnumerator RebuildWith_TearsDownFully_NoLeakedBodies()

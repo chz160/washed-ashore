@@ -114,6 +114,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(3000000)]
         public IEnumerator EyeEnds_LowAndHigh()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             var results = new List<string>();
             var cases = new[]
             {

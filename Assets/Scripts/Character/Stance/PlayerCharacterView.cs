@@ -35,7 +35,6 @@ namespace WashedAshore.Character.Stance
         readonly System.Collections.Generic.HashSet<int> has = new System.Collections.Generic.HashSet<int>();
         readonly System.Collections.Generic.HashSet<int> viewHas = new System.Collections.Generic.HashSet<int>();
         Animator viewAnimator;   // the view body's own Animator (capped arms), written with exactly the same parameters as the shadow's; null when there is no view body
-        Vector3 lastPosition;
         bool wasGrounded = true;
         float airTime;
 
@@ -60,6 +59,10 @@ namespace WashedAshore.Character.Stance
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         /// <summary>Test-only: forces the LocoRate the driver writes (the forced-bad slide case). Never set outside tests.</summary>
         public static float? TestRateOverride;
+
+        /// <summary>Test-only mutation (#46 KF-T6): the driver reads the transform change between frames again, as before the fixed tick. Never set outside tests.</summary>
+        public static bool TestTransformDeltaDrive;
+        Vector3 prevFramePose;
 #endif
 
         void LogBodyCounts()
@@ -78,7 +81,6 @@ namespace WashedAshore.Character.Stance
 
         void Build()
         {
-            lastPosition = transform.position;
             if (appearance == null)
             {
                 Debug.LogWarning("PlayerCharacterView: no CharacterAppearance assigned; the player has no body.", this);
@@ -149,11 +151,20 @@ namespace WashedAshore.Character.Stance
             ResolveViewAnimator();
             if (animator == null || player == null || Time.deltaTime <= 0f) return;
             float dt = Time.deltaTime;
-            Vector3 v = (transform.position - lastPosition) / dt;
-            lastPosition = transform.position;
+            // The drivers come from the simulated velocity and the sim's grounded flag, never from the transform change between frames (#46 P6):
+            // that change is 0 or several times the real speed when ticks and frames do not line up.
+            Vector3 v = player.SimVelocity;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (TestTransformDeltaDrive)
+            {
+                Vector3 now = transform.position;
+                v = new Vector3((now.x - prevFramePose.x) / dt, (now.y - prevFramePose.y) / dt, (now.z - prevFramePose.z) / dt);
+                prevFramePose = now;
+            }
+#endif
             Vector3 local = transform.InverseTransformDirection(v);
             float speed = new Vector2(v.x, v.z).magnitude;
-            bool grounded = player.IsGrounded;
+            bool grounded = player.SimGrounded;
 
             if (grounded) { if (!wasGrounded && airTime >= landAfterAir) Trigger(pJumpLand); airTime = 0f; }
             else

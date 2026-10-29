@@ -18,7 +18,7 @@ namespace WashedAshore.Gameplay
     /// The line is written by WorldBoundsBuilder from MapConfig, so rebuilding moves the clamp.
     /// </summary>
     [DefaultExecutionOrder(10000)]
-    public class WorldBoundsClamp : MonoBehaviour
+    public class WorldBoundsClamp : MonoBehaviour, IPlayerTickHook
     {
         [Tooltip("North line as Unity XZ points, sorted by X. Written by WorldBoundsBuilder.")]
         [SerializeField] Vector2[] northLine = { new Vector2(0f, 0f) };
@@ -71,7 +71,27 @@ namespace WashedAshore.Gameplay
             rule = null;
         }
 
-        void OnEnable() => rule = null;
+        void OnEnable()
+        {
+            rule = null;
+            PlayerTickHooks.Register(this);
+        }
+
+        void OnDisable() => PlayerTickHooks.Unregister(this);
+
+        /// <summary>Runs last in the player's tick (the old execution order 10000), so a snap from the sim's own move is inside the tick and a replay sees it.</summary>
+        public int Order => 10000;
+
+        public void BeforeMove(PlayerController p) { }
+
+        public void AfterMove(PlayerController p)
+        {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (TestFirstPlayerOnly && PlayerRegistry.Count > 1 && PlayerRegistry.All[0] != p) return;
+#endif
+            if (p == null || !p.isActiveAndEnabled) return;
+            if (Rule.TryConstrain(p.transform.position, out var target)) SnapPlayer(p, target);
+        }
 
         void OnValidate() => rule = null;
 

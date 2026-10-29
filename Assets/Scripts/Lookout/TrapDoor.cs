@@ -13,7 +13,7 @@ namespace WashedAshore.Lookout
     /// the swing volume while it moves.
     /// It also lowers the eye under the floor on the top flight: a function of the feet's position on that flight only (§4 duck).
     /// </summary>
-    public class TrapDoor : MonoBehaviour, IInteractable, IMovingTransforms
+    public class TrapDoor : MonoBehaviour, IInteractable, IMovingTransforms, IPlayerTickHook
     {
         [SerializeField] string id = "lookout.hatch";
         [SerializeField] LookoutTuning tuning;
@@ -123,8 +123,11 @@ namespace WashedAshore.Lookout
             Settle();
         }
 
+        void OnEnable() => PlayerTickHooks.Register(this);
+
         void OnDisable()
         {
+            PlayerTickHooks.Unregister(this);
             var players = PlayerRegistry.All;
             for (int i = 0; i < players.Count; i++)
             {
@@ -266,21 +269,29 @@ namespace WashedAshore.Lookout
                 tuning.hatchDuckRun, tuning.eyeClearance);
         }
 
-        /// <summary>The duck: eye height from the position on the top flight, the same going up, down or standing still.</summary>
-        void LateUpdate() => DuckPass();
+        /// <summary>The duck runs after the player's move, inside its tick, so it never stays dormant until something aims at the hatch (td part 61, P3).</summary>
+        public int Order => 0;
 
-        /// <summary>One duck pass over every live player (what LateUpdate runs; public so a test can time it). Walks <see cref="PlayerRegistry"/> by index, no allocation.</summary>
+        public void BeforeMove(PlayerController p) { }
+
+        public void AfterMove(PlayerController p)
+        {
+            if (PlayerRegistry.IsLive(p)) DuckStep(p);
+        }
+
+        void DuckStep(PlayerController p)
+        {
+            float eye = EyeHeightAtFeet(p.transform.position, p);
+            if (eye < p.AuthoredEyeHeight) { p.OverrideEyeHeight(eye); p.HatchDuck = true; }
+            else if (p.HatchDuck) { p.ClearViewOverride(); p.HatchDuck = false; }
+        }
+
+        /// <summary>One duck pass over every live player (the tick runs it per player; public so a test can time it). Walks <see cref="PlayerRegistry"/> by index, no allocation.</summary>
         public void DuckPass()
         {
             var players = PlayerRegistry.All;
-            for (int i = 0; i < players.Count; i++)   // the duck must not stay dormant until something aims at the hatch (td part 61, P3)
-            {
-                var p = players[i];
-                if (!PlayerRegistry.IsLive(p)) continue;
-                float eye = EyeHeightAtFeet(p.transform.position, p);
-                if (eye < p.AuthoredEyeHeight) { p.OverrideEyeHeight(eye); p.HatchDuck = true; }
-                else if (p.HatchDuck) { p.ClearViewOverride(); p.HatchDuck = false; }
-            }
+            for (int i = 0; i < players.Count; i++)
+                if (PlayerRegistry.IsLive(players[i])) DuckStep(players[i]);
         }
     }
 }

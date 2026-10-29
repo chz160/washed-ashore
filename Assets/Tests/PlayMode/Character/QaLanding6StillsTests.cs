@@ -207,6 +207,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(1800000)]
         public IEnumerator Landing6_ViewBody_StillsAndTwinDiff()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             var view = player.GetComponent<PlayerCharacterView>();
             Assert.IsTrue(view != null && view.FirstPerson != null && view.FirstPerson.HasViewBody, "no view body on the Player");
@@ -452,6 +453,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(900000)]
         public IEnumerator HandStills_Walk_Run_Plus30()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             var view = player.GetComponent<PlayerCharacterView>();

@@ -36,6 +36,7 @@ namespace WashedAshore.Gameplay
             viewCamera = cameraPivot.GetComponent<Camera>();
             authoredPivotPosition = cameraPivot.localPosition;
             authoredFov = viewCamera != null ? viewCamera.fieldOfView : 0f;
+            viewSetUp = true;
         }
 
         /// <summary>Eye at <paramref name="eyeHeight"/> above the feet. Look and FOV stay with the player.</summary>
@@ -43,7 +44,9 @@ namespace WashedAshore.Gameplay
         {
             if (cameraPivot == null || viewPoseOverridden) return;
             eyeHeightOverridden = true;
-            cameraPivot.localPosition = new Vector3(authoredPivotPosition.x, eyeHeight, authoredPivotPosition.z);
+            overrideEye = eyeHeight;
+            prevEye = currEye = SimEye;   // takes effect at once, no blend
+            PresentView();
         }
 
         /// <summary>Camera at a world pose with a FOV. Look input no longer turns the pivot until the override is cleared.</summary>
@@ -60,8 +63,8 @@ namespace WashedAshore.Gameplay
         {
             if (cameraPivot == null) return;
             viewPoseOverridden = eyeHeightOverridden = false;
-            cameraPivot.localPosition = new Vector3(authoredPivotPosition.x, StanceEye, authoredPivotPosition.z);
-            cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+            prevEye = currEye = SimEye;
+            PresentView();
             if (viewCamera != null) viewCamera.fieldOfView = authoredFov;
         }
 
@@ -75,7 +78,7 @@ namespace WashedAshore.Gameplay
         public void ResumeControl()
         {
             controlSuspended = false;
-            stanceResumeFrame = Time.frameCount;   // the press that ended the focus must not also change stance
+            NoteResume();   // the press that ended the focus must not also change stance
         }
 
         /// <summary>Sets where the player looks: body yaw and view pitch (degrees; positive pitch looks down).</summary>
@@ -83,7 +86,7 @@ namespace WashedAshore.Gameplay
         {
             transform.rotation = Quaternion.Euler(0f, yaw, 0f);
             pitch = Mathf.Clamp(lookPitch, minPitch, maxPitch);
-            if (cameraPivot != null && !viewPoseOverridden) cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+            PresentView();
         }
     }
 }

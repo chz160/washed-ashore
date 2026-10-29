@@ -49,13 +49,20 @@ namespace WashedAshore.Tests.PlayMode
         public float dt, stepAtStart;
     }
 
-    /// <summary>F5t only: re-applies the tower's speed cap and ground snap every frame after TowerWalkZones (order -100) zeroed them, before PlayerController (order 0).</summary>
-    [DefaultExecutionOrder(-50)]
-    public class ProbeTowerStateSetter : MonoBehaviour
+    /// <summary>
+    /// F5t only: re-applies the tower's speed cap and ground snap inside the player's tick, after TowerWalkZones (order -100) zeroed them and
+    /// before the move (order -50). A tick hook since #46 PR B (td-46 adr/46-b-probe-f5t-ordering): the zones now run inside the tick, so the
+    /// old per-frame order -50 Update would no longer sit between the zones and the move.
+    /// </summary>
+    public class ProbeTowerStateSetter : MonoBehaviour, WashedAshore.Gameplay.IPlayerTickHook
     {
         public WashedAshore.Gameplay.PlayerController player;
         public float cap = 1.15f, snap = 0.35f;
-        void Update() { if (player) { player.WalkSpeedCap = cap; player.GroundSnapDistance = snap; } }
+        public int Order => -50;
+        void OnEnable() => WashedAshore.Gameplay.PlayerTickHooks.Register(this);
+        void OnDisable() => WashedAshore.Gameplay.PlayerTickHooks.Unregister(this);
+        public void BeforeMove(WashedAshore.Gameplay.PlayerController p) { if (player && p == player) { player.WalkSpeedCap = cap; player.GroundSnapDistance = snap; } }
+        public void AfterMove(WashedAshore.Gameplay.PlayerController p) { }
     }
 
     /// <summary>TowerStep only (spec 5d): while the capsule is slimmed, forces the ramp stepOffset 0.05 to 0.25 every frame, after TowerWalkZones (order -100) and before PlayerController.</summary>

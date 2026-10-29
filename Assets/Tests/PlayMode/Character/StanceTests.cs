@@ -24,6 +24,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(300000)]
         public IEnumerator SettledHeights_MatchTheTable()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             Assert.AreEqual(1.80f, body.height, Eps);
@@ -45,6 +46,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(300000)]
         public IEnumerator EveryTransitionFrame_KeepsTheEyeUnderTheCapsuleTop()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             float worst = float.MinValue;
@@ -70,6 +72,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(300000)]
         public IEnumerator Headroom_HoldsTheStandRequest_AndAnotherKeyCancelsIt()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             yield return Go(StanceKey.Crouch);
@@ -138,6 +141,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(300000)]
         public IEnumerator JumpFromCrouch_StandsWithoutJumping()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             yield return Go(StanceKey.Crouch);
@@ -162,6 +166,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(300000)]
         public IEnumerator Airborne_BlocksEntry()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             Press(Key.Space);
@@ -178,6 +183,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(300000)]
         public IEnumerator SlimmedCapsule_EndsAndBlocksLoweredStances()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             yield return Go(StanceKey.Crouch);
@@ -200,6 +206,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(300000)]
         public IEnumerator Sleep_RulesAndDim()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             int canvasesBefore = Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include).Length;
@@ -233,6 +240,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(300000)]
         public IEnumerator SitAndSleep_RefuseBadGround()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             var ramp = GameObject.CreatePrimitive(PrimitiveType.Cube);

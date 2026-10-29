@@ -23,16 +23,14 @@ namespace WashedAshore.Gameplay
 
         const float StandHeightSlack = 0.01f;
 
-        InputAction[] stanceActions;
         Stance stance, stancePrevious = Stance.Stand;
         Stance? stancePending;
-        StanceKey injectedKey;
         float authoredStandHeight, standingHeight;
         bool walkCapsuleRestricted, stanceTransitioning, stanceFalling, stanceLie, sleepLock;
         float trFrom, trTo, trElapsed, trDuration, trPitchFrom, trPitchTo;
         float stanceEye;
         float sleepDim;
-        int stanceJumpConsumedFrame = -1, stanceResumeFrame = -1;
+        int stanceResumeFrame = -1;   // the frame ResumeControl ran: gather drops the stance key of that frame (Input.cs)
         readonly Collider[] stanceBuffer = new Collider[16];
 
         public Stance Stance => stance;
@@ -64,16 +62,7 @@ namespace WashedAshore.Gameplay
         {
             authoredStandHeight = standingHeight = controller.height;
             stanceEye = StandingEye;
-            stanceActions = new InputAction[StanceBindings.All.Length];
-            for (int i = 0; i < stanceActions.Length; i++) stanceActions[i] = StanceBindings.Create(StanceBindings.All[i]);
         }
-
-        void EnableStance() { foreach (var a in stanceActions) a.Enable(); }
-        void DisableStance() { foreach (var a in stanceActions) a.Disable(); }
-        void DisposeStance() { foreach (var a in stanceActions) a.Dispose(); }
-
-        /// <summary>Presses a stance key as if the player had (tests, the debug tools). Consumed on the next frame.</summary>
-        public void PressStanceKey(StanceKey key) => injectedKey = key;
 
         /// <summary>Back to Stand with the standing capsule and eye, no checks (respawn).</summary>
         void ResetStance()
@@ -88,7 +77,6 @@ namespace WashedAshore.Gameplay
             sleepDim = 0f;
             SetStanceCapsule(standingHeight);
             stanceEye = StandingEye;
-            if (cameraPivot != null && !viewPoseOverridden && !eyeHeightOverridden) cameraPivot.localPosition = authoredPivotPosition;
             if (interactor != null) interactor.enabled = true;
         }
 
@@ -103,32 +91,29 @@ namespace WashedAshore.Gameplay
             Commit(Stance.Stand, old, true);
         }
 
-        void StanceTick(float dt)
+        void StanceTick(float dt, in PlayerCommand cmd)
         {
-            bool inputIgnored = controlSuspended || viewPoseOverridden || eyeHeightOverridden || stanceResumeFrame == Time.frameCount;
+            bool inputIgnored = controlSuspended || viewPoseOverridden || eyeHeightOverridden || resumeTickPending;
             bool lockedByTransition = stanceTransitioning && sleepLock;
-            if (!inputIgnored && !lockedByTransition) StanceInput();
+            if (!inputIgnored && !lockedByTransition) StanceInput(cmd);
             if (stancePending.HasValue && !inputIgnored) TryGo(stancePending.Value, false);
             EnforceBlocks();
             AdvanceTransition(dt);
             AdvanceDim(dt);
         }
 
-        void StanceInput()
+        void StanceInput(in PlayerCommand cmd)
         {
-            StanceKey key = injectedKey;
-            injectedKey = StanceKey.None;
-            for (int i = 0; i < stanceActions.Length && key == StanceKey.None; i++)
-                if (stanceActions[i].WasPressedThisFrame()) key = StanceBindings.All[i].Key;
+            StanceKey key = cmd.Stance;
             if (key != StanceKey.None) stancePending = null;
 
-            Vector2 move = Vector2.ClampMagnitude(moveAction.ReadValue<Vector2>(), 1f);
+            Vector2 move = Vector2.ClampMagnitude(cmd.Move, 1f);
             bool moving = move.sqrMagnitude > stanceTuning.moveInputSqr;
-            bool jump = JumpPressed();
-            bool sprint = moving && sprintAction.IsPressed();
+            bool jump = (cmd.Buttons & PlayerButtons.Jump) != 0;
+            bool sprint = moving && (cmd.Buttons & PlayerButtons.Sprint) != 0;
             bool still = new Vector2(horizontalVelocity.x, horizontalVelocity.z).magnitude <= stanceTuning.stillSpeed;
             var d = StanceRules.Resolve(stance, stancePrevious, key, moving, jump, sprint, still);
-            if (jump && stance != Stance.Stand) stanceJumpConsumedFrame = Time.frameCount;
+            if (jump && stance != Stance.Stand) stanceTookJump = true;
             if (d.Change) TryGo(d.Target, true);
         }
 
@@ -167,7 +152,7 @@ namespace WashedAshore.Gameplay
         {
             if (WaterBlocks) return "water";
             if (ZoneBlocks) return "tower or climb zone";
-            if (!controller.isGrounded) return "not grounded";
+            if (!grounded) return "not grounded";
             if (target == Stance.Sit && !SitSurfaceOk()) return "sit surface";
             if (target == Stance.Sleep && !SleepSurfaceOk()) return "sleep surface: " + sleepWhy;
             return null;
@@ -230,7 +215,6 @@ namespace WashedAshore.Gameplay
             if (trPitchFrom != trPitchTo)
             {
                 pitch = Mathf.Lerp(trPitchFrom, trPitchTo, Smooth(trElapsed / trDuration));
-                if (cameraPivot != null && !viewPoseOverridden) cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
             }
             if (done)
             {
@@ -241,8 +225,6 @@ namespace WashedAshore.Gameplay
                 stanceLie = stance == Stance.Sleep;
                 sleepLock = stance == Stance.Sleep;
             }
-            if (cameraPivot != null && !viewPoseOverridden && !eyeHeightOverridden)
-                cameraPivot.localPosition = new Vector3(authoredPivotPosition.x, stanceEye, authoredPivotPosition.z);
         }
 
         void AdvanceDim(float dt)
@@ -342,7 +324,7 @@ namespace WashedAshore.Gameplay
                 if (!DownCast(p, 3f, out RaycastHit hit)) { sleepWhy = $"no ground at sample {i}"; return false; }
                 lo = Mathf.Min(lo, hit.point.y);
                 hi = Mathf.Max(hi, hit.point.y);
-                if (water != null && water.SurfaceY(hit.point.x, hit.point.z) > hit.point.y) { sleepWhy = "water over the ground"; return false; }
+                if (water != null && SimSurfaceY(water, hit.point.x, hit.point.z) > hit.point.y) { sleepWhy = "water over the ground"; return false; }
             }
             if (hi - lo > t.sleepMaxGroundVariation) { sleepWhy = $"ground varies {hi - lo:F2}"; return false; }
             if (!BoxClear(t.sleepWidth, t.sleepLength, t.sleepBand)) { sleepWhy = "lie box blocked by " + lastBlocker; return false; }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using WashedAshore.Gameplay;
+using WashedAshore.Tests.Support;
 
 namespace WashedAshore.Tests.PlayMode.Character
 {
@@ -36,6 +37,7 @@ namespace WashedAshore.Tests.PlayMode.Character
             body = go.GetComponent<CharacterController>();
             pivot = player.CameraPivot;
             standingEye = player.AuthoredEyeHeight;
+            tickPin?.Track(player);
         }
 
         /// <summary>A 60 x 60 m, 4 m thick floor with its top 100 m above the player's feet, and the player standing on it.</summary>
@@ -96,10 +98,24 @@ namespace WashedAshore.Tests.PlayMode.Character
 
         protected IEnumerator Frames(int n) { Physics.SyncTransforms(); for (int i = 0; i < n; i++) yield return null; }
 
+        TickRatePin tickPin;
+
+        /// <summary>
+        /// Pins Time.captureDeltaTime to the player's tick step for this test (one tick per frame; td-46 adr/46-b-test-pin-pattern). Call it first in
+        /// a test; LoadWorld then tracks the player, and TearDown restores the capture time and asserts one tick per frame and no dropped ticks.
+        /// </summary>
+        protected void PinTicks()
+        {
+            if (tickPin != null) return;
+            tickPin = new TickRatePin();
+            tickPin.Begin();
+        }
+
         [TearDown]
         public void RemoveFloor()
         {
             if (floor != null) Object.Destroy(floor);
+            if (tickPin != null) { var p = tickPin; tickPin = null; p.End(); }
         }
     }
 }

@@ -124,12 +124,14 @@ namespace WashedAshore.Character.Stance
         {
             if (player == null || shadowRoot == null) return;
             float back = BackFor(player.Stance);
-            shadowRoot.localPosition = new Vector3(0f, -footDrop, -back);
+            // The view shows the interpolated pose (#46 P2): the body roots carry the same offset as the camera pivot, in the root's space.
+            Vector3 render = Quaternion.Inverse(player.transform.rotation) * player.RenderOffset;
+            shadowRoot.localPosition = new Vector3(0f, -footDrop, -back) + render;
             shadowRoot.localRotation = Quaternion.identity;
             if (viewRoot == null) return;
             LookDownOffset.Evaluate(player.LookDownTuning, player.StanceFrom, player.Stance, player.StanceBlend, player.Pitch, out float lb, out float ld);
             LastLookDownOffset = new Vector2(lb, ld);
-            viewRoot.localPosition = new Vector3(0f, -footDrop - ld, -back - lb);
+            viewRoot.localPosition = new Vector3(0f, -footDrop - ld, -back - lb) + render;
             viewRoot.localRotation = Quaternion.identity;
         }
     }
