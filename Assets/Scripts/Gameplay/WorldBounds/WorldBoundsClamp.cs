@@ -7,7 +7,7 @@ namespace WashedAshore.Gameplay
     /// <summary>
     /// Authoritative north-boundary clamp (spec B4). Every LateUpdate it snaps any player or
     /// Rigidbody that is north of the line back south of it and logs the event. Players and Rigidbodies
-    /// are not searched for: a PlayerController registers its CharacterController, and a Rigidbody that
+    /// are not searched for: the clamp walks <see cref="PlayerRegistry"/> (every live player, any number), and a Rigidbody that
     /// can leave the map carries a <see cref="WorldBoundsBody"/>, which registers it in OnEnable and drops
     /// it in OnDisable (#44: no scene scan and no allocation per frame). A body that spawns or is moved
     /// north is caught the same frame. A physics OverlapBox north of the
@@ -30,21 +30,29 @@ namespace WashedAshore.Gameplay
         /// <summary>Raised after every snap: body, position before, position after.</summary>
         public static event Action<GameObject, Vector3, Vector3> Snapped;
 
-        // Registered by PlayerController and WorldBoundsBody (OnEnable / OnDisable). Static, so a body that enables
-        // before the clamp does is still caught, and the lists never allocate after warm-up.
-        static readonly List<CharacterController> players = new List<CharacterController>();
+        // Registered by WorldBoundsBody (OnEnable / OnDisable). Static, so a body that enables
+        // before the clamp does is still caught, and the list never allocates after warm-up. Players come from PlayerRegistry.
         static readonly List<Rigidbody> bodies = new List<Rigidbody>();
         WorldBoundsRule rule;
 
-        public static int RegisteredPlayers => players.Count;
-        public static int RegisteredBodies => bodies.Count;
-
-        internal static void Register(CharacterController cc)
+        /// <summary>Players the clamp acts on: the registered ones that are active and enabled (a switched-off player is not clamped, as before).</summary>
+        public static int RegisteredPlayers
         {
-            if (cc != null && !players.Contains(cc)) players.Add(cc);
+            get
+            {
+                int n = 0;
+                var players = PlayerRegistry.All;
+                for (int i = 0; i < players.Count; i++)
+                    if (players[i] != null && players[i].isActiveAndEnabled) n++;
+                return n;
+            }
         }
 
-        internal static void Unregister(CharacterController cc) => players.Remove(cc);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        /// <summary>Test-only mutation (#46 KF-T4b): the player pass acts only on the first registered player, which is single-player behaviour. Reset in TearDown.</summary>
+        public static bool TestFirstPlayerOnly;
+#endif
+        public static int RegisteredBodies => bodies.Count;
 
         internal static void Register(Rigidbody rb)
         {
@@ -84,11 +92,16 @@ namespace WashedAshore.Gameplay
         public void Tick()
         {
             var r = Rule;
-            for (int i = 0; i < players.Count; i++)
+            var players = PlayerRegistry.All;
+            int playerCount = players.Count;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (TestFirstPlayerOnly && playerCount > 1) playerCount = 1;
+#endif
+            for (int i = 0; i < playerCount; i++)
             {
-                var cc = players[i];
-                if (cc == null) { players.RemoveAt(i--); continue; }
-                if (r.TryConstrain(cc.transform.position, out var p)) SnapController(cc, p);
+                var player = players[i];
+                if (player == null || !player.isActiveAndEnabled) continue;
+                if (r.TryConstrain(player.transform.position, out var p)) SnapPlayer(player, p);
             }
             for (int i = 0; i < bodies.Count; i++)
             {
@@ -98,16 +111,13 @@ namespace WashedAshore.Gameplay
             }
         }
 
-        void SnapController(CharacterController cc, Vector3 target)
+        void SnapPlayer(PlayerController player, Vector3 target)
         {
-            var from = cc.transform.position;
+            var from = player.transform.position;
             if (TerrainQuery.TryGroundHeight(target, out float ground))
                 target.y = Mathf.Max(target.y, ground + groundOffset);
-            // CharacterController overrides transform writes while enabled.
-            cc.enabled = false;
-            cc.transform.position = target;
-            cc.enabled = true;
-            Report(cc.gameObject, from, target);
+            player.BoundsSnap(target);
+            Report(player.gameObject, from, target);
         }
 
         void SnapBody(Rigidbody rb, Vector3 target)

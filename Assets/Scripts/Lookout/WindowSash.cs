@@ -16,8 +16,6 @@ namespace WashedAshore.Lookout
         [SerializeField] LookoutTuning tuning;
         [SerializeField] Hinge hinge = new Hinge();
 
-        PlayerController player;
-        CharacterController playerCapsule;
         Bounds swing;
         bool swingKnown, swingTried, collisionMoving;
 
@@ -50,26 +48,25 @@ namespace WashedAshore.Lookout
         /// <summary>At rest, and the player's capsule is not in the volume the leaf sweeps (the leaf yields, never the player).</summary>
         public bool CanInteract(Interactor by) => hinge.AtRest && !PlayerInTheSwing();
 
-        bool FindPlayer()
-        {
-            if (player != null) return true;
-            var tagged = GameObject.FindGameObjectWithTag("Player");
-            if (tagged == null || !tagged.TryGetComponent(out player) || !tagged.TryGetComponent(out playerCapsule)) { player = null; return false; }
-            return true;
-        }
-
         bool PlayerInTheSwing()
         {
-            if (!FindPlayer()) return false;
+            var players = PlayerRegistry.All;
+            if (players.Count == 0) return false;
             if (!swingTried)
             {
                 swingTried = true;
                 swingKnown = hinge.TrySweptBounds(tuning.sashOpenAngle, out swing);
             }
             if (!swingKnown) return false;
-            float r = playerCapsule.radius + playerCapsule.skinWidth;
-            var capsule = new Bounds(player.transform.TransformPoint(playerCapsule.center), new Vector3(2f * r, playerCapsule.height, 2f * r));
-            return swing.Intersects(capsule);
+            for (int i = 0; i < players.Count; i++)
+            {
+                var player = players[i];
+                if (!PlayerRegistry.IsLive(player) || !player.TryGetComponent(out CharacterController playerCapsule)) continue;
+                float r = playerCapsule.radius + playerCapsule.skinWidth;
+                var capsule = new Bounds(player.transform.TransformPoint(playerCapsule.center), new Vector3(2f * r, playerCapsule.height, 2f * r));
+                if (swing.Intersects(capsule)) return true;
+            }
+            return false;
         }
 
         /// <summary>The colliders are on only at rest; they are off for the whole swing, so the leaf never pushes anything.</summary>

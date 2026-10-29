@@ -38,18 +38,15 @@ namespace WashedAshore.Lookout
         [Tooltip("Prebuilt WorldBounds box under the closed leaf (top at the cab floor's underside): on only while the hatch is Closed.")]
         [SerializeField] Collider headroomStop;
 
-        PlayerController player;
-        CharacterController playerCapsule;
-        float passEyeHeight;
-        bool ducking, collisionMoving;
+        bool collisionMoving;
 
         public string Id => id;
         public HingeState State => hinge.State;
         /// <summary>Hinge angle, degrees from closed.</summary>
         public float Angle => hinge.Angle;
         public LookoutTuning Tuning => tuning;
-        /// <summary>The eye height used under the floor, from the built opening (§4).</summary>
-        public float PassEyeHeight => passEyeHeight;
+        /// <summary>The eye height used under the floor, from the built opening (§4), for the first registered player; 0 when none is live.</summary>
+        public float PassEyeHeight => PlayerRegistry.Count > 0 && PlayerRegistry.IsLive(PlayerRegistry.All[0]) ? PassEyeHeightFor(PlayerRegistry.All[0]) : 0f;
         /// <summary>Clear length of the opening along the top flight's run, m.</summary>
         public float OpeningLength => openingLength;
         public float FloorThickness => floorThickness;
@@ -128,11 +125,26 @@ namespace WashedAshore.Lookout
 
         void OnDisable()
         {
-            if (ducking && player != null) player.ClearViewOverride();
-            ducking = false;
+            var players = PlayerRegistry.All;
+            for (int i = 0; i < players.Count; i++)
+            {
+                var p = players[i];
+                if (p == null || !p.HatchDuck) continue;
+                p.ClearViewOverride();
+                p.HatchDuck = false;
+            }
         }
 
-        public bool CanInteract(Interactor by) => hinge.AtRest && FindPlayer() && !PlayerInTheWay();
+        /// <summary>At rest, at least one player live, and no live player in the way: the leaf must not trap anyone (spec I2).</summary>
+        public bool CanInteract(Interactor by) => hinge.AtRest && AnyLivePlayer() && !AnyPlayerInTheWay();
+
+        static bool AnyLivePlayer()
+        {
+            var players = PlayerRegistry.All;
+            for (int i = 0; i < players.Count; i++)
+                if (PlayerRegistry.IsLive(players[i])) return true;
+            return false;
+        }
 
         public void Interact(Interactor by)
         {
@@ -182,8 +194,17 @@ namespace WashedAshore.Lookout
         /// the stop on, and a stop switched on around a player would push them (director amend5, td part 54/55). Opening keeps the swing-box rule only:
         /// a player resting at the stop touches its volume through the skin and must still be able to open the hatch.
         /// </summary>
-        bool PlayerInTheWay()
+        bool AnyPlayerInTheWay()
         {
+            var players = PlayerRegistry.All;
+            for (int i = 0; i < players.Count; i++)
+                if (PlayerRegistry.IsLive(players[i]) && PlayerInTheWay(players[i])) return true;
+            return false;
+        }
+
+        bool PlayerInTheWay(PlayerController player)
+        {
+            if (!player.TryGetComponent(out CharacterController playerCapsule)) return false;
             Vector3 feet = frame.InverseTransformPoint(player.transform.position);
             var min = new Vector3(openingMin.x, openingMin.y - floorThickness - tuning.hatchSwingDepth, openingMin.z);
             var max = new Vector3(openingMax.x, openingMin.y + leafWidth, openingMax.z);
@@ -216,25 +237,22 @@ namespace WashedAshore.Lookout
             max = new Vector3(openingMax.x, underside, openingMax.z);
         }
 
-        bool FindPlayer()
+        /// <summary>The eye height under the floor for <paramref name="p"/>, from the built opening and the player's authored eye height. Pure.</summary>
+        public float PassEyeHeightFor(PlayerController p)
         {
-            if (player != null) return true;
-            var tagged = GameObject.FindGameObjectWithTag("Player");
-            if (tagged == null || !tagged.TryGetComponent(out player) || !tagged.TryGetComponent(out playerCapsule)) { player = null; return false; }
             if (TryFlight(out Vector3 foot, out Vector3 head, out _))
-                passEyeHeight = LookoutRules.PassEyeHeight(openingLength, PitchOf(foot, head), floorThickness, tuning.eyeClearance,
-                    tuning.hatchDuckMinEyeHeight, player.AuthoredEyeHeight);
-            else passEyeHeight = player.AuthoredEyeHeight;
-            return true;
+                return LookoutRules.PassEyeHeight(openingLength, PitchOf(foot, head), floorThickness, tuning.eyeClearance,
+                    tuning.hatchDuckMinEyeHeight, p.AuthoredEyeHeight);
+            return p.AuthoredEyeHeight;
         }
 
         /// <summary>
         /// Eye height from the feet's position alone (§4 duck): on the top flight when the feet's projection on
         /// the foot-head segment is inside its width; the run is the horizontal distance to the head. Off the flight: standing.
         /// </summary>
-        public float EyeHeightAtFeet(Vector3 worldFeet)
+        public float EyeHeightAtFeet(Vector3 worldFeet, PlayerController player)
         {
-            float standing = player != null ? player.AuthoredEyeHeight : 0f;
+            float standing = player.AuthoredEyeHeight;
             if (!TryFlight(out Vector3 foot, out Vector3 head, out float width)) return standing;
             Vector3 p = frame.InverseTransformPoint(worldFeet) - foot;
             Vector3 axisH = new Vector3(head.x - foot.x, 0f, head.z - foot.z);
@@ -244,17 +262,25 @@ namespace WashedAshore.Lookout
             float along = Vector3.Dot(new Vector3(p.x, 0f, p.z), axisH);
             float lateral = Vector3.Dot(p, Vector3.Cross(Vector3.up, axisH));
             if (along < 0f || along > lengthH || Mathf.Abs(lateral) > width * 0.5f) return standing;
-            return LookoutRules.HatchEyeHeight(lengthH - along, openingLength, PitchOf(foot, head), passEyeHeight, standing,
+            return LookoutRules.HatchEyeHeight(lengthH - along, openingLength, PitchOf(foot, head), PassEyeHeightFor(player), standing,
                 tuning.hatchDuckRun, tuning.eyeClearance);
         }
 
         /// <summary>The duck: eye height from the position on the top flight, the same going up, down or standing still.</summary>
-        void LateUpdate()
+        void LateUpdate() => DuckPass();
+
+        /// <summary>One duck pass over every live player (what LateUpdate runs; public so a test can time it). Walks <see cref="PlayerRegistry"/> by index, no allocation.</summary>
+        public void DuckPass()
         {
-            if (player == null && !FindPlayer()) return;   // the duck must not stay dormant until something aims at the hatch (td part 61, P3)
-            float eye = EyeHeightAtFeet(player.transform.position);
-            if (eye < player.AuthoredEyeHeight) { player.OverrideEyeHeight(eye); ducking = true; }
-            else if (ducking) { player.ClearViewOverride(); ducking = false; }
+            var players = PlayerRegistry.All;
+            for (int i = 0; i < players.Count; i++)   // the duck must not stay dormant until something aims at the hatch (td part 61, P3)
+            {
+                var p = players[i];
+                if (!PlayerRegistry.IsLive(p)) continue;
+                float eye = EyeHeightAtFeet(p.transform.position, p);
+                if (eye < p.AuthoredEyeHeight) { p.OverrideEyeHeight(eye); p.HatchDuck = true; }
+                else if (p.HatchDuck) { p.ClearViewOverride(); p.HatchDuck = false; }
+            }
         }
     }
 }
