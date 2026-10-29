@@ -269,7 +269,6 @@ namespace WashedAshore.Lookout
                 tuning.hatchDuckRun, tuning.eyeClearance);
         }
 
-        /// <summary>The duck: eye height from the position on the top flight, the same going up, down or standing still.</summary>
         /// <summary>The duck runs after the player's move, inside its tick, so it never stays dormant until something aims at the hatch (td part 61, P3).</summary>
         public int Order => 0;
 
