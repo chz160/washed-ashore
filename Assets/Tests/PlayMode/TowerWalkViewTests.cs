@@ -62,18 +62,18 @@ namespace WashedAshore.Tests.PlayMode
             base.TearDown();
         }
 
-        [UnityTest, Timeout(600000)] public IEnumerator S1_Centre_144fps() => Run("centre-144", 144f, 0f, 0);
-        [UnityTest, Timeout(600000)] public IEnumerator S1_Centre_60fps() => Run("centre-60", 60f, 0f, 0);
-        [UnityTest, Timeout(600000)] public IEnumerator S1_RubRight20_144fps() => Run("rubR-144", 144f, 20f, 0);
-        [UnityTest, Timeout(600000)] public IEnumerator S1_RubRight20_60fps() => Run("rubR-60", 60f, 20f, 0);
-        [UnityTest, Timeout(600000)] public IEnumerator S1_RubLeft20_144fps() => Run("rubL-144", 144f, -20f, 0);
-        [UnityTest, Timeout(600000)] public IEnumerator S1_RubLeft20_60fps() => Run("rubL-60", 60f, -20f, 0);
+        [UnityTest, Timeout(600000)] public IEnumerator S1_Centre_144fps() => Run("centre-144", 144f, 0f, false);
+        [UnityTest, Timeout(600000)] public IEnumerator S1_Centre_60fps() => Run("centre-60", 60f, 0f, false);
+        [UnityTest, Timeout(600000)] public IEnumerator S1_RubRight20_144fps() => Run("rubR-144", 144f, 20f, false);
+        [UnityTest, Timeout(600000)] public IEnumerator S1_RubRight20_60fps() => Run("rubR-60", 60f, 20f, false);
+        [UnityTest, Timeout(600000)] public IEnumerator S1_RubLeft20_144fps() => Run("rubL-144", 144f, -20f, false);
+        [UnityTest, Timeout(600000)] public IEnumerator S1_RubLeft20_60fps() => Run("rubL-60", 60f, -20f, false);
 
         /// <summary>Known fail: 0.02 m added to the camY sample on window frame 10 of every turn. It counts only if a turn whose baseline residual is under 0.010 goes over it (the table prints both).</summary>
         [UnityTest, Timeout(600000), Explicit("known-fail: injects +0.02 m on one camera sample"), Category("KnownFail")]
-        public IEnumerator KF_S1_OneFrameBump_144fps() => Run("kf-144", 144f, 0f, 3);
+        public IEnumerator KF_S1_OneFrameBump_144fps() => Run("kf-144", 144f, 0f, true);
 
-        IEnumerator Run(string tag, float fps, float yawOffset, int injectTurn)
+        IEnumerator Run(string tag, float fps, float yawOffset, bool injectBump)
         {
             Time.captureDeltaTime = 1f / fps;
             SceneManager.LoadScene("World", LoadSceneMode.Single);
@@ -107,7 +107,7 @@ namespace WashedAshore.Tests.PlayMode
             yield return Support.TestSpawn.AtTowerBase();
             trace.Clear();
             var turns = Enumerable.Range(1, 7).Select(i => new Turn { index = i }).ToArray();
-            var report = new StringBuilder($"S1 {tag}: fps {fps}, yaw offset {yawOffset} deg on flights, injectTurn {injectTurn}, bar {Bar:F3} m, window radius {WindowRadius} m\n");
+            var report = new StringBuilder($"S1 {tag}: fps {fps}, yaw offset {yawOffset} deg on flights, injectBump {injectBump}, bar {Bar:F3} m, window radius {WindowRadius} m\n");
             string failure = null;
             keyboard = Keyboard.current;
             Press(keyboard.wKey);
@@ -122,7 +122,7 @@ namespace WashedAshore.Tests.PlayMode
                 float speed = (pos - lastPos).magnitude / Mathf.Max(Time.deltaTime, 1e-4f);
                 lastPos = pos;
                 frames++; sumDt += Time.deltaTime;
-                Sample(player, body, tf, turns, injectTurn, ref lastTick);
+                Sample(player, body, tf, turns, injectBump, ref lastTick);
                 pos.y = body.bounds.min.y;
                 Vector3 flat = w.at - pos; flat.y = 0f;
                 float reach = w.stop || w.lane ? 0.2f : 0.35f;
@@ -183,9 +183,9 @@ namespace WashedAshore.Tests.PlayMode
 
         /// <summary>
         /// One rendered frame: if the player is within a turn's window, adds the camera's jS to that turn. jS = camY - (floorY under the camera XZ + EyeHeight); floorY is the
-        /// nearest hit of a ray down from camY against the player collision mask (triggers and the player excluded). injectTurn != 0 (known-fail) adds 0.02 m to jS on window frame 10 of every turn.
+        /// nearest hit of a ray down from camY against the player collision mask (triggers and the player excluded). injectBump (known-fail) adds 0.02 m to jS on window frame 10 of every turn.
         /// </summary>
-        void Sample(PlayerController player, CharacterController body, Dictionary<string, Transform> tf, Turn[] turns, int injectTurn, ref int lastTick)
+        void Sample(PlayerController player, CharacterController body, Dictionary<string, Transform> tf, Turn[] turns, bool injectBump, ref int lastTick)
         {
             Vector3 cam = player.ViewCamera.transform.position;
             Vector3 feet = player.transform.position;
@@ -201,7 +201,7 @@ namespace WashedAshore.Tests.PlayMode
                 FloorY(cam.x, cam.z, cam.y, player, false, out string anyName);
                 t.hits[hitName] = t.hits.TryGetValue(hitName, out int n) ? n + 1 : 1;
                 float jBase = float.IsNaN(floorCam) ? float.NaN : cam.y - (floorCam + player.EyeHeight);
-                float inj = injectTurn != 0 && t.frames == 10 ? 0.02f : 0f;
+                float inj = injectBump && t.frames == 10 ? 0.02f : 0f;
                 float jS = jBase + inj;
                 bool contact = ticked && (body.collisionFlags & CollisionFlags.Sides) != 0;
                 t.ts.Add(Time.time); t.ys.Add(cam.y + inj); t.yb.Add(cam.y); t.kind.Add(contact ? 2 : ticked ? 1 : 0);
