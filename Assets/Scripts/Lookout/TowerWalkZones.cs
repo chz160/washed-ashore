@@ -33,50 +33,72 @@ namespace WashedAshore.Lookout
         public float deckMinHeight = 3.5f;   // tower-local y: landing 1 is at 4.17, the ground and pad are below this
         public float halfWidth = 0.9f, padFoot = 1.0f, padHead = 0.5f, below = 0.7f, above = 2.2f;
 
-        PlayerController player;
-        CharacterController body;
-        float savedSlope, savedRadius, savedHeight, savedStep;
-        bool slopeRaised, slimmed;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        /// <summary>Test-only mutation (#46 KF-T4a): the zone pass acts only on the first registered player, which is single-player behaviour. Reset in TearDown.</summary>
+        public static bool TestFirstPlayerOnly;
+#endif
 
-        public bool InFlightZone { get; private set; }
-        public bool OnRamp { get; private set; }
-        public bool InFootprint { get; private set; }
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        // Probe/tool readout of the first registered player (td-46 adr/46-a-departures-1). Game code reads p.TowerZone; no runtime code
+        // may call these (today the only callers are ControllerProbe64.cs:222,233).
+        public bool InFlightZone => PlayerRegistry.Count > 0 && PlayerRegistry.All[0].TowerZone.InFlightZone;
+        public bool OnRamp => PlayerRegistry.Count > 0 && PlayerRegistry.All[0].TowerZone.OnRamp;
+        public bool InFootprint => PlayerRegistry.Count > 0 && PlayerRegistry.All[0].TowerZone.InFootprint;
+#endif
 
-        void Update()
+        void Update() => ZonePass();
+
+        /// <summary>One zone pass over every live player (what Update runs; public so a test can time it). No allocation.</summary>
+        public void ZonePass()
         {
-            if (!player)
-            {
-                var go = GameObject.FindGameObjectWithTag("Player");
-                if (!go) return;
-                player = go.GetComponent<PlayerController>();
-                body = go.GetComponent<CharacterController>();
-                if (!player || !body) { player = null; return; }
-            }
-            Vector3 p = transform.InverseTransformPoint(player.transform.position);
-            InFootprint = p.x >= footprintMin.x && p.x <= footprintMax.x && p.y >= footprintMin.y && p.y <= footprintMax.y
-                          && p.z >= footprintMin.z && p.z <= footprintMax.z;
-            InFlightZone = InFootprint && InAnyFlight(p, padFoot, padHead);
-            OnRamp = InFootprint && InAnyFlight(p, 0.05f, 0.05f);
+            var players = PlayerRegistry.All;
+            int count = players.Count;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (TestFirstPlayerOnly && count > 1) count = 1;
+#endif
+            for (int i = 0; i < count; i++)
+                if (PlayerRegistry.IsLive(players[i])) Step(players[i]);
+        }
 
-            if (InFootprint && !slimmed) { savedRadius = body.radius; savedHeight = player.StandingHeight; savedStep = body.stepOffset; body.stepOffset = towerStepOffset; player.SetWalkCapsule(towerRadius, towerHeight); slimmed = true; }
-            else if (!InFootprint && slimmed) { player.SetWalkCapsule(savedRadius, savedHeight); body.stepOffset = savedStep; slimmed = false; }
+        /// <summary>The zone logic for one player: slim capsule, step offset, speed cap, ground snap and slope limit, all kept in <see cref="PlayerController.TowerZone"/>.</summary>
+        void Step(PlayerController player)
+        {
+            var body = player.Capsule;
+            if (!body) return;
+            ref TowerZoneState z = ref player.TowerZone;
+            Vector3 p = transform.InverseTransformPoint(player.transform.position);
+            z.InFootprint = p.x >= footprintMin.x && p.x <= footprintMax.x && p.y >= footprintMin.y && p.y <= footprintMax.y
+                          && p.z >= footprintMin.z && p.z <= footprintMax.z;
+            z.InFlightZone = z.InFootprint && InAnyFlight(p, padFoot, padHead);
+            z.OnRamp = z.InFootprint && InAnyFlight(p, 0.05f, 0.05f);
+
+            if (z.InFootprint && !z.slimmed) { z.savedRadius = body.radius; z.savedHeight = player.StandingHeight; z.savedStep = body.stepOffset; body.stepOffset = towerStepOffset; player.SetWalkCapsule(towerRadius, towerHeight); z.slimmed = true; }
+            else if (!z.InFootprint && z.slimmed) { player.SetWalkCapsule(z.savedRadius, z.savedHeight); body.stepOffset = z.savedStep; z.slimmed = false; }
 
             // The cap follows what the player stands on, never the footprint: ground level and the pad stay at the game's walk speed.
-            if (slimmed) body.stepOffset = (OnRamp || p.y > deckMinHeight) && p.y < cabStepHeight ? upperStepOffset : towerStepOffset;
-            player.WalkSpeedCap = OnRamp ? stairWalkSpeed : InFootprint && p.y > deckMinHeight ? landingWalkSpeed : 0f;
-            player.GroundSnapDistance = InFlightZone ? stairGroundSnap : 0f;
+            if (z.slimmed) body.stepOffset = (z.OnRamp || p.y > deckMinHeight) && p.y < cabStepHeight ? upperStepOffset : towerStepOffset;
+            player.WalkSpeedCap = z.OnRamp ? stairWalkSpeed : z.InFootprint && p.y > deckMinHeight ? landingWalkSpeed : 0f;
+            player.GroundSnapDistance = z.InFlightZone ? stairGroundSnap : 0f;
 
-            if (InFlightZone && !slopeRaised) { savedSlope = body.slopeLimit; body.slopeLimit = flightSlopeLimit; slopeRaised = true; }
-            else if (!InFlightZone && slopeRaised) { body.slopeLimit = savedSlope; slopeRaised = false; }
+            if (z.InFlightZone && !z.slopeRaised) { z.savedSlope = body.slopeLimit; body.slopeLimit = flightSlopeLimit; z.slopeRaised = true; }
+            else if (!z.InFlightZone && z.slopeRaised) { body.slopeLimit = z.savedSlope; z.slopeRaised = false; }
         }
 
         void OnDisable()
         {
-            if (!body) return;
-            if (slopeRaised) body.slopeLimit = savedSlope;
-            if (slimmed && player) { player.SetWalkCapsule(savedRadius, savedHeight); body.stepOffset = savedStep; }
-            if (player) { player.WalkSpeedCap = 0f; player.GroundSnapDistance = 0f; }
-            slopeRaised = slimmed = false;
+            var players = PlayerRegistry.All;
+            for (int i = 0; i < players.Count; i++)
+            {
+                var player = players[i];
+                if (player == null) continue;
+                var body = player.Capsule;
+                ref TowerZoneState z = ref player.TowerZone;
+                if (!body) continue;
+                if (z.slopeRaised) body.slopeLimit = z.savedSlope;
+                if (z.slimmed) { player.SetWalkCapsule(z.savedRadius, z.savedHeight); body.stepOffset = z.savedStep; }
+                player.WalkSpeedCap = 0f; player.GroundSnapDistance = 0f;
+                z.slopeRaised = z.slimmed = false;
+            }
         }
 
         bool InAnyFlight(Vector3 p, float padFootM, float padHeadM)

@@ -161,9 +161,10 @@ namespace WashedAshore.Wildlife
 
         // ---- Decisions -------------------------------------------------------------------------
 
+        /// <summary>The threat is the nearest live player (flat distance from the agent), picked from <see cref="PlayerRegistry"/> at every evaluation (#46 P4).</summary>
         void FindThreat()
         {
-            var player = GameObject.FindWithTag(tuning.playerTag);
+            var player = PlayerRegistry.NearestFlat(agent.nextPosition);
             threat = player ? player.transform : null;
         }
 
@@ -171,7 +172,7 @@ namespace WashedAshore.Wildlife
 
         void EvaluateThreat(float elapsed)
         {
-            if (!threat) FindThreat();
+            FindThreat();
             float d = ThreatDistance();
 
             if (IsEscaping)

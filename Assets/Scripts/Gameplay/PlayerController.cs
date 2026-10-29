@@ -16,7 +16,7 @@ namespace WashedAshore.Gameplay
         [Header("References")]
         [SerializeField] Transform cameraPivot;
         [SerializeField] Transform spawnPoint;
-        [Tooltip("Looked up by name when spawnPoint is missing: a scripted level rebuild recreates PlayerSpawn.")]
+        [Tooltip("Only named in the warning when spawnPoint is missing: the scene carries the reference and the level builders re-link it (#46: no lookup by name).")]
         [SerializeField] string spawnPointName = "PlayerSpawn";
 
         [Header("Movement")]
@@ -58,8 +58,14 @@ namespace WashedAshore.Gameplay
         public float WalkSpeedCap { get; set; }
         /// <summary>When set, this move vector (x right, y forward) replaces the Move action: the FPS probe walks the real controller with it. Null in play.</summary>
         public Vector2? ExternalMoveInput { get; set; }
+        /// <summary>This player's tower-zone state (saved capsule values and zone readings), written by TowerWalkZones (#46 P4: one slot per player).</summary>
+        [System.NonSerialized] public TowerZoneState TowerZone;
+        /// <summary>True while the trap door's duck holds this player's eye height (#46 P4: per player, not on the door).</summary>
+        public bool HatchDuck { get; set; }
         /// <summary>Metres the controller is pulled back down onto the ground after a step that left it airborne; 0 = off.</summary>
         public float GroundSnapDistance { get; set; }
+        /// <summary>This player's CharacterController (capsule values for the tower zones and the hatch).</summary>
+        public CharacterController Capsule => controller;
         public float SprintSpeed => sprintSpeed;
         public float JumpHeight => jumpHeight;
         public float Gravity => gravity;
@@ -68,6 +74,7 @@ namespace WashedAshore.Gameplay
         void Awake()
         {
             controller = GetComponent<CharacterController>();
+            PlayerRegistry.Register(this);   // from Awake to OnDestroy: a player switched off (parked by a test or a cutscene) still has its body in the world
             ApplyPlayerLayer();
 
             moveAction = new InputAction("Move", InputActionType.Value);
@@ -85,7 +92,6 @@ namespace WashedAshore.Gameplay
             jumpAction = new InputAction("Jump", InputActionType.Button, "<Keyboard>/space");
             jumpAction.AddBinding("<Gamepad>/buttonSouth");
             SetupWater();
-            WorldBoundsClamp.Snapped += OnSnapped;
             SetupView();
             SetupStance();
             // The shared gamepad South: the Interactor runs first and takes the press while a prompt shows.
@@ -100,7 +106,6 @@ namespace WashedAshore.Gameplay
             sprintAction.Enable();
             jumpAction.Enable();
             EnableStance();
-            WorldBoundsClamp.Register(controller);
         }
 
         void OnDisable()
@@ -111,7 +116,6 @@ namespace WashedAshore.Gameplay
             sprintAction.Disable();
             jumpAction.Disable();
             DisableStance();
-            WorldBoundsClamp.Unregister(controller);
         }
 
         void OnDestroy()
@@ -122,7 +126,7 @@ namespace WashedAshore.Gameplay
             sprintAction.Dispose();
             jumpAction.Dispose();
             DisposeStance();
-            WorldBoundsClamp.Snapped -= OnSnapped;
+            PlayerRegistry.Unregister(this);
         }
 
         /// <summary>
@@ -160,16 +164,6 @@ namespace WashedAshore.Gameplay
 
         public void Respawn()
         {
-            if (spawnPoint == null && !string.IsNullOrEmpty(spawnPointName))
-            {
-                var found = GameObject.Find(spawnPointName);
-                if (found != null)
-                {
-                    spawnPoint = found.transform;
-                    // Safety net only: the scene should carry the reference (level build re-links it).
-                    Debug.LogWarning($"PlayerController: spawnPoint reference missing; using '{spawnPointName}' found by name.", this);
-                }
-            }
             if (spawnPoint == null)
             {
                 Debug.LogWarning($"PlayerController: no spawn point (looked for '{spawnPointName}'); staying at {transform.position}.", this);
@@ -237,10 +231,16 @@ namespace WashedAshore.Gameplay
                 cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
         }
 
-        /// <summary>A bounds snap is a teleport: the firefinder and the camera seam listen for it.</summary>
-        void OnSnapped(GameObject body, Vector3 from, Vector3 to)
+        /// <summary>
+        /// The world-bounds clamp moves this player to <paramref name="target"/>. A bounds snap is a teleport: the firefinder and the camera
+        /// seam listen for <see cref="Teleported"/>. Velocities are kept, as the clamp always did.
+        /// </summary>
+        internal void BoundsSnap(Vector3 target)
         {
-            if (body != gameObject) return;
+            // CharacterController overrides transform writes while enabled.
+            controller.enabled = false;
+            transform.position = target;
+            controller.enabled = true;
             Teleported?.Invoke();
         }
 

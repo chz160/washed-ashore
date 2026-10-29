@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using WashedAshore.Gameplay;
 
 namespace WashedAshore.Birds
 {
@@ -109,7 +110,7 @@ namespace WashedAshore.Birds
         {
             if (rng == null) return;
             float dt = Time.deltaTime;
-            if (!threat) FindThreat();
+            FindThreat();
             switch (Current)
             {
                 case State.Ground:
@@ -119,12 +120,22 @@ namespace WashedAshore.Birds
             }
         }
 
+        int pickedVersion = -1;
+
+        /// <summary>
+        /// The threat is the nearest live player from <see cref="PlayerRegistry"/> (#46 P4; no scene search, no allocation). It is re-picked
+        /// when there is none, when the registry changed since the last pick, or while more than one player exists (the nearest can change
+        /// every frame). With one player that costs a null check and an int compare per Update, as before (td-46 adr/46-a-birdfps/ruling,
+        /// D6). The view follows the pick: that player's camera when enabled, else Camera.main.
+        /// </summary>
         void FindThreat()
         {
-            var player = GameObject.FindWithTag(tuning.playerTag);
-            threat = player ? player.transform : null;
-            view = player ? player.GetComponentInChildren<Camera>() : null;
-            if (!view) view = Camera.main;
+            if (threat && pickedVersion == PlayerRegistry.Version && PlayerRegistry.Count <= 1) return;
+            pickedVersion = PlayerRegistry.Version;
+            var player = PlayerRegistry.NearestFlat(transform.position);
+            Transform picked = player ? player.transform : null;
+            threat = picked;
+            view = player && player.ViewCamera && player.ViewCamera.enabled ? player.ViewCamera : Camera.main;
         }
 
         float ThreatDistance() => threat ? RobinFlightPlanner.Flat(transform.position, threat.position) : float.PositiveInfinity;
