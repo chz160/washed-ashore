@@ -177,6 +177,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(3000000)]
         public IEnumerator StandAndCrouch_LookDown_BackOffsetSweepAndConfiguredTables()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             view = player.GetComponent<PlayerCharacterView>();
@@ -675,6 +676,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(2400000)]
         public IEnumerator ConfiguredStills_ForTheWaiver()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             view = player.GetComponent<PlayerCharacterView>();
@@ -719,6 +721,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(1200000)]
         public IEnumerator WaiverStills_Sprint8_Jog5_GitHub37()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             view = player.GetComponent<PlayerCharacterView>();
@@ -896,6 +899,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(1200000)]
         public IEnumerator Arbiter_Crouch75_CrouchWalk_RealGamePath()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             view = player.GetComponent<PlayerCharacterView>();

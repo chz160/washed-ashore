@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using WashedAshore.Interaction;
+using WashedAshore.World;
 
 namespace WashedAshore.Gameplay
 {
@@ -42,17 +42,15 @@ namespace WashedAshore.Gameplay
         [SerializeField] float maxPitch = 85f;
 
         CharacterController controller;
-        InputAction moveAction;
-        InputAction lookAction;
-        InputAction stickLookAction;
-        InputAction sprintAction;
-        InputAction jumpAction;
         Interactor interactor;
         Vector3 horizontalVelocity;
         float verticalVelocity;
         float pitch;
 
-        public bool IsGrounded => controller != null && controller.isGrounded;
+        /// <summary>The sim's grounded flag: what the last tick's move left, false after a placement, a bounds snap or (from the snapshot) a restore. Live it equals the CharacterController's flag.</summary>
+        public bool IsGrounded => grounded;
+        /// <summary>Same value as <see cref="IsGrounded"/>, named for the animator driver (P6): it reads the sim, never the controller.</summary>
+        public bool SimGrounded => grounded;
         public float WalkSpeed => walkSpeed;
         /// <summary>Upper limit on the walk target speed set by a place that wants a slower walk (the lookout stairs); 0 = none.</summary>
         public float WalkSpeedCap { get; set; }
@@ -76,56 +74,26 @@ namespace WashedAshore.Gameplay
             controller = GetComponent<CharacterController>();
             PlayerRegistry.Register(this);   // from Awake to OnDestroy: a player switched off (parked by a test or a cutscene) still has its body in the world
             ApplyPlayerLayer();
-
-            moveAction = new InputAction("Move", InputActionType.Value);
-            moveAction.AddCompositeBinding("2DVector")
-                .With("Up", "<Keyboard>/w")
-                .With("Down", "<Keyboard>/s")
-                .With("Left", "<Keyboard>/a")
-                .With("Right", "<Keyboard>/d");
-            moveAction.AddBinding("<Gamepad>/leftStick");
-
-            lookAction = new InputAction("Look", InputActionType.Value, "<Mouse>/delta");
-            stickLookAction = new InputAction("StickLook", InputActionType.Value, "<Gamepad>/rightStick");
-            sprintAction = new InputAction("Sprint", InputActionType.Button, "<Keyboard>/leftShift");
-            sprintAction.AddBinding("<Gamepad>/leftStickPress");
-            jumpAction = new InputAction("Jump", InputActionType.Button, "<Keyboard>/space");
-            jumpAction.AddBinding("<Gamepad>/buttonSouth");
+            SetupInput();
             SetupWater();
             SetupView();
             SetupStance();
+            ResetInterpolation();
             // The shared gamepad South: the Interactor runs first and takes the press while a prompt shows.
             interactor = GetComponentInChildren<Interactor>();
         }
 
         void OnEnable()
         {
-            moveAction.Enable();
-            lookAction.Enable();
-            stickLookAction.Enable();
-            sprintAction.Enable();
-            jumpAction.Enable();
-            EnableStance();
+            EnableInput();
+            simWaterTime = WaterClock.Now;
         }
 
-        void OnDisable()
-        {
-            moveAction.Disable();
-            lookAction.Disable();
-            stickLookAction.Disable();
-            sprintAction.Disable();
-            jumpAction.Disable();
-            DisableStance();
-        }
+        void OnDisable() => DisableInput();
 
         void OnDestroy()
         {
-            moveAction.Dispose();
-            lookAction.Dispose();
-            stickLookAction.Dispose();
-            sprintAction.Dispose();
-            jumpAction.Dispose();
-            DisposeStance();
+            DisposeInput();
             PlayerRegistry.Unregister(this);
         }
 
@@ -206,29 +174,13 @@ namespace WashedAshore.Gameplay
             horizontalVelocity = Vector3.zero;
             verticalVelocity = 0f;
             waterMode = WaterMode.Dry; // the next frame's depth decides (spec §2: no stale state)
+            grounded = false;          // a re-enabled CharacterController reports false until it moves
+            simWaterTime = WaterClock.Now;
+            teleportedThisTick = true;
             ResetStance();
+            ResetInterpolation();
+            PresentView();
             Teleported?.Invoke();
-        }
-
-        void Update()
-        {
-            float dt = Time.deltaTime;
-            Look(dt);
-            StanceTick(dt);
-            Move(dt);
-            GuardFallThrough();
-        }
-
-        void Look(float dt)
-        {
-            if (controlSuspended || StanceLookLocked) return;
-            Vector2 mouseDelta = lookAction.ReadValue<Vector2>();
-            Vector2 delta = mouseDelta * lookSensitivity
-                + stickLookAction.ReadValue<Vector2>() * (stickLookSpeed * dt);
-            transform.Rotate(0f, delta.x, 0f, Space.Self);
-            pitch = Mathf.Clamp(pitch - delta.y, minPitch, maxPitch);
-            if (cameraPivot != null && !viewPoseOverridden)
-                cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
         }
 
         /// <summary>
@@ -241,14 +193,19 @@ namespace WashedAshore.Gameplay
             controller.enabled = false;
             transform.position = target;
             controller.enabled = true;
+            grounded = false;
+            teleportedThisTick = true;
+            ResetInterpolation();
+            PresentView();
             Teleported?.Invoke();
         }
 
-        void Move(float dt)
+        void Move(float dt, in PlayerCommand cmd)
         {
             UpdateWater();
-            Vector2 input = controlSuspended ? Vector2.zero : Vector2.ClampMagnitude(ExternalMoveInput ?? moveAction.ReadValue<Vector2>(), 1f);
-            bool sprint = !controlSuspended && sprintAction.IsPressed();
+            Vector2 input = controlSuspended ? Vector2.zero : Vector2.ClampMagnitude(cmd.Move, 1f);
+            bool sprint = !controlSuspended && (cmd.Buttons & PlayerButtons.Sprint) != 0;
+            bool jump = !controlSuspended && (cmd.Buttons & PlayerButtons.Jump) != 0;
             Vector3 target = MoveTarget(input, sprint, dt);
             if (WalkSpeedCap > 0f) target = Vector3.ClampMagnitude(target, WalkSpeedCap);
             if (StanceSpeedLimit >= 0f) target = Vector3.ClampMagnitude(target, StanceSpeedLimit);
@@ -257,14 +214,14 @@ namespace WashedAshore.Gameplay
 
             if (waterMode == WaterMode.Swim)
                 verticalVelocity = SwimVerticalVelocity(dt);
-            else if (controller.isGrounded && CanJump && stance == Stance.Stand && stanceJumpConsumedFrame != Time.frameCount && JumpPressed())
+            else if (grounded && CanJump && stance == Stance.Stand && !stanceTookJump && jump)
                 verticalVelocity = Mathf.Sqrt(2f * jumpHeight * -gravity);
-            else if (controller.isGrounded && verticalVelocity < 0f)
+            else if (grounded && verticalVelocity < 0f)
                 verticalVelocity = groundedStickVelocity;
             else
                 verticalVelocity = Mathf.Max(verticalVelocity + gravity * dt, terminalVelocity);
 
-            bool wasGrounded = controller.isGrounded;
+            bool wasGrounded = grounded;
             controller.Move((horizontalVelocity + Vector3.up * verticalVelocity) * dt);
             // Walking down a steep ramp the horizontal step leaves the feet in the air; snap back onto it (never after a jump).
             if (GroundSnapDistance > 0f && wasGrounded && !controller.isGrounded && verticalVelocity <= 0f && waterMode == WaterMode.Dry)
@@ -272,17 +229,7 @@ namespace WashedAshore.Gameplay
                 controller.Move(Vector3.down * GroundSnapDistance);
                 if (controller.isGrounded) verticalVelocity = groundedStickVelocity;
             }
-        }
-
-        /// <summary>
-        /// A jump press that counts: not while control is suspended,
-        /// and not a gamepad South press the Interactor took for a prompt. Space always jumps.
-        /// </summary>
-        bool JumpPressed()
-        {
-            if (!jumpAction.WasPressedThisFrame() || controlSuspended) return false;
-            bool fromGamepad = jumpAction.activeControl != null && jumpAction.activeControl.device is Gamepad;
-            return !InteractionRules.JumpBlocked(fromGamepad, interactor != null && interactor.TookPressThisFrame);
+            grounded = controller.isGrounded;
         }
 
         void GuardFallThrough()

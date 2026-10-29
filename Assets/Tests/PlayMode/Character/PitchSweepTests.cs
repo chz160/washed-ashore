@@ -33,6 +33,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(1800000)]
         public IEnumerator EveryStance_PitchSweep_NoClipping()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             yield return OnFloor();
             var view = player.GetComponent<PlayerCharacterView>();

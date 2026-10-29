@@ -11,8 +11,7 @@ namespace WashedAshore.Lookout
     /// are 52 to 56 degrees, the controller's limit is 45). Both are restored on leaving. Every number is a field,
     /// written by the WalkableTowerBuilder from the manifest; nothing else about the controller is touched.
     /// </summary>
-    [DefaultExecutionOrder(-100)]
-    public class TowerWalkZones : MonoBehaviour
+    public class TowerWalkZones : MonoBehaviour, IPlayerTickHook
     {
         [Serializable]
         public struct Flight { public Vector3 foot, head; }   // tower-local nosing line ends
@@ -20,7 +19,7 @@ namespace WashedAshore.Lookout
         public Flight[] flights = new Flight[0];
         public Vector3 footprintMin, footprintMax;            // tower-local box for the slim capsule
         public float cabStepHeight = 25.5f;   // tower-local y: from the top of flight 8 up, getting off the ramp onto the cab floor takes a 0.12 m step
-        public float upperStepOffset = 0.05f;   // on ramps and upper decks no join is over 5 cm; a larger step lets the controller pop up when it rubs a rail end
+        public float upperStepOffset = 0.25f;   // on ramps and upper decks (#41). 0.05 stalled the climb at the rail ends and the F04 and F07 heads at every fixed step from 1/60 to 1/240 (diagnostics, #46); the #64 TowerStep probe at 0.25 measured POP 0, CLIMB 0, OFF RAMP 0 (it was 0.05 against "a larger step lets the controller pop up when it rubs a rail end")
         public float towerStepOffset = 0.25f;   // the ramps are smooth; the pad edge is the biggest step (0.2). The default 0.4 popped the body up a step on landings
         public float towerRadius = 0.25f, towerHeight = 1.6f;   // height: the hatch at the top of flight 8 clears a 1.8 m capsule by -0.2 m
         public float flightSlopeLimit = 80f;
@@ -46,9 +45,23 @@ namespace WashedAshore.Lookout
         public bool InFootprint => PlayerRegistry.Count > 0 && PlayerRegistry.All[0].TowerZone.InFootprint;
 #endif
 
-        void Update() => ZonePass();
+        void OnEnable() => PlayerTickHooks.Register(this);
 
-        /// <summary>One zone pass over every live player (what Update runs; public so a test can time it). No allocation.</summary>
+        /// <summary>Runs first in the player's tick (the old execution order -100).</summary>
+        public int Order => -100;
+
+        /// <summary>The zone logic for the player that is about to move, inside its tick.</summary>
+        public void BeforeMove(PlayerController p)
+        {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (TestFirstPlayerOnly && PlayerRegistry.Count > 1 && PlayerRegistry.All[0] != p) return;
+#endif
+            if (PlayerRegistry.IsLive(p)) Step(p);
+        }
+
+        public void AfterMove(PlayerController p) { }
+
+        /// <summary>One zone pass over every live player (the tick runs it per player; public so a test can time it). No allocation.</summary>
         public void ZonePass()
         {
             var players = PlayerRegistry.All;
@@ -86,6 +99,7 @@ namespace WashedAshore.Lookout
 
         void OnDisable()
         {
+            PlayerTickHooks.Unregister(this);
             var players = PlayerRegistry.All;
             for (int i = 0; i < players.Count; i++)
             {

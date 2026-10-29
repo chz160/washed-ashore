@@ -27,9 +27,12 @@ namespace WashedAshore.Gameplay
         public SwimTuning SwimTuning => swimTuning;
         /// <summary>Swim speed (stroke mean); walk speed when there is no SwimTuning.</summary>
         public float SwimSpeed => swimTuning != null ? swimTuning.swimSpeed : walkSpeed;
-        /// <summary>Eye height above the feet, from the camera pivot (0.9 x capsule height without one).</summary>
+        /// <summary>
+        /// Eye height above the feet: the sim's eye (never the interpolated pivot), the pivot's own height while the view pose is overridden
+        /// or before the view is set up, 0.9 x capsule height without a pivot.
+        /// </summary>
         public float EyeHeight => cameraPivot != null
-            ? cameraPivot.position.y - transform.position.y
+            ? (viewSetUp && !viewPoseOverridden ? SimEye : cameraPivot.position.y - transform.position.y)
             : (controller != null ? controller.height * 0.9f : 1.6f);
 
         void SetupWater()
@@ -58,7 +61,7 @@ namespace WashedAshore.Gameplay
                 surfaceY = float.NegativeInfinity;
                 return;
             }
-            surfaceY = water.SurfaceY(p.x, p.z);
+            surfaceY = SimSurfaceY(water, p.x, p.z);
             waterDepth = Mathf.Max(0f, surfaceY - groundY);
             var next = SwimRules.Classify(waterMode, waterDepth, swimTuning);
             if (next != WaterMode.Swim) strokeTime = 0f;

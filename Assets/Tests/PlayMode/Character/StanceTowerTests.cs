@@ -16,6 +16,7 @@ namespace WashedAshore.Tests.PlayMode.Character
         [UnityTest, Timeout(300000)]
         public IEnumerator EnteringTheTowerCrouched_NeverLeaksTheCrouchCapsule()
         {
+            PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
             yield return LoadWorld();
             var zones = Object.FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Exclude).FirstOrDefault(m => m.GetType().Name == "TowerWalkZones");
             Assert.IsNotNull(zones, "no TowerWalkZones in World: run WalkableTowerBuilder");

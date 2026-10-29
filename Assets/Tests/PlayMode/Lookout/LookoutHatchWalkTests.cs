@@ -318,7 +318,7 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             void Sample(string leg)
             {
                 var cam = player.CameraPivot.position;
-                float eye = EyeHeight();
+                float eye = player.EyeHeight;   // #46: the sim eye; the camera is one tick behind by design (td-46 c2-rulings/final a)
                 minEye = Mathf.Min(minEye, eye); maxEye = Mathf.Max(maxEye, eye);
                 string key = leg.StartsWith("up") ? "up" : "down";
                 (float dist, string where, float eyeMin, float eyeMax, int corners) fresh = (float.MaxValue, "", float.MaxValue, float.MinValue, 0);
@@ -345,7 +345,7 @@ namespace WashedAshore.Tests.PlayMode.Lookout
                 var rel = player.transform.position - foot;
                 float along = Vector3.Dot(Flat(rel), dirH);
                 Sample("up");
-                if (float.IsNaN(eyeUpMid) && along >= mid) eyeUpMid = EyeHeight();
+                if (float.IsNaN(eyeUpMid) && along >= mid) eyeUpMid = player.EyeHeight;   // #46: the sim eye at the sim position; the camera is one tick behind by design
                 if (player.transform.position.y > head.y - 0.05f) { yield return Wait(0.3f); Sample("up-top"); break; }
             }
             Let(Key.W);
@@ -360,7 +360,7 @@ namespace WashedAshore.Tests.PlayMode.Lookout
                 var rel = player.transform.position - foot;
                 float along = Vector3.Dot(Flat(rel), dirH);
                 Sample("down");
-                if (float.IsNaN(eyeDownMid) && along <= mid && player.transform.position.y < head.y - 0.3f) eyeDownMid = EyeHeight();
+                if (float.IsNaN(eyeDownMid) && along <= mid && player.transform.position.y < head.y - 0.3f) eyeDownMid = player.EyeHeight;   // #46: same reading going down
                 if (player.transform.position.y < foot.y + 0.3f) break;
             }
             Let(Key.W);
