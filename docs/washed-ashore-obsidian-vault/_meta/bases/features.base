@@ -1,0 +1,16 @@
+filters:
+  and:
+    - type == "feature"
+    - file.ext == "md"
+views:
+  - type: table
+    name: Features
+    groupBy:
+      property: status
+      direction: ASC
+    order:
+      - file.name
+      - status
+      - area
+      - issues
+      - updated

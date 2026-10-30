@@ -1,0 +1,28 @@
+filters:
+  and:
+    - type == "decision"
+    - file.ext == "md"
+views:
+  - type: table
+    name: Current
+    filters:
+      or:
+        - status == "accepted"
+        - status == "proposed"
+        - status == "contested"
+    order:
+      - file.name
+      - status
+      - decided_by
+      - area
+      - issues
+      - created
+  - type: table
+    name: Superseded
+    filters:
+      and:
+        - status == "superseded"
+    order:
+      - file.name
+      - superseded_by
+      - created

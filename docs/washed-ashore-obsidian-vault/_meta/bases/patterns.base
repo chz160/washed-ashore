@@ -1,0 +1,26 @@
+filters:
+  and:
+    - type == "pattern"
+    - file.ext == "md"
+views:
+  - type: table
+    name: Active
+    filters:
+      and:
+        - status == "active"
+    order:
+      - file.name
+      - tech
+      - area
+      - issues
+      - updated
+  - type: table
+    name: Superseded or archived
+    filters:
+      and:
+        - status != "active"
+    order:
+      - file.name
+      - status
+      - superseded_by
+      - updated

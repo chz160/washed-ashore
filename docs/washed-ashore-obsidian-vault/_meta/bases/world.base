@@ -1,0 +1,12 @@
+filters:
+  and:
+    - 'type == "world"'
+    - 'file.ext == "md"'
+views:
+  - type: cards
+    name: "World"
+    order:
+      - file.name
+      - area
+      - status
+      - updated
