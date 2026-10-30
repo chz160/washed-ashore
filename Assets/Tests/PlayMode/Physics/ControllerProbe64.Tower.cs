@@ -87,9 +87,9 @@ namespace WashedAshore.Tests.PlayMode
             Vector3 d = up ? runDir : -runDir, rd = new Vector3(d.z, 0, -d.x), toWall = right ? rd : -rd;
             Vector3 runRight = new Vector3(runDir.z, 0, -runDir.x);
             float face = Vector3.Dot(toWall, runRight) > 0 ? fi.faceRunPlus : fi.faceRunMinus;
-            // spec r4: F8 up starts at along 0.60 with lateral 0.07 (the F7 wall hull intrudes near the F8 foot); F8 down 0.45, all others 0.35 / 0.05
+            // spec r4: F8 up starts at along 0.60 with lateral 0.07 on the right and 0.00 on the left (#91: the open hatch leaf, not the F7 hull, leaves no room on the left); F8 down 0.45, all others 0.35 / 0.05
             bool f8up = up && flight == 8;
-            float a0 = f8up ? 0.60f : !up && flight == 8 ? 0.45f : 0.35f, lat0 = f8up ? 0.07f : 0.05f;
+            float a0 = f8up ? 0.60f : !up && flight == 8 ? 0.45f : 0.35f, lat0 = f8up ? (right ? 0.07f : 0f) : 0.05f;   // #91: F8 up L has only 0.006 m of free room before the open hatch leaf (west face x 0.978); lateral 0.07 was pushed back 0.071 m
             if (a0Over >= 0f) a0 = a0Over;   // #8 S4 variant rows only (VARIANT start, not the spec row)
             if (lat0Over >= 0f) lat0 = lat0Over;
             Vector3 refPt = up ? fi.foot : fi.head;

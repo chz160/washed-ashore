@@ -21,7 +21,7 @@ namespace WashedAshore.Lookout.Editor
     ///   Unity -batchmode -projectPath E:\GitHub\washed-ashore -executeMethod WashedAshore.Lookout.Editor.WalkableTowerBuilder.BuildBatch -quit
     /// or the menu Washed Ashore/Lookout/Build walkable tower. LOOKOUT_EXPORT_DIR overrides the export folder.
     /// </summary>
-    public static class WalkableTowerBuilder
+    public static partial class WalkableTowerBuilder
     {
         /// <summary>
         /// The convex tower colliders' cooking options, written out (#45 M3). It is the value the default has always given
@@ -216,6 +216,8 @@ namespace WashedAshore.Lookout.Editor
                 log.AppendLine(NudgeLandingWalls(byName));
                 log.AppendLine(WidenFlightWalls(byName, flights));
                 log.AppendLine(TrimFloorOverStair(byName));
+                log.AppendLine(TrimHatchRim(byName));                 // #86 K3
+                log.AppendLine(FlushLanding6Walls(byName));            // #86 K5
                 log.AppendLine($"colliders: {boxes} box + {convex} convex kept; dropped {dropped.Count}: {string.Join(", ", dropped)}");
 
                 // One smooth ramp per flight along the nosing line (foot -> head): the stair-volume solution.
