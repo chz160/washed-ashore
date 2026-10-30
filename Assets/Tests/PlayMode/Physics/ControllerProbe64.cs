@@ -292,7 +292,7 @@ namespace WashedAshore.Tests.PlayMode
             }
             // TowerStep rows (spec r9 + part25): THROUGH counts only at the part23 bar, penetration depth > 0.03; lateral and shallower hits stay in the through: line
             res.through = s.variant == "step0.25" ? maxDepth > 0.03f : firstK >= 0;
-            string diag = $"    through: by {(res.through ? (latFrames > 0 && penFrames > 0 ? "lateral+penetration" : latFrames > 0 ? "lateral" : "penetration") : "none")}, frames lateral {latFrames} penetration {penFrames}, first k {(firstK < 0 ? "-" : firstK.ToString())} along {(firstK < 0 ? "-" : F(firstA, 3))} lateral {F(firstLat, 3)} test {(firstK < 0 ? "-" : firstTest)} collider {firstCol} depth {(firstK < 0 ? "-" : F(firstDepth, 3))}; max lateral overshoot {(float.IsNegativeInfinity(maxOver) ? "-" : F(maxOver, 3))} max penetration depth {F(maxDepth, 3)}";
+            string diag = $"    through: by {(res.through ? (latFrames > 0 && penFrames > 0 ? "lateral+penetration" : latFrames > 0 ? "lateral" : "penetration") : "none")}, frames lateral {latFrames} penetration {penFrames}, first k {(firstK < 0 ? "-" : firstK.ToString())} along {(firstK < 0 ? "-" : F(firstA, 3))} lateral {F(firstLat, 3)} test {(firstK < 0 ? "-" : firstTest)} collider {firstCol} depth {(firstK < 0 ? "-" : F(firstDepth, 4))}; max lateral overshoot {(float.IsNegativeInfinity(maxOver) ? "-" : F(maxOver, 4))} max penetration depth {F(maxDepth, 4)}; bars: penetration depth > 0.0300 (step0.25 rows), POP rise_max > {PopLimit:F4}";
 
             float rise0 = surf[kS] is float s0 && !float.IsNaN(s0) ? f[kS].y - s0 : 0f, rmax = 0f;
             for (int k = kS; k <= kE; k++) { if (!float.IsNaN(surf[k])) rmax = Mathf.Max(rmax, f[k].y - surf[k] - rise0); if (!grounded[k]) res.air++; }
@@ -401,7 +401,7 @@ namespace WashedAshore.Tests.PlayMode
                 r.id.ToString(), s.caseName, s.flight, s.dir, s.side, s.noYaw ? "-" : F(s.yawOff, 0), dtText, F(s.cap, 2), F(r.refKept, 2), miss1, miss2, F(r.startLat, 3),
                 F(r.contactAlong, 3), measured ? F(r.keptH, 2) : "-", measured ? F(r.keptPath, 2) : "-", F(s.idealPath, 2), measured ? F(r.minV, 2) : "-",
                 measured ? r.stops.ToString() : "-", measured ? F(r.longest, 2) : "-", F(r.firstStopAlong, 3), measured ? r.endStops.ToString() : "-",
-                measured ? (r.stuck ? "STUCK" : "no") : "-", measured ? F(r.riseMax, 3) : "-", measured ? r.air.ToString() : "-", r.seatGap, flags, csv ? r.touched.Replace(",", ";") : r.touched,
+                measured ? (r.stuck ? "STUCK" : "no") : "-", measured ? F(r.riseMax, 4) : "-", measured ? r.air.ToString() : "-", r.seatGap, flags, csv ? r.touched.Replace(",", ";") : r.touched,
                 r.verdict, r.mode };
             return string.Join(sep, s.variant.Length > 0 ? cols.Concat(new[] { s.variant }) : cols);
         }

@@ -24,11 +24,14 @@ namespace WashedAshore.Tests.PlayMode.Lookout
     /// </summary>
     public class LookoutHatchFallTests : LookoutFixture
     {
+        /// <summary>Noah, 2026-10-29 (#86): heading 315 steps diagonally into the open hatch's stair well, a normal fall and not a bug. Its rows (with and without Shift) are reported as information and are not in the pass bar. Only 315.</summary>
+        const int InfoOnlyHeading = 7;   // k x 45 degrees from the flight direction
+
         const float DropGap = 0.10f, DescendedDepth = 0.10f, RowSeconds = 4f, CastLift = 0.3f;
 
         class Row
         {
-            public string id, why = "", endSurface = "-"; public bool shift, kfRow, valid = true;
+            public string id, why = "", endSurface = "-"; public bool shift, kfRow, valid = true, infoOnly;
             public float yaw, dist, minRel = float.MaxValue, endRel, maxAir, maxGap = float.NegativeInfinity, maxRay = float.NegativeInfinity, restGap = float.NaN, secDrop;
             public int noSurfaceFrames;
             public bool inOpening, endNoSurface;
@@ -80,7 +83,7 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             foreach (bool shift in new[] { false, true })
                 for (int k = 0; k < 8; k++)
                 {
-                    var row = new Row { id = $"dir{k * 45}{(shift ? "+shift" : "")}", shift = shift, yaw = baseYaw + 45f * k };
+                    var row = new Row { id = $"dir{k * 45}{(shift ? "+shift" : "")}", shift = shift, yaw = baseYaw + 45f * k, infoOnly = k == InfoOnlyHeading };
                     Vector3 toward = Quaternion.Euler(0f, row.yaw, 0f) * Vector3.forward;
                     Vector3 start = default;
                     row.valid = false;
@@ -111,11 +114,11 @@ namespace WashedAshore.Tests.PlayMode.Lookout
             int drops = 0, noStart = 0;
             foreach (var r in rows)
             {
-                string verdict = !r.valid ? "NO START (geometry)" : r.Drop ? "DROP" : "no drop";
-                if (!r.valid) noStart++; else if (r.Drop) drops++;
+                string verdict = !r.valid ? "NO START (geometry)" : r.Drop ? (r.infoOnly ? "DROP (information only, not in the pass bar)" : "DROP") : "no drop";
+                if (!r.valid) noStart++; else if (r.Drop && !r.infoOnly) drops++;
                 report.AppendLine($"{r.id} | {r.yaw:F0} | {r.dist:F2} | {r.shift} | {verdict} | {(r.valid ? r.maxGap.ToString("F3") : "-")} ({r.restGap:F3}) | {r.secDrop:F2} s | {r.noSurfaceFrames} | {string.Join(" ", r.surfaces)} | {r.endSurface} | {(r.valid ? r.maxRay.ToString("F3") : "-")} | {(r.valid ? r.minRel.ToString("F3") + " / " + r.endRel.ToString("F3") : "-")}{(r.Descended ? " (descended)" : "")} | {r.maxAir:F2} | {r.inOpening} | {r.why}");
             }
-            string failure = drops > 0 ? $"{drops} row(s) with a DROP: {string.Join(", ", rows.Where(r => r.Drop).Select(r => r.id))}" : null;
+            string failure = drops > 0 ? $"{drops} row(s) with a DROP: {string.Join(", ", rows.Where(r => r.Drop && !r.infoOnly).Select(r => r.id))}" : null;
             report.AppendLine($"started rows {rows.Count - noStart} of {rows.Count}; {noStart} could not start by geometry (see the start check column)");
             report.AppendLine($"RESULT {tag} {(failure == null ? "PASS (no drop)" : "FAIL: " + failure)}");
             Directory.CreateDirectory("Logs");

@@ -107,7 +107,7 @@ namespace WashedAshore.Tests.PlayMode
         public IEnumerator Probe64_S4()
         {
             s4Ratio = 0.8f;   // one fixture instance serves every test: the known-fail's bar must not leak
-            yield return S4Rows("Probe64_S4", S4AllRows(), true);
+            yield return S4Rows("Probe64_S4", S4AllRows(), false);
             S4Verdict("Probe64_S4");
         }
 
