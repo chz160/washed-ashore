@@ -1,4 +1,7 @@
 using System.Collections;
+using System.Globalization;
+using System.IO;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,6 +21,34 @@ namespace WashedAshore.Tests.PlayMode.Character
         protected Transform pivot;
         protected float standingEye;
         protected const float Eps = 0.011f;
+
+        /// <summary>A file of record under Data/character/clips.</summary>
+        protected static string ClipDataText(string file) => File.ReadAllText(Path.Combine(Path.GetDirectoryName(Application.dataPath), "Data", "character", "clips", file));
+
+        static float Num(Match m, int i) => float.Parse(m.Groups[i].Value, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// The Survivor's eye point in the Head bone's local frame: eye-point-Survivor.json "eye_in_head_bone_local" (x, up, forward; metres in the authoring frame, ta-49,
+        /// survivor_eye.py) divided by 100 for the head bone's import scale, the same convention CharacterAssemblyTests.EyeLocal uses. One source for every hidden-head
+        /// eye match (pod 49 R4-R6, td-49 final rulings); the Farmer's 0.1094 / 0.1011 constants are gone.
+        /// </summary>
+        protected static Vector3 SurvivorEyeLocal()
+        {
+            var m = Regex.Match(ClipDataText("eye-point-Survivor.json"), "\"Survivor_Head.fbx\"\\s*:\\s*\\{\\s*\"eye_in_head_bone_local\"\\s*:\\s*\\[\\s*([-0-9.eE]+),\\s*([-0-9.eE]+),\\s*([-0-9.eE]+)");
+            Assert.IsTrue(m.Success, "eye-point-Survivor.json has no Survivor_Head.fbx eye_in_head_bone_local");
+            return new Vector3(Num(m, 1), Num(m, 2), Num(m, 3)) / 100f;
+        }
+
+        /// <summary>
+        /// The planted-foot drift (m, in the clip's unscaled frame) of a pack clip in measured-pack-Survivor.json, the measurement of the shipped Pack_Retargeted.fbx
+        /// (ta-49, measure_clips.py). The clip names in that file carry the Blender ".001" re-import suffix.
+        /// </summary>
+        protected static float PackPlantDrift(string clip)
+        {
+            var m = Regex.Match(ClipDataText("measured-pack-Survivor.json"), "\"" + Regex.Escape(clip) + "(?:\\.\\d{3})?\"\\s*:\\s*\\{[^{}]*?\"plant_drift_m_max\"\\s*:\\s*([-0-9.eE]+)");
+            Assert.IsTrue(m.Success, "measured-pack-Survivor.json has no plant_drift_m_max for " + clip);
+            return Num(m, 1);
+        }
 
         public override void Setup()
         {

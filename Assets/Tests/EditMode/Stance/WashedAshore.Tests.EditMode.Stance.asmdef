@@ -4,7 +4,10 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "WashedAshore.Gameplay"
+        "WashedAshore.Gameplay",
+        "WashedAshore.Character.Stance",
+        "WashedAshore.Character.Appearance",
+        "WashedAshore.Character.Editor"
     ],
     "includePlatforms": [
         "Editor"

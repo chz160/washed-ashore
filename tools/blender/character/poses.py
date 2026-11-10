@@ -140,8 +140,113 @@ def stand_pose(rig, k=0.975):
     return P
 
 
+import os
+
+
+def pelvis_follows_knee(rig, poses, N, f_td, f_mid, step, rise_max=0.009, sec_max=0.0035, window=4, step_td=None, c1=False):
+    sec_max = float(os.environ.get("GAIT_SEC", sec_max))   # tuning overrides
+    window = int(os.environ.get("GAIT_WIN", window))
+    step = float(os.environ.get("GAIT_STEP", step))
+    step_td = float(os.environ["GAIT_STEP_TD"]) if "GAIT_STEP_TD" in os.environ else (step if step_td is None else step_td)   # fallback (C): a larger change allowed only between the key before touchdown and the touchdown key
+    """Choose the pelvis height around every stance so the support knee changes smoothly (td-49 route (a), director gate/pod49-knee-snap-pelvis-follow).
+    For each stance run (keys st .. st+m-1) the pelvis z of the keys st-window .. st+m+window-1 is solved (the outer keys keep the original z), minimising the second difference of the
+    hip height and the distance from the original path, subject to (penalties): the support knee changes at most `step` degrees per key between st-1 and st+m (the key before touchdown and
+    the key after push-off count), the touchdown knee lies between 10.5 and f_td, the mid-stance knee at most f_mid, the hip rises at most rise_max from touchdown to mid-stance, and the
+    other leg stays within reach. Feet are not touched (the plant is unchanged). Gradient-free coordinate descent over the key heights. Returns a per-stance report."""
+    n = N
+    l1, l2 = rig.leg1, rig.leg2
+    L = l1 + l2
+    z0 = [poses[i].pelvis.z for i in range(n)]
+    geo = {}
+
+    def geometry(i, s):
+        if (i, s) not in geo:
+            P = poses[i]
+            build(rig, P)
+            H = rig.world("UpperLeg." + s).translation
+            A = P.feet[s][0]
+            geo[(i, s)] = ((H.x - A.x) ** 2 + (H.y - A.y) ** 2, H.z - A.z)
+        return geo[(i, s)]
+
+    def flex_of(i, s, dz):
+        hd2, dz0 = geometry(i, s)
+        d2 = hd2 + (dz0 + dz) ** 2
+        c = (d2 - l1 * l1 - l2 * l2) / (2.0 * l1 * l2)
+        return math.degrees(math.acos(max(-1.0, min(1.0, c)))), d2
+
+    delta = [0.0] * n
+    report = []
+    for s in "LR":
+        o = "R" if s == "L" else "L"
+        flags = [abs(poses[i].feet[s][0].z - ANKLE_Z) < 1e-6 for i in range(n)]
+        for st in [i for i in range(n) if flags[i] and not flags[(i - 1) % n]]:
+            m = 0
+            while flags[(st + m) % n]:
+                m += 1
+            w = window
+            keys = [(st + j) % n for j in range(-w, m + w)]
+            nv = len(keys)
+            td = w                      # index of the touchdown key in `keys`
+            end = w + m - 1             # the last stance key
+            mid = min(range(td, end + 1), key=lambda j: geometry(keys[j], s)[0])   # mid-stance = the key with the foot nearest under the hip (as the gate measures it)
+            x = [0.0] * nv              # the z offsets; the first and last stay 0
+
+            def cost(x):
+                c = 0.0
+                fl = {}
+                for j in range(td - 1, end + 2):
+                    fl[j], d2 = flex_of(keys[j], s, x[j])
+                    if d2 > (L - 0.001) ** 2:
+                        c += 1e4 * (math.sqrt(d2) - L + 0.001) ** 2
+                    d2o = flex_of(keys[j], o, x[j])[1]
+                    if d2o > (L - 0.001) ** 2:
+                        c += 1e4 * (math.sqrt(d2o) - L + 0.001) ** 2
+                for j in range(td - 1, end + 1):
+                    c += 10.0 * max(0.0, abs(fl[j + 1] - fl[j]) - (step_td if j == td - 1 else step)) ** 2
+                c += 10.0 * max(0.0, 10.5 - fl[td]) ** 2 + 10.0 * max(0.0, fl[td] - f_td) ** 2
+                c += 10.0 * max(0.0, fl[mid] - f_mid) ** 2 + 10.0 * max(0.0, fl[end] - f_td - 3.0) ** 2
+                zs = [z0[keys[j]] + x[j] for j in range(nv)]
+                rise = max(zs[td:mid + 1]) - zs[td]
+                c += 1e5 * max(0.0, rise - rise_max) ** 2
+                ze = [z0[(keys[0] - 1) % n]] + zs + [z0[(keys[-1] + 1) % n]]   # c1: the keys just outside the window keep the original height, so the join with the flight bob is part of the cost (no kink at the window edge)
+                for j in (range(1, nv + 1) if c1 else range(2, nv)):
+                    sd = abs(ze[j + 1] - 2 * ze[j] + ze[j - 1])
+                    c += 1e5 * max(0.0, sd - sec_max) ** 2 + 20.0 * sd * sd
+                c += 0.5 * sum(v * v for v in x)
+                return c
+
+            best = cost(x)
+            for dstep in (0.01, 0.005, 0.0025, 0.001, 0.0005, 0.00025):
+                for _ in range(60):
+                    improved = False
+                    for j in range(1, nv - 1):
+                        for sg in (1.0, -1.0):
+                            old = x[j]
+                            x[j] = old + sg * dstep
+                            cc = cost(x)
+                            if cc < best - 1e-12:
+                                best, improved = cc, True
+                            else:
+                                x[j] = old
+                    if not improved:
+                        break
+            fl = [flex_of(keys[j], s, x[j])[0] for j in range(nv)]
+            for j in range(nv):
+                delta[keys[j]] += x[j]
+            zs = [z0[keys[j]] + x[j] for j in range(nv)]
+            report.append({"leg": s, "start": st, "keys": m, "cost": round(best, 6), "knee_td": round(fl[td], 1), "knee_mid": round(fl[mid], 1),
+                           "max_step_deg": round(max(abs(fl[j + 1] - fl[j]) for j in range(td - 1, end + 1)), 1), "hip_rise_td_to_mid_m": round(max(zs[td:mid + 1]) - zs[td], 4),
+                           "max_second_diff_m": round(max(abs(zs[j + 1] - 2 * zs[j] + zs[j - 1]) for j in range(1, nv - 1)), 5)})
+    for i in range(n):
+        poses[i].pelvis.z = z0[i] + delta[i]
+    poses[n].pelvis.z = poses[0].pelvis.z
+    if os.environ.get("GAIT_DEBUG"):
+        print("VAULT", report)
+    return report
+
+
 def gait(rig, N, sf, S, direction, lean, swing, elbow, lift, k, bob, anchor_y,
-         eye_target=None, lat_sep=0.12, name="", fps=30, arm_fwd=1.0, abduct=0.0, arm_abs=None):
+         eye_target=None, lat_sep=0.12, name="", fps=30, arm_fwd=1.0, abduct=0.0, arm_abs=None, knee_td=None, knee_mid=40.0, knee_step=8.8, knee_sec=0.0035, knee_step_td=None, knee_window=4, knee_c1=False):
     """Returns (poses[N+1], info). N = frames per cycle at `fps`. The stance foot moves back at S/(sf*N/fps) m/s exactly, and the first
     and last swing samples keep moving with the ground while the foot is already above the plant band, so the foot does not slide
     in the 3 cm band around each plant. direction: unit (dx, dy) movement direction in armature space; forward is (0, -1)."""
@@ -177,7 +282,10 @@ def gait(rig, N, sf, S, direction, lean, swing, elbow, lift, k, bob, anchor_y,
             i = (ks + j) % N
             F[i] = f_a + (f_b - f_a) * smooth(j / n)
         for i in (ks, km):
-            Z[i] = max(Z[i], 0.07)  # clear of the 3 cm plant band by the first and last swing sample
+            Z[i] = max(Z[i], 0.035 if knee_td is not None else 0.07)  # clear of the 3 cm plant band by the first and last swing sample (soft: 3.5 cm, so the foot lands over two keys)
+        if knee_td is not None:   # soft landing: the sample next to each plant is at least 5 cm up, the foot rises and lands in two steps of about 3.5 and 3.5 cm instead of one of 7 cm
+            for i in ((ks + 1) % N, (km - 1) % N):
+                Z[i] = max(Z[i], 0.05)
         return F + [F[0]], Z + [Z[0]]
 
     arrays = {"L": foot_samples(0.0), "R": foot_samples(0.5)}
@@ -220,6 +328,9 @@ def gait(rig, N, sf, S, direction, lean, swing, elbow, lift, k, bob, anchor_y,
                 g = gs[other] / (S / 2)  # the opposite foot's forwardness: -1 .. +1
                 P.arm_abs[side] = (arm_abs["centre"] + arm_abs["amplitude"] * g, arm_abs["elbow"] + arm_abs["elbow_swing"] * g)
         poses.append(P)
+    vault = None
+    if knee_td is not None and not os.environ.get("NO_VAULT"):   # the pelvis height follows a support-knee profile through each stance (td-49 ruling, director gate/pod49-knee-snap-pelvis-follow)
+        vault = pelvis_follows_knee(rig, poses, N, knee_td, knee_mid, knee_step, sec_max=knee_sec, step_td=knee_step_td, window=knee_window, c1=knee_c1)
     info = {"cycle_s": T, "stance_s": sf * T, "stance_travel_m": S, "clip_speed_mps": S / (sf * T),
-            "eye_mean_z": None, "pelvis_y": Y, "zc": zc}
+            "eye_mean_z": None, "pelvis_y": Y, "zc": zc, "vault": vault}
     return poses, info

@@ -34,6 +34,9 @@ namespace WashedAshore.Character.Appearance
 
         public IReadOnlyDictionary<string, Transform> Bones => bones;
 
+        /// <summary>The named attach points of this body (null until the assembler made them). Not bones: made after Init, so the bone map never holds them.</summary>
+        public CharacterSockets Sockets { get; internal set; }
+
         void OnDestroy()
         {
             if (ownsAppearance && appearance != null) CharacterAssembler.Destroy(appearance);

@@ -136,7 +136,7 @@ def main():
                             pts.append(q + mdir * clip_speed * (i - run[0]) / (4 * fps))
                         slides.append(max((a - b).length for a in pts for b in pts))
         speeds = [s for s, _ in speeds]
-        hv = hand_view(arm, act, scene, pb, opt) if "camera" in opt and name.startswith(("Jog", "Sprint", "Walk", "Run", "CrouchWalk", "Crouch_Idle")) else None
+        hv = hand_view(arm, act, scene, pb, opt) if "camera" in opt and name.startswith(("Jog", "Sprint", "Walk", "Run", "CrouchWalk", "Crouch_Idle", "Stand_Idle")) else None
         out["clips"][name] = {
             "hand_in_view": hv,
             "frames": f1 - f0 + 1, "duration_s": round((f1 - f0) / fps, 3),

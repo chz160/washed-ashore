@@ -1,0 +1,14 @@
+{
+ "Survivor_Head.fbx": {
+  "eye_in_head_bone_local": [
+   0.00012,
+   0.08417,
+   0.22662
+  ],
+  "up_m": 0.0842,
+  "forward_m": 0.2266,
+  "lateral_m": -0.0,
+  "eye_vertices": 71,
+  "method": "median z of bright face texels, mean x and y (survivor_eye.py)"
+ }
+}

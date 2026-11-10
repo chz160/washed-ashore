@@ -31,6 +31,7 @@ namespace WashedAshore.Character.Stance
         PlayerController player;
         CharacterBody characterBody;
         CharacterViewCopy viewCopy;
+        CharacterEquipment equipment;
         Animator animator;
         readonly System.Collections.Generic.HashSet<int> has = new System.Collections.Generic.HashSet<int>();
         readonly System.Collections.Generic.HashSet<int> viewHas = new System.Collections.Generic.HashSet<int>();
@@ -44,6 +45,8 @@ namespace WashedAshore.Character.Stance
         /// <summary>The view Animator the driver writes in step with the shadow's; null when none.</summary>
         public Animator ViewAnimator => viewAnimator;
         public FirstPersonBody FirstPerson => firstPersonBody;
+        /// <summary>Attach points and the items on them (null before Awake or with the body off).</summary>
+        public CharacterEquipment Equipment => equipment;
         public CharacterAppearance Appearance { get => appearance; set => appearance = value; }
 
         /// <summary>Test-only body-off switch for the bird frame-time A-B (td): the file TestResults/player-character/bodyoff.flag turns the bodies off. Absent from release builds.</summary>
@@ -59,6 +62,9 @@ namespace WashedAshore.Character.Stance
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         /// <summary>Test-only: forces the LocoRate the driver writes (the forced-bad slide case). Never set outside tests.</summary>
         public static float? TestRateOverride;
+
+        /// <summary>Test-only (qa-49 speed ramps): the velocity the driver reads, in the Player's LOCAL space (x right, y up, z forward), instead of the simulated velocity. Feeds the same Set() and LocomotionRate path. Never set outside tests.</summary>
+        public static Vector3? TestLocalVelocityOverride;
 
         /// <summary>Test-only mutation (#46 KF-T6): the driver reads the transform change between frames again, as before the fixed tick. Never set outside tests.</summary>
         public static bool TestTransformDeltaDrive;
@@ -98,6 +104,10 @@ namespace WashedAshore.Character.Stance
             viewCopy = CharacterAssembler.AssembleViewCopy(characterBody, transform);
             if (player != null) player.ApplyPlayerLayer(); // both bodies, every renderer and bone, on the Player layer (#43)
             firstPersonBody.Bind(player, characterBody.transform, viewCopy != null ? viewCopy.Body.transform : null);
+            equipment = GetComponent<CharacterEquipment>() ?? gameObject.AddComponent<CharacterEquipment>();
+            equipment.Changed -= firstPersonBody.Rescan;
+            equipment.Changed += firstPersonBody.Rescan;
+            equipment.Bind(characterBody, viewCopy);
             characterBody.SlotChanged += OnSlotChanged;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             // H9 retune launch argument (dev builds and the Editor only; a release build has no StanceRangeArgument type and ignores -bbStance).
@@ -155,6 +165,7 @@ namespace WashedAshore.Character.Stance
             // that change is 0 or several times the real speed when ticks and frames do not line up.
             Vector3 v = player.SimVelocity;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (TestLocalVelocityOverride.HasValue) v = transform.TransformDirection(TestLocalVelocityOverride.Value);
             if (TestTransformDeltaDrive)
             {
                 Vector3 now = transform.position;
@@ -185,7 +196,7 @@ namespace WashedAshore.Character.Stance
             float planar = new Vector2(local.x, local.z).magnitude;
             float cosFwd = planar > 0.05f ? Mathf.Clamp(local.z / planar, -1f, 1f) : 1f;
             float sideways = 1f - Mathf.Max(0f, cosFwd);   // 0 forward, 1 sideways or back (td)
-            float rate = CharacterClipSet.LocomotionRate((int)player.Stance, speed, characterBody.SkeletonScale, sideways);
+            float rate = CharacterClipSet.LocomotionRate((int)player.Stance, speed, characterBody.SkeletonScale, sideways, characterBody.Appearance.walkClipSpeed, characterBody.Appearance.runClipSpeed);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             if (TestRateOverride.HasValue) rate = TestRateOverride.Value;
 #endif

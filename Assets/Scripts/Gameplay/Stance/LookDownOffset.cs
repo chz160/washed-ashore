@@ -14,9 +14,9 @@ namespace WashedAshore.Gameplay
     public class LookDownTuning
     {
         [Tooltip("Stand: x = camera pitch (degrees, positive looks down), y = metres back. Ascending pitch. Zero below the first point, flat above the last.")]
-        public Vector2[] stand = { new Vector2(20f, 0f), new Vector2(40f, 0f), new Vector2(45f, 0.02f), new Vector2(50f, 0.04f), new Vector2(55f, 0.06f), new Vector2(60f, 0.07f), new Vector2(65f, 0.10f), new Vector2(70f, 0.16f), new Vector2(75f, 0.21f), new Vector2(80f, 0.23f), new Vector2(85f, 0.30f) };
+        public Vector2[] stand = { new Vector2(20f, 0f), new Vector2(40f, 0f), new Vector2(45f, -0.03f), new Vector2(50f, -0.03f), new Vector2(55f, 0f), new Vector2(60f, 0.01f), new Vector2(65f, 0.065f), new Vector2(70f, 0.055f), new Vector2(75f, 0.085f), new Vector2(80f, 0.125f), new Vector2(85f, 0.145f) };
         [Tooltip("Crouch: same layout.")]
-        public Vector2[] crouch = { new Vector2(20f, 0f), new Vector2(60f, 0f), new Vector2(65f, 0.05f), new Vector2(70f, 0.06f), new Vector2(75f, 0.11f), new Vector2(80f, 0.125f), new Vector2(85f, 0.175f) };
+        public Vector2[] crouch = { new Vector2(20f, 0f), new Vector2(60f, 0f), new Vector2(65f, -0.055f), new Vector2(70f, -0.03f), new Vector2(75f, 0.02f), new Vector2(80f, 0.01f), new Vector2(85f, 0.055f) };
 
         /// <summary>Test hook: when not NaN, the back offset is this regardless of pitch and stance table. Never serialized.</summary>
 #if UNITY_EDITOR || DEVELOPMENT_BUILD

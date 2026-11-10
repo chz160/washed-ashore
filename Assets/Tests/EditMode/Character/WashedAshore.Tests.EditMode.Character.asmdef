@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "WashedAshore.Character.Appearance",
         "WashedAshore.Character.Editor",
-        "WashedAshore.Wildlife.Editor"
+        "WashedAshore.Wildlife.Editor",
+        "WashedAshore.Tests.Support"
     ],
     "includePlatforms": [
         "Editor"

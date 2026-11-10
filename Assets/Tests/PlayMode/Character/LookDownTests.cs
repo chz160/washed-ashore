@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,7 @@ using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.TestTools;
 using WashedAshore.Character.Stance;
 using WashedAshore.Gameplay;
+using WashedAshore.Tests.Support;
 
 namespace WashedAshore.Tests.PlayMode.Character
 {
@@ -23,22 +25,24 @@ namespace WashedAshore.Tests.PlayMode.Character
     public class LookDownTests : StanceFixture
     {
         static string OutDir => RunOutput.Dir("lookdown");
+        LookDownBfAttrib bf;   // G1: set only when LOOKDOWN_BF_ATTRIB=1, print only
         const int GridX = 32, GridY = 18;
         const float FloorHalf = 30f, FloorMarginMin = 2f, SpeedTolerance = 0.05f;
         readonly StringBuilder gaitMax = new StringBuilder("gait,pitch,maxNeckRays,cyclePoint\n");
 
         enum Cat { Other, NeckShoulder, Torso, Legs, Hand }
 
-        struct Tri { public Vector3 a, b, c; public Cat cat; public string bone; public string weights; }
+        struct Tri { public Vector3 a, b, c; public Cat cat; public string bone; public string weights; public string region; }   // region: BarOneRule.TriRegion of the three corners' dominant bones (td-49 B2)
 
         struct Result
         {
-            public int rays, neckShoulder, backFaces, torsoBottomBand, torsoRays, legs, nearSlab, handRays;
+            public int rays, neckShoulder, backFaces, torsoBottomBand, torsoRays, legs, nearSlab, handRays;   // backFaces = back-first rays, PRINT ONLY under R3
+            public BarOneRule.Tally bar1;   // the render-faithful Bar 1 clauses (BarOneRule, td-49 B1-B3)
             public List<(float nx, float ny, string bone, string weights)> hits;   // every counted neck/shoulder ray: frame position (16:9 normalised), dominant bone, top-2 weights
             public string neckBones;   // the dominant bone of every counted neck/shoulder ray, with counts, e.g. "Shoulder.L x3, Neck x1"
             public float lowestTorsoNy;   // lowest frame row (-1 bottom, +1 top) any torso ray reaches; 2 when none
-            public override string ToString() => $"neck/shoulder {neckShoulder}{(neckShoulder > 0 ? " [" + neckBones + "]" : "")}, back faces {backFaces}, torso in bottom band {torsoBottomBand} (torso rays {torsoRays}, lowest row {(lowestTorsoNy > 1.5f ? "none" : lowestTorsoNy.ToString("F2"))}), legs/feet {legs}, near-slab {nearSlab}";
-            public bool Passes => neckShoulder == 0 && backFaces == 0 && nearSlab == 0 && torsoBottomBand > 0 && legs > 0;
+            public override string ToString() => $"neck/shoulder {neckShoulder}{(neckShoulder > 0 ? " [" + neckBones + "]" : "")}, back-first {backFaces} (print only), {bar1}, torso in bottom band {torsoBottomBand} (torso rays {torsoRays}, lowest row {(lowestTorsoNy > 1.5f ? "none" : lowestTorsoNy.ToString("F2"))}), legs/feet {legs}, near-slab {nearSlab}";
+            public bool Passes => neckShoulder == 0 && bar1.Defects == 0 && nearSlab == 0 && torsoBottomBand > 0 && legs > 0;
         }
 
         static Cat Classify(string bone)
@@ -75,7 +79,8 @@ namespace WashedAshore.Tests.PlayMode.Character
                         string N(int idx) => idx >= 0 && idx < bones.Length && bones[idx] != null ? bones[idx].name : "?";
                         wtext = $"{N(bw.boneIndex0)}: {bw.weight0:F2}, {N(bw.boneIndex1)}: {bw.weight1:F2}";
                     }
-                    tris.Add(new Tri { a = pos + rot * v[t[i]], b = pos + rot * v[t[i + 1]], c = pos + rot * v[t[i + 2]], cat = Classify(bone), bone = bone, weights = wtext });
+                    string Reg(int vi) => weights.Length > vi && weights[vi].boneIndex0 >= 0 && weights[vi].boneIndex0 < bones.Length ? BarOneRule.Region(bones[weights[vi].boneIndex0]) : "UNKNOWN";
+                    tris.Add(new Tri { a = pos + rot * v[t[i]], b = pos + rot * v[t[i + 1]], c = pos + rot * v[t[i + 2]], cat = Classify(bone), bone = bone, weights = wtext, region = BarOneRule.TriRegion(Reg(t[i]), Reg(t[i + 1]), Reg(t[i + 2])) });
                 }
             }
             Object.Destroy(mesh);
@@ -100,15 +105,19 @@ namespace WashedAshore.Tests.PlayMode.Character
                     bool backFace = false;
                     Cat cat = Cat.Other;
                     string hitBone = "", hitWeights = "";
+                    Tri bestTri = default;
+                    var front = new BarOneRule.RayState();   // nearest FRONT-facing hit of this ray (td-49 B2); the winner below is chosen exactly as before
                     foreach (var tri in tris)
                     {
                         if (!RayHit(o, d, tri, out float t, out bool back)) continue;
+                        front.Note(back, t, tri.region);
                         if (t <= nearLimit) res.nearSlab++;
-                        if (t < best) { best = t; backFace = back; cat = tri.cat; hitBone = tri.bone; hitWeights = tri.weights; }
+                        if (MirrorTie.Replaces(best < float.MaxValue, best, backFace, bestTri.a, bestTri.b, bestTri.c, t, back, tri.a, tri.b, tri.c)) { best = t; backFace = back; cat = tri.cat; hitBone = tri.bone; hitWeights = tri.weights; bestTri = tri; }
                     }
                     res.rays++;
                     if (best == float.MaxValue) continue;
                     if (backFace) res.backFaces++;
+                    res.bar1.Add(BarOneRule.Judge(backFace, best, bestTri.region, front.Found, front.T, front.Region), backFace, backFace && front.Found ? front.T - best : float.NaN, bestTri.region);
                     if (cat == Cat.NeckShoulder) { res.neckShoulder++; neckCount[hitBone] = neckCount.TryGetValue(hitBone, out int nc) ? nc + 1 : 1; (res.hits ??= new List<(float, float, string, string)>()).Add((x / halfH, ny, hitBone, hitWeights)); }
                     if (cat == Cat.Legs) res.legs++;
                     if (cat == Cat.Hand) res.handRays++;
@@ -172,9 +181,529 @@ namespace WashedAshore.Tests.PlayMode.Character
         }
 
         static string Row(Stance stance, float pitch, string label, Result r, string extra = ",,", string tail = "") =>
-            $"{stance},{pitch:F0},{label},{r.neckShoulder},{r.backFaces},{r.torsoBottomBand},{r.torsoRays},{(r.lowestTorsoNy > 1.5f ? "none" : r.lowestTorsoNy.ToString("F2"))},{r.legs},{r.nearSlab},{r.Passes}{extra},\"{r.neckBones}\"{tail}";
+            $"{stance},{pitch:F0},{label},{r.neckShoulder},{r.backFaces},{r.torsoBottomBand},{r.torsoRays},{(r.lowestTorsoNy > 1.5f ? "none" : r.lowestTorsoNy.ToString("F2"))},{r.legs},{r.nearSlab},{r.Passes}{extra},\"{r.neckBones}\"{tail},{BarOneRule.CsvValues(r.bar1)}";
 
-        [UnityTest, Timeout(3000000)]
+        /// <summary>
+        /// PRINT ONLY (pod 49, td-49 PlayMode-5 triage): the look-down back-offset sweep at 0.01 m steps for the Survivor at the base back offset, Stand +55..+85 and Crouch +65..+85.
+        /// Writes lookdown-fine.csv and prints, per stance and pitch, the windows of the forced actual back offset that meet bar 1 and bars 1+2. Asserts nothing.
+        /// </summary>
+        [UnityTest, Explicit("print only: fine look-down sweep at 0.01 m"), Timeout(3000000)]
+        public IEnumerator FineSweep_Print()
+        {
+            PinTicks();
+            yield return LoadWorld();
+            yield return OnFloor();
+            view = player.GetComponent<PlayerCharacterView>();
+            Assert.IsNotNull(view?.FirstPerson, "no first-person body on the Player");
+            var fp = view.FirstPerson;
+            Directory.CreateDirectory(OutDir);
+            var csv = new StringBuilder("stance,pitch,back,neckShoulder,backFaces,torsoBottomBand,torsoRays,lowestTorsoRow,legs,nearSlab,passes,grounded,speed,floorMargin,neckBones,settled,handRays," + BarOneRule.CsvColumns + "\n");
+            var summary = new StringBuilder(MirrorTie.StateLine + System.Environment.NewLine);
+            var tuning = player.LookDownTuning;
+            foreach (var stance in new[] { Stance.Stand, Stance.Crouch })
+            {
+                if (stance == Stance.Crouch)
+                {
+                    InputSystem.QueueStateEvent(keyboard, new KeyboardState());
+                    player.WalkSpeedCap = 0f;
+                    Place(new Vector3(floor.transform.position.x, floor.transform.position.y + 2.05f, floor.transform.position.z), 0f);
+                    yield return new WaitForSeconds(1.2f);
+                    yield return Go(StanceKey.Crouch, 4f);
+                }
+                Assert.AreEqual(stance, player.Stance, $"could not reach {stance}");
+                yield return new WaitForSeconds(1.5f);
+                var pitches = stance == Stance.Stand ? new[] { 45f, 50f, 55f, 60f, 65f, 70f, 75f, 80f, 85f } : new[] { 45f, 50f, 55f, 60f, 65f, 70f, 75f, 80f, 85f };
+                foreach (float pitch in pitches)
+                {
+                    player.SetLook(player.Yaw, pitch);
+                    float lo1 = float.NaN, hi1 = float.NaN, lo2 = float.NaN, hi2 = float.NaN, loH = float.NaN, hiH = float.NaN, loA = float.NaN, hiA = float.NaN;
+                    for (int i = -12; i <= 30; i++)
+                    {
+                        float back = i / 100f;
+                        tuning.debugBackOverride = back;
+                        yield return null;
+                        yield return null;
+                        var r = Measure(player.ViewCamera, Bake(fp));
+                        csv.AppendLine(Row(stance, pitch, back.ToString("F2"), r, ",,", "," + r.handRays));
+                        bool bar1 = r.neckShoulder == 0 && r.bar1.Defects == 0 && r.nearSlab == 0;
+                        if (bar1) { if (float.IsNaN(lo1)) lo1 = back; hi1 = back; }
+                        if (bar1 && r.torsoBottomBand > 0 && r.legs > 0) { if (float.IsNaN(lo2)) lo2 = back; hi2 = back; }
+                        if (bar1 && r.handRays > 0) { if (float.IsNaN(loH)) loH = back; hiH = back; }
+                        if (bar1 && r.handRays > 0 && r.torsoBottomBand > 0 && r.legs > 0) { if (float.IsNaN(loA)) loA = back; hiA = back; }
+                    }
+                    summary.AppendLine($"{stance} +{pitch:F0}: bar 1 met from {(float.IsNaN(lo1) ? "never" : lo1.ToString("F2"))} (up to {(float.IsNaN(hi1) ? "-" : hi1.ToString("F2"))}); bars 1+2 met {(float.IsNaN(lo2) ? "NEVER" : lo2.ToString("F2") + " to " + hi2.ToString("F2"))}; bar 1 + hands in frame (handRays > 0) {(float.IsNaN(loH) ? "NEVER" : loH.ToString("F2") + " to " + hiH.ToString("F2"))}; bar 1 + hands + bar 2 {(float.IsNaN(loA) ? "NEVER" : loA.ToString("F2") + " to " + hiA.ToString("F2"))}");
+                }
+            }
+            tuning.debugBackOverride = float.NaN;
+            File.WriteAllText($"{OutDir}/lookdown-fine.csv", csv.ToString());
+            File.WriteAllText($"{OutDir}/lookdown-fine-windows.txt", summary.ToString());
+            Debug.Log("LookDownTests fine sweep tie-resolved hits: " + MirrorTie.Resolved + " (near ties not mirrored: " + MirrorTie.NearTiesNotMirrored + ")");
+            Debug.Log("LookDownTests fine sweep (forced actual view-body back offset on top of the base):\n" + summary);
+        }
+
+        /// <summary>
+        /// PRINT ONLY (pod 49, td-49 hands finding): the hand-ray windows while WALKING. Holds Walk 1.15 and Walk 1.5, and at cycle points 0..7 of the gait and pitches +45..+85 forces the actual
+        /// view-body back offset lb over a coarse set; per (speed, pitch, lb) prints how many of the 8 cycle points meet bar 1 and in how many hand rays are in frame. Writes lookdown-walk-hands.csv
+        /// and lookdown-walk-hands-windows.txt. Asserts nothing.
+        /// </summary>
+        [UnityTest, Explicit("print only: walking hand-ray windows"), Timeout(3000000)]
+        public IEnumerator FineSweep_Walk_Print()
+        {
+            PinTicks();
+            yield return LoadWorld();
+            yield return OnFloor();
+            view = player.GetComponent<PlayerCharacterView>();
+            Assert.IsNotNull(view?.FirstPerson, "no first-person body on the Player");
+            var fp = view.FirstPerson;
+            Directory.CreateDirectory(OutDir);
+            var csv = new StringBuilder("speed,pitch,lb,cyclePoint,neckShoulder,backFaces,nearSlab,torsoBottomBand,legs,handRays," + BarOneRule.CsvColumns + "\n");
+            var tuning = player.LookDownTuning;
+            var lbs = new[] { -0.06f, -0.03f, 0f, 0.03f, 0.06f, 0.10f, 0.15f, 0.20f, 0.25f };
+            var summary = new StringBuilder(MirrorTie.StateLine + System.Environment.NewLine + "speed,pitch: lb -> cycle points (of 8) with bar 1 / with hands / with bar 1 + hands\n");
+            var floorCentre = new Vector3(floor.transform.position.x, floor.transform.position.y + 2.05f, floor.transform.position.z);
+            foreach (float speed in new[] { 1.15f, 1.5f })
+            {
+                var table = new Dictionary<(float pitch, float lb), (int b1, int hands, int both)>();
+                Place(floorCentre - Vector3.forward * 25f, 0f);
+                yield return new WaitForSeconds(0.3f);
+                player.ExternalMoveInput = Vector2.up * (speed / player.WalkSpeed);
+                yield return new WaitForSeconds(0.9f);
+                Assert.AreEqual(Stance.Stand, player.Stance, "the player is not standing");
+                for (int k = 0; k < 8; k++)
+                {
+                    Place(floorCentre - Vector3.forward * 25f, 0f);
+                    yield return new WaitForSeconds(0.1f + 0.09f * k);
+                    foreach (float pitch in new[] { 45f, 50f, 55f, 60f, 65f, 70f, 75f, 80f, 85f })
+                    {
+                        player.SetLook(player.Yaw, pitch);
+                        foreach (float lb in lbs)
+                        {
+                            tuning.debugBackOverride = lb;
+                            Place(floorCentre - Vector3.forward * 25f, 0f);
+                            yield return null;
+                            yield return null;
+                            var r = Measure(player.ViewCamera, Bake(fp));
+                            bool b1 = r.neckShoulder == 0 && r.bar1.Defects == 0 && r.nearSlab == 0, h = r.handRays > 0;
+                            table.TryGetValue((pitch, lb), out var cur);
+                            table[(pitch, lb)] = (cur.b1 + (b1 ? 1 : 0), cur.hands + (h ? 1 : 0), cur.both + (b1 && h ? 1 : 0));
+                            csv.AppendLine($"{speed:F2},{pitch:F0},{lb:F2},{k},{r.neckShoulder},{r.backFaces},{r.nearSlab},{r.torsoBottomBand},{r.legs},{r.handRays},{BarOneRule.CsvValues(r.bar1)}");
+                        }
+                    }
+                }
+                foreach (float pitch in new[] { 45f, 50f, 55f, 60f, 65f, 70f, 75f, 80f, 85f })
+                {
+                    var line = new StringBuilder($"Walk {speed:F2}, +{pitch:F0}:");
+                    foreach (float lb in lbs) { var t = table[(pitch, lb)]; line.Append($"  {lb:+0.00;-0.00;0.00} -> {t.b1}/{t.hands}/{t.both}"); }
+                    summary.AppendLine(line.ToString());
+                }
+                InputSystem.QueueStateEvent(keyboard, new KeyboardState());
+                player.ExternalMoveInput = null;
+                yield return new WaitForSeconds(0.6f);
+            }
+            tuning.debugBackOverride = float.NaN;
+            File.WriteAllText($"{OutDir}/lookdown-walk-hands.csv", csv.ToString());
+            File.WriteAllText($"{OutDir}/lookdown-walk-hands-windows.txt", summary.ToString());
+            Debug.Log("LookDownTests walking hand-ray windows:\n" + summary);
+        }
+
+        /// <summary>
+        /// PRINT ONLY (td-49 pre-approved, pod 49 table margins): the finer WALKING sweep. Walk 1.15 and 1.5, 8 cycle points; per pitch its own lb range at 0.01 m steps: +60 -0.05..0.03, +65 -0.02..0.12, +70 0.00..0.12,
+        /// +75 0.04..0.16, +80 0.08..0.24, +85 0.08..0.26. Per (speed, pitch, lb): cycle points (of 8) with bar 1 / hands / both. Writes lookdown-walkfine.csv and lookdown-walkfine-windows.txt. Asserts nothing.
+        /// </summary>
+        [UnityTest, Explicit("print only: fine walking sweep"), Timeout(3000000)]
+        public IEnumerator FineSweep_WalkFine_Print()
+        {
+            PinTicks();
+            yield return LoadWorld();
+            yield return OnFloor();
+            view = player.GetComponent<PlayerCharacterView>();
+            Assert.IsNotNull(view?.FirstPerson, "no first-person body on the Player");
+            var fp = view.FirstPerson;
+            Directory.CreateDirectory(OutDir);
+            var csv = new StringBuilder("speed,pitch,lb,cyclePoint,neckShoulder,backFaces,nearSlab,torsoBottomBand,legs,handRays," + BarOneRule.CsvColumns + System.Environment.NewLine);
+            var tuning = player.LookDownTuning;
+            var ranges = new (float pitch, int from, int to)[] { (60f, -5, 3), (65f, -2, 12), (70f, 0, 12), (75f, 4, 16), (80f, 8, 24), (85f, 8, 26) };
+            var summary = new StringBuilder(MirrorTie.StateLine + System.Environment.NewLine + "speed,pitch: lb -> cycle points (of 8) with bar 1 / with hands / with both" + System.Environment.NewLine);
+            var floorCentre = new Vector3(floor.transform.position.x, floor.transform.position.y + 2.05f, floor.transform.position.z);
+            foreach (float speed in new[] { 1.15f, 1.5f })
+            {
+                var table = new Dictionary<(float pitch, int lb), (int b1, int hands, int both)>();
+                Place(floorCentre - Vector3.forward * 25f, 0f);
+                yield return new WaitForSeconds(0.3f);
+                player.ExternalMoveInput = Vector2.up * (speed / player.WalkSpeed);
+                yield return new WaitForSeconds(0.9f);
+                Assert.AreEqual(Stance.Stand, player.Stance, "the player is not standing");
+                for (int k = 0; k < 8; k++)
+                {
+                    Place(floorCentre - Vector3.forward * 25f, 0f);
+                    yield return new WaitForSeconds(0.1f + 0.09f * k);
+                    foreach (var rg in ranges)
+                    {
+                        player.SetLook(player.Yaw, rg.pitch);
+                        for (int i = rg.from; i <= rg.to; i++)
+                        {
+                            tuning.debugBackOverride = i / 100f;
+                            Place(floorCentre - Vector3.forward * 25f, 0f);
+                            yield return null;
+                            yield return null;
+                            var r = Measure(player.ViewCamera, Bake(fp));
+                            bool b1 = r.neckShoulder == 0 && r.bar1.Defects == 0 && r.nearSlab == 0, h = r.handRays > 0;
+                            table.TryGetValue((rg.pitch, i), out var cur);
+                            table[(rg.pitch, i)] = (cur.b1 + (b1 ? 1 : 0), cur.hands + (h ? 1 : 0), cur.both + (b1 && h ? 1 : 0));
+                            csv.AppendLine($"{speed:F2},{rg.pitch:F0},{i / 100f:F2},{k},{r.neckShoulder},{r.backFaces},{r.nearSlab},{r.torsoBottomBand},{r.legs},{r.handRays},{BarOneRule.CsvValues(r.bar1)}");
+                        }
+                    }
+                }
+                foreach (var rg in ranges)
+                {
+                    var line = new StringBuilder($"Walk {speed:F2}, +{rg.pitch:F0}:");
+                    for (int i = rg.from; i <= rg.to; i++) { var t = table[(rg.pitch, i)]; line.Append($" {i / 100f:+0.00;-0.00;0.00}={t.b1}/{t.hands}/{t.both}"); }
+                    summary.AppendLine(line.ToString());
+                }
+                InputSystem.QueueStateEvent(keyboard, new KeyboardState());
+                player.ExternalMoveInput = null;
+                yield return new WaitForSeconds(0.6f);
+            }
+            tuning.debugBackOverride = float.NaN;
+            File.WriteAllText($"{OutDir}/lookdown-walkfine.csv", csv.ToString());
+            File.WriteAllText($"{OutDir}/lookdown-walkfine-windows.txt", summary.ToString());
+            Debug.Log("LookDownTests fine walking sweep:" + System.Environment.NewLine + summary + "tie-resolved hits: " + MirrorTie.Resolved + " (near ties not mirrored: " + MirrorTie.NearTiesNotMirrored + ")");
+        }
+
+        /// <summary>
+        /// PRINT ONLY (td-49 pre-approved, pod 49 table margins): the idle static sweep at THREE breathing phases (passes start after 1.5, then 2.7 and 2.7 s more of waiting; the Animator state's normalized time at the
+        /// start of each pass is printed). Stand +60..+85 with lb -0.06..0.26 and Crouch +60..+85 with lb -0.12..0.12 at 0.01 m steps. Per pass and pitch the windows for bar 1, bar 1 + hands, bars 1+2 and all three,
+        /// and the intersection over the passes. Writes lookdown-phases.csv and lookdown-phases-windows.txt. Asserts nothing.
+        /// </summary>
+        [UnityTest, Explicit("print only: idle sweep at three breathing phases"), Timeout(3000000)]
+        public IEnumerator FineSweep_IdlePhases_Print()
+        {
+            PinTicks();
+            yield return LoadWorld();
+            yield return OnFloor();
+            view = player.GetComponent<PlayerCharacterView>();
+            Assert.IsNotNull(view?.FirstPerson, "no first-person body on the Player");
+            var fp = view.FirstPerson;
+            Directory.CreateDirectory(OutDir);
+            var csv = new StringBuilder("stance,phase,pitch,lb,neckShoulder,backFaces,nearSlab,torsoBottomBand,legs,handRays," + BarOneRule.CsvColumns + System.Environment.NewLine);
+            var summary = new StringBuilder(MirrorTie.StateLine + System.Environment.NewLine);
+            var tuning = player.LookDownTuning;
+            string[] names = { "bar1", "bar1+hands", "bars1+2", "all3" };
+            var passes = new Dictionary<string, List<(float lo, float hi)>>();
+            foreach (var stance in new[] { Stance.Stand, Stance.Crouch })
+            {
+                if (stance == Stance.Crouch)
+                {
+                    InputSystem.QueueStateEvent(keyboard, new KeyboardState());
+                    player.WalkSpeedCap = 0f;
+                    Place(new Vector3(floor.transform.position.x, floor.transform.position.y + 2.05f, floor.transform.position.z), 0f);
+                    yield return new WaitForSeconds(1.2f);
+                    yield return Go(StanceKey.Crouch, 4f);
+                }
+                Assert.AreEqual(stance, player.Stance, $"could not reach {stance}");
+                var pitches = stance == Stance.Stand ? new[] { 60f, 65f, 70f, 75f, 80f, 85f } : new[] { 60f, 65f, 70f, 75f, 80f, 85f };
+                int from = stance == Stance.Stand ? -6 : -12, to = stance == Stance.Stand ? 26 : 12;
+                for (int ph = 0; ph < 3; ph++)
+                {
+                    yield return new WaitForSeconds(ph == 0 ? 1.5f : 2.7f);
+                    var st = view.Body.Animator.GetCurrentAnimatorStateInfo(0);
+                    summary.AppendLine($"# {stance} pass {ph}: animator state normalized time {st.normalizedTime % 1f:F2} at the start");
+                    foreach (float pitch in pitches)
+                    {
+                        player.SetLook(player.Yaw, pitch);
+                        float[] lo = { float.NaN, float.NaN, float.NaN, float.NaN }, hi = { float.NaN, float.NaN, float.NaN, float.NaN };
+                        for (int i = from; i <= to; i++)
+                        {
+                            tuning.debugBackOverride = i / 100f;
+                            yield return null;
+                            yield return null;
+                            var r = Measure(player.ViewCamera, Bake(fp));
+                            csv.AppendLine($"{stance},{ph},{pitch:F0},{i / 100f:F2},{r.neckShoulder},{r.backFaces},{r.nearSlab},{r.torsoBottomBand},{r.legs},{r.handRays},{BarOneRule.CsvValues(r.bar1)}");
+                            bool b1 = r.neckShoulder == 0 && r.bar1.Defects == 0 && r.nearSlab == 0, h = r.handRays > 0, b2 = r.torsoBottomBand > 0 && r.legs > 0;
+                            bool[] ok = { b1, b1 && h, b1 && b2, b1 && h && b2 };
+                            for (int k = 0; k < 4; k++) if (ok[k]) { if (float.IsNaN(lo[k])) lo[k] = i / 100f; hi[k] = i / 100f; }
+                        }
+                        var line = new StringBuilder($"{stance} +{pitch:F0} pass {ph}:");
+                        for (int k = 0; k < 4; k++)
+                        {
+                            line.Append($" {names[k]} {(float.IsNaN(lo[k]) ? "NEVER" : lo[k].ToString("F2") + ".." + hi[k].ToString("F2"))};");
+                            string key = $"{stance} +{pitch:F0} {names[k]}";
+                            if (!passes.TryGetValue(key, out var l)) passes[key] = l = new List<(float, float)>();
+                            l.Add((lo[k], hi[k]));
+                        }
+                        summary.AppendLine(line.ToString());
+                    }
+                }
+            }
+            summary.AppendLine("# INTERSECTION over the three passes (largest lower bound .. smallest upper bound):");
+            foreach (var kv in passes)
+            {
+                float lo = float.NegativeInfinity, hi = float.PositiveInfinity; bool never = false;
+                foreach (var (a, b) in kv.Value) { if (float.IsNaN(a)) never = true; else { lo = Mathf.Max(lo, a); hi = Mathf.Min(hi, b); } }
+                summary.AppendLine($"{kv.Key}: {(never || lo > hi ? "NEVER in all three" : lo.ToString("F2") + ".." + hi.ToString("F2"))}");
+            }
+            tuning.debugBackOverride = float.NaN;
+            File.WriteAllText($"{OutDir}/lookdown-phases.csv", csv.ToString());
+            File.WriteAllText($"{OutDir}/lookdown-phases-windows.txt", summary.ToString());
+            Debug.Log("LookDownTests idle phases:" + System.Environment.NewLine + summary + "tie-resolved hits: " + MirrorTie.Resolved + " (near ties not mirrored: " + MirrorTie.NearTiesNotMirrored + ")");
+        }
+
+        /// <summary>
+        /// THE TABLE GATE (td-49 "TABLE GATE LookDownTests", gate shape and director-49 W-49-1, note6): the CONFIGURED look-down tables of the Survivor (debugBackOverride = NaN), pitches taken from the table points >= +45.
+        /// Stand idle, then the Stand gaits Walk 1.15, Walk 1.5, Jog 5, Sprint 8, then Crouch idle and CrouchWalk 1.75. Idle rows are measured at three breathing phases (the waits of FineSweep_IdlePhases_Print; the animator
+        /// normalized time is a CSV column); each gait at 8 cycle points with a per-point proof (controller speed within 5 percent of its target, stance, dominant clip: GaitSample and Settled as in Gait()). ASSERTED:
+        /// Bar 1 everywhere (no waiver exists); Bar 2 for Stand idle >= +60 and Crouch idle >= +80 except the waivers W-49-1 (idle Bar 2 at Stand +60) and W-49-2 (idle Bar 2 at Stand +65), Bar2IdleWaivers; hands for Stand idle >= +75 and Crouch idle >= +70 (director note6, gate/pod49-hands-in-lookdown-note6-11b-relaxations) at
+        /// every phase; walk hands in >= 3 of 8 cycle points at EVERY pitch from +45 to +85, both speeds (WH-49-2; supersedes the 6 of 8 from +60), except Walk1.5 at +45 only: >= 2 of 8 (WH-49-3, director note6 with td's pick ruling "WALK1.5 +45 PICK": no +45 offset qualified, +45 stays -0.03). Jog, Sprint and CrouchWalk: this gate asserts Bar 1 only and prints their hand counts. Bar 2 scope of record (td B36): amend5b, with the torso clause ONLY waived in W-49-1/W-49-2 (Stand idle +60/+65), amend8g (1) carried over to the Survivor (Sprint8 Stand +60..+85, Jog5 Stand +60/+65) and W-49-4 (Walk1.15/Walk1.5 Stand +60/+65/+70, Jog5 Stand +70/+75/+80); the legs clause is waived nowhere. Gait Bar 2 is proven by StandAndCrouch_LookDown_BackOffsetSweepAndConfiguredTables (Bar2/Bar2Waiver), not by this gate.
+        /// Failures are collected and asserted together; lookdown-gate.csv has every row, lookdown-gate-hands.txt the walk fractions; the first line of each names the MirrorTie rule state.
+        /// </summary>
+        [UnityTest, Timeout(3600000)]
+        public IEnumerator ConfiguredTables_Gate_ThreeIdlePhasesAndGaits()
+        {
+            PinTicks();
+            yield return LoadWorld();
+            yield return OnFloor();
+            view = player.GetComponent<PlayerCharacterView>();
+            Assert.IsNotNull(view?.FirstPerson, "no first-person body on the Player");
+            var fp = view.FirstPerson;
+            Directory.CreateDirectory(OutDir);
+            var tuning = player.LookDownTuning;
+            tuning.debugBackOverride = float.NaN;
+            bf = LookDownBfAttrib.Enabled ? new LookDownBfAttrib() : null;
+            var csv = new StringBuilder(MirrorTie.StateLine + "; " + LookDownBfAttrib.StateLine + System.Environment.NewLine + "gait,phaseOrCyclePoint,stance,pitch,tableLb,neckShoulder,backFaces,nearSlab,torsoBottomBand,legs,handRays,animNormalizedTime,gaitDiag," + BarOneRule.CsvColumns + System.Environment.NewLine);
+            var failures = new List<string>();
+            var handsText = new StringBuilder(MirrorTie.StateLine + "; " + LookDownBfAttrib.StateLine + System.Environment.NewLine);
+            var floorCentre = new Vector3(floor.transform.position.x, floor.transform.position.y + 2.05f, floor.transform.position.z);
+            foreach (var stance in new[] { Stance.Stand, Stance.Crouch })
+            {
+                if (stance == Stance.Crouch)
+                {
+                    InputSystem.QueueStateEvent(keyboard, new KeyboardState());
+                    player.ExternalMoveInput = null;
+                    player.WalkSpeedCap = 0f;
+                    Place(floorCentre, 0f);
+                    yield return new WaitForSeconds(1.2f);
+                    yield return Go(StanceKey.Crouch, 4f);
+                }
+                Assert.AreEqual(stance, player.Stance, $"could not reach {stance}");
+                var pitches = tuning.Of(stance).Select(p => p.x).Where(x => x >= 45f).ToArray();
+                for (int ph = 0; ph < 3; ph++)
+                {
+                    yield return new WaitForSeconds(ph == 0 ? 1.5f : 2.7f);
+                    float animT = view.Body.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1f;
+                    foreach (float pitch in pitches)
+                    {
+                        player.SetLook(player.Yaw, pitch);
+                        yield return null;
+                        yield return null;
+                        var r = Measure(player.ViewCamera, Bake(fp));
+                        csv.AppendLine($"idle,{ph},{stance},{pitch:F0},{fp.LastLookDownOffset.x:F3},{r.neckShoulder},{r.backFaces},{r.nearSlab},{r.torsoBottomBand},{r.legs},{r.handRays},{animT:F2},,{BarOneRule.CsvValues(r.bar1)}");
+                        failures.AddRange(RowFailures(stance, $"{stance} idle phase {ph} (anim {animT:F2}) +{pitch:F0} (table {fp.LastLookDownOffset.x:F3})", pitch, r));
+                        string badIdle = CheckRow(stance, player.Stance, fp.LastLookDownOffset.x, LookDownOffset.Back(tuning, stance, pitch));   // the applied offset must be the configured table's, not a stuck override
+                        if (badIdle != null) failures.Add($"{stance} idle phase {ph} +{pitch:F0} CONFIGURED: {badIdle}");
+                    }
+                }
+                var gaits = stance == Stance.Stand
+                    ? new (string label, float target, float cap, Key[] keys)[] { ("Walk1.15", 1.15f, 1.15f, new Key[0]), ("Walk1.5", 1.5f, 1.5f, new Key[0]), ("Jog5", 5f, 0f, new[] { Key.W }), ("Sprint8", 8f, 0f, new[] { Key.W, Key.LeftShift }) }
+                    : new (string label, float target, float cap, Key[] keys)[] { ("CrouchWalk1.75", 1.75f, 0f, new[] { Key.W }) };
+                foreach (var g in gaits)
+                {
+                    var handsPoints = new Dictionary<float, int>();
+                    yield return GateGait(g.label, stance, g.target, g.cap, fp, csv, failures, handsPoints, pitches, g.keys);
+                    foreach (float pitch in pitches)
+                    {
+                        int n = handsPoints.TryGetValue(pitch, out int h) ? h : 0;
+                        bool walk = g.label.StartsWith("Walk");
+                        bool wh3 = g.label == "Walk1.5" && pitch == 45f;   // WH-49-3 (note6): Walk1.5 at +45 only
+                        int need = wh3 ? 2 : 3;   // WH-49-2 (note6): >= 3 of 8 cycle points at every pitch, both walk speeds
+                        handsText.AppendLine($"{g.label} +{pitch:F0}: hand rays in {n} of 8 cycle points{(walk ? $" (required >= {need})" : " (printed only)")}");
+                        if (walk && n < need) failures.Add(wh3
+                            ? $"{g.label} +{pitch:F0} WALK HANDS (WH-49-3: Walk1.5 +45 only, hands >= 2/8): {n} of 8"
+                            : $"{g.label} +{pitch:F0} WALK HANDS (WH-49-2: walk hands >= 3/8 at every pitch +45..+85, both speeds): {n} of 8");
+                    }
+                }
+                if (stance == Stance.Stand && bf != null) yield return Walk45Try(tuning, fp);   // note6: print-only, no table change
+            }
+            if (bf != null) bf.Write(OutDir);   // G1: lookdown-bf-attrib.csv and the classifier inputs in lookdown\\stills
+            File.WriteAllText($"{OutDir}/lookdown-gate.csv", csv.ToString());
+            File.WriteAllText($"{OutDir}/lookdown-gate-hands.txt", handsText.ToString());
+            Debug.Log("LookDownTests table gate:" + System.Environment.NewLine + handsText + "tie-resolved hits: " + MirrorTie.Resolved);
+            Assert.IsEmpty(failures, string.Join(System.Environment.NewLine, failures));
+        }
+
+        /// <summary>
+        /// PRINT ONLY (director note6, gate/pod49-hands-in-lookdown-note6-11b-relaxations, riding the G1 switch): Walk 1.15 and Walk 1.5 at +45 with the view offset forced to lb -0.06 .. -0.12 (step 0.01), 8 cycle points each, as in the gate.
+        /// One line per speed and lb in lookdown-walk45-try.txt: the number of BAR 1 rows, the cycle points with a hand ray, and the cycle points that are Bar 1 clean with a hand ray (td A5; the pick rule is the director's and td's). Failures of these rows are NOT added to the gate; the table does not change here.
+        /// </summary>
+        IEnumerator Walk45Try(LookDownTuning tuning, FirstPersonBody fp)
+        {
+            var text = new StringBuilder(MirrorTie.StateLine + "; " + LookDownBfAttrib.StateLine + System.Environment.NewLine + "gait,lb,bar1RowsOf8,handPointsOf8,bothPointsOf8" + System.Environment.NewLine);
+            var keep = bf;
+            bf = null;   // the forced rows are not gate rows: no attribution
+            foreach (var (label, speed) in new[] { ("Walk1.15", 1.15f), ("Walk1.5", 1.5f) })
+                for (int i = 6; i <= 12; i++)
+                {
+                    float lb = -i / 100f;
+                    tuning.debugBackOverride = lb;
+                    var f = new List<string>();
+                    var hp = new Dictionary<float, int>();
+                    var rows = new StringBuilder();
+                    yield return GateGait(label, Stance.Stand, speed, speed, fp, rows, f, hp, new[] { 45f });
+                    int both = 0;   // cycle points that are Bar 1 clean AND show a hand ray (csv columns: neckShoulder 5, nearSlab 7, handRays 10, bar1Defects 6th from the end)
+                    foreach (var line in rows.ToString().Split('\n'))
+                    {
+                        if (line.StartsWith("#") || !line.StartsWith(label + ",")) continue;
+                        var c = line.Split(',');
+                        // columns: neckShoulder 5, nearSlab 7, handRays 10 from the front; bar1Defects is the 6th column from the END (the quoted gaitDiag before it can contain commas); backFaces (6) is print only under R3
+                        if (c.Length > 16 && c[5] == "0" && c[c.Length - 6] == "0" && c[7] == "0" && c[10] != "0") both++;
+                    }
+                    text.AppendLine($"{label},{lb:F2},{f.Count(x => x.Contains("BAR 1"))},{(hp.TryGetValue(45f, out int h) ? h : 0)},{both}");
+                }
+            tuning.debugBackOverride = float.NaN;
+            bf = keep;
+            File.WriteAllText($"{OutDir}/lookdown-walk45-try.txt", text.ToString());
+        }
+
+        /// <summary>Named waivers of the idle Bar 2 clause, as (stance, pitch), each with its citation in the director's record. W-49-1: idle Bar 2 at Stand +60 only (studio:decisions gate/pod49-lookdown-waiver-w49-1-and-walk-fraction). W-49-2: idle Bar 2 at Stand +65 only (gate/pod49-lookdown-waiver-w49-2). Bar 1 is waived nowhere.</summary>
+        static readonly HashSet<(Stance, float)> Bar2IdleWaivers = new HashSet<(Stance, float)> { (Stance.Stand, 60f), (Stance.Stand, 65f) };
+
+        /// <summary>The per-row idle check of the gate, factored so the forced-failure test runs the SAME code: Bar 1 always, Bar 2 where it applies and is not waived, hands where required.</summary>
+        static List<string> RowFailures(Stance stance, string where, float pitch, Result r, bool forceHandsCheck = false)
+        {
+            var f = new List<string>();
+            if (r.neckShoulder > 0 || r.bar1.Defects > 0 || r.nearSlab > 0) f.Add($"{where} BAR 1 (render-faithful, {BarOneRule.GText}): {r}");
+            // director-49 condition on retiring the amend4 crouch constants (gate/pod49-crouch-neck-check-condition): Crouch idle +65 and +70 must have no neck/collar ray. Named, separate from the Bar 1 total.
+            if (stance == Stance.Crouch && (pitch == 65f || pitch == 70f) && r.neckShoulder > 0) f.Add($"{where} CROUCH NECK (amend4 rule, Survivor): {r.neckShoulder} neck/collar rays");
+            bool bar2 = stance == Stance.Stand ? pitch >= 60f : pitch >= 80f;
+            if (bar2 && !Bar2IdleWaivers.Contains((stance, pitch)) && !(r.torsoBottomBand > 0 && r.legs > 0)) f.Add($"{where} BAR 2 (idle Bar 2 applies at Stand >= +60 and Crouch >= +80; waived only by W-49-1: idle Bar 2 waived at Stand +60 only, and W-49-2: idle Bar 2 waived at Stand +65 only; Bar 1 is waived nowhere): {r}");
+            bool hands = forceHandsCheck || (stance == Stance.Stand ? pitch >= 75f : pitch >= 70f);   // standing hands from +75 (gate/pod49-hands-in-lookdown-note3-stand75 and note4-margin-reading), crouch from +70 (note6: the +65 window is 1 cm)
+            if (hands && r.handRays == 0) f.Add($"{where} " + (stance == Stance.Stand ? "HANDS (stand idle from +75: note3/note4)" : "HANDS (crouch idle from +70: note6)") + ": no hand ray in frame");
+            return f;
+        }
+
+        /// <summary>One gait of the gate: 8 cycle points, every pitch; Bar 1 per point (asserted by the caller through failures), the per-point gait proof (speed, stance, dominant clip) and the hand count.</summary>
+        IEnumerator GateGait(string label, Stance expected, float target, float cap, FirstPersonBody fp, StringBuilder csv, List<string> failures, Dictionary<float, int> handsPoints, float[] pitches, params Key[] keys)
+        {
+            var floorCentre = new Vector3(floor.transform.position.x, floor.transform.position.y + 2.05f, floor.transform.position.z);
+            Place(floorCentre - Vector3.forward * 25f, 0f);
+            yield return new WaitForSeconds(0.3f);
+            if (cap > 0f) player.ExternalMoveInput = Vector2.up * (cap / player.WalkSpeed);
+            else InputSystem.QueueStateEvent(keyboard, new KeyboardState(keys));
+            yield return new WaitForSeconds(0.9f);
+            Assert.AreEqual(expected, player.Stance, $"{label}: the player is {player.Stance}, the rows would carry the wrong stance");
+            string token = SweepToken(label);
+            int advSamples = 0, advSkips = 0;
+            for (int k = 0; k < 8; k++)
+            {
+                Place(floorCentre - Vector3.forward * 25f, 0f);
+                yield return new WaitForSeconds(0.1f + 0.11f * k);
+                foreach (float pitch in pitches)
+                {
+                    player.SetLook(player.Yaw, pitch);
+                    Place(floorCentre - Vector3.forward * 25f, 0f);
+                    yield return null;
+                    yield return null;
+                    string advGait = null;
+                    yield return AdvancingCheck(a => advGait = a);   // as Gait(): the animator really advances; a skipped check is counted and printed
+                    advSamples++;
+                    if (advGait == Skipped) advSkips++;
+                    else if (advGait != null) failures.Add($"{label} cycle point {k} at +{pitch:F0}: {advGait}");
+                    var r = Measure(player.ViewCamera, Bake(fp));
+                    if (bf != null && r.backFaces > 0)   // G1, print only: the same frame as the Measure above
+                        bf.Add(label, k, pitch, fp.ViewRenderers, player.ViewCamera, player.transform.position.y, GridX, GridY,
+                            view.ViewCopy != null && view.ViewCopy.ViewAnimator != null ? view.ViewCopy.ViewAnimator : view.Body.Animator, view.Body.Animator);
+                    string where = $"{label} cycle point {k} +{pitch:F0} (table {fp.LastLookDownOffset.x:F3})";
+                    string badCycle = CheckRow(expected, player.Stance, fp.LastLookDownOffset.x, LookDownOffset.Back(player.LookDownTuning, expected, pitch));
+                    if (badCycle != null) failures.Add($"{where} CONFIGURED: {badCycle}");
+                    string extra = GaitSample(label, target, floorCentre, failures, $"cycle point {k} at +{pitch:F0}");   // adds the failure when the speed is off target
+                    string notSettled = Settled(expected, target, token, out string diag);
+                    if (notSettled != null) failures.Add($"{where} gait proof: {notSettled}");
+                    float animT = view.Body.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1f;
+                    csv.AppendLine($"{label},{k},{expected},{pitch:F0},{fp.LastLookDownOffset.x:F3},{r.neckShoulder},{r.backFaces},{r.nearSlab},{r.torsoBottomBand},{r.legs},{r.handRays},{animT:F2},\"{diag.Replace('\"', '\'')}\",{BarOneRule.CsvValues(r.bar1)}");
+                    if (r.neckShoulder > 0 || r.bar1.Defects > 0 || r.nearSlab > 0) failures.Add($"{where} BAR 1 (render-faithful, {BarOneRule.GText}): {r}");
+                    if (r.handRays > 0) handsPoints[pitch] = (handsPoints.TryGetValue(pitch, out int n) ? n : 0) + 1;
+                }
+            }
+            csv.AppendLine($"# {label}: advancing checks skipped {advSkips} of {advSamples}");
+            if (advSkips * 24 > advSamples * 3) failures.Add($"{label}: {advSkips} of {advSamples} advancing checks were skipped (more than 3 in 24)");
+            InputSystem.QueueStateEvent(keyboard, new KeyboardState());
+            player.ExternalMoveInput = null;
+            yield return new WaitForSeconds(0.6f);
+        }
+
+        /// <summary>
+        /// FORCED FAILURES (td-49 gate item 7): the gate's own per-row check must turn red. EXPECTED RED. (a) Stand +85 idle with the view body forced to lb 0.05, which the fine sweep of record
+        /// (TestResults/player-character/runs/20261103-215346/lookdown/lookdown-fine.csv, rows "Stand,85,0.05,...") lists as failing Bar 1: at least one BAR 1 failure. (b) Stand +45 idle with the hands check forced on
+        /// (idle has no hand ray at +45, lookdown-fine-windows.txt line 1 of that run): at least one HANDS failure.
+        /// </summary>
+        [UnityTest, Explicit("Forced-bad case: expected to FAIL, proving the gate's row check can fail"), Timeout(1200000)]
+        public IEnumerator Gate_ForcedBadOffset_MustTurnRed()
+        {
+            PinTicks();
+            yield return LoadWorld();
+            yield return OnFloor();
+            view = player.GetComponent<PlayerCharacterView>();
+            var fp = view.FirstPerson;
+            yield return new WaitForSeconds(1.5f);
+            var tuning = player.LookDownTuning;
+            var failures = new List<string>();
+            player.SetLook(player.Yaw, 85f);
+            tuning.debugBackOverride = 0.05f;
+            yield return null; yield return null;
+            var fa = RowFailures(Stance.Stand, "FORCED Stand idle +85 at lb 0.05", 85f, Measure(player.ViewCamera, Bake(fp)));
+            Assert.IsTrue(fa.Any(x => x.Contains("BAR 1")), "forced (a): no BAR 1 failure at Stand +85 with lb 0.05");
+            failures.AddRange(fa);
+            tuning.debugBackOverride = float.NaN;
+            player.SetLook(player.Yaw, 45f);
+            yield return null; yield return null;
+            var fb = RowFailures(Stance.Stand, "FORCED Stand idle +45 hands", 45f, Measure(player.ViewCamera, Bake(fp)), true);
+            Assert.IsTrue(fb.Any(x => x.Contains("HANDS")), "forced (b): no HANDS failure at Stand +45 idle");
+            failures.AddRange(fb);
+            // (d) F8' (td-49 B17): the real path under the CURRENT table, on Sprint8 at the GATE's nine pitches (the same pitch array and so the same cycle-point timing as the gate). Data of record: the baton 14b gate run 1
+            // (TestResults/player-character/runs/b14-gate1/lookdown/lookdown-gate.csv, backFaces column) has back-first rays in 9 of 72 Sprint8 rows, with front hits at most 16.3 mm behind (a leg, 18.7 mm under the real G of 35 mm).
+            // With the gap override at 0 the pass must print at least one BAR 1 line whose gap>G count is above 0; the CONTROL, the same pass under the real G, must print no gap>G count above 0. The override is reset in a finally.
+            // A miss prints the row count, the back-first rows seen in that pass and the failure lines, so it is explained, not guessed. (Walk1.5 has back-first rays in only 3 of 72 rows and CrouchWalk1.75's knee cell has 0.79 mm of margin: neither is used.)
+            var gatePitches = tuning.Of(Stance.Stand).Select(pt => pt.x).Where(x => x >= 45f).ToArray();
+            var fdOn = new List<string>();
+            var fdOff = new List<string>();
+            var fdOnCsv = new StringBuilder();
+            var fdOffCsv = new StringBuilder();
+            try
+            {
+                BarOneRule.GapOverrideForTest = 0f;
+                yield return GateGait("Sprint8", Stance.Stand, 8f, 0f, fp, fdOnCsv, fdOn, new Dictionary<float, int>(), gatePitches, Key.W, Key.LeftShift);
+            }
+            finally { BarOneRule.GapOverrideForTest = null; }
+            string FdReport(StringBuilder csvText, List<string> fl)
+            {
+                var rows = csvText.ToString().Split('\n').Where(l => l.StartsWith("Sprint8,")).ToList();
+                int backFirstRows = rows.Count(l => { var c = l.Split(','); return c.Length > 7 && c[6] != "0"; });
+                return $"rows {rows.Count}, back-first rows {backFirstRows}, failure lines {fl.Count}: " + string.Join(" | ", fl.Take(6).Select(x => x.Length > 160 ? x.Substring(0, 160) : x));
+            }
+            Assert.IsTrue(fdOn.Any(x => x.Contains("BAR 1") && Regex.IsMatch(x, @"gap>G [1-9]")), "forced (d): no BAR 1 failure with a gap>G count above 0 at Sprint8 with G forced to 0; " + FdReport(fdOnCsv, fdOn));
+            yield return GateGait("Sprint8", Stance.Stand, 8f, 0f, fp, fdOffCsv, fdOff, new Dictionary<float, int>(), gatePitches, Key.W, Key.LeftShift);
+            Assert.IsFalse(fdOff.Any(x => Regex.IsMatch(x, @"gap>G [1-9]")), "forced (d) control: a gap>G failure was printed at Sprint8 under the real G; " + FdReport(fdOffCsv, fdOff));
+            Assert.IsFalse(BarOneRule.GapOverrideForTest.HasValue, "forced (d): the G override was not reset");
+            failures.AddRange(fdOn);
+            // (c) CROUCH NECK: Crouch idle +70 forced to lb -0.10. The Survivor idle-phases sweep of record lists neckShoulder > 0 there in all three phases
+            // (TestResults/player-character/runs/b9/lookdown/lookdown-phases.csv, rows "Crouch,0,70,-0.10,33", "Crouch,1,70,-0.10,32", "Crouch,2,70,-0.10,31"; header stance,phase,pitch,lb,neckShoulder,...).
+            // Must produce the CROUCH NECK failure. (MIRRORTIE_OFF would not: it moves NECK-CAP back faces, which this clause does not count.)
+            InputSystem.QueueStateEvent(keyboard, new KeyboardState());
+            player.ExternalMoveInput = null;
+            player.WalkSpeedCap = 0f;
+            yield return Go(StanceKey.Crouch, 4f);
+            Assert.AreEqual(Stance.Crouch, player.Stance, "forced (c): could not reach Crouch");
+            yield return new WaitForSeconds(1.5f);
+            player.SetLook(player.Yaw, 70f);
+            tuning.debugBackOverride = -0.10f;
+            yield return null; yield return null;
+            var fc = RowFailures(Stance.Crouch, "FORCED Crouch idle +70 at lb -0.10", 70f, Measure(player.ViewCamera, Bake(fp)));
+            Assert.IsTrue(fc.Any(x => x.Contains("CROUCH NECK (amend4 rule, Survivor)")), "forced (c): no CROUCH NECK failure at Crouch +70 with lb -0.10");
+            failures.AddRange(fc);
+            tuning.debugBackOverride = float.NaN;
+            Assert.IsEmpty(failures, "EXPECTED RED: the gate's row check failed the forced rows (this assert is meant to fail): " + string.Join(" | ", failures));
+        }
+
+        [UnityTest, Timeout(7200000)]
         public IEnumerator StandAndCrouch_LookDown_BackOffsetSweepAndConfiguredTables()
         {
             PinTicks();   // #46 PR B: one tick per frame (td-46 adr/46-b-test-pin-pattern)
@@ -185,7 +714,7 @@ namespace WashedAshore.Tests.PlayMode.Character
             Assert.IsTrue(view.FirstPerson.HasViewBody, "no view body: the look-down fix needs the view copy");
             var fp = view.FirstPerson;
             Directory.CreateDirectory(OutDir);
-            var report = new StringBuilder("stance,pitch,back,neckShoulder,backFaces,torsoBottomBand,torsoRays,lowestTorsoRow,legs,nearSlab,passes,grounded,speed,floorMargin,neckBones,settled\n");
+            var report = new StringBuilder("stance,pitch,back,neckShoulder,backFaces,torsoBottomBand,torsoRays,lowestTorsoRow,legs,nearSlab,passes,grounded,speed,floorMargin,neckBones,settled," + BarOneRule.CsvColumns + "\n");
             var failures = new List<string>();
             var tuning = player.LookDownTuning;
             var pitches = new[] { 40f, 50f, 60f, 65f, 70f, 75f, 80f, 85f };
@@ -214,7 +743,7 @@ namespace WashedAshore.Tests.PlayMode.Character
                         yield return null;
                         var r = Measure(player.ViewCamera, Bake(fp));
                         report.AppendLine(Row(stance, pitch, tuning.debugBackOverride.ToString("F2"), r));
-                        int score = r.neckShoulder == 0 && r.backFaces == 0 ? r.torsoBottomBand * 1000 + r.torsoRays : -1;
+                        int score = r.neckShoulder == 0 && r.bar1.Defects == 0 ? r.torsoBottomBand * 1000 + r.torsoRays : -1;
                         if (score > bestScore) { bestScore = score; bestBack = tuning.debugBackOverride; }
                     }
                     if (pitch == 60f || pitch == 85f)
@@ -236,8 +765,8 @@ namespace WashedAshore.Tests.PlayMode.Character
                     if (bad != null) failures.Add($"CONFIGURED row {stance} +{pitch:F0}: {bad}");
                     report.AppendLine(Row(player.Stance, pitch, $"CONFIGURED {applied:F3}", cfg));
                     // Bar (1) is absolute at every pitch (director amend4). Bar (2) is asserted for Stand idle at +60 and +85 only; elsewhere it is reported (waived or unmeetable).
-                    bool required = stance == Stance.Stand && (pitch == 60f || pitch == 85f);
-                    if (required ? !cfg.Passes : (cfg.neckShoulder > 0 || cfg.backFaces > 0 || cfg.nearSlab > 0))
+                    bool required = stance == Stance.Stand && pitch == 85f;   // idle Bar 2 at Stand +60 is waived by W-49-1 (gate/pod49-lookdown-waiver-w49-1-and-walk-fraction); +85 keeps the full bar
+                    if (required ? !cfg.Passes : (cfg.neckShoulder > 0 || cfg.bar1.Defects > 0 || cfg.nearSlab > 0))
                         failures.Add($"{stance} at +{pitch:F0} with the configured offset {applied:F3}: {cfg}");
                 }
 
@@ -287,6 +816,7 @@ namespace WashedAshore.Tests.PlayMode.Character
             var maxNeck = new Dictionary<float, (int neck, int phase)>();
             var bar2Rows = new Dictionary<float, int>();   // settled rows that bar 2 was applied to, per pitch
             var waivedRows = new Dictionary<float, (int n, int minLegs, int maxLegs)>();   // waived torso misses per pitch
+            var bar2Failed = new Dictionary<float, int>();   // settled rows that FAILED bar 2, per pitch (so the summary line never says "met" over a failure)
             int advSamples = 0, advSkips = 0;
             for (int k = 0; k < 24; k++)   // 24 cycle points: a single instant can miss the phase where a shoulder rises into the frame (qa-2 found 25 neck rays at Sprint +55 that a 4-point sample missed)
             {
@@ -319,16 +849,16 @@ namespace WashedAshore.Tests.PlayMode.Character
                     if (!maxNeck.TryGetValue(pitch, out var mx) || w.neckShoulder > mx.neck) maxNeck[pitch] = (w.neckShoulder, k);
                     string badCycle = CheckRow(expected, player.Stance, fp.LastLookDownOffset.x, LookDownOffset.Back(player.LookDownTuning, expected, pitch));
                     if (badCycle != null) failures.Add($"{label} cycle point {k} at +{pitch:F0}: {badCycle}");
-                    if (w.neckShoulder > 0 || w.backFaces > 0 || w.nearSlab > 0) failures.Add($"{label} cycle point {k} at +{pitch:F0}: {w}");
+                    if (w.neckShoulder > 0 || w.bar1.Defects > 0 || w.nearSlab > 0) failures.Add($"{label} cycle point {k} at +{pitch:F0}: {w}");
                     if (notSettled == null && Bar2Applies(expected, pitch))
                     {
-                        // Bar 2 on settled rows only (td line 276, amend5b full bar); the amend8g (1) cells print WAIVED with the figure instead of failing.
+                        // Bar 2 on settled rows only (td line 276, amend5b full bar); the ruled cells (Bar2Waiver: amend8g (1) carry-over, W-49-4) print WAIVED with the citation and the figure instead of failing.
                         string bar2 = Bar2(expected, label, pitch, w, out bool torsoMissWaived);
-                        if (bar2 != null) failures.Add($"{label} cycle point {k} at +{pitch:F0} (bar 2): {bar2}");
+                        if (bar2 != null) { failures.Add($"{label} cycle point {k} at +{pitch:F0} (bar 2): {bar2}"); bar2Failed[pitch] = bar2Failed.TryGetValue(pitch, out var bf) ? bf + 1 : 1; }
                         bar2Rows[pitch] = bar2Rows.TryGetValue(pitch, out var br) ? br + 1 : 1;
                         if (torsoMissWaived)
                         {
-                            report.AppendLine($"# WAIVED bar 2 (amend8g (1)) {label}-cycle{k} +{pitch:F0}: torso in bottom band {w.torsoBottomBand}, legs/feet {w.legs}, torso rays {w.torsoRays}");
+                            report.AppendLine($"# WAIVED bar 2 ({Bar2Waiver(expected, label, pitch)}) {label}-cycle{k} +{pitch:F0}: torso in bottom band {w.torsoBottomBand}, legs/feet {w.legs}, torso rays {w.torsoRays}");
                             waivedRows[pitch] = waivedRows.TryGetValue(pitch, out var wr) ? (wr.n + 1, Mathf.Min(wr.minLegs, w.legs), Mathf.Max(wr.maxLegs, w.legs)) : (1, w.legs, w.legs);
                         }
                     }
@@ -343,10 +873,13 @@ namespace WashedAshore.Tests.PlayMode.Character
             }
             foreach (var kv in bar2Rows.OrderBy(x => x.Key))
             {
-                bool cellWaived = Bar2Waived(expected, label, kv.Key);
+                string cellWaiver = Bar2Waiver(expected, label, kv.Key);
+                bool anyFailed = bar2Failed.TryGetValue(kv.Key, out int nf);
                 string line = waivedRows.TryGetValue(kv.Key, out var wv)
-                    ? $"WAIVED bar 2 (amend8g (1)) {label} +{kv.Key:F0}: torso in bottom band 0 on {wv.n} of {kv.Value} settled rows (legs/feet {wv.minLegs} to {wv.maxLegs} on those rows); bar 1 asserted on every row"
-                    : $"bar 2 {(cellWaived ? "(waived cell) " : "")}met on all {kv.Value} settled rows of {label} +{kv.Key:F0}";
+                    ? $"WAIVED bar 2 ({cellWaiver}) {label} +{kv.Key:F0}: torso in bottom band 0 on {wv.n} of {kv.Value} settled rows (legs/feet {wv.minLegs} to {wv.maxLegs} on those rows); bar 1 asserted on every row"
+                    : anyFailed ? $"bar 2 FAILED on {nf} of {kv.Value} settled rows of {label} +{kv.Key:F0} (listed as failures)"
+                    : $"bar 2 {(cellWaiver != null ? $"(waived cell, {cellWaiver}) " : "")}met on all {kv.Value} settled rows of {label} +{kv.Key:F0}";
+                if (anyFailed && wv.n > 0) line += $"; FAILED bar 2 on {nf} of {kv.Value} settled rows (listed as failures)";
                 report.AppendLine("# " + line);
                 Debug.Log("[LookDown] " + line);
             }
@@ -406,7 +939,7 @@ namespace WashedAshore.Tests.PlayMode.Character
                 string csNotSettled = Settled(expected, target, SweepToken(label), out string csDiag);
                 report.AppendLine(Row(stance, pitch, $"{label}-clipsweep {fp.LastLookDownOffset.x:F3}", m, GaitSample(label, target, floorCentre, failures, $"clip sweep at {pitch:F0}"), $",\"{(csNotSettled == null ? "yes" : "NO")} {csDiag}\""));
                 if (csNotSettled != null) failures.Add($"{label} clip sweep at {pitch:F0} does not count: {csNotSettled}");
-                else if (m.neckShoulder > 0 || m.nearSlab > 0 || m.backFaces > 0) failures.Add($"{label} moving clipping sweep at {pitch:F0} (bar 1): {m}");
+                else if (m.neckShoulder > 0 || m.nearSlab > 0 || m.bar1.Defects > 0) failures.Add($"{label} moving clipping sweep at {pitch:F0} (bar 1): {m}");
             }
             report.AppendLine($"# SWEEP {label}: {sweepRows} sweep rows, {sweepSkips} advancing checks skipped");
             if (sweepSkips * 24 > sweepRows * 3) failures.Add($"{label}: {sweepSkips} of {sweepRows} sweep advancing checks were skipped (more than 3 in 24)");
@@ -421,15 +954,23 @@ namespace WashedAshore.Tests.PlayMode.Character
         static bool Bar2Applies(Stance stance, float pitch) => stance == Stance.Stand ? pitch >= 60f : stance == Stance.Crouch && pitch >= 80f;
 
         /// <summary>
-        /// Director amend8g (1), word for word: "Stand, settled Sprint 8 at +60, +65, +70, +75, +80 and +85, and settled Jog 5 at +60 and +65, on the men's Farmer view body."
-        /// Recorded in the QA report; the torso clause of bar 2 only. Idle, Walk 1.15/1.5 and Jog 5 at +70..+85 keep the full bar; bar 1 is waived nowhere.
+        /// The ruled gait cells of the bar 2 torso clause (the torso clause only; legs/feet and bar 1 are waived nowhere). Returns the citation, or null for a full-bar cell.
+        /// (1) Director amend8g (1), word for word: "Stand, settled Sprint 8 at +60, +65, +70, +75, +80 and +85, and settled Jog 5 at +60 and +65, on the men's Farmer view body."
+        ///     Carried over to the Survivor by Noah, 2026-11-10 (gate/pod49-walk-jog-bar2-to-noah, option 1, Q1).
+        /// (2) W-49-4, Noah 2026-11-10 (gate/pod49-walk-jog-bar2-to-noah, option 1, Q2 as corrected by note2): Stand, Walk 1.15 and Walk 1.5 at +60, +65 and +70, and Jog 5 at +70, +75 and +80.
+        /// Every other amend5b cell keeps the full bar: Walk 1.15/1.5 at +75..+85, Jog 5 at +85, CrouchWalk at +80/+85 (idle Stand +60/+65 is W-49-1/W-49-2, in the idle check).
         /// </summary>
-        static bool Bar2Waived(Stance stance, string label, float pitch) =>
-            stance == Stance.Stand && ((label == "Sprint8" && pitch >= 60f && pitch <= 85f) || (label == "Jog5" && (pitch == 60f || pitch == 65f)));
+        static string Bar2Waiver(Stance stance, string label, float pitch)
+        {
+            if (stance != Stance.Stand) return null;
+            if ((label == "Sprint8" && pitch >= 60f && pitch <= 85f) || (label == "Jog5" && (pitch == 60f || pitch == 65f))) return "amend8g (1), carried over to the Survivor (Noah 2026-11-10)";
+            if (((label == "Walk1.15" || label == "Walk1.5") && (pitch == 60f || pitch == 65f || pitch == 70f)) || (label == "Jog5" && (pitch == 70f || pitch == 75f || pitch == 80f))) return "W-49-4 (Noah 2026-11-10)";
+            return null;
+        }
 
         /// <summary>
         /// Bar 2 on one SETTLED gait row (call it for settled rows only). Returns the failure text, or null. torsoMissWaived is true when the only miss is the
-        /// torso clause in an amend8g (1) cell: the caller prints WAIVED with the figure. Legs/feet missing always fails.
+        /// torso clause in a ruled cell (Bar2Waiver: amend8g (1) carry-over or W-49-4): the caller prints WAIVED with the citation and the figure. Legs/feet missing always fails.
         /// </summary>
         static string Bar2(Stance stance, string label, float pitch, Result r, out bool torsoMissWaived)
         {
@@ -439,8 +980,8 @@ namespace WashedAshore.Tests.PlayMode.Character
             if (r.legs == 0) miss.Add($"no legs/feet in view (legs {r.legs})");
             if (r.torsoBottomBand == 0)
             {
-                if (Bar2Waived(stance, label, pitch)) torsoMissWaived = true;
-                else miss.Add($"no chest or belly in the bottom band (torso in bottom band {r.torsoBottomBand}, torso rays {r.torsoRays}, legs/feet {r.legs})");
+                if (Bar2Waiver(stance, label, pitch) != null) torsoMissWaived = true;
+                else miss.Add($"no chest or belly in the bottom band (torso in bottom band {r.torsoBottomBand}, torso rays {r.torsoRays}, legs/feet {r.legs}); outside the ruled cells (W-49-1, W-49-2, amend8g (1) carried over, W-49-4)");
             }
             return miss.Count == 0 ? null : string.Join("; ", miss);
         }
@@ -450,27 +991,28 @@ namespace WashedAshore.Tests.PlayMode.Character
         {
             Result MakeRow(int band, int legs) => new Result { torsoBottomBand = band, legs = legs, torsoRays = 0 };
             string f;
-            // Full-bar cells: a torso miss fails.
-            Assert.IsNotNull(Bar2(Stance.Stand, "Walk1.5", 60f, MakeRow(0, 9), out bool w1), "Walk 1.5 +60 torso 0 must fail");
-            Assert.IsFalse(w1);
-            Assert.IsNotNull(Bar2(Stance.Stand, "Walk1.15", 85f, MakeRow(0, 9), out _), "Walk 1.15 +85 torso 0 must fail");
-            Assert.IsNotNull(Bar2(Stance.Stand, "Jog5", 70f, MakeRow(0, 12), out _), "Jog 5 +70 torso 0 must fail (waived only at +60 and +65)");
-            Assert.IsNotNull(Bar2(Stance.Stand, "Jog5", 85f, MakeRow(0, 12), out _), "Jog 5 +85 torso 0 must fail");
+            // Full-bar cells (amend5b cells outside amend8g (1) and W-49-4): a torso miss fails.
+            foreach (var (label, p) in new[] { ("Walk1.15", 75f), ("Walk1.15", 80f), ("Walk1.15", 85f), ("Walk1.5", 75f), ("Walk1.5", 80f), ("Walk1.5", 85f), ("Jog5", 85f) })
+            {
+                Assert.IsNotNull(Bar2(Stance.Stand, label, p, MakeRow(0, 9), out bool w0), $"{label} +{p:F0} torso 0 must fail (outside amend8g (1) and W-49-4)");
+                Assert.IsFalse(w0, $"{label} +{p:F0} is not a waived cell");
+                Assert.IsNull(Bar2Waiver(Stance.Stand, label, p), $"{label} +{p:F0} must cite no waiver");
+            }
             Assert.IsNotNull(Bar2(Stance.Crouch, "CrouchWalk1.75", 80f, MakeRow(0, 5), out _), "CrouchWalk +80 torso 0 must fail");
             Assert.IsNotNull(Bar2(Stance.Crouch, "CrouchWalk1.75", 85f, MakeRow(0, 5), out _), "CrouchWalk +85 torso 0 must fail");
-            // Waived cells: a torso miss passes and is flagged for WAIVED.
-            foreach (float p in new[] { 60f, 65f, 70f, 75f, 80f, 85f })
+            // Waived cells: a torso miss passes, is flagged for WAIVED and cites its record.
+            foreach (var (label, p, cite) in new[] {
+                ("Sprint8", 60f, "amend8g"), ("Sprint8", 65f, "amend8g"), ("Sprint8", 70f, "amend8g"), ("Sprint8", 75f, "amend8g"), ("Sprint8", 80f, "amend8g"), ("Sprint8", 85f, "amend8g"),
+                ("Jog5", 60f, "amend8g"), ("Jog5", 65f, "amend8g"), ("Jog5", 70f, "W-49-4"), ("Jog5", 75f, "W-49-4"), ("Jog5", 80f, "W-49-4"),
+                ("Walk1.15", 60f, "W-49-4"), ("Walk1.15", 65f, "W-49-4"), ("Walk1.15", 70f, "W-49-4"), ("Walk1.5", 60f, "W-49-4"), ("Walk1.5", 65f, "W-49-4"), ("Walk1.5", 70f, "W-49-4") })
             {
-                f = Bar2(Stance.Stand, "Sprint8", p, MakeRow(0, 17), out bool w);
-                Assert.IsNull(f, $"Sprint 8 +{p:F0} torso 0 is waived: {f}");
-                Assert.IsTrue(w, $"Sprint 8 +{p:F0} must print WAIVED");
+                f = Bar2(Stance.Stand, label, p, MakeRow(0, 17), out bool w);
+                Assert.IsNull(f, $"{label} +{p:F0} torso 0 is waived: {f}");
+                Assert.IsTrue(w, $"{label} +{p:F0} must print WAIVED");
+                StringAssert.StartsWith(cite, Bar2Waiver(Stance.Stand, label, p), $"{label} +{p:F0} must cite {cite}");
             }
-            foreach (float p in new[] { 60f, 65f })
-            {
-                f = Bar2(Stance.Stand, "Jog5", p, MakeRow(0, 17), out bool w);
-                Assert.IsNull(f, $"Jog 5 +{p:F0} torso 0 is waived: {f}");
-                Assert.IsTrue(w, $"Jog 5 +{p:F0} must print WAIVED");
-            }
+            // The ruled cells are Stand only.
+            Assert.IsNull(Bar2Waiver(Stance.Crouch, "Walk1.15", 60f), "no gait waiver outside Stand");
             // The waiver covers the torso clause only: no legs still fails, in a waived cell too.
             Assert.IsNotNull(Bar2(Stance.Stand, "Sprint8", 60f, MakeRow(0, 0), out _), "Sprint 8 +60 with no legs must fail");
             Assert.IsNotNull(Bar2(Stance.Stand, "Sprint8", 60f, MakeRow(3, 0), out _), "Sprint 8 +60 with torso but no legs must fail");

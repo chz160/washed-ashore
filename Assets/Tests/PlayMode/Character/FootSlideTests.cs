@@ -30,8 +30,8 @@ namespace WashedAshore.Tests.PlayMode.Character
         static string OutDir => RunOutput.Dir("range");
         const string RangeLow = "Assets/Art/Character/CharacterAnimator_Men_RangeLow.overrideController";
         public const float RateMin = 0.7f, RateMax = 1.4f;
-        /// <summary>The band edges are inclusive; this only absorbs float rounding (td: 1e-4; 2.50 / 1.786 prints 1.400 and can compare above 1.4f). The 0.7 to 1.4 rule itself is unchanged.</summary>
-        public const float RateEdgeTolerance = 0.0001f;
+        /// <summary>The rate band of record is 0.70 to 1.40 with a stated rounding tolerance of +-0.005, so pass is 0.695 to 1.405 (td-49, td-review-item2-retarget.md; the convention in CharacterClipSet.cs: "the 0.70 solo edge is inclusive"). The 0.7 to 1.4 rule itself is unchanged.</summary>
+        public const float RateEdgeTolerance = 0.005f;
         /// <summary>The slide bar. The forced-bad test lowers it to prove the check can fail.</summary>
         public static float SlideLimit = 0.10f;
 
@@ -185,9 +185,11 @@ namespace WashedAshore.Tests.PlayMode.Character
             Assert.IsFalse(Judge(0.05f, 1.45f, 0.10f, true), "rate over 1.4");
             Assert.IsTrue(Judge(0.05f, 1.4000001f, 0.10f, true), "the 1.4 edge is inclusive");
             Assert.IsTrue(Judge(0.05f, 0.7f, 0.10f, true), "the 0.7 edge is inclusive");
-            Assert.IsFalse(Judge(0.05f, 1.402f, 0.10f, true), "a real excess over 1.4 still fails");
-            Assert.IsFalse(Judge(0.05f, 1.4011f, 0.10f, true), "1.4011 is over the 1.4 edge by more than the 1e-4 tolerance");
-            Assert.IsFalse(Judge(0.05f, 0.6989f, 0.10f, true), "0.6989 is under the 0.7 edge by more than the 1e-4 tolerance");
+            Assert.IsFalse(Judge(0.05f, 1.406f, 0.10f, true), "a real excess over 1.4 + 0.005 still fails");
+            Assert.IsFalse(Judge(0.05f, 0.694f, 0.10f, true), "0.694 is under the 0.7 edge by more than the 0.005 tolerance");
+            Assert.IsTrue(Judge(0.05f, 1.402f, 0.10f, true), "1.402 is inside the +-0.005 tolerance of the 1.4 edge");
+            Assert.IsTrue(Judge(0.05f, 1.4011f, 0.10f, true), "1.4011 is inside the +-0.005 tolerance of the 1.4 edge");
+            Assert.IsTrue(Judge(0.05f, 0.6989f, 0.10f, true), "0.6989 is inside the +-0.005 tolerance of the 0.7 edge");
             Assert.IsTrue(Judge(0.05f, 1.40005f, 0.10f, true), "inside the tolerance of the 1.4 edge");
             Assert.IsTrue(Judge(0.05f, 0.69995f, 0.10f, true), "inside the tolerance of the 0.7 edge");
             Assert.IsTrue(Judge(0.09f, 1.0f, 0.10f, true));
@@ -212,13 +214,17 @@ namespace WashedAshore.Tests.PlayMode.Character
         {
             var results = new List<string>();
             var disagreements = new List<string>();
-            foreach (var c in new[] { ("walk", 1.337f, 0.048f), ("run", 3.035f, 0.066f) })   // artist, latest Blender figures: pack Walk 0.048, Run 0.066 (td quoted 0.033 and 0.021 earlier)
+            foreach (var gait in new[] { "walk", "run" })   // the Survivor's clips (pod 49): speeds from the appearance, intrinsic drift from measured-pack-Survivor.json
             {
                 yield return Begin();
                 float scale = view.Body.SkeletonScale;
+                var appearance = view.Body.Appearance;
+                float clipSpeed = gait == "walk" ? appearance.walkClipSpeed : appearance.runClipSpeed;   // unscaled authored m/s (speeds-Survivor.json)
+                float intrinsic = PackPlantDrift(gait == "walk" ? "Walk" : "Run") * scale;                // the file is in the clip frame; on the body it is times the skeleton scale
+                var c = (gait, clipSpeed, intrinsic);
                 Measured m = default;
                 yield return Measure("calib-" + c.Item1, c.Item2 * scale, r => m = r, Key.W);
-                string line = $"{c.Item1} at its exact on-body clip speed {c.Item2 * scale:F3} m/s: slide {m.slide:F3} m ({m.plants} plants), effective rate {m.effectiveRate:F3}; Blender intrinsic {c.Item3:F3} +-0.015";
+                string line = $"{c.Item1} at its exact on-body clip speed {c.Item2 * scale:F3} m/s: slide {m.slide:F3} m ({m.plants} plants), effective rate {m.effectiveRate:F3}; intrinsic (measured-pack-Survivor.json x scale {scale:F4}) {c.Item3:F3} +-0.015";
                 bool agree = Mathf.Abs(m.slide - c.Item3) <= 0.015f;
                 results.Add(line + (agree ? " AGREES" : " DISAGREES"));
                 Debug.Log("FootSlideTests: " + line);
@@ -285,7 +291,7 @@ namespace WashedAshore.Tests.PlayMode.Character
                 Measured m = default;
                 yield return Measure($"crouch{speed:F2}", 0f, r => m = r, Key.W);
                 bool ok = Judge(m.slide, m.effectiveRate, SlideLimit, true);
-                string line = $"{(ok ? "PASS" : "FAIL")} crouch speed {speed:F2}: slide {m.slide:F3} m over {m.plants} plants (limit {SlideLimit:F2}); required rate {speed / 1.786f:F2} (= speed / 1.786); LocomotionRate {m.expectedRate:F3}, Animator LocoRate {m.locoParam:F3}, state speed x multiplier {m.stateSpeed:F3}, effective rate {m.effectiveRate:F3} (band 0.7-1.4)";
+                string line = $"{(ok ? "PASS" : "FAIL")} crouch speed {speed:F2}: slide {m.slide:F3} m over {m.plants} plants (limit {SlideLimit:F2}); required rate {speed / 1.786f:F2} (= speed / 1.786); LocomotionRate {m.expectedRate:F3}, Animator LocoRate {m.locoParam:F3}, state speed x multiplier {m.stateSpeed:F3}, effective rate {m.effectiveRate:F3} (unrounded {m.effectiveRate:F6}; band 0.7-1.4 +-0.005)";
                 results.Add(line);
                 if (!ok && (speed == 1.25f || speed == 2.50f)) endFails.Add(line);
             }

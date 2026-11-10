@@ -14,7 +14,7 @@ namespace WashedAshore.EditorTools
     /// </summary>
     public static class PlayerCharacterSetup
     {
-        public const string DefaultAppearancePath = "Assets/Art/Character/Appearances/Men_Farmer.asset";
+        public const string DefaultAppearancePath = WashedAshore.Character.Editor.CharacterAssetBuilder.DefaultAppearancePath;
         const string ScenePath = "Assets/Scenes/World.unity";
 
         [MenuItem("Washed Ashore/Character/Apply Default Body To Player")]

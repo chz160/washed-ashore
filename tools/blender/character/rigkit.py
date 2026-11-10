@@ -11,7 +11,10 @@ from mathutils import Matrix, Vector
 
 FWD = Vector((0.0, -1.0, 0.0))
 UP = Vector((0.0, 0.0, 1.0))
-ANKLE_Z = 0.023  # Foot bone head height standing on the floor (pack Idle, inspected)
+DORSI_MAX, PLANTAR_MAX = 40.0, 50.0  # the range the director allows from the rig's own per-side bind (about 40 up, 50 down); the bind is read in Rig.__init__
+DEBUG_REACH = False
+ANKLE_Z = 0.1487  # Foot bone head height standing on the floor: Skeleton_Human has the foot pivot at his ankle (the Farmer pack rig had 0.023, at the sole)
+FOOT_FWD = Vector((0.0, 1.0, 0.0))   # foot axis the clamp measures; asserted equal to the Foot Y axis at rest in Rig.__init__
 EYE_UP, EYE_FWD = 0.103, 0.08  # eye point offset from the Head bone head, standing frame [my choice]
 
 
@@ -65,6 +68,22 @@ class Rig:
         # eye point: measured from the Head part mesh (measure_head_eye.py) when given, else the old guess above
         self.eye_local = Vector(eye_local) if eye_local is not None else self.stand_head.inverted() @ eye0
         self.hip_off = (self.world("UpperLeg.L").translation - self.world("Body").translation)
+        # ankle facts read from the loaded rig at rest (td-49 R-a, R-b): the Foot head height must equal ANKLE_Z, and the shin-to-foot bind angle is per side
+        for sd in "LR":
+            z = self.R["Foot." + sd].translation.z
+            if abs(z - ANKLE_Z) > 1e-3:
+                raise RuntimeError("rigkit.ANKLE_Z %.4f does not match this rig's Foot.%s head height %.4f" % (ANKLE_Z, sd, z))
+        self.ankle_bind = {}
+        for sd in "LR":
+            sh = self.R["LowerLeg." + sd].to_3x3() @ Vector((0, 1, 0))
+            ft = self.R["Foot." + sd].to_3x3() @ Vector((0, 1, 0))
+            self.ankle_bind[sd] = math.degrees(sh.angle(ft))
+        # self-test (td-49 I3): the clamp in leg_ik measures the shin-foot angle with FOOT_FWD at the rest foot rotation; at rest that must equal ankle_bind (the Foot Y axis)
+        for sd in "LR":
+            sh = self.R["LowerLeg." + sd].to_3x3() @ Vector((0, 1, 0))
+            a = math.degrees(sh.angle(self.R["Foot." + sd].to_3x3() @ FOOT_FWD))
+            if abs(a - self.ankle_bind[sd]) > 0.5:
+                raise RuntimeError("rigkit ankle clamp convention: ang_for(0) %.2f deg != ankle_bind %.2f deg on %s (FOOT_FWD is not the Foot Y axis)" % (a, self.ankle_bind[sd], sd))
         self.leg1 = self.length["UpperLeg.L"]
         self.leg2 = self.length["LowerLeg.L"]
         self.base_body = self.world("Body").translation.copy()
@@ -115,6 +134,8 @@ class Rig:
         d = A - H
         dist_true = d.length
         dist = min(max(dist_true, abs(self.leg1 - self.leg2) + 1e-3), (self.leg1 + self.leg2) * 0.9995)
+        if DEBUG_REACH and abs(dist_true - dist) > 0.01:
+            print('REACH', side, 'dist_true %.3f min %.3f max %.3f hip %s ankle %s' % (dist_true, abs(self.leg1 - self.leg2), (self.leg1 + self.leg2) * 0.9995, tuple(round(x, 3) for x in H), tuple(round(x, 3) for x in A)))
         u = d.normalized()
         a = (self.leg1 ** 2 - self.leg2 ** 2 + dist ** 2) / (2 * dist)
         b = math.sqrt(max(self.leg1 ** 2 - a * a, 0.0))
@@ -123,6 +144,22 @@ class Rig:
         K = H + u * a + n * b
         self.aim(up, (K - H).normalized())
         self.aim(lo, (H + u * dist - K).normalized())
+        # keep the ankle inside a real range: if the shin-to-foot angle (the foot's forward axis against the shin) is outside [bind - DORSI_MAX, bind + PLANTAR_MAX],
+        # pitch the foot about the ankle (world X: the legs work in the sagittal plane) by the smallest angle that brings it back (heel lift at toe-off, toes up when seated)
+        dlo = (H + u * dist - K).normalized()
+        fwd0 = FOOT_FWD
+
+        def ang_for(pitch):
+            f = (rx(pitch) @ foot_rot.to_4x4()).to_3x3() @ fwd0
+            return math.degrees(dlo.angle(f))
+        bind = self.ankle_bind[side]   # per side, read from the loaded rig at rest
+        lo_a, hi_a = bind - DORSI_MAX, bind + PLANTAR_MAX
+        a0 = ang_for(0.0)
+        if a0 < lo_a or a0 > hi_a:
+            best = min((abs(p) for p in [x * 0.5 for x in range(-180, 181)] if lo_a <= ang_for(p) <= hi_a), default=None)
+            if best is not None:
+                cands = [p for p in [x * 0.5 for x in range(-180, 181)] if lo_a <= ang_for(p) <= hi_a and abs(p) == best]
+                foot_rot = (rx(cands[0]) @ foot_rot.to_4x4()).to_3x3()
         M = foot_rot.to_4x4()
         M.translation = A
         self.basis[ft] = self.base[ft].copy()

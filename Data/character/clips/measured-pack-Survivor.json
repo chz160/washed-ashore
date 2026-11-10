@@ -1,0 +1,109 @@
+{
+ "fps": 30.0,
+ "clips": {
+  "Idle.001": {
+   "hand_in_view": null,
+   "frames": 51,
+   "duration_s": 1.667,
+   "clip_speed_mps": null,
+   "plant_speed_mps_min": 0.0,
+   "plant_speed_mps_max": 0.0,
+   "plant_drift_m_max": null,
+   "foot_z_min": 0.149,
+   "eye_z_min": 1.618,
+   "eye_z_max": 1.619,
+   "eye_y_mean": -0.277
+  },
+  "Idle_Neutral.001": {
+   "hand_in_view": null,
+   "frames": 51,
+   "duration_s": 1.667,
+   "clip_speed_mps": null,
+   "plant_speed_mps_min": 0.0,
+   "plant_speed_mps_max": 0.0,
+   "plant_drift_m_max": null,
+   "foot_z_min": 0.149,
+   "eye_z_min": 1.668,
+   "eye_z_max": 1.674,
+   "eye_y_mean": -0.242
+  },
+  "Interact.001": {
+   "hand_in_view": null,
+   "frames": 39,
+   "duration_s": 1.267,
+   "clip_speed_mps": null,
+   "plant_speed_mps_min": 0.0,
+   "plant_speed_mps_max": 0.0,
+   "plant_drift_m_max": null,
+   "foot_z_min": 0.149,
+   "eye_z_min": 1.619,
+   "eye_z_max": 1.633,
+   "eye_y_mean": -0.277
+  },
+  "Run.001": {
+   "hand_in_view": null,
+   "frames": 25,
+   "duration_s": 0.8,
+   "clip_speed_mps": 2.64,
+   "plant_speed_mps_min": 2.59,
+   "plant_speed_mps_max": 2.69,
+   "plant_drift_m_max": 0.057,
+   "foot_z_min": 0.148,
+   "eye_z_min": 1.568,
+   "eye_z_max": 1.649,
+   "eye_y_mean": -0.302
+  },
+  "Run_Back.001": {
+   "hand_in_view": null,
+   "frames": 26,
+   "duration_s": 0.833,
+   "clip_speed_mps": 2.67,
+   "plant_speed_mps_min": 2.62,
+   "plant_speed_mps_max": 2.721,
+   "plant_drift_m_max": 0.062,
+   "foot_z_min": 0.148,
+   "eye_z_min": 1.568,
+   "eye_z_max": 1.649,
+   "eye_y_mean": -0.303
+  },
+  "Run_Left.001": {
+   "hand_in_view": null,
+   "frames": 25,
+   "duration_s": 0.8,
+   "clip_speed_mps": 2.64,
+   "plant_speed_mps_min": 2.59,
+   "plant_speed_mps_max": 2.69,
+   "plant_drift_m_max": 0.057,
+   "foot_z_min": 0.149,
+   "eye_z_min": 1.578,
+   "eye_z_max": 1.655,
+   "eye_y_mean": -0.258
+  },
+  "Run_Right.001": {
+   "hand_in_view": null,
+   "frames": 25,
+   "duration_s": 0.8,
+   "clip_speed_mps": 2.64,
+   "plant_speed_mps_min": 2.59,
+   "plant_speed_mps_max": 2.69,
+   "plant_drift_m_max": 0.057,
+   "foot_z_min": 0.149,
+   "eye_z_min": 1.578,
+   "eye_z_max": 1.655,
+   "eye_y_mean": -0.257
+  },
+  "Walk.001": {
+   "hand_in_view": null,
+   "frames": 41,
+   "duration_s": 1.333,
+   "clip_speed_mps": 1.204,
+   "plant_speed_mps_min": 1.138,
+   "plant_speed_mps_max": 1.269,
+   "plant_drift_m_max": 0.051,
+   "foot_z_min": 0.148,
+   "eye_z_min": 1.597,
+   "eye_z_max": 1.645,
+   "eye_y_mean": -0.247
+  }
+ }
+}

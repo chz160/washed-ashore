@@ -1,6 +1,6 @@
 """Writes Data/character/character-clip-manifest.md from the measure/author reports (run by build_character_assets.ps1).
 
-python make_manifest.py <reports dir> <out.md>
+python make_manifest.py <reports dir> <out.md> [bodies, comma list, default Survivor]
 """
 import json
 import os
@@ -8,7 +8,7 @@ import sys
 
 PACK_USED = ["Idle", "Idle_Neutral", "Walk", "Run", "Run_Back", "Run_Left", "Run_Right", "Interact"]
 AUTHORED_ORDER = [
-    "Jog", "JogBack", "JogLeft", "JogRight", "Sprint", "SprintBack", "SprintLeft", "SprintRight",
+    "Stand_Idle", "Jog", "JogBack", "JogLeft", "JogRight", "Sprint", "SprintBack", "SprintLeft", "SprintRight",
     "CrouchWalk", "CrouchWalkBack", "CrouchWalkLeft", "CrouchWalkRight", "Crouch_Idle",
     "Squat_Enter", "Squat_Hold", "Squat_Exit", "Sit_Enter", "Sit_Loop", "Sit_Exit",
     "Sleep_Down", "Sleep_Loop", "Sleep_Wake", "Jump_Start", "Jump_Air", "Jump_Land",
@@ -40,6 +40,7 @@ def rates(base, speed):
 
 def main():
     rep, out = sys.argv[1], sys.argv[2]
+    bodies = tuple(sys.argv[3].split(",")) if len(sys.argv) > 3 else ("Survivor",)
     lines = [
         "# Character clip manifest",
         "",
@@ -50,8 +51,6 @@ def main():
         "",
         "| Source | License | Record |",
         "|---|---|---|",
-        "| Pack clips (`Animations.fbx`, Quaternius Ultimate Modular Men, Feb 2022, zip `Ultimate Modular Men- Feb 2022-20261005T045546Z-1-001.zip`) | CC0 1.0 | `Assets/ThirdParty/Quaternius/ModularCharacters/Men/License.txt` |",
-        "| Pack clips (`Animations.fbx`, Quaternius Ultimate Modular Women, Apr 2022, zip `Ultimate Modular Women - April 2022-20261005T045539Z-1-001.zip`) | CC0 1.0 | `Assets/ThirdParty/Quaternius/ModularCharacters/Women/License.txt` |",
         "| Authored clips (`tools/blender/character/author_clips.py`, one FBX per gender) | project-authored; no third-party material | this file |",
         "",
         "Column key: speed = ground speed the clip's planted foot moves at (clip's own stride x cycles/s); rate = game speed / clip speed",
@@ -60,28 +59,36 @@ def main():
         "(the eye point measured from the Head part mesh, see Eye point below; metres above the floor, feet at 0 - the body drop below the player origin is not included).",
         "",
     ]
+    lines.insert(9, "| Pack clips (`Animations.fbx`, Quaternius Ultimate Modular Men, Feb 2022, zip `Ultimate Modular Men- Feb 2022-20261005T045546Z-1-001.zip`"
+                 + ("" if "Men" in bodies else "; retargeted onto Skeleton_Human by `retarget_pack.py` (a9ca3637) from the Men `Animations.fbx` in the vendor zip")
+                 + ") | CC0 1.0 | `Assets/ThirdParty/Quaternius/LICENSE_CC0.txt` |")
+    if "Women" in bodies:
+        lines.insert(10, "| Pack clips (`Animations.fbx`, Quaternius Ultimate Modular Women, Apr 2022, zip `Ultimate Modular Women - April 2022-20261005T045539Z-1-001.zip`) | CC0 1.0 | `Assets/ThirdParty/Quaternius/ModularCharacters/Women/License.txt` |")
     lines += ["## Eye point", "",
               "Method (`tools/blender/character/measure_head_eye.py`): the mean of the vertices of the head mesh's eye material (men: `Eye`; women: the",
               "smallest material furthest forward, `Brown`), at rest, expressed from the Head bone head. Authored clips and the tables below use it.", "",
               "| Head part | Up m | Forward m | Method |", "|---|---|---|---|"]
-    for gender in ("Men", "Women"):
+    for gender in bodies:
         for head, v in load(os.path.join(rep, f"eye-point-{gender}.json")).items():
             lines.append(f"| {gender} {head} | {v.get('up_m', '-')} | {v.get('forward_m', '-')} | {v.get('method', v.get('error'))} |")
-    lines += ["", "All five men's heads give the same point (the head mesh is shared), so Farmer, the default look, represents them. The earlier guess",
+    if "Men" in bodies:
+      lines += ["", "All five men's heads give the same point (the head mesh is shared), so Farmer, the default look, represents them. The earlier guess",
               "(0.103 up, 0.08 forward) is replaced by this point.", ""]
+    else:
+      lines += [""]
     hand_lines = []
-    for gender in ("Men", "Women"):
+    for gender in bodies:
         pack = load(os.path.join(rep, f"measured-pack-{gender}.json"))["clips"]
         auth = load(os.path.join(rep, f"measured-authored-{gender}.json"))["clips"]
-        if gender == "Men":
-            pd = {n: (pack.get(f"CharacterArmature|{n}") or pack.get(n) or {}).get("plant_drift_m_max") for n in ("Walk", "Run", "Run_Back")}
+        if gender == bodies[0]:
+            pd = {n: (pack.get(f"CharacterArmature|{n}") or pack.get(n) or pack.get(n + ".001") or {}).get("plant_drift_m_max") for n in ("Walk", "Run", "Run_Back")}
         authored = load(os.path.join(rep, f"authored-{gender}.json"))
         info = authored["clips"]
         scale = authored.get("skeleton_scale", 1.0)
         lines += [f"## {gender}", "", f"Skeleton scale on the body: {scale} (uniform; speed, drift and eye below are on the scaled body, clips are authored unscaled).", "", "| Clip | Source | License | Frames (key rate: pack 30, authored 60) | Duration s | Loop | Speed m/s | Playback rate | Drift m | Eye z min / max |",
                   "|---|---|---|---|---|---|---|---|---|---|"]
         for name in PACK_USED:
-            c = pack.get(f"CharacterArmature|{name}") or pack.get(name)
+            c = pack.get(f"CharacterArmature|{name}") or pack.get(name) or pack.get(name + ".001")  # re-import suffix
             if not c:
                 continue
             sp = round(c["clip_speed_mps"] * scale, 3) if c["clip_speed_mps"] else None
@@ -100,11 +107,11 @@ def main():
             worst = max(max(h["frames_with_a_hand_in_view"].values()) for h in hv.values())
             samples = {k: h["samples"] for k, h in hv.items()}
             hand_lines.append(f"- {gender}: Jog and Sprint (all directions): most samples with a wrist or fingertip inside the first-person frustum at any pitch -15 to +30 = {worst} of {min(samples.values())}+ (camera fixed at the stand eye, FOV 70 vertical, 16:9, near 0.1, body back offset not counted).")
-        speeds = [{"name": k.split("|")[-1], "speed": round(v["clip_speed_mps"] * scale, 4)} for k, v in {**pack, **auth}.items()
+        speeds = [{"name": k.split("|")[-1].split(".")[0], "speed": round(v["clip_speed_mps"] * scale, 4)} for k, v in {**pack, **auth}.items()
                   if v.get("clip_speed_mps") and k.split("|")[-1].startswith(("Walk", "Run", "Jog", "Sprint", "CrouchWalk"))]
         with open(os.path.join(rep, f"speeds-{gender}.json"), "w") as f:
             json.dump({"scale": scale, "clips": speeds}, f, indent=1)
-        unused = sorted(k.split('|')[-1] for k in pack if k.split('|')[-1] not in PACK_USED)
+        unused = sorted(k.split('|')[-1] for k in pack if k.split('|')[-1].split('.')[0] not in PACK_USED)
         lines += ["", f"Pack clips imported but not used by the stance set (CC0): {', '.join(unused)}.", ""]
     lines += [
         "## Limits named here",
@@ -122,7 +129,6 @@ def main():
         "- Strafing and backing slower than 0.7 x the Run_* speed (about 2.1 m/s, which includes the tower speeds) blends with Idle and slides; the pack has no walk-speed strafe or back clips. Known limit, future issue 14.",
         "- Speeds in this file and Speed(name) in CharacterClipSet are ON THE BODY (authored speed x skeleton scale); LocomotionRate multiplies its unscaled node speeds by the scale argument once.",
         "- Authored clips are script-built placeholders: planted feet are exact, the upper body is simple (spine lean, arm swing, no hands or head turn).",
-        "- Women's rig: the standing eye reachable with the authored leg length is below 1.65 m (see the Women stand eye in the authoring report); all lowered stances hit the designer's eye heights.",
         "- Crouch_Idle, Squat_* and Sit_* poses keep the feet where the standing feet were and move the pelvis behind the eye anchor, so the head stays under the camera.",
         "",
     ]

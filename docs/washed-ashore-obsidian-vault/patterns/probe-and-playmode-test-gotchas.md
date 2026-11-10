@@ -3,11 +3,11 @@ type: pattern
 status: active
 tech: [probe-tests]
 area: [player]
-issues: [19, 46, 78, 81, 91]
+issues: [19, 46, 78, 81, 91, 49]
 prs: [65, 79, 82, 85]
-source: "PR #65, #79, #85; issues #78, #81, #91; studio:engineering adr/lookout-interactions-40 parts 80-98 (input and teleport items, not re-read for this note)"
+source: "PR #65, #79, #85; issues #78, #81, #91; pod49 td-49 B34c (items 7-8); studio:engineering adr/lookout-interactions-40 parts 80-98 (input and teleport items, not re-read for this note)"
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-10
 aliases: [test gotchas, TestSpawn, known-fail]
 ---
 # Probe and PlayMode test gotchas
@@ -49,6 +49,12 @@ Any PlayMode test that places the player, drives input, or measures movement. Th
 - The repeat check compares end positions, not stop timing.
 - The 30° fixture ramp gives false stops.
 - `Detail()` calls `OverlapSphere` with no mask, which breaks physics-guidelines rule 16.
+
+**7. Caches of scene objects go stale after a world reload** (#49, td B34c).
+- What went wrong: S2 baton 19 cached bone Transforms by name and filled the cache only "if not already there". After a world reload the cache held destroyed Transforms. The joint test threw in 17 frames, exactly the frames it was meant to check, so its "H3 = 0" meant nothing.
+- Fix: clear the cache at each bake before filling it, and treat a Unity-null object as "could not run". A frame that throws must still write a row marked EXCEPTION, and any exception voids the run.
+
+**8. Imported character meshes aren't readable in PlayMode** (#49). Read them through `BakeMesh`. See [[reading-a-non-readable-mesh-in-tests]].
 
 ## Does not apply when
 The test checks the start itself, for example C2a "the scene's dev start puts the player on the ground" (PR #65).

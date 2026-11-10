@@ -162,7 +162,7 @@ namespace WashedAshore.Tests.PlayMode.Character
             Assert.AreEqual(expect == Stance.Sleep ? 0.80f : eye + 0.15f, body.height, Eps, "capsule height");
             // H5 eye match: camera against the hidden-head eye point of the shadow body, within 3 cm
             var head = view.Body.Bone("Head");
-            Vector3 p = head.position + Vector3.up * 0.1094f + player.transform.forward * 0.1011f;
+            Vector3 p = head.TransformPoint(SurvivorEyeLocal());   // eye-point-Survivor.json, one source (td-49, pod 49)
             Assert.AreEqual(player.ViewCamera.transform.position.y, p.y, 0.03f, "H5 eye match");
             string dir = Path.Combine("TestResults", "player-character", "range");
             Directory.CreateDirectory(dir);
