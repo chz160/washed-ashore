@@ -7,6 +7,14 @@ Read this before you touch anything under `Assets/`, `Packages/` or `ProjectSett
 - Anyone else may run read-only queries: `unity status`, reading the console and logs, inspecting the hierarchy. For a change, send the editor owner exact steps: the object, the field, the value, and how to check it.
 - Headless batchmode (`build-engineer`) can't open a project that an Editor already has open. Ask the editor owner to close it or wait, and agree in a message who goes first.
 
+## The Unity lock (`.studio/unity.lock`)
+Only one Unity process may open the project at a time. Headless runs, Editor sessions and `-executeMethod` jobs all count. Performance measurements (an FPS walk in a built player) also hold the lock, because a second Unity process on the same machine skews the numbers.
+1. **Take it:** if `.studio/unity.lock` exists, wait. If not, write it with one line: your name, what you're running, and the start time.
+2. **Hold it** for the whole run, including the build and every rerun in that batch.
+3. **Release it:** after Unity exits and you've checked `git status -- ProjectSettings Packages` is clean, delete the file and message the next person waiting (or `team-lead`).
+4. **Never delete a lock you didn't create.** If it looks stale (no Unity process and no word from the holder), message the holder. If there's no answer by your next piece of work, tell `team-lead`, who decides.
+5. When several roles need Unity, `team-lead` sets the order in a message, and the holder messages the next one in line.
+
 ## Scenes, prefabs and `.meta` files: single owner
 - Each scene or prefab has one owner for the pod, named in the task. Two agents never change the same scene or prefab in one pod.
 - Change them through the Editor or the Unity API, never by hand-editing their YAML. Small, reviewed exceptions are the editor owner's call.

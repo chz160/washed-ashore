@@ -34,7 +34,7 @@ Create or update `.studio/project.md` for this repo.
 5. Write `.studio/project.md` from `profile-template.md`. Leave a field empty rather than guess, and comment on any value you inferred.
 6. **Settings.** Make sure `.claude/settings.json` has the following, merged with what's already there. Show the diff and ask before writing:
    - `env`: `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` and `CLAUDE_CODE_ENABLE_TODO_TOOLS=1`
-   - `hooks`: `TaskCompleted` and `TeammateIdle`, both running `node ${CLAUDE_PROJECT_DIR}/.claude/hooks/studio-gate.js` in exec form. Copy them from this repo's settings.
+   - `hooks`: `TaskCompleted` and `TeammateIdle`, both running the hook script `.claude/hooks/studio-gate.js` with `node`, in exec form. Copy both entries exactly from `.claude/settings.json` in the repo the studio files came from. They use the project-dir variable, not an absolute path, so they work in any repo.
    - If `kb.format: obsidian`: `"enabledPlugins": {"obsidian@obsidian-skills": true}`
    Then tell the Studio Head to restart Claude Code so the settings apply.
 7. Don't create any knowledge-base folders. `technical-writer` creates notes when it first needs them.

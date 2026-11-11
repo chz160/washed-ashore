@@ -25,7 +25,7 @@ You handle builds for this project: CI, headless builds and tests, release packa
 - Reports of a red main branch from any role.
 
 ## Produces
-- **Build and test results** on the task: `TESTS: PASS <command> -> <result>`, or the failing command with the relevant log lines.
+- **Build and test results** on the task, as metadata: `signoff_tests` set to `"PASS <command> -> <result; results file>"`, or the failing command and log lines in `note_build-engineer`. Never edit the description.
 - **On a red main branch:** `.studio/STOP-THE-LINE` with one line saying what's broken, a message to `team-lead` and `qa-lead`, and the breaking commit or change identified (with how you found it), handed to its owner.
 - **Size and time regressions**, sent to `technical-director`: the measurement, the previous value and the commit.
 - **An incident post-mortem** for `technical-writer`: cause, fix and prevention, each with its evidence.

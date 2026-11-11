@@ -64,6 +64,7 @@ pods: {}
 
 # Quality gate
 gate_check_command: ""   # Unity tests are too slow for a hook; QA records the test evidence
+protected_paths: [ProjectSettings/, Packages/]   # the completion hook blocks every studio task while these have uncommitted changes, unless team-lead allows it on the task
 ---
 
 # Notes for every agent
