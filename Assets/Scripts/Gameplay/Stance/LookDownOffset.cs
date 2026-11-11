@@ -6,17 +6,18 @@ namespace WashedAshore.Gameplay
     /// <summary>
     /// Look-down view offset (td ruling, director amend2): how far the VIEW body (the one the camera sees) is moved back (-Z) as the
     /// player looks down, so the torso top clears the bottom edge of the frame. Per stance a point table (camera pitch in degrees, back
-    /// in metres), interpolated with a monotone cubic (Fritsch-Carlson, no overshoot). It never moves the camera or the shadow body.
+    /// in metres; a negative value moves it forward, +Z), interpolated with a monotone cubic (Fritsch-Carlson, no overshoot). The
+    /// small negative values in the shipped tables are tuned on purpose (Bar 2, pod 49). It never moves the camera or the shadow body.
     /// A pure function of the stance, the previous stance, the stance blend and the camera pitch: never animation, speed or time.
     /// Stand and Crouch only; Squat, Sit and Sleep are accepted at zero (director).
     /// </summary>
     [Serializable]
     public class LookDownTuning
     {
-        [Tooltip("Stand: x = camera pitch (degrees, positive looks down), y = metres back. Ascending pitch. Zero below the first point, flat above the last.")]
-        public Vector2[] stand = { new Vector2(20f, 0f), new Vector2(40f, 0f), new Vector2(45f, 0.02f), new Vector2(50f, 0.04f), new Vector2(55f, 0.06f), new Vector2(60f, 0.07f), new Vector2(65f, 0.10f), new Vector2(70f, 0.16f), new Vector2(75f, 0.21f), new Vector2(80f, 0.23f), new Vector2(85f, 0.30f) };
+        [Tooltip("Stand: x = camera pitch (degrees, positive looks down), y = metres back (negative moves the view body forward). Ascending pitch. Zero below the first point, flat above the last.")]
+        public Vector2[] stand = { new Vector2(20f, 0f), new Vector2(40f, 0f), new Vector2(45f, -0.03f), new Vector2(50f, -0.03f), new Vector2(55f, 0f), new Vector2(60f, 0.01f), new Vector2(65f, 0.065f), new Vector2(70f, 0.055f), new Vector2(75f, 0.085f), new Vector2(80f, 0.125f), new Vector2(85f, 0.145f) };
         [Tooltip("Crouch: same layout.")]
-        public Vector2[] crouch = { new Vector2(20f, 0f), new Vector2(60f, 0f), new Vector2(65f, 0.05f), new Vector2(70f, 0.06f), new Vector2(75f, 0.11f), new Vector2(80f, 0.125f), new Vector2(85f, 0.175f) };
+        public Vector2[] crouch = { new Vector2(20f, 0f), new Vector2(60f, 0f), new Vector2(65f, -0.055f), new Vector2(70f, -0.03f), new Vector2(75f, 0.02f), new Vector2(80f, 0.01f), new Vector2(85f, 0.055f) };
 
         /// <summary>Test hook: when not NaN, the back offset is this regardless of pitch and stance table. Never serialized.</summary>
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -48,7 +49,7 @@ namespace WashedAshore.Gameplay
 
         /// <summary>
         /// Offset for <paramref name="stance"/> blended from <paramref name="previous"/> by <paramref name="blend"/> (0 to 1, the stance's
-        /// own eye ease). <paramref name="down"/> is always 0: the method moves the view body back only.
+        /// own eye ease). <paramref name="down"/> is always 0: the method moves the view body only along Z (back, or forward for a negative value).
         /// </summary>
         public static void Evaluate(LookDownTuning t, Stance previous, Stance stance, float blend, float pitch, out float back, out float down)
         {

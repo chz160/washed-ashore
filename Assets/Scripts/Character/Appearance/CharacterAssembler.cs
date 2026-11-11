@@ -26,10 +26,13 @@ namespace WashedAshore.Character.Appearance
             foreach (CharacterSlot slot in System.Enum.GetValues(typeof(CharacterSlot)))
             {
                 var part = owned.GetPart(slot);
+                if (part == null && owned.IsEmpty(slot)) continue; // deliberately empty slot: no renderer, no error
                 if (part == null) { Debug.LogError($"CharacterAssembler: '{appearance.name}' has no {slot} part"); Destroy(root); return null; }
                 if (!Attach(body, slot, part)) { Destroy(root); return null; }
             }
             body.ApplyTints();
+            if (!CharacterSockets.Create(body, owned.socketSet)) { Destroy(root); return null; }
+            KneeCorrectiveDriver.AddTo(body);   // only when a renderer carries the knee shapes (the Survivor); the low-poly bodies get nothing
             return body;
         }
 

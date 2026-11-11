@@ -10,7 +10,7 @@ This vault holds the project's long-lived, human-readable knowledge: technical l
 | Code, tests, specs the build needs | the repo (`Assets/`, `docs/`) | links, never copies |
 | Planning and POC history | `_bmad-output/` | links, never copies |
 | Standing engineering rules | `docs/physics-guidelines.md` | links; a pattern that becomes a rule moves there |
-| Agent working state (hashes, rulings in progress, raw figures) | ruflo memory (`studio:*` namespaces) | cites the key in `source:` |
+| Agent working state (task board, handoff, rulings in progress) | the studio task list and `.studio/` files (`handoff.md`, `board.md`) | cites the task id or file in `source:` |
 | Finished knowledge a person would read in six months | **this vault** | owns it |
 
 ## Folders
@@ -46,7 +46,7 @@ tech: []        # values of the GitHub tech: labels, without the prefix
 area: []        # values of the GitHub area: labels, without the prefix
 issues: []      # issue numbers, e.g. [80, 86]
 prs: []
-source: ""      # where the facts come from: PR, commit, or ruflo key
+source: ""      # where the facts come from: PR, commit, issue, test run, or task id
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 ```

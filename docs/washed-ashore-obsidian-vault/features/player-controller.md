@@ -5,7 +5,7 @@ tech: [character-controller, multiplayer-ready]
 area: [player]
 issues: [64, 46, 19, 43, 81]
 prs: [82, 83, 85, 65, 50]
-source: "PR #82, #83, #85, #65, #50; studio:engineering adr/64-controller-choice"
+source: "PR #82, #83, #85, #65, #50"
 created: 2026-10-30
 updated: 2026-10-30
 ---

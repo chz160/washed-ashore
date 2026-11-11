@@ -5,9 +5,9 @@ tech: []
 area: [lookout-tower]
 issues: [7, 8]
 prs: []
-source: "_bmad-output/poc/tower-restart-rulings.md sections 1b and 1c (= studio:decisions decision/lookout-tower-restart-carry-over)"
+source: "_bmad-output/poc/tower-restart-rulings.md sections 1b and 1c"
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-11
 aliases: [fire lookout, the tower]
 ---
 # Lookout tower

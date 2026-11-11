@@ -5,10 +5,10 @@ tech: [probe-tests]
 area: [player]
 issues: [19]
 prs: [65]
-source: "PR #65 body; pod86-brief.md 'Hard rules (Noah's standing rules)'; studio:decisions gate/playmode-spawn-19"
+source: "PR #65 body; pod86-brief.md 'Hard rules (Noah's standing rules)'"
 decided_by: "Noah (standing rule); game-director gate for #19"
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

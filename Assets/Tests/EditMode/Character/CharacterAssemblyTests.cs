@@ -12,6 +12,13 @@ namespace WashedAshore.Tests.EditMode.Character
     /// <summary>Spec H2: 2+ men's and 2+ women's outfits assemble from the separate meshes with 0 errors; a runtime slot swap leaves no T-pose or seam.</summary>
     public class CharacterAssemblyTests
     {
+        const string RetiredOutfit = "RETIRED with the low-poly Men: removed by item 6 (Noah: 'OK, remove at the end'). Replacement: SurvivorAppearanceTests.AssemblesFromHeadAndBodyAloneWithNoErrorsOnTheSharedSkeleton";
+        const string RetiredLegsSwap = "RETIRED with the low-poly Men: removed by item 6 (Noah: 'OK, remove at the end'). Replacement: N/A by ruling (customisation dropped)";
+        const string RetiredScale = "RETIRED with the low-poly Men: removed by item 6 (Noah: 'OK, remove at the end'). Replacement: SurvivorAppearanceTests.TheNumbersAreDataOfRecordNotTypedConstants (C4 scale guard 1.0156)";
+
+        static readonly string[] RetiredLowPolyMen = { "Men_Worker", "Men_Farmer", "Men_Casual", "Men_Casual2", "Men_Adventurer" };
+
+        static CharacterAppearance Survivor() => Load(CharacterAssetBuilder.SurvivorAppearancePath);
         const float SeamTolerance = 0.01f; // m
 
         static IEnumerable<string> AppearancePaths() =>
@@ -64,6 +71,7 @@ namespace WashedAshore.Tests.EditMode.Character
         [TestCaseSource(nameof(AppearancePaths))]
         public void OutfitAssemblesWithNoErrors(string path)
         {
+            if (System.Array.IndexOf(RetiredLowPolyMen, System.IO.Path.GetFileNameWithoutExtension(path)) >= 0) Assert.Ignore(RetiredOutfit);
             var appearance = Load(path);
             Assert.IsNotNull(appearance, path);
             var body = CharacterAssembler.Assemble(appearance);
@@ -78,6 +86,7 @@ namespace WashedAshore.Tests.EditMode.Character
         }
 
         [Test]
+        [Ignore(RetiredLegsSwap)]
         public void LegsSwapAtRuntimeKeepsThePoseAndTheSeams()
         {
             var worker = Load(CharacterAssetBuilder.AppearancePath(BodyType.Men, "Worker"));
@@ -186,8 +195,8 @@ namespace WashedAshore.Tests.EditMode.Character
         [Test]
         public void ViewCopyFollowsTheShadowPoseHasNoHeadAnimatorOrColliderAndRebuildsOnSwap()
         {
-            var farmer = Load(CharacterAssetBuilder.AppearancePath(BodyType.Men, "Farmer"));
-            var worker = Load(CharacterAssetBuilder.AppearancePath(BodyType.Men, "Worker"));
+            var farmer = Survivor();   // retargeted to the Survivor (qa-49 M5): Head + Body only, so the Legs/Feet loops below have nothing to visit
+            var worker = farmer;
             var set = AssetDatabase.LoadAssetAtPath<CharacterClipSet>(CharacterAssetBuilder.ClipSetPath(BodyType.Men));
             var shadow = CharacterAssembler.Assemble(farmer);
             var copy = CharacterAssembler.AssembleViewCopy(shadow);
@@ -196,6 +205,7 @@ namespace WashedAshore.Tests.EditMode.Character
                 Assert.IsNotNull(copy);
                 Assert.AreEqual(Vector3.zero, copy.transform.localPosition);
                 Assert.AreEqual(0, copy.Body.Renderers(CharacterSlot.Head).Count, "view body has a head");
+                Assert.AreEqual(1, copy.Body.Renderers(CharacterSlot.Body).Count, "the Survivor view body has exactly one Body renderer (Legs and Feet are empty slots, so their iterations below visit nothing)");
                 foreach (var slot in new[] { CharacterSlot.Body, CharacterSlot.Legs, CharacterSlot.Feet })
                     foreach (var r in copy.Body.Renderers(slot))
                     {
@@ -210,17 +220,19 @@ namespace WashedAshore.Tests.EditMode.Character
                 Assert.AreEqual(0, copy.Resyncs);
                 Assert.AreEqual(0, copy.GetComponentsInChildren<Collider>(true).Length, "view body has a Collider");
                 Assert.AreEqual(0, shadow.GetComponentsInChildren<Collider>(true).Length, "shadow body has a Collider");
-                foreach (var clipName in new[] { "Idle", "Run", "Sleep_Loop", "Sit_Loop" })
+                foreach (var clipName in new[] { "Stand_Idle", "Run", "Sleep_Loop", "Sit_Loop" })   // Stand_Idle: the Survivor's zero node (the pack Idle is not a standing loop)
                 {
+                    Assert.IsNotNull(set.Get(clipName), "clip " + clipName + " is missing from the Men clip set");
                     set.Get(clipName).SampleAnimation(shadow.Animator.gameObject, set.Get(clipName).length * 0.37f);
                     copy.Apply();
                     foreach (var bone in new[] { "Hips", "Head", "Foot.L", "Foot.R", "UpperLeg.L", "Chest" })
                         Assert.Less(Vector3.Distance(shadow.Bone(bone).position, copy.Body.Bone(bone).position), 1e-4f, $"{clipName}/{bone}");
                 }
-                string before = copy.Body.Renderers(CharacterSlot.Legs)[0].sharedMesh.name;
-                Assert.IsTrue(shadow.SetSlot(CharacterSlot.Legs, worker.legs));
-                Assert.AreNotEqual(before, copy.Body.Renderers(CharacterSlot.Legs)[0].sharedMesh.name, "view legs were not rebuilt");
-                Assert.AreEqual(3, copy.Body.GetComponentsInChildren<SkinnedMeshRenderer>(true).Length);
+                // the Survivor has one Body part, so this swap installs the same part again: it proves the view body is rebuilt, not that a different mesh arrives
+                var before = copy.Body.Renderers(CharacterSlot.Body)[0];
+                Assert.IsTrue(shadow.SetSlot(CharacterSlot.Body, worker.body));
+                Assert.AreNotSame(before, copy.Body.Renderers(CharacterSlot.Body)[0], "view body was not rebuilt");
+                Assert.AreEqual(1, copy.Body.GetComponentsInChildren<SkinnedMeshRenderer>(true).Length);
                 Assert.IsTrue(shadow.SetSlot(CharacterSlot.Head, worker.head));
                 Assert.AreEqual(0, copy.Body.Renderers(CharacterSlot.Head).Count, "a head swap must not give the view body a head");
             }
@@ -367,7 +379,7 @@ namespace WashedAshore.Tests.EditMode.Character
         [Test]
         public void TwoAnimatorsShareWeightsAndLegsButOnlyTheViewArmsAreCapped()
         {
-            var farmer = Load(CharacterAssetBuilder.AppearancePath(BodyType.Men, "Farmer"));
+            var farmer = Survivor();   // retargeted to the Survivor (qa-49 M25)
             var shadow = CharacterAssembler.Assemble(farmer);
             var view = CharacterAssembler.AssembleViewCopy(shadow);
             try
@@ -398,7 +410,7 @@ namespace WashedAshore.Tests.EditMode.Character
         [Test]
         public void SyncGuardResyncsADriftedViewAnimatorAndCountsIt()
         {
-            var farmer = Load(CharacterAssetBuilder.AppearancePath(BodyType.Men, "Farmer"));
+            var farmer = Survivor();   // retargeted to the Survivor (qa-49 M26)
             var shadow = CharacterAssembler.Assemble(farmer);
             var view = CharacterAssembler.AssembleViewCopy(shadow);
             try
@@ -437,6 +449,7 @@ namespace WashedAshore.Tests.EditMode.Character
         }
 
         [Test]
+        [Ignore(RetiredScale)]
         public void MenSkeletonIsScaledUniformlyWomenAreNot()
         {
             var men = AssetDatabase.LoadAssetAtPath<GameObject>(CharacterAssetBuilder.SkeletonPath(BodyType.Men)).transform.localScale;

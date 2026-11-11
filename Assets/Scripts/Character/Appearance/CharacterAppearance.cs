@@ -47,12 +47,30 @@ namespace WashedAshore.Character.Appearance
             forShadow ? (high ? rangeHighShadow : rangeLowShadow) : (high ? rangeHighView : rangeLowView);
         [Tooltip("Part models (the FBX assets). Each carries one SkinnedMeshRenderer on the pack's armature.")]
         public GameObject head, body, legs, feet;
+        [Tooltip("Body, Legs or Feet slots this appearance leaves empty ON PURPOSE (for example a one-piece body). Head is always required. An unset slot that is not listed here still fails assembly.")]
+        public List<CharacterSlot> emptySlots = new List<CharacterSlot>();
+        [Header("Stand locomotion node speeds (unscaled authored clip speeds in m/s; the asset builder writes them from the regenerated speeds file)")]
+        [Tooltip("Walk clip speed on the unscaled skeleton. Default: the Quaternius clip (1.337).")]
+        public float walkClipSpeed = CharacterClipSet.DefaultWalkClipSpeed;
+        [Tooltip("Run clip speed on the unscaled skeleton, both families. Default: the Quaternius clip (3.035).")]
+        public float runClipSpeed = CharacterClipSet.DefaultRunClipSpeed;
+
+        [Header("Knee corrective shapes (KneeCorrectiveDriver; set by the asset builder from the re-skin report)")]
+        [Tooltip("Knee flexion in degrees at which the Knee_L_90 / Knee_R_90 shapes start to come in (td-49: 20).")]
+        public float kneeShapeStartDegrees = 20f;
+        [Tooltip("Knee flexion in degrees at which the knee shapes are at full weight: the flex they were authored at (90 provisional; the re-skin report gives the real value).")]
+        public float kneeShapeTargetDegrees = 90f;
+        [Tooltip("Socket parents and offsets. Null: CharacterSocketSet.Defaults (default parents, zero offsets).")]
+        public CharacterSocketSet socketSet;
         [Tooltip("Uniform scale on the skeleton root (both the shadow and the view body use the skeleton prefab, so both carry it). Set by the builder from the authoring report; feet stay at the origin.")]
         public float skeletonScale = 1f;
         public List<SlotTint> tints = new List<SlotTint>();
         [Tooltip("Union of every stance clip's posed mesh, in body-root space, measured by the asset builder. The assembler sets each renderer's local bounds from it so the body and its shadow never pop out (td review).")]
         public Bounds poseBounds;
         public bool hasPoseBounds;
+
+        /// <summary>True when <paramref name="slot"/> is deliberately empty (listed in <see cref="emptySlots"/>; never Head).</summary>
+        public bool IsEmpty(CharacterSlot slot) => slot != CharacterSlot.Head && emptySlots != null && emptySlots.Contains(slot);
 
         public GameObject GetPart(CharacterSlot slot)
         {

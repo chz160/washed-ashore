@@ -5,10 +5,10 @@ tech: [probe-tests]
 area: [lookout-tower]
 issues: [86, 80, 8]
 prs: [93]
-source: "pod86 spec-86 r4 section 0 item 1; studio:production sprint/pod86/ruling-noah; PR #93"
+source: "pod86 spec-86 r4 section 0 item 1; PR #93"
 decided_by: "Noah"
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

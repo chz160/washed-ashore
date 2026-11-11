@@ -22,8 +22,8 @@ namespace WashedAshore.Character.Stance
             public float stand, crouch, squat, sit, sleep;
         }
 
-        [Tooltip("Metres the body sits behind the player axis, per stance. Starts at 0.17 [artist advice: eye point is 0.174 m ahead of the model origin]; a fixed value over 0.20 goes to the director.")]
-        public BackOffsets backOffset = new BackOffsets { stand = 0.17f, crouch = 0.17f, squat = 0.17f, sit = 0.17f, sleep = 0.17f };
+        [Tooltip("Metres the body sits behind the player axis, per stance. 0.244 puts the Survivor's eye on the camera axis (measured 0.243 to 0.244 m ahead of the model origin in all five stances, pod 49 print; director-49 accepted, studio:decisions gate/pod49-backoffset-0244). The Farmer's was 0.17 (eye point 0.174 m ahead). A fixed value over 0.20 goes to the director.")]
+        public BackOffsets backOffset = new BackOffsets { stand = 0.244f, crouch = 0.244f, squat = 0.244f, sit = 0.244f, sleep = 0.244f };
         [Tooltip("Renderer name contains this: the head slot. Used when no head renderers were set.")]
         [SerializeField] string headNameToken = "Head";
         [Tooltip("Metres the bodies sit below the player origin: the measured controller hover on flat ground, a constant (td ruling). Never a probe.")]
@@ -32,6 +32,7 @@ namespace WashedAshore.Character.Stance
         readonly List<Renderer> head = new List<Renderer>();
         readonly List<Renderer> all = new List<Renderer>();
         readonly List<Renderer> viewRenderers = new List<Renderer>();
+        readonly List<Renderer> socketItems = new List<Renderer>();   // renderers under a Socket_ subtree of the shadow body
         PlayerController player;
         Transform shadowRoot, viewRoot;
         bool debugView;
@@ -62,18 +63,20 @@ namespace WashedAshore.Character.Stance
         public void Rescan()
         {
             head.Clear();
+            socketItems.Clear();
             all.Clear();
             viewRenderers.Clear();
             if (shadowRoot != null)
                 foreach (var r in shadowRoot.GetComponentsInChildren<Renderer>(true))
                 {
                     all.Add(r);
-                    if (r.name.IndexOf(headNameToken, System.StringComparison.OrdinalIgnoreCase) >= 0) head.Add(r);
+                    if (WashedAshore.Character.Appearance.CharacterSockets.IsUnderSocket(r.transform, shadowRoot)) socketItems.Add(r);   // an attached item is never a head by name
+                    else if (r.name.IndexOf(headNameToken, System.StringComparison.OrdinalIgnoreCase) >= 0) head.Add(r);
                 }
             if (viewRoot != null)
                 foreach (var r in viewRoot.GetComponentsInChildren<Renderer>(true)) viewRenderers.Add(r);
             else
-                foreach (var r in all) if (!head.Contains(r)) viewRenderers.Add(r);
+                foreach (var r in all) if (!head.Contains(r) && !socketItems.Contains(r)) viewRenderers.Add(r);   // no view body: items go with the head (shadow only)
             Apply();
         }
 
@@ -105,6 +108,7 @@ namespace WashedAshore.Character.Stance
             {
                 var mode = debugView ? ShadowCastingMode.On : ShadowCastingMode.ShadowsOnly;
                 foreach (var r in head) r.shadowCastingMode = mode;
+                foreach (var r in socketItems) r.shadowCastingMode = mode;
             }
         }
 

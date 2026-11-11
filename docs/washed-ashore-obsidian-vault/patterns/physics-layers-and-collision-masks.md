@@ -5,9 +5,9 @@ tech: [physics]
 area: []
 issues: [43, 44]
 prs: [50, 54]
-source: "PR #50 and #54; issues #43, #44; studio:decisions gate/physics-layers-43"
+source: "PR #50 and #54; issues #43, #44"
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-11
 aliases: [layers, collision matrix, WorldLayers, NonAlloc]
 ---
 # Physics layers and collision masks

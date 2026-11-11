@@ -55,20 +55,44 @@ namespace WashedAshore.Tests.EditMode.Stance
             Assert.Less(maxStep, 0.02f, "offset jumps between 0.5 degree steps");
         }
 
-        [Test]
-        public void MonotoneWhereTheTableIsMonotone()
+        // The tables may fall between points (director's table for pod 49), so monotonicity is asked per segment: between two adjacent table points
+        // the curve stays within those two values (no extremum inside a segment). Replaces the whole-curve non-decreasing test.
+        /// <summary>Counts the samples (every 0.25 degree) at which the curve leaves the band [min,max] of the two table points that bound its segment. Zero for a curve with no extremum inside any segment.</summary>
+        static int SegmentViolations(System.Func<float, float> curve, Vector2[] pts)
         {
-            var t = new LookDownTuning();
-            foreach (var s in new[] { Gameplay.Stance.Stand, Gameplay.Stance.Crouch })
+            int n = 0;
+            for (int i = 0; i + 1 < pts.Length; i++)
             {
-                float last = 0f;
-                for (float p = -85f; p <= 85.01f; p += 0.5f)
+                float lo = Mathf.Min(pts[i].y, pts[i + 1].y), hi = Mathf.Max(pts[i].y, pts[i + 1].y);
+                for (float p = pts[i].x; p <= pts[i + 1].x + 1e-4f; p += 0.25f)
                 {
-                    float v = F(t, s, s, 1f, p);
-                    Assert.GreaterOrEqual(v, last - 1e-5f, $"{s} fell at pitch {p}");
-                    last = v;
+                    float v = curve(Mathf.Min(p, pts[i + 1].x));
+                    if (v < lo - 1e-5f || v > hi + 1e-5f) n++;
                 }
             }
+            return n;
+        }
+
+        // The tables may fall between points (director's table for pod 49), so monotonicity is asked per segment: between two adjacent table points
+        // the curve stays within those two values (no extremum inside a segment). Replaces the whole-curve non-decreasing test.
+        [TestCase(Gameplay.Stance.Stand)]
+        [TestCase(Gameplay.Stance.Crouch)]
+        public void EachSegmentStaysBetweenItsTwoPoints(Gameplay.Stance s)
+        {
+            var t = new LookDownTuning();
+            Assert.AreEqual(0, SegmentViolations(p => F(t, s, s, 1f, p), t.Of(s)), $"{s}: the curve leaves the band of a table segment");
+        }
+
+        [Test]
+        public void SegmentCheckBites_OnASyntheticInteriorBump()
+        {
+            // Segment 2 is flat (0.05 to 0.05), so any interior bump leaves its band.
+            var pts = new[] { new Vector2(20f, 0f), new Vector2(60f, 0.05f), new Vector2(85f, 0.05f) };
+            float Linear(float p) => p <= 60f ? 0.05f * (p - 20f) / 40f : 0.05f;
+            Assert.AreEqual(0, SegmentViolations(Linear, pts), "the piecewise-linear line stays inside every segment");
+            // linear + 0.01*sin(pi*u) over the second segment (u = 0..1) rises above its band
+            float Bumped(float p) => p <= 60f ? Linear(p) : Linear(p) + 0.01f * Mathf.Sin(Mathf.PI * (p - 60f) / 25f);
+            Assert.GreaterOrEqual(SegmentViolations(Bumped, pts), 1, "an interior bump must be reported");
         }
 
         [TestCase(Gameplay.Stance.Squat)]
@@ -98,11 +122,11 @@ namespace WashedAshore.Tests.EditMode.Stance
         }
 
         [Test]
-        public void CrouchClearsTheNeckAtPlus65AndPlus70_AndStandAtPlus50IsZero()
+        public void StandAtPlus40IsZero()
         {
             var t = new LookDownTuning();
-            Assert.GreaterOrEqual(F(t, Gameplay.Stance.Crouch, Gameplay.Stance.Crouch, 1f, 70f), 0.05f, "amend4: Crouch +70 must clear the neck (neck rays go to 0 at f >= 0.05)");
-            Assert.GreaterOrEqual(F(t, Gameplay.Stance.Crouch, Gameplay.Stance.Crouch, 1f, 65f), 0.04f, "Crouch +65 clears the neck at 0.05 in the sweep");
+            // The amend4 constants (Crouch +70 >= 0.05, +65 >= 0.04) were Farmer-body sweep figures. The Farmer is removed (Noah P4, 2026-11-03);
+            // Bar 1 for the Survivor is proved by ConfiguredTables_Gate_ThreeIdlePhasesAndGaits, not by these constants.
             Assert.AreEqual(0f, F(t, Gameplay.Stance.Stand, Gameplay.Stance.Stand, 1f, 40f), 1e-5f);
         }
 

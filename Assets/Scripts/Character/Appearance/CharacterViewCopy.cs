@@ -62,11 +62,16 @@ namespace WashedAshore.Character.Appearance
                 copy.viewAnimator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
             }
             foreach (var slot in ViewSlots)
+            {
+                if (source.Appearance.GetPart(slot) == null && source.Appearance.IsEmpty(slot)) continue; // empty on the shadow: none on the view
                 if (!CharacterAssembler.Attach(copy.view, slot, source.Appearance.GetPart(slot)))
                 {
                     CharacterAssembler.Destroy(root);
                     return null;
                 }
+            }
+            if (!CharacterSockets.Create(copy.view, source.Appearance.socketSet)) { CharacterAssembler.Destroy(root); return null; }
+            KneeCorrectiveDriver.AddTo(copy.view);   // the view body drives its own shapes from its own legs
             copy.StyleRenderers();
             copy.view.ApplyTints(); // the view body is the one the player looks down at: same colours as the shadow body
             copy.MapBones();

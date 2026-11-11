@@ -11887,23 +11887,23 @@ MonoBehaviour:
     stand:
     - {x: 20, y: 0}
     - {x: 40, y: 0}
-    - {x: 45, y: 0.02}
-    - {x: 50, y: 0.04}
-    - {x: 55, y: 0.06}
-    - {x: 60, y: 0.07}
-    - {x: 65, y: 0.1}
-    - {x: 70, y: 0.16}
-    - {x: 75, y: 0.21}
-    - {x: 80, y: 0.23}
-    - {x: 85, y: 0.3}
+    - {x: 45, y: -0.03}
+    - {x: 50, y: -0.03}
+    - {x: 55, y: 0}
+    - {x: 60, y: 0.01}
+    - {x: 65, y: 0.065}
+    - {x: 70, y: 0.055}
+    - {x: 75, y: 0.085}
+    - {x: 80, y: 0.125}
+    - {x: 85, y: 0.145}
     crouch:
     - {x: 20, y: 0}
     - {x: 60, y: 0}
-    - {x: 65, y: 0.05}
-    - {x: 70, y: 0.06}
-    - {x: 75, y: 0.11}
-    - {x: 80, y: 0.125}
-    - {x: 85, y: 0.175}
+    - {x: 65, y: -0.055}
+    - {x: 70, y: -0.03}
+    - {x: 75, y: 0.02}
+    - {x: 80, y: 0.01}
+    - {x: 85, y: 0.055}
   swimTuning: {fileID: 11400000, guid: 7fb1a231f2714080b4a60bb75ac90b40, type: 2}
 --- !u!143 &267676271
 CharacterController:
@@ -11959,11 +11959,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: WashedAshore.Character.Stance::WashedAshore.Character.Stance.FirstPersonBody
   backOffset:
-    stand: 0.17
-    crouch: 0.17
-    squat: 0.17
-    sit: 0.17
-    sleep: 0.17
+    stand: 0.244
+    crouch: 0.244
+    squat: 0.244
+    sit: 0.244
+    sleep: 0.244
   headNameToken: Head
   footDrop: 0.05
 --- !u!114 &267676274
@@ -11978,7 +11978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a848a96b08d4343ba9946e400bed54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: WashedAshore.Character.Stance::WashedAshore.Character.Stance.PlayerCharacterView
-  appearance: {fileID: 11400000, guid: fb7e3f9d0e79eb04abc8212912d69b41, type: 2}
+  appearance: {fileID: 11400000, guid: 5b0002d120ba2b74e9d8fa911cceb9d2, type: 2}
   firstPersonBody: {fileID: 267676273}
   landAfterAir: 0.25
   jumpStartVelocity: 1.5

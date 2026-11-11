@@ -5,9 +5,9 @@ tech: [stairs-ramps, character-controller]
 area: [lookout-tower, player]
 issues: [8, 41, 63, 64, 86]
 prs: [79, 82, 85, 92]
-source: "PR #82 and #85; issue #41 comments 2026-10-28/29; studio:engineering adr/64-controller-choice"
+source: "PR #82 and #85; issue #41 comments 2026-10-28/29"
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-11
 aliases: [tower stairs, ramp step offset, rail snag]
 ---
 # Stairs and ramps with a CharacterController

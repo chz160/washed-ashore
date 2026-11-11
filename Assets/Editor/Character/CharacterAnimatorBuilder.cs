@@ -88,7 +88,7 @@ namespace WashedAshore.Character.Editor
 
             var sm = c.layers[0].stateMachine;
             float scale = CharacterAssetBuilder.SkeletonScaleOf(type);
-            var stand = LocoState(c, sm, StandState, new Vector3(250, 0), StandNodes(clips, scale));
+            var stand = LocoState(c, sm, StandState, new Vector3(250, 0), StandNodes(clips, scale, CharacterAssetBuilder.WalkClipSpeedOf(type), CharacterAssetBuilder.RunClipSpeedOf(type)));
             var crouch = LocoState(c, sm, CrouchState, new Vector3(250, 120), CrouchNodes(clips));
             sm.defaultState = stand;
 
@@ -325,14 +325,21 @@ namespace WashedAshore.Character.Editor
         }
 
         // (x = right m/s, y = forward m/s). Positions are the game speeds each clip carries, see CharacterClipSet.StandNodes.
-        static List<(AnimationClip, Vector2)> StandNodes(CharacterClipSet s, float k) => new List<(AnimationClip, Vector2)>
+        static AnimationClip ZeroNode(CharacterClipSet s)
         {
-            (s.Get(N.Idle), Vector2.zero),
-            (s.Get(N.Walk), new Vector2(0, 0.7f * 1.337f * k)), (s.Get(N.Walk), new Vector2(0, 1.4f * 1.337f * k)),
-            (s.Get(N.Run), new Vector2(0, 3.035f * k)), (s.Get(N.Jog), new Vector2(0, 5f)), (s.Get(N.Sprint), new Vector2(0, 8f)),
-            (s.Get(N.RunBack), new Vector2(0, -0.7f * 3.035f * k)), (s.Get(N.RunBack), new Vector2(0, -3.035f * k)), (s.Get(N.JogBack), new Vector2(0, -5f)), (s.Get(N.SprintBack), new Vector2(0, -8f)),
-            (s.Get(N.RunLeft), new Vector2(-0.7f * 3.035f * k, 0)), (s.Get(N.RunLeft), new Vector2(-3.035f * k, 0)), (s.Get(N.JogLeft), new Vector2(-5f, 0)), (s.Get(N.SprintLeft), new Vector2(-8f, 0)),
-            (s.Get(N.RunRight), new Vector2(0.7f * 3.035f * k, 0)), (s.Get(N.RunRight), new Vector2(3.035f * k, 0)), (s.Get(N.JogRight), new Vector2(5f, 0)), (s.Get(N.SprintRight), new Vector2(8f, 0)),
+            var standIdle = s.Get(N.StandIdle);
+            return standIdle != null ? standIdle : s.Get(N.Idle);   // explicit null check: these are Unity objects
+        }
+
+        // The zero node is Stand_Idle (director option C, td Addendum 20): the pack Idle is never a standing loop. A clip set without Stand_Idle (the old low-poly sets) keeps its Idle.
+        static List<(AnimationClip, Vector2)> StandNodes(CharacterClipSet s, float k, float walk, float run) => new List<(AnimationClip, Vector2)>
+        {
+            (ZeroNode(s), Vector2.zero),
+            (s.Get(N.Walk), new Vector2(0, 0.7f * walk * k)), (s.Get(N.Walk), new Vector2(0, 1.4f * walk * k)),
+            (s.Get(N.Run), new Vector2(0, run * k)), (s.Get(N.Jog), new Vector2(0, 5f)), (s.Get(N.Sprint), new Vector2(0, 8f)),
+            (s.Get(N.RunBack), new Vector2(0, -0.7f * run * k)), (s.Get(N.RunBack), new Vector2(0, -run * k)), (s.Get(N.JogBack), new Vector2(0, -5f)), (s.Get(N.SprintBack), new Vector2(0, -8f)),
+            (s.Get(N.RunLeft), new Vector2(-0.7f * run * k, 0)), (s.Get(N.RunLeft), new Vector2(-run * k, 0)), (s.Get(N.JogLeft), new Vector2(-5f, 0)), (s.Get(N.SprintLeft), new Vector2(-8f, 0)),
+            (s.Get(N.RunRight), new Vector2(0.7f * run * k, 0)), (s.Get(N.RunRight), new Vector2(run * k, 0)), (s.Get(N.JogRight), new Vector2(5f, 0)), (s.Get(N.SprintRight), new Vector2(8f, 0)),
         };
 
         static List<(AnimationClip, Vector2)> CrouchNodes(CharacterClipSet s) => new List<(AnimationClip, Vector2)>

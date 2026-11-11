@@ -5,9 +5,9 @@ tech: [stairs-ramps, collider-geometry, character-controller]
 area: [lookout-tower, player]
 issues: [8, 40, 41, 45, 63, 78, 80, 86, 91]
 prs: [57, 79, 85, 92, 93]
-source: "PR #57, #79, #85, #92, #93; issues #8, #80, #86 (comments 2026-10-30); studio:qa pod8/final-signoff"
+source: "PR #57, #79, #85, #92, #93; issues #8, #80, #86 (comments 2026-10-30)"
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-11
 ---
 # Lookout tower: traversal and interactions
 

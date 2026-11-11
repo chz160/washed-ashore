@@ -36,10 +36,12 @@ namespace WashedAshore.Tests.EditMode.Character
             foreach (var s in sm.states.Select(x => x.state))
                 Assert.IsTrue(seen.Contains(s), $"{type}: state {s.name} is unreachable");
             var used = new HashSet<string>(sm.states.SelectMany(s => Clips(s.state.motion)).Select(c => c.name));
-            foreach (var name in CharacterClipSet.Names.Required)
-                Assert.IsTrue(used.Contains(name), $"{type}: clip {name} is in no state");
             // every motion comes from this body type's own clip set
             var set = AssetDatabase.LoadAssetAtPath<CharacterClipSet>(CharacterAssetBuilder.ClipSetPath(type));
+            // the Survivor's set: Stand_Idle is the zero node and the pack Idle is never a standing loop (Addendum 20), so the required list swaps Idle for Stand_Idle there
+            bool standIdle = set.Get(CharacterClipSet.Names.StandIdle) != null;
+            foreach (var name in CharacterClipSet.Names.Required.Select(n => standIdle && n == CharacterClipSet.Names.Idle ? CharacterClipSet.Names.StandIdle : n))
+                Assert.IsTrue(used.Contains(name), $"{type}: clip {name} is in no state");
             foreach (var s in sm.states)
                 foreach (var c in Clips(s.state.motion)) Assert.AreSame(set.Get(c.name), c, $"{type}/{s.state.name}: {c.name}");
         }
@@ -78,7 +80,7 @@ namespace WashedAshore.Tests.EditMode.Character
                 Assert.AreSame(set.Get(name), pair.Key);
                 Assert.AreSame(set.Get(name + CharacterClipSet.Names.FullSuffix), pair.Value, name);
             }
-            var appearance = AssetDatabase.LoadAssetAtPath<CharacterAppearance>(CharacterAssetBuilder.AppearancePath(type, "Worker"));
+            var appearance = AssetDatabase.LoadAssetAtPath<CharacterAppearance>(type == BodyType.Men ? CharacterAssetBuilder.SurvivorAppearancePath : CharacterAssetBuilder.AppearancePath(type, "Worker"));   // the Men controller family is the Survivor's
             Assert.AreSame(o, appearance.shadowController);
             Assert.AreSame(AssetDatabase.LoadAssetAtPath<AnimatorController>(CharacterAnimatorBuilder.ControllerPath(type)), appearance.controller);
         }
@@ -216,15 +218,17 @@ namespace WashedAshore.Tests.EditMode.Character
             }
         }
 
-        [TestCase(BodyType.Men, 1.030f)]
+        [TestCase(BodyType.Men, 1.0156f)]   // the Survivor's scale (td-49 Addendum 19); the Men family is the Survivor's since P4
         [TestCase(BodyType.Women, 1.0f)]
         public void LocomotionRateAndClipSpeedUseOneConvention(BodyType type, float scale)
         {
             var set = AssetDatabase.LoadAssetAtPath<CharacterClipSet>(CharacterAssetBuilder.ClipSetPath(type));
             Assert.AreEqual(scale, CharacterAssetBuilder.SkeletonScaleOf(type), 1e-4f);
+            // the Walk and Run nodes are data (the appearance carries them; the builder reads them from the speeds file): pass them as the driver does
+            float walk = CharacterAssetBuilder.WalkClipSpeedOf(type), run = CharacterAssetBuilder.RunClipSpeedOf(type);
             Assert.AreEqual(5f / set.Speed("Jog"), CharacterClipSet.LocomotionRate(0, 5f, scale), 0.001f, "Jog at 5 m/s");
             Assert.AreEqual(8f / set.Speed("Sprint"), CharacterClipSet.LocomotionRate(0, 8f, scale), 0.001f, "Sprint at 8 m/s");
-            Assert.AreEqual(1.5f / set.Speed("Walk"), CharacterClipSet.LocomotionRate(0, 1.5f, scale), 0.002f, "Walk alone at the tower speed");
+            Assert.AreEqual(1.5f / set.Speed("Walk"), CharacterClipSet.LocomotionRate(0, 1.5f, scale, 0f, walk, run), 0.002f, "Walk alone at the tower speed");
             Assert.AreEqual(2.5f / set.Speed("CrouchWalk"), CharacterClipSet.LocomotionRate(1, 2.5f, scale), 0.002f, "CrouchWalk at its top speed");
         }
 

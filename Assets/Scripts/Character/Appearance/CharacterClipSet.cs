@@ -39,6 +39,10 @@ namespace WashedAshore.Character.Appearance
             return 0f;
         }
 
+        /// <summary>The Quaternius clips' measured UNSCALED authored speeds (m/s): Walk and Run. The Survivor's retargeted clips are slower (stride factors), so the appearance carries its own
+        /// values (<see cref="CharacterAppearance.walkClipSpeed"/>, <see cref="CharacterAppearance.runClipSpeed"/>), written by the asset builder from the regenerated speeds file (td-49 option b).</summary>
+        public const float DefaultWalkClipSpeed = 1.337f, DefaultRunClipSpeed = 3.035f;
+
         // SPEED CONVENTION (td): `NamedClip.speed` / Speed(name) is ON THE BODY (authored speed x the skeleton scale, from the manifest).
         // The node clip speeds below are the UNSCALED authored speeds; LocomotionRate multiplies them by the skeleton scale argument.
         // Both node tables store the UNSCALED AUTHORED speed of each clip: StandNodes the measured values, CrouchNodes the designed on-body
@@ -57,9 +61,9 @@ namespace WashedAshore.Character.Appearance
         /// (<paramref name="forwardFamily"/> false; the pack has no walk-speed strafe): Run_Left, Run_Right and Run_Back alone from 0.7 to 1.0
         /// x their speed, then Jog and Sprint. Positions of the first nodes are in on-body speed. Clip speeds are authored (unscaled).
         /// </summary>
-        public static (float position, float clipSpeed)[] StandNodes(float scale = 1f, bool forwardFamily = true) => forwardFamily
-            ? new[] { (0f, 0f), (0.7f * 1.337f * scale, 1.337f), (1.4f * 1.337f * scale, 1.337f), (3.035f * scale, 3.035f), (5f, 4.348f), (8f, 5.80f / scale) }
-            : new[] { (0f, 0f), (0.7f * 3.035f * scale, 3.035f), (3.035f * scale, 3.035f), (5f, 4.348f), (8f, 5.80f / scale) };
+        public static (float position, float clipSpeed)[] StandNodes(float scale = 1f, bool forwardFamily = true, float walk = DefaultWalkClipSpeed, float run = DefaultRunClipSpeed) => forwardFamily
+            ? new[] { (0f, 0f), (0.7f * walk * scale, walk), (1.4f * walk * scale, walk), (run * scale, run), (5f, 4.348f), (8f, 5.80f / scale) }
+            : new[] { (0f, 0f), (0.7f * run * scale, run), (run * scale, run), (5f, 4.348f), (8f, 5.80f / scale) };
 
         /// <summary>Crouch nodes: CrouchWalk alone from 1.25 to 2.5 m/s (rate 0.70 to 1.40; the edge is exactly 0.70 at 1.25), Idle below.
         /// Positions are game speeds; the clip is authored at 1.7857 / scale so its on-body speed is 1.7857.</summary>
@@ -74,15 +78,15 @@ namespace WashedAshore.Character.Appearance
         /// purely sideways or backwards: the rate is blended by it, so the switch between the two families never pops (derive it from the
         /// movement direction, for example 1 - max(0, cos(angle from forward)); do not switch at a hard angle). Written to LocoRate by the driver.
         /// </summary>
-        public static float LocomotionRate(int stance, float speed, float skeletonScale = 1f, float sidewaysWeight = 0f)
+        public static float LocomotionRate(int stance, float speed, float skeletonScale = 1f, float sidewaysWeight = 0f, float walkClipSpeed = DefaultWalkClipSpeed, float runClipSpeed = DefaultRunClipSpeed)
         {
             if (speed < 0.05f || stance < 0 || stance > 1) return 1f;
             if (stance == 0 && sidewaysWeight > 0f)
             {
                 float w = Mathf.Clamp01(sidewaysWeight);
-                return Mathf.Lerp(Rate(StandNodes(skeletonScale, true), speed, skeletonScale), Rate(StandNodes(skeletonScale, false), speed, skeletonScale), w);
+                return Mathf.Lerp(Rate(StandNodes(skeletonScale, true, walkClipSpeed, runClipSpeed), speed, skeletonScale), Rate(StandNodes(skeletonScale, false, walkClipSpeed, runClipSpeed), speed, skeletonScale), w);
             }
-            return Rate(stance == 0 ? StandNodes(skeletonScale, true) : CrouchNodes(skeletonScale), speed, skeletonScale);
+            return Rate(stance == 0 ? StandNodes(skeletonScale, true, walkClipSpeed, runClipSpeed) : CrouchNodes(skeletonScale), speed, skeletonScale);
         }
 
         static float Rate((float position, float clipSpeed)[] nodes, float speed, float skeletonScale)
@@ -104,6 +108,8 @@ namespace WashedAshore.Character.Appearance
         {
             /// <summary>Suffix of the full-swing Jog and Sprint clips (the shadow body's; the capped clips have no suffix and drive the view body).</summary>
             public const string FullSuffix = "_Full";
+            /// <summary>The upright standing loop (item 3, option C): the zero node of every Stand-family blend tree. The pack's Idle is not used for standing.</summary>
+            public const string StandIdle = "Stand_Idle";
             public const string Idle = "Idle", Walk = "Walk", Run = "Run", RunBack = "Run_Back", RunLeft = "Run_Left", RunRight = "Run_Right";
             public const string Jog = "Jog", JogBack = "JogBack", JogLeft = "JogLeft", JogRight = "JogRight";
             public const string Sprint = "Sprint", SprintBack = "SprintBack", SprintLeft = "SprintLeft", SprintRight = "SprintRight";

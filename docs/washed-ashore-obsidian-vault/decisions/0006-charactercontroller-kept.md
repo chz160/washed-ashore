@@ -5,10 +5,10 @@ tech: [character-controller]
 area: [player]
 issues: [64, 41, 46]
 prs: [82]
-source: "studio:engineering adr/64-controller-choice; PR #82"
+source: "PR #82"
 decided_by: "technical-director (td-64r)"
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---
