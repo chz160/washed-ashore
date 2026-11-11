@@ -191,6 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2214362466980796477}
   - component: {fileID: 4534230036496014632}
+  - component: {fileID: 8661937773318116972}
   m_Layer: 0
   m_Name: CommonTree_5
   m_TagString: Untagged
@@ -239,3 +240,26 @@ LODGroup:
     - renderer: {fileID: 2742629943708650798}
   m_Enabled: 1
   m_GlobalIlluminationLOD: 0
+--- !u!136 &8661937773318116972
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5981552376239475969}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.37840897
+  m_Height: 7.00624
+  m_Direction: 1
+  m_Center: {x: 0, y: 3.50312, z: 0}

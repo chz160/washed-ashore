@@ -11834,6 +11834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72d9e54930d86044a68e349d762a6bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: WashedAshore.Gameplay::WashedAshore.Gameplay.PlayerController
+  bushTuning: {fileID: 11400000, guid: 058b278a87940dd489a8b5208e854b1d, type: 2}
   cameraPivot: {fileID: 1813842455}
   spawnPoint: {fileID: 1988935799}
   spawnPointName: PlayerSpawn

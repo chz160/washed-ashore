@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887a898408717604799032fb5dca1166, type: 3}
+  m_Name: BushSlowdownTuning
+  m_EditorClassIdentifier: WashedAshore.Gameplay::WashedAshore.Gameplay.BushSlowdownTuning
+  layers:
+  - name: Broomsedge
+    slows: 0
+    walkMultiplier: 1
+    sprintMultiplier: 1
+    fullCount: 1
+    maxHeight: 1.1
+  - name: Briar
+    slows: 1
+    walkMultiplier: 0.7
+    sprintMultiplier: 0.5
+    fullCount: 1
+    maxHeight: 1.6
+  - name: ShrubThicket
+    slows: 1
+    walkMultiplier: 0.55
+    sprintMultiplier: 0.4
+    fullCount: 1
+    maxHeight: 2.6
+  - name: KudzuMound
+    slows: 1
+    walkMultiplier: 0.5
+    sprintMultiplier: 0.35
+    fullCount: 1
+    maxHeight: 3.2
+  - name: KudzuLeaf
+    slows: 1
+    walkMultiplier: 0.9
+    sprintMultiplier: 0.8
+    fullCount: 2
+    maxHeight: 0.9
+  - name: Fern
+    slows: 0
+    walkMultiplier: 1
+    sprintMultiplier: 1
+    fullCount: 1
+    maxHeight: 0.9
+  - name: CrackGrass
+    slows: 0
+    walkMultiplier: 1
+    sprintMultiplier: 1
+    fullCount: 1
+    maxHeight: 0.5
+  - name: BankGrass
+    slows: 0
+    walkMultiplier: 1
+    sprintMultiplier: 1
+    fullCount: 1
+    maxHeight: 1.1

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4474205981269685049}
   - component: {fileID: 1002285297389047216}
+  - component: {fileID: 6824381344001265140}
   m_Layer: 0
   m_Name: DeadTree_3
   m_TagString: Untagged
@@ -58,6 +59,29 @@ LODGroup:
     - renderer: {fileID: 6997247309885289665}
   m_Enabled: 1
   m_GlobalIlluminationLOD: 0
+--- !u!136 &6824381344001265140
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683758687036335625}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.52845603
+  m_Height: 13.280384
+  m_Direction: 1
+  m_Center: {x: 0, y: 6.640192, z: 0}
 --- !u!1 &7563954864080465602
 GameObject:
   m_ObjectHideFlags: 0
