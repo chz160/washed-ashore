@@ -28,7 +28,7 @@ dr = ImageDraw.Draw(sheet)
 for r, fs in enumerate(rows):
     for c, f in enumerate(fs):
         sheet.paste(Image.open(f).convert("RGB"), (c * w, r * (h + cap) + cap))
-        stem = os.path.basename(f)[:-4].replace("_strip", " strip ").replace("_f", " frame ", 1) if False else os.path.basename(f)[:-4]
+        stem = os.path.basename(f)[:-4]
         dr.text((c * w + 8, r * (h + cap) + 4), stem, fill="black", font=font)
 if len(sys.argv) > 4:
     sheet = sheet.resize((int(sheet.width * float(sys.argv[4])), int(sheet.height * float(sys.argv[4]))))

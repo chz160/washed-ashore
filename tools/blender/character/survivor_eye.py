@@ -25,6 +25,8 @@ def main():
     face = (ym < np.percentile(ym, 30)) & (np.abs(V3[head, 0]) > 0.02) & (np.abs(V3[head, 0]) < 0.05)
     zs = V3[head, 2]
     sel = head[face & (lum[head] > 0.55) & (zs > 1.55) & (zs < 1.75)]
+    if len(sel) == 0:
+        raise SystemExit("survivor_eye: no eye vertices matched (bright face texels at z 1.55 to 1.75 m); check the mesh and texture")
     p = np.array([0.0, float(V3[sel, 1].mean()), float(np.median(V3[sel, 2]))])
     Hm = skel["Head"]["m"]
     local = (np.linalg.inv(Hm) @ np.append(p, 1.0))[:3]

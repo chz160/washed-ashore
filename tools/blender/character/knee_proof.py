@@ -135,7 +135,6 @@ def main():
         for i, v in enumerate(V):
             sk.data[i].co = (v + dl[i]).tolist()
         keys[k] = sk
-    bones = make_bone_objects(arm) if False else None
     ankle_d = float((skel["Foot.L"]["h"] - j) @ ax)
     rest_foot = skel["Foot.L"]["h"]
     report = []

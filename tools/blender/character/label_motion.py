@@ -61,8 +61,6 @@ tmp = os.path.join(out, "_f_" + title)
 os.makedirs(tmp, exist_ok=True)
 total = 5 * n
 for g in range(total):
-    frame(g % n).save(os.path.join(tmp, "%04d.png" % g)) if False else None
-for g in range(total):
     t = g / 60.0
     row = Image.new("RGB", (500 * len(clips), 800), "white")
     for k, c in enumerate(clips):

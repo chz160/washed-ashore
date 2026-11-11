@@ -72,5 +72,9 @@ if __name__ == "__main__":
                 continue
             hid, x, y, z = line.strip().split(",")[:4]
             p = np.array([float(x), float(y), float(z)])
-            best = min(((dist_point_segment(p, v[a], v[b]), l["id"]) for l in L for a, b in l["edges"]))
+            dists = [(dist_point_segment(p, v[a], v[b]), l["id"]) for l in L for a, b in l["edges"]]
+            if not dists:
+                print("HIT %s (%.3f, %.3f, %.3f): no open edges in this mesh" % (hid, *p))
+                continue
+            best = min(dists)
             print("HIT %s (%.3f, %.3f, %.3f): nearest open edge %.4f m, loop %d (%d vertices)%s" % (hid, *p, best[0], best[1], L[best[1]]["verts"], "  NEAR (<= %.3f m)" % radius if best[0] <= radius else ""))
