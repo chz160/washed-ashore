@@ -9,7 +9,20 @@ clips = sys.argv[5:]
 os.makedirs(out, exist_ok=True)
 PXM = 800 / 2.2           # pixels per metre of the ortho camera
 FLOOR = int(400 + 0.9 * PXM)   # y of z = 0 (camera aimed at z = 0.9)
-font = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 24)
+def _font(size):
+    """A label font that works on Windows, macOS and Linux. Set LABEL_FONT to a .ttf to choose one."""
+    for path in (os.environ.get("LABEL_FONT"), "C:/Windows/Fonts/arial.ttf",
+                 "/Library/Fonts/Arial.ttf", "/System/Library/Fonts/Supplemental/Arial.ttf",
+                 "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"):
+        if path and os.path.exists(path):
+            return ImageFont.truetype(path, size)
+    try:
+        return ImageFont.load_default(size=size)  # Pillow 10.1 and later
+    except TypeError:
+        return ImageFont.load_default()
+
+
+font = _font(24)
 seqs = {c: sorted(glob.glob(os.path.join(mdir, c, "f*.png"))) for c in clips}
 n = len(seqs[clips[0]])
 fr0 = int(os.path.basename(seqs[clips[0]][0])[1:4])

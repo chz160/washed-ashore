@@ -8,7 +8,20 @@ from PIL import Image, ImageDraw, ImageFont
 mdir, out, ff = sys.argv[1], sys.argv[2], sys.argv[3]
 scale = float(sys.argv[4]) if len(sys.argv) > 4 else 1.0
 rows = [l.split() for l in open(ff) if l.strip()]
-font = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 22)
+def _font(size):
+    """A label font that works on Windows, macOS and Linux. Set LABEL_FONT to a .ttf to choose one."""
+    for path in (os.environ.get("LABEL_FONT"), "C:/Windows/Fonts/arial.ttf",
+                 "/Library/Fonts/Arial.ttf", "/System/Library/Fonts/Supplemental/Arial.ttf",
+                 "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"):
+        if path and os.path.exists(path):
+            return ImageFont.truetype(path, size)
+    try:
+        return ImageFont.load_default(size=size)  # Pillow 10.1 and later
+    except TypeError:
+        return ImageFont.load_default()
+
+
+font = _font(22)
 labels = ["key -2", "key -1", "touchdown", "key +1", "key +2", "key +3", "mid-stance"]
 im0 = Image.open(os.path.join(mdir, rows[0][0], "f%03d.png" % int(rows[0][1].split(",")[0])))
 w, h = im0.size

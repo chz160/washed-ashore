@@ -9,7 +9,20 @@ for c in clips:
     rows.append(fs)
 cols = max(len(r) for r in rows)
 im0 = Image.open(rows[0][0]); w, h = im0.size; cap = 36
-font = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 24)
+def _font(size):
+    """A label font that works on Windows, macOS and Linux. Set LABEL_FONT to a .ttf to choose one."""
+    for path in (os.environ.get("LABEL_FONT"), "C:/Windows/Fonts/arial.ttf",
+                 "/Library/Fonts/Arial.ttf", "/System/Library/Fonts/Supplemental/Arial.ttf",
+                 "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"):
+        if path and os.path.exists(path):
+            return ImageFont.truetype(path, size)
+    try:
+        return ImageFont.load_default(size=size)  # Pillow 10.1 and later
+    except TypeError:
+        return ImageFont.load_default()
+
+
+font = _font(24)
 sheet = Image.new("RGB", (cols * w, len(rows) * (h + cap)), "white")
 dr = ImageDraw.Draw(sheet)
 for r, fs in enumerate(rows):
