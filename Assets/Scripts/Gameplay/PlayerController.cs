@@ -206,7 +206,7 @@ namespace WashedAshore.Gameplay
             Vector2 input = controlSuspended ? Vector2.zero : Vector2.ClampMagnitude(cmd.Move, 1f);
             bool sprint = !controlSuspended && (cmd.Buttons & PlayerButtons.Sprint) != 0;
             bool jump = !controlSuspended && (cmd.Buttons & PlayerButtons.Jump) != 0;
-            Vector3 target = MoveTarget(input, sprint, dt);
+            Vector3 target = ApplyBushSlowdown(MoveTarget(input, sprint, dt), sprint);
             if (WalkSpeedCap > 0f) target = Vector3.ClampMagnitude(target, WalkSpeedCap);
             if (StanceSpeedLimit >= 0f) target = Vector3.ClampMagnitude(target, StanceSpeedLimit);
             float rate = MoveRate(target, input.sqrMagnitude > 0f);

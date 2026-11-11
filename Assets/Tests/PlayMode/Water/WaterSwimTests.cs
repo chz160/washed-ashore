@@ -143,7 +143,8 @@ namespace WashedAshore.Tests.PlayMode
                     if (modes[modes.Count - 1] != mode) { modes.Add(mode); if (open && !turned) openFlips++; }
                     if (!turned)
                     {
-                        if (mode == WaterMode.Dry && t > 0.5f) dry.Add(speed);
+                        // Bush slowdown (#21): only ticks with no bush cover measure the plain walk speed. LastBushMultiplier is exactly 1 there.
+                        if (mode == WaterMode.Dry && t > 0.5f && player.LastBushMultiplier == 1f) dry.Add(speed);
                         if (mode == WaterMode.Wade && Mathf.Abs(player.WaterDepth - 0.3f) < 0.03f) at03.Add(speed);
                         if (mode == WaterMode.Wade && Mathf.Abs(player.WaterDepth - 1.0f) < 0.03f) at10.Add(speed);
                     }
@@ -177,6 +178,7 @@ namespace WashedAshore.Tests.PlayMode
                       $"groundedDeep={groundedDeep} openFlips={openFlips} fallThroughs={fallThroughs}");
             CollectionAssert.AreEqual(new[] { WaterMode.Dry, WaterMode.Wade, WaterMode.Swim, WaterMode.Wade, WaterMode.Dry }, modes,
                 "§7.3: one Wade/Swim flip each way, out and back");
+            Assert.GreaterOrEqual(dry.Count, 10, "§7.1 dry walk: too few cover-free Dry frames to measure (the approach is mostly under bush cover)");
             Assert.AreEqual(player.WalkSpeed, WaterTestKit.Median(dry), 0.1f, "§7.1 dry walk");
             Assert.AreEqual(player.WalkSpeed * tuning.wadeSpeedByDepth.Evaluate(0.3f), WaterTestKit.Median(at03), 0.2f, "§7.1 wade at 0.3 m");
             Assert.AreEqual(player.WalkSpeed * tuning.wadeSpeedByDepth.Evaluate(1.0f), WaterTestKit.Median(at10), 0.2f, "§7.1 wade at 1.0 m");

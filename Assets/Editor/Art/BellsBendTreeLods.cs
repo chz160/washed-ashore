@@ -18,6 +18,9 @@ public static class BellsBendTreeLods
     public const float LodSwitch = 0.12f; // screen-relative height where LOD0 hands over to the impostor
     public const float Cull = 0.004f;
 
+    /// <summary>Batchmode entry: -executeMethod BellsBendTreeLods.BuildCli</summary>
+    public static void BuildCli() => Debug.Log("[TreeLods] " + Build());
+
     public static string Build()
     {
         Directory.CreateDirectory(Root);
@@ -64,9 +67,104 @@ public static class BellsBendTreeLods
         group.SetLODs(new[] { new LOD(LodSwitch, new Renderer[] { r0 }), new LOD(Cull, new Renderer[] { r1 }) });
         group.fadeMode = LODFadeMode.None;
         group.RecalculateBounds();
+        AddTrunkCollider(go, src, mf);
         var prefab = PrefabUtility.SaveAsPrefabAsset(go, path);
         Object.DestroyImmediate(go);
         return prefab;
+    }
+
+    /// <summary>
+    /// Terrain tree colliders come from the prefab's own colliders, scaled by each instance (#21). Copies the MegaKit
+    /// capsule (direction, centre, height) onto the LOD prefab root and sizes the radius to the measured trunk, so
+    /// you can walk between trees whose canopies overlap.
+    /// </summary>
+    static void AddTrunkCollider(GameObject go, GameObject src, MeshFilter mf)
+    {
+        var kit = src.GetComponent<CapsuleCollider>();
+        if (!kit) throw new FileNotFoundException($"{src.name}: the MegaKit prefab has no root CapsuleCollider to copy");
+        var cap = go.AddComponent<CapsuleCollider>();
+        cap.direction = kit.direction;
+        cap.center = kit.center;
+        cap.height = kit.height;
+        cap.radius = TrunkRadius(mf);
+        if (TrunkFit.TryGetValue(src.name, out var fit))
+        {
+            var c = cap.center;
+            cap.center = new Vector3(fit.centreXZ.x, c.y, fit.centreXZ.y);
+            if (fit.radius.HasValue) cap.radius = fit.radius.Value;
+        }
+        cap.isTrigger = false;
+    }
+
+    /// <summary>
+    /// Measured trunk fits for trees whose trunk is not centred on the root (#21, T2). The kit capsule and the median radius
+    /// would stand up to 0.5 m outside the trunk at chest height. Values are per-slice mesh extents over 0-1.8 m above the root
+    /// (the player's band), in the prefab's local x/z; the capsule then stays within 0.15 m of the trunk on every side.
+    /// TwistedTree_1: the trunk centre drifts from (0,0) at the base to (-0.48,-0.03) at 1.5-1.8 m.
+    /// </summary>
+    /// <remarks>
+    /// A null radius keeps the measured median trunk radius (centre-only shift: the trunk leans, it does not get fatter).
+    /// DeadTree_1 and DeadTree_2 lean to -x (and +z for _2): their slice centres drift by 0.3 m over 0-1.8 m, which put the
+    /// centred capsule 0.43 and 0.52 m outside the trunk; the shift cuts that to 0.18 and 0.21 m. The rest is taper.
+    /// </remarks>
+    public static readonly System.Collections.Generic.Dictionary<string, (Vector2 centreXZ, float? radius)> TrunkFit =
+        new System.Collections.Generic.Dictionary<string, (Vector2, float?)>
+        {
+            ["TwistedTree_1"] = (new Vector2(-0.3f, 0f), 0.95f),
+            ["DeadTree_1"] = (new Vector2(-0.25f, -0.07f), null),
+            ["DeadTree_2"] = (new Vector2(-0.28f, 0.31f), null),
+        };
+
+    /// <summary>
+    /// Trunk radius (m, unit scale): the median horizontal distance of mesh vertices from their centroid, in the first
+    /// of the bands 0.3-1 m, 1-2 m, 2-3 m above the root that holds at least 20 vertices (above the root flare, below the
+    /// canopy). DeadTree_3 has no vertices under 1 m, so it falls to the 1-2 m band.
+    /// </summary>
+    public static float TrunkRadius(MeshFilter mf)
+    {
+        var root = mf.transform.root;
+        var m = root.worldToLocalMatrix * mf.transform.localToWorldMatrix;
+        var vs = mf.sharedMesh.vertices.Select(v => m.MultiplyPoint3x4(v)).ToArray();
+        foreach (var (y0, y1) in new[] { (0.3f, 1f), (1f, 2f), (2f, 3f) })
+        {
+            var band = vs.Where(v => v.y >= y0 && v.y < y1).ToArray();
+            if (band.Length < 20) continue;
+            var c = new Vector2(band.Average(v => v.x), band.Average(v => v.z));
+            var d = band.Select(v => Vector2.Distance(c, new Vector2(v.x, v.z))).OrderBy(x => x).ToArray();
+            return d[d.Length / 2];
+        }
+        throw new System.InvalidOperationException($"{mf.name}: no trunk band with enough vertices");
+    }
+
+    /// <summary>Batchmode entry: -executeMethod BellsBendTreeLods.TrunkReportCli</summary>
+    public static void TrunkReportCli() => File.WriteAllText("TestResults/21-trunk-measure.txt", TrunkReport());
+
+    /// <summary>Per-height-band trunk measurements of each tree prototype's LOD0 mesh (root space, unit scale). Used to size the collider.</summary>
+    public static string TrunkReport()
+    {
+        var sb = new System.Text.StringBuilder();
+        foreach (var n in BellsBendVegetation.TreeSpecs.SelectMany(s => s.names).Distinct())
+        {
+            var src = AssetDatabase.FindAssets($"{n} t:Prefab", new[] { "Assets/ThirdParty/Quaternius/NatureMegaKit" })
+                .Select(AssetDatabase.GUIDToAssetPath).Where(p => Path.GetFileNameWithoutExtension(p) == n)
+                .Select(AssetDatabase.LoadAssetAtPath<GameObject>).First();
+            var b = BellsBendVegetation.MeshBounds(src);
+            sb.AppendLine($"{n}: bounds min={b.min} max={b.max}");
+            foreach (var f in src.GetComponentsInChildren<MeshFilter>().Where(f => f.sharedMesh))
+            {
+                var m = src.transform.worldToLocalMatrix * f.transform.localToWorldMatrix;
+                var vs = f.sharedMesh.vertices.Select(v => m.MultiplyPoint3x4(v)).ToArray();
+                foreach (var (y0, y1) in new[] { (0f, 0.3f), (0.3f, 1f), (1f, 2f), (2f, 3f), (3f, 4f), (4f, 5f) })
+                {
+                    var band = vs.Where(v => v.y >= y0 && v.y < y1).ToArray();
+                    if (band.Length == 0) { sb.AppendLine($"  {f.name} y[{y0},{y1}) none"); continue; }
+                    var c = new Vector2(band.Average(v => v.x), band.Average(v => v.z));
+                    var r = band.Select(v => Vector2.Distance(c, new Vector2(v.x, v.z))).OrderBy(x => x).ToArray();
+                    sb.AppendLine($"  {f.name} y[{y0},{y1}) n={band.Length} centre=({c.x:F2},{c.y:F2}) rMedian={r[r.Length / 2]:F2} rP90={r[(int)(r.Length * 0.9f)]:F2} rMax={r[^1]:F2}");
+                }
+            }
+        }
+        return sb.ToString();
     }
 
     // Two orthographic captures (front, and side at 90 deg) into one RGBA atlas, lit by a preview-scene sun.
