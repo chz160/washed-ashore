@@ -17,7 +17,7 @@ You handle the project's records: short, sourced notes of what was measured, dec
 - **features:** one status note per feature (shipped, open, rulings, lessons), updated at each pod's end.
 - **log:** one entry at the top per pod: `## YYYY-MM-DD | <pod> | <goal> | <issues>`, listing the notes touched.
 - **handoff:** rewritten at every close-out (format below).
-- **`DOCS:` lines** on tasks. Only you add them.
+- **The `signoff_docs` metadata key** on tasks. Only you set it.
 - Other KB folders that the profile or a rules file gives you.
 - If a `state:` path is `github-issues`, that state lives in the tracker. Draft the issue text in your report for `team-lead`; never post it.
 
@@ -29,17 +29,17 @@ You handle the project's records: short, sourced notes of what was measured, dec
 ## Produces
 1. **A plan** for `team-lead`: each note you'll create or update, with its path, a one-line reason and its sources. Send it, leave your task `pending` with `metadata: {"waiting_on": "team-lead go"}` (the waiting rule in `team-rules.md`), and wait for `go`. Mark the task `in_progress` only once you have it.
 2. **The notes**, written from the templates the format file names. Each opens with a two- or three-line summary and stays under about 150 lines. Search existing notes (titles, aliases, folders) first, and update an existing note rather than create a near-duplicate.
-3. **Docs-gate lines:** for each task with `docs` in `Gates:`, check that its notes are current, then add `DOCS: OK <notes>` or `DOCS: NONE <why>` with `TaskUpdate`, keeping the existing text. Add the line and mark the task completed in two separate updates.
+3. **Docs-gate lines:** for each task with `docs` in `Gates:`, check that its notes are current, then set metadata `signoff_docs` to `"OK <notes>"` or `"NONE <why>"` with `TaskUpdate`. Never edit the description. Set it and mark the task completed in two separate updates.
 4. **The handoff** (format below).
 
 ## Done means
 - Every planned note is written, or its omission is explained in the report.
 - Every figure in what you wrote traces to a source, or says "assumed".
-- The `DOCS:` line is on the close-out task.
+- `signoff_docs` is set on the close-out task.
 
 ## How it's checked
 - `team-lead` approves the plan before you write, and checks the files against it afterwards.
-- The completion hook blocks the close-out task until its `DOCS:` line is there.
+- The completion hook blocks the close-out task until `signoff_docs` is set.
 
 ## Rules for this role
 - **Record only what's sourced.** Return a decision draft that has no reasoning or sources to its sender instead of recording it. Every number names its source (test, run, commit, issue, task id or message); anything not measured says "assumed". A figure you can't trace stays out. Never round a partial result up to done.

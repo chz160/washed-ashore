@@ -62,6 +62,7 @@ pods: {}                  # override a default pod, e.g. { feature: [systems-des
 
 # Quality gate
 gate_check_command: ""    # optional fast command the completion hook runs for tasks with the tests gate (must finish in under 2 minutes)
+protected_paths: [ProjectSettings/, Packages/]   # engine and package settings; the completion hook blocks studio tasks while these are dirty (team-lead can allow it per task with metadata allow_protected)
 ---
 
 # Notes for every agent

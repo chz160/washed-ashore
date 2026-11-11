@@ -3,8 +3,12 @@
 //
 //   TaskCompleted: blocks completion (exit 2) unless
 //     - the main branch isn't stopped (.studio/STOP-THE-LINE), or the completer is build-engineer or qa-lead;
-//     - the task description has a "Gates:" line, and every listed gate has its sign-off line:
-//         tests -> "TESTS: PASS ..."   qa -> "QA: PASS ..."   docs -> "DOCS: OK ..." or "DOCS: NONE ..."
+//     - the task description has a "Gates:" line, and every listed gate has its sign-off. A sign-off is a
+//       task METADATA key (metadata merges, so roles can't overwrite each other's sign-offs):
+//         tests -> signoff_tests "PASS ..."   qa -> signoff_qa "PASS ..."   docs -> signoff_docs "OK ..." or "NONE ..."
+//       Older tasks may use description lines instead: "TESTS: PASS ...", "QA: PASS ...", "DOCS: OK|NONE ...".
+//     - no protected path (protected_paths in the profile; default ProjectSettings/ and Packages/) has
+//       uncommitted changes, unless team-lead set metadata allow_protected "<reason>" on the task;
 //     - gate_check_command from the profile (if set) passes, for tasks with the tests gate.
 //   TeammateIdle: if the teammate still owns open, unblocked tasks, sends it back to work (exit 2),
 //     at most MAX_NUDGES times in a row.
@@ -19,9 +23,12 @@ const { execSync } = require('child_process');
 const MAX_NUDGES = 2;
 const STOP_EXEMPT = ['build-engineer', 'qa-lead'];
 const SIGNOFF = {
-  tests: { re: /^TESTS:\s*PASS\b/im, need: 'TESTS: PASS <command> -> <result>, added by the task owner' },
-  qa: { re: /^QA:\s*PASS\b/im, need: 'QA: PASS <scope>, added by qa-lead' },
-  docs: { re: /^DOCS:\s*(OK|NONE)\b/im, need: 'DOCS: OK <notes> or DOCS: NONE <why>, added by technical-writer' },
+  tests: { key: 'signoff_tests', ok: /^\s*PASS\b/i, line: /^TESTS:\s*PASS\b/im,
+    need: 'metadata {"signoff_tests": "PASS <command> -> <result>"}, set by the task owner' },
+  qa: { key: 'signoff_qa', ok: /^\s*PASS\b/i, line: /^QA:\s*PASS\b/im,
+    need: 'metadata {"signoff_qa": "PASS <what was checked>"}, set by qa-lead' },
+  docs: { key: 'signoff_docs', ok: /^\s*(OK|NONE)\b/i, line: /^DOCS:\s*(OK|NONE)\b/im,
+    need: 'metadata {"signoff_docs": "OK <notes>" or "NONE <why>"}, set by technical-writer' },
 };
 
 // Claude Code also tries to complete a teammate's in-progress tasks each time it stops. A block then wakes it
@@ -71,9 +78,17 @@ function taskCompleted() {
   }
   const gates = gatesLine[1].toLowerCase().split(/[\s,]+/).filter((g) => SIGNOFF[g]);
 
-  const missing = gates.filter((g) => !SIGNOFF[g].re.test(desc)).map((g) => `- ${g}: needs "${SIGNOFF[g].need}"`);
+  const meta = (readTask(input.task_id) || {}).metadata || {};
+  const signed = (g) => SIGNOFF[g].ok.test(String(meta[SIGNOFF[g].key] || '')) || SIGNOFF[g].line.test(desc);
+  const missing = gates.filter((g) => !signed(g)).map((g) => `- ${g}: needs ${SIGNOFF[g].need}`);
   if (missing.length) {
-    block(`${what} Missing sign-off lines in its description:\n${missing.join('\n')}\nAsk the role named, or add your own line with TaskUpdate (keep the existing text).`);
+    block(`${what} Missing sign-offs:\n${missing.join('\n')}\nAsk the role named, or set your own key with TaskUpdate metadata (never rewrite the description). Set a sign-off and complete the task in two separate updates.`);
+  }
+
+  // Protected paths change only by an explicit ruling.
+  const dirty = protectedChanges();
+  if (dirty.length && !meta.allow_protected) {
+    block(`${what} Protected paths have uncommitted changes:\n${dirty.join('\n')}\nRestore them (git restore <path>) and find what wrote them, or ask team-lead: only it can allow this, with metadata {"allow_protected": "<reason>"}.`);
   }
 
   if (gates.includes('tests')) {
@@ -87,6 +102,26 @@ function taskCompleted() {
       }
     }
   }
+}
+
+function protectedChanges() {
+  const prof = fs.readFileSync(profilePath, 'utf8');
+  const listed = (prof.match(/^protected_paths:\s*\[([^\]]*)\]/m) || [])[1];
+  const paths = (listed !== undefined ? listed.split(',') : ['ProjectSettings/', 'Packages/'])
+    .map((p) => p.trim().replace(/^["']|["']$/g, '')).filter(Boolean)
+    .filter((p) => fs.existsSync(path.join(root, p)));
+  if (!paths.length) return [];
+  try {
+    const out = execSync(`git status --porcelain -- ${paths.map((p) => JSON.stringify(p)).join(' ')}`,
+      { cwd: root, stdio: ['ignore', 'pipe', 'ignore'], timeout: 20000 }).toString();
+    return out.split(/\r?\n/).filter(Boolean);
+  } catch { return []; } // not a git repo, or no git: don't block on it
+}
+
+function readTask(id) {
+  const dir = taskDir(input.team_name);
+  if (!dir || id === undefined) return null;
+  try { return JSON.parse(fs.readFileSync(path.join(dir, `${id}.json`), 'utf8')); } catch { return null; }
 }
 
 function teammateIdle() {

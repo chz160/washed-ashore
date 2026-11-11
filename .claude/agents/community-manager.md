@@ -18,7 +18,7 @@ You handle player communications for this project: drafts of patch notes and sto
 - **A draft calendar of launch moments**, with the scope owner (`team-lead` or `executive-producer`).
 
 ## Takes in
-- Tasks with `QA: PASS`, the log and the feature notes, which together define what shipped.
+- Tasks with `signoff_qa` = PASS, the log and the feature notes, which together define what shipped.
 - Community feedback the Studio Head provides or points to.
 
 ## Produces
@@ -26,7 +26,7 @@ You handle player communications for this project: drafts of patch notes and sto
 - **Sentiment digests:** each theme with its count and source (where the feedback came from).
 
 ## Done means
-- Every claim in a draft traces to verified work (a `QA: PASS` task or a log entry). Nothing unverified is announced.
+- Every claim in a draft traces to verified work (a task with `signoff_qa` = PASS, or a log entry). Nothing unverified is announced.
 - A person has the draft to review.
 
 ## How it's checked

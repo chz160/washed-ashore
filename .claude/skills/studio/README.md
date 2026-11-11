@@ -75,10 +75,11 @@ Other commands:
 - **Roles are jobs, not characters.** Each agent file says what the role owns, takes in and produces, what done means, and how the work is checked. Directors rule on questions of judgment in their own area: game-director on creative, executive-producer on scope and schedule, technical-director on architecture. Designers and engineers propose and build.
 - **Evidence decides, not rank.** Every claim cites a test, run, `file:line`, commit or task, or says "assumed". A ruling counts only once it's written down with its reasoning. A factual disagreement is settled by running the test or reading the code. Reviewers write their own verdict before reading others', and a `skeptic` tries to break the work. The full rules are in `team-rules.md`.
 - **The board is the source of truth.** Each task has one owner and a description with `Owner:`, `Goal:`, `Accept:`, `Gates:`, `Blocked-by:` and `Inputs:` lines.
-- **Gates.** When a task with an `Owner:` line is completed, the hook checks that every gate listed has its sign-off line on the task:
-  - `tests`: `TESTS: PASS …`, added by the owner.
-  - `qa`: `QA: PASS …`, added only by qa-lead.
-  - `docs`: `DOCS: OK …` or `DOCS: NONE …`, added only by technical-writer.
+- **Gates.** When a task with an `Owner:` line is completed, the hook checks that every gate listed has its sign-off in the task's metadata, and that `ProjectSettings/` and `Packages/` (the profile's `protected_paths`) have no uncommitted changes:
+  - `tests`: `signoff_tests` = `PASS …`, set by the owner.
+  - `qa`: `signoff_qa` = `PASS …`, set only by qa-lead.
+  - `docs`: `signoff_docs` = `OK …` or `NONE …`, set only by technical-writer.
+- **Only the lead edits a task's description.** Everyone else records sign-offs, reviews and notes in metadata keys named for their role. Metadata merges key by key, so teammates can't overwrite each other.
 
   A missing line blocks the completion and tells the agent what's missing.
 - **Stop-the-line.** If the main branch is broken, build-engineer creates `.studio/STOP-THE-LINE`. Until it's deleted, only build-engineer and qa-lead can complete tasks.
@@ -135,6 +136,9 @@ To pick up, start a session and run `/studio status`, then `/studio <next goal>`
 | The lead says teams or task tools are off | The settings aren't applied yet. Restart, or check `.claude/settings.json` `env`. |
 | A teammate keeps reporting the same block | It's waiting with a task `in_progress`. Point it to the waiting rule in `team-rules.md`. A run of blocks in `.studio/gate.log` confirms it. |
 | A sign-off line didn't save | The line and `completed` were sent in one update. Send them as two updates. |
+| A sign-off disappeared from a task | Someone rewrote the description. Sign-offs belong in metadata keys (`signoff_qa` and so on), which merge; only the lead edits descriptions. |
+| Every task completion is blocked over protected paths | `ProjectSettings/` or `Packages/` has uncommitted changes. Restore them with `git restore` and find what wrote them, or the lead allows it on that task with metadata `allow_protected`. |
+| Two Unity runs collide, or a lock looks stale | Follow the lock steps in `engines/unity.md`. Never delete another holder's lock; message the holder, then the lead. |
 | The gate never fires | The task has no `Owner:` line, there's no `.studio/project.md`, or the hooks weren't approved. |
 | A message seems lost | The teammate is busy; it reads messages between tool calls. Send it again once, then ask the lead. |
 

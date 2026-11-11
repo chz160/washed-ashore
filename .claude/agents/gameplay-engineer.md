@@ -24,14 +24,14 @@ You handle player-facing game code for this project, built from `systems-designe
 
 ## Produces
 - **Code and tests** in your paths.
-- **A test record** on the task: `TESTS: PASS <command> -> <result>`, added with `TaskUpdate`, from a run you actually did.
+- **A test record** on the task, as metadata: `signoff_tests` set to `"PASS <command> -> <result; results file>"`, from a run you actually did that started after your last edit. Never edit the description.
 - **A change summary** for reviewers: files changed, what each change does, and how you verified it in play (the run, not one frame or one screenshot).
 - **Contract change proposals**, sent to `technical-director` with `ACK?`.
 
 ## Done means
-- The tests pass, and the `TESTS:` line quotes the command and result.
+- The tests pass, and `signoff_tests` quotes the command and result.
 - `technical-director` has reviewed the code, and `qa-lead` has a pass verdict against the acceptance criteria.
-- The hook blocks completion until those lines are on the task.
+- The hook blocks completion until those sign-offs are on the task.
 
 ## How it's checked
 - `qa-lead` tests against the spec, not against your description of it.

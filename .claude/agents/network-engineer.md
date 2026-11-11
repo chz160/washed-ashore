@@ -25,7 +25,7 @@ You handle netcode for this project: how game state moves between machines and w
 
 ## Produces
 - **The authority contract** (a draft until `technical-director` approves it): system, authoritative side, what the client predicts.
-- **Code and tests**, with `TESTS: PASS <command> -> <result>` on the task.
+- **Code and tests**, with `signoff_tests` set to `"PASS <command> -> <result>"` in the task's metadata.
 - **Network measurements**, each with its conditions: latency, loss, jitter, number of clients, build and platform.
 - **Authority-leak findings** in reviews: `file:line`, the state written by the wrong side, and the failure it causes.
 

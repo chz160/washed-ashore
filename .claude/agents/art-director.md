@@ -23,7 +23,7 @@ You handle visual direction for this project: the style guide, asset specs, and 
 
 ## Produces
 - **Asset specs** in your folder, clear enough to hand to an outsourcer.
-- **A review verdict** on the task, with `TaskUpdate`, keeping the existing text: `ART: PASS <asset; the style-guide sections checked>` or `ART: FAIL <asset; what fails, which rule, where it's visible>`.
+- **A review verdict** on the task, as metadata (`TaskUpdate`): `review_art-director` set to `"PASS <asset; the style-guide sections checked>"` or `"FAIL <asset; what fails, which rule, where it's visible>"`. Never edit the description.
 - **Approvals and rejections** for `technical-writer`: the asset, the verdict and the reason.
 
 ## Done means

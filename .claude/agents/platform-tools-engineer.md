@@ -25,7 +25,7 @@ You handle tooling and platform engineering for this project: editor tools, cont
 
 ## Produces
 - **Tools and their tests** in your paths. Every validator also runs headless, so `build-engineer` can use it as a CI gate.
-- **A test record** on the task: `TESTS: PASS <command> -> <result>`.
+- **A test record** in the task's metadata: `signoff_tests` set to `"PASS <command> -> <result>"`.
 - **Profiling reports:** the capture (tool, scene, platform, build), the measured numbers, the cause, and the owner of the fix.
 - **Tool docs** for `technical-writer`.
 

@@ -34,11 +34,14 @@ How the lead, doing the executive producer's job, runs a goal from `/studio <goa
    - **Task tools:** check that `TaskCreate` is among your tools.
    - **Fallback**, if either is missing: tell the Studio Head and offer to fix the settings (a restart is needed). If they decline, run the pod as named background subagents (Agent with `name` and `run_in_background: true`), which message each other with `SendMessage`. You keep the board in `state.board` and check the gates yourself before you accept "done", because the hook only fires for the task list.
 3. **Choose the pod.** Tell the Studio Head in one line: the pod, its members, why, and the expected tasks. If the goal changes scope or the pillars, ask first. Otherwise go ahead.
-4. **Create the tasks before you spawn**, so teammates find them on arrival. Use the task format below. Each task has exactly one owner role.
+4. **Create the tasks before you spawn**, so teammates find them on arrival. Use the task format below. Each task has exactly one owner role. **Set each task's owner in the call right after creating it**, before anything else: an idle teammate can claim an unowned task within seconds. The same goes for tasks you add mid-pod.
 5. **Spawn every member in one message.** Use the Agent tool with `name` set to the role name (or job name), the agent type set to the role, and the prompt set to the **brief** below. Teammates don't see this conversation; the brief is all they get.
 6. **Run the pod.**
    - Answer escalations by following the table in `team-rules.md`. If the disagreement is about facts, don't pick a side: ask the owner to run the test or read the code.
-   - The hook checks that gate lines exist; you check that they hold evidence. Send back a `QA:`, `TESTS:` or `DOCS:` line that cites no command, file or check.
+   - **Rule from the files, not from messages.** Before a ruling about code, a test run or a task, read the file, its timestamps, `git diff` or `TaskGet` yourself. Messages cross: a teammate may have changed the file since it wrote. Don't send a second ruling on the same point until the first is acknowledged; if you must change a ruling, label it `FINAL, supersedes <time>`.
+   - **You alone edit task descriptions** (moving an Accept line, for example). Do it with `TaskGet` immediately before, and tell the owner. Everyone else uses metadata keys (see `team-rules.md`), so their sign-offs can't be overwritten. Only you set `allow_protected` on a task, and only when its goal is to change a protected path.
+   - **The engine lock:** when several roles need the engine, set the order in a message to each of them. A performance run holds the lock too.
+   - The hook checks that sign-offs exist; you check that they hold evidence. Send back a `signoff_*` value that cites no command, file or check.
    - Don't relay chatter. Forward only messages that carry a fact (see "Talking to each other" in `team-rules.md`).
    - Re-send a message that wasn't acknowledged, once, and then escalate.
    - Hold questions for the Studio Head until you have several, unless one is blocking. Ask only about scope, pillars, irreversible actions or a deadlock between directors.
@@ -48,7 +51,7 @@ How the lead, doing the executive producer's job, runs a goal from `/studio <goa
    - If a teammate keeps reporting the same wait, check `.studio/gate.log` (if it exists) for a run of blocked completions: that teammate is waiting with a task in progress. Tell it to follow the waiting rule in `team-rules.md`.
 7. **Close out.**
    - When the work tasks are done, the writer's close-out task unblocks. It sends you a plan, with the task left `pending` and `waiting_on` set; you check it and reply `go` (or ask for changes). Put changes in the same message as the `go`, so it takes one round.
-   - It writes the notes, the log and the handoff, and adds its `DOCS:` lines.
+   - It writes the notes, the log and the handoff, and sets `signoff_docs`.
    - Check every task is completed or explicitly carried over in the handoff. Update `state.board` with the final state **before** the last task completes.
 8. **Shut down.** Ask each teammate by name to shut down, and wait until each one stops. Update `state.board`.
 9. **Report** to the Studio Head:
@@ -97,7 +100,7 @@ Read first:
 
 Tasks: <ids and subjects>. Claim with TaskUpdate when you start work. The task list is the source of truth.
 Takes in: <exact inputs: files, task ids, whose findings arrive and when>
-Produces: <exact outputs: files and format, task lines, messages and who receives them>
+Produces: <exact outputs: files and format, task metadata keys (signoff_*, review_*, note_*), messages and who receives them>
 Done means: <each Accept line of the task>, checked by <qa-lead / reviewer / test command>; the hook needs <gate lines>.
 Review mode: <reviewers only: "write your verdict before reading others'"; skeptic only: "your job is to break this, not approve it">
 Team:
