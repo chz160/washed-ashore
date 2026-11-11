@@ -5,10 +5,10 @@ tech: [probe-tests, rendering]
 area: [player-body]
 issues: [49]
 prs: []
-source: "studio:decisions gate/pod49-s2-b20-classes-ruling (+ note1, note2-kc-order); td-49 B35, B35b, B35c, B38; studio:engineering pod49/s2-classification-rule"
+source: "td-49 B35, B35b, B35c, B38"
 decided_by: "director-49; accepted by Noah 2026-11-10"
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

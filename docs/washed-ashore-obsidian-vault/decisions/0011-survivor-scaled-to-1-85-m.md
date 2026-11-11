@@ -5,10 +5,10 @@ tech: [character-art]
 area: [player-body]
 issues: [49]
 prs: []
-source: "studio:decisions gate/pod49-uniform-scale-1027-eye; pod49 HANDOFF section 3a (Noah accepted 1.85 m)"
+source: "pod49 HANDOFF section 3a (Noah accepted 1.85 m)"
 decided_by: "td-49 (tech), director-49 (look); Noah accepted"
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

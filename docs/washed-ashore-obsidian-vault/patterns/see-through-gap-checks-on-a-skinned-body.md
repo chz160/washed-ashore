@@ -5,9 +5,9 @@ tech: [probe-tests, rendering]
 area: [player-body]
 issues: [49]
 prs: []
-source: "td-49 B21a, B22, B24, B26-B34i (pod49 td records); qa-49 12jr, 12jv, 12kr; studio:engineering pod49/pose-probe-pinholes, pod49/s2-classification-rule; test files HairlineGapSizing*.cs, PinholeD3.cs, PinholeD4.cs"
+source: "td-49 B21a, B22, B24, B26-B34i (pod49 td records); qa-49 12jr, 12jv, 12kr; test files HairlineGapSizing*.cs, PinholeD3.cs, PinholeD4.cs"
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 aliases: [S2, S2 frame check, HairlineGapSizing, pinhole check]
 ---
 # See-through gap checks on a skinned body

@@ -5,10 +5,10 @@ tech: [character-art, probe-tests]
 area: [player-body, player]
 issues: [49]
 prs: []
-source: "td-49 B36 (studio:engineering pod49/B36); studio:decisions gate/pod49-walk-jog-bar2-to-noah (+ note1, note2), gate/pod49-lookdown-waiver-w49-1-and-walk-fraction, gate/pod49-lookdown-waiver-w49-2, gate/pod49-s6-look-gate; studio:production pod/49/qa-signoff; baton 23 run b23-sac"
+source: "td-49 B36; baton 23 run b23-sac"
 decided_by: "Noah (W-49-4, amend8g carry-over); director-49 (W-49-1, W-49-2)"
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

@@ -5,10 +5,10 @@ tech: [probe-tests, rendering]
 area: [player-body]
 issues: [49]
 prs: []
-source: "studio:decisions gate/pod49-hairline-gap-rule (+ note1-qa-conditions); td-49 B33, B33b, B34a, B34c, B38 (studio:engineering pod49/B38)"
+source: "td-49 B33, B33b, B34a, B34c, B38"
 decided_by: "director-49; accepted by Noah 2026-11-10"
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

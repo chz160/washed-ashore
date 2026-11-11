@@ -5,10 +5,10 @@ tech: [physics]
 area: []
 issues: [43]
 prs: [50]
-source: "studio:decisions gate/physics-layers-43; issue #43; PR #50"
+source: "issue #43; PR #50"
 decided_by: "game-director (gate, with conditions)"
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

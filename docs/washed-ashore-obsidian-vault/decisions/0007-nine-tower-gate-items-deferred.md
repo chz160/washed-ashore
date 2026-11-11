@@ -5,10 +5,10 @@ tech: []
 area: [lookout-tower]
 issues: [8, 86, 80]
 prs: [92, 93]
-source: "pod8-brief.md 'Noah's rulings for this pod (2026-10-29)'; pod86-brief.md 'Hard rules'; studio:production sprint/pod86/ruling-noah; _bmad-output/poc/tower-restart-rulings.md section 4"
+source: "pod8-brief.md 'Noah's rulings for this pod (2026-10-29)'; pod86-brief.md 'Hard rules'; _bmad-output/poc/tower-restart-rulings.md section 4"
 decided_by: "Noah"
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

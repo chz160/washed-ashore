@@ -5,9 +5,9 @@ tech: [character-art, animation, rendering, probe-tests, perf]
 area: [player-body, player]
 issues: [49, 35, 36, 95, 96]
 prs: []
-source: "pod49 close-out (studio:production pod/49/closeout-for-noah, pod/49/status, pod/49/qa-signoff); studio:decisions gate/pod49-s6-look-gate; td-49 B36-B40"
+source: "pod49 close-out; td-49 B36-B40"
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 # Player character body
 

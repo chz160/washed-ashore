@@ -5,10 +5,10 @@ tech: [stairs-ramps]
 area: [lookout-tower]
 issues: [7, 8, 63]
 prs: [79]
-source: "_bmad-output/poc/tower-restart-rulings.md section 2 (= studio:decisions decision/lookout-tower-restart-carry-over); issue #63; PR #79"
+source: "_bmad-output/poc/tower-restart-rulings.md section 2; issue #63; PR #79"
 decided_by: "game-director, on Noah's delegation"
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

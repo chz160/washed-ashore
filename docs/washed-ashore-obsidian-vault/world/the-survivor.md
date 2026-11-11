@@ -5,9 +5,9 @@ tech: [character-art]
 area: [player-body]
 issues: [49, 95, 36]
 prs: []
-source: "pod49 brief-phase2 (source asset facts); studio:decisions gate/meshy-survivor-eval-amend7-model-as-is-phase2, gate/pod49-uniform-scale-1027-eye, gate/meshy-survivor-eval-amend8-note1-noah-answers, gate/pod49-s6-look-gate; pod49 HANDOFF section 3a"
+source: "pod49 brief-phase2 (source asset facts); pod49 HANDOFF section 3a"
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 aliases: [Survivor, player character, Meshy Survivor]
 ---
 # The Survivor

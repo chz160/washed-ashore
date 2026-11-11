@@ -5,10 +5,10 @@ tech: [character-art, rendering]
 area: [player-body]
 issues: [49]
 prs: []
-source: "td-49 B37 (studio:engineering pod49/B37-w49-5-x1-failed, adr/pod49-x1-backing-hull-closed); pod49 noah-answers-20261110.md; studio:decisions gate/pod49-s6-look-gate; run TestResults/player-character/runs/b22-p0/s2-p0/ (s2-hull-summary.txt e2b52473, s2-summary.txt 36b34564)"
+source: "td-49 B37; pod49 noah-answers-20261110.md; run TestResults/player-character/runs/b22-p0/s2-p0/ (s2-hull-summary.txt e2b52473, s2-summary.txt 36b34564)"
 decided_by: "Noah"
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

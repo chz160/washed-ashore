@@ -5,10 +5,10 @@ tech: [character-art]
 area: [player-body]
 issues: [49, 95]
 prs: []
-source: "pod49 brief-phase2 'Noah's rulings since phase 1' (2026-11-03); studio:decisions gate/meshy-survivor-eval-amend6-meshy-all-in, gate/meshy-survivor-eval-amend7-model-as-is-phase2"
+source: "pod49 brief-phase2 'Noah's rulings since phase 1' (2026-11-03)"
 decided_by: "Noah"
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

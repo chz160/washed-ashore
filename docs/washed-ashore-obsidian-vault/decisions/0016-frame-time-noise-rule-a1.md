@@ -5,10 +5,10 @@ tech: [perf]
 area: [player-body]
 issues: [49]
 prs: []
-source: "studio:engineering standards/frame-time-noise-rule-a1, pod49/m30-fps-result; td-49 B16o (A1), B39; pod49 HANDOFF section 3b"
+source: "td-49 B16o (A1), B39; pod49 HANDOFF section 3b"
 decided_by: "td-49 (rule); Noah accepted M30 under it, 2026-11-08"
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

@@ -5,9 +5,9 @@ tech: [character-art, rendering]
 area: [player-body]
 issues: [49]
 prs: []
-source: "td-49 B30, B30c, B31, B32 (3), B34d, B35 C, B37; ta-49 d1_seam.py 4cc2fe4a (pod49 out/d1_seam.txt); studio:engineering adr/pod49-x1-backing-hull-closed"
+source: "td-49 B30, B30c, B31, B32 (3), B34d, B35 C, B37; ta-49 d1_seam.py 4cc2fe4a (pod49 out/d1_seam.txt)"
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 aliases: [fold gap, K-a, hairline wedge, backing hull, X1]
 ---
 # Fold-silhouette gaps in layered cloth meshes

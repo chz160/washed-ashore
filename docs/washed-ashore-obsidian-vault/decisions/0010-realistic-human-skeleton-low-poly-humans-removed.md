@@ -5,10 +5,10 @@ tech: [character-art, animation]
 area: [player-body]
 issues: [49, 36, 96]
 prs: []
-source: "studio:decisions gate/meshy-survivor-eval-amend8-p4-realistic-skeleton, gate/meshy-survivor-eval-amend8-note1-noah-answers, gate/pod49-p4-skeleton-look-approval, gate/pod49-s6-look-gate (C3)"
+source: "pod records (retired)"
 decided_by: "Noah (P4); director-49 (look approval)"
 created: 2026-11-10
-updated: 2026-11-10
+updated: 2026-11-11
 supersedes: ""
 superseded_by: ""
 ---

@@ -5,9 +5,9 @@ tech: [probe-tests]
 area: [player]
 issues: [19, 46, 78, 81, 91, 49]
 prs: [65, 79, 82, 85]
-source: "PR #65, #79, #85; issues #78, #81, #91; pod49 td-49 B34c (items 7-8); studio:engineering adr/lookout-interactions-40 parts 80-98 (input and teleport items, not re-read for this note)"
+source: "PR #65, #79, #85; issues #78, #81, #91; pod49 td-49 B34c (items 7-8)"
 created: 2026-10-30
-updated: 2026-11-10
+updated: 2026-11-11
 aliases: [test gotchas, TestSpawn, known-fail]
 ---
 # Probe and PlayMode test gotchas
