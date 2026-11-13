@@ -1,10 +1,17 @@
 ---
 type: log
-updated: 2026-11-11
+updated: 2026-11-13
 ---
 # Log
 
 One entry per pod or vault change, newest first. Format: `## YYYY-MM-DD | <what> | <issue>`.
+
+## 2026-11-13 | Tech/review pod: frustum culling investigation | #9
+- Decisions: new [[0025-savings-rule-s1-perf-trials]], [[0026-agents-may-launch-the-player]] (amended same day), [[0027-reruns-replace-and-pre-data-facts-are-blind]] (all accepted; 0016 unedited, 0026 replaces only its "never launch" sentence).
+- Patterns: new [[frustum-culling-harness-and-measurement-rule]] (flags, GRD limit, lessons for #10 and #11).
+- Features: new [[frustum-culling-investigation]] (in-progress). Home.md: link lines appended.
+- Result: qa-lead #32: Q1, Q2, Q4, Q6 PASS; Q3 and Q5 INCONCLUSIVE; no automatic FAIL. No change recommended as measured: a 600 m far clip saves 1.6-3.5 ms p95 but changes the skyline at 3 of 4 spots. Five rows still INCONCLUSIVE after the rerun; the Studio Head accepted them and finished #9 (rulings file item 4). Issue text corrected: 4 cascades, fish drawn procedurally, terrain tiles are not Renderers.
+- Sources: tasks #23-#33, `_bmad-output/poc/perf-frustum-note.md` (b0bdfce9), `TestResults/9-qa-verdict.md`. Written on branch `frustum-culling-9`, not committed. Not run by the writer: tests and measurements.
 
 ## 2026-11-11 | Feature pod: tree collision and bush slowdown | #21
 - Decisions: new [[0023-bush-slowdown-design]], [[0024-tree-collider-sized-to-trunk]] (both accepted; bush multipliers assumed, not playtested).

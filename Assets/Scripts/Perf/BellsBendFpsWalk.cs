@@ -33,6 +33,8 @@ namespace WashedAshore.Perf
         const float FixedWarmup = 15f, FixedRouteSeconds = 120f, LookDownSeconds = 20f, LookDownPitch = 60f;
         const int FixedSeed = 101;   // the same wildlife, bird and fish seed in every arm
         static readonly List<double> lookMs = new List<double>();
+        /// <summary>Raised on every timed frame: leg "walk" (or "shore") and "lookdown", with the frame time in ms. FrustumProbe samples its counters here.</summary>
+        internal static event System.Action<string, double> TimedFrame;
         const int Width = 1920, Height = 1080;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -116,6 +118,7 @@ namespace WashedAshore.Perf
                 if (t >= 0f)
                 {
                     ms.Add(dt * 1000.0);
+                    TimedFrame?.Invoke(shore ? "shore" : "walk", dt * 1000.0);
                     walked += step;
                     timed += dt;
                     if (walked >= legStart) legMs.Add(dt * 1000.0);
@@ -135,6 +138,7 @@ namespace WashedAshore.Perf
                     yield return null;
                     float dtl = Time.unscaledDeltaTime;
                     lookMs.Add(dtl * 1000.0);
+                    TimedFrame?.Invoke("lookdown", dtl * 1000.0);
                     held += dtl;
                 }
             }

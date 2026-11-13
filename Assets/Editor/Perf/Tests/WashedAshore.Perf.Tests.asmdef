@@ -1,0 +1,26 @@
+{
+    "name": "WashedAshore.Perf.Tests",
+    "rootNamespace": "WashedAshore.Perf.Tests",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "WashedAshore.Perf",
+        "WashedAshore.Fish",
+        "WashedAshore.Fish.Rendering"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
