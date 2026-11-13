@@ -1,19 +1,25 @@
 # Board (snapshot of the task list, kept by team-lead)
 
-Updated: 2026-11-11 21:14, close-out in progress (final snapshot before the task list clears)
-Pod: feature, for issue #21 (tree collision bug + bush slowdown). Branch: trees-bushes-21 (from player-body-49 at 9c0a512). 7 members over the pod (technical-director added for code review). Nothing committed.
+Updated: 2026-11-13 21:16 UTC. #9 pod complete, with every task closed. The team is shut down. Nothing is committed.
+Pod: tech/review for issue #9 (frustum culling investigation). Branch: frustum-culling-9 (from main at eaf238d).
+Outcome: qa-lead's verdict (TestResults/9-qa-verdict.md) is Q1, Q2, Q4 and Q6 PASS; Q3 and Q5 INCONCLUSIVE, accepted by the Studio Head; no automatic FAIL. The note (_bmad-output/poc/perf-frustum-note.md, blob c6e108c4) recommends no setting change as measured.
+Studio Head rulings: TestResults/9-studio-head-rulings.md. Agents launch reviewed measurement runs without asking (0026 as amended).
 
-| # | Task | Owner | Status | Gates |
-|---|---|---|---|---|
-| 12 | Run the baseline before any change | build-engineer | completed | none |
-| 13 | Specify the bush slowdown numbers | systems-designer | completed (QA, DOCS) | qa docs |
-| 14 | Restore tree colliders in the LOD prefabs | technical-artist | completed (TESTS, QA, DOCS at completion; text later lost DOCS to an overwrite) | tests qa docs |
-| 15 | Build the bush slowdown system | gameplay-engineer | completed (TESTS, QA, DOCS, review) | tests qa docs |
-| 16 | Write the tree collision PlayMode tests | gameplay-engineer | completed (TESTS, QA) | tests qa |
-| 17 | Run the regression and FPS check | build-engineer | completing (TESTS, QA) | tests qa |
-| 18 | Give the #21 pass/fail verdict | qa-lead | completed: all T1-T3, B1-B4 PASS | none |
-| 19 | Close out the #21 pod | technical-writer | in progress | docs |
-| 20 | Create and link the bush tuning asset | technical-artist | completed (TESTS, QA) | tests qa |
-| 21 | Review the #21 code changes | technical-director | completed (QA) | qa |
+Open for the Studio Head:
+- Commit: which evidence to force-add (TestResults/ is gitignored; technical-writer suggests 9 small files in .studio/handoff.md; 9-runs/ is 6.5 GB). Keep MC39_Glass.mat out of the #9 commits.
+- Post .studio/drafts/issue-f9-fish-counter.md (the BellsBendFpsWalk fish counter reads 0).
+- Follow-ups to raise: the cause of FAR's main-thread spikes; a zone/view far clip (unmeasured); fixing the harness edge-still aim and noise repeat before #10/#11.
 
-Open for the Studio Head: playtest of the slowdown feel; tree trunk edges by eye; macOS/Linux not run; rustle audible to wildlife (pillar question); Capture impostor churn and remaining tree stand-out (follow-ups); pre-existing tower test KF_S1_OneFrameBump_144fps.
+| # | Task | Owner | Status |
+|---|---|---|---|
+| 23 | Culling counters and trial flags | platform-tools-engineer | completed |
+| 24 | Census | platform-tools-engineer | completed |
+| 25 | Measurement plan (rev 2, 710f0d11, addenda 1-7) | technical-director | completed |
+| 26 | Player build and run script (b7843ce9; script 7d16a719) | platform-tools-engineer | completed |
+| 27 | Analysis | platform-tools-engineer | completed (QA PASS) |
+| 28 | Pop-in judgement | technical-artist | completed (QA PASS) |
+| 29 | Recommendation note (c6e108c4) | platform-tools-engineer | completed (QA PASS, td PASS) |
+| 30 | Approve the note | technical-director | completed (PASS c6e108c4) |
+| 31 | Try to break the note | skeptic | completed (PASS) |
+| 32 | #9 verdict | qa-lead | completed |
+| 33 | Close-out | technical-writer | completed (DOCS OK) |

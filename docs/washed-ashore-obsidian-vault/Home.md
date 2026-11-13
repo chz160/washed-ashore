@@ -20,3 +20,7 @@ See [[log]].
 ## How this vault works
 
 Rules for agents and people: [[CLAUDE]]. Team notes go in `team-notes/`.
+
+## Performance measurement
+
+- [[frustum-culling-harness-and-measurement-rule]] and [[0025-savings-rule-s1-perf-trials]]: how to measure culling trials (#9, #10, #11). Result of #9: [[frustum-culling-investigation]].
