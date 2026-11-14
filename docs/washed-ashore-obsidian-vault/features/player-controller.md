@@ -3,11 +3,11 @@ type: feature
 status: shipped
 tech: [character-controller, multiplayer-ready]
 area: [player]
-issues: [64, 46, 19, 43, 81]
+issues: [64, 46, 19, 43, 81, 13]
 prs: [82, 83, 85, 65, 50]
 source: "PR #82, #83, #85, #65, #50"
 created: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-11
 ---
 # Player controller
 
@@ -32,10 +32,11 @@ _The player is one Unity `CharacterController` capsule, simulated on a fixed 60 
 - **#89:** intermittent stance tests (CrouchLow, Speeds_CrouchWalkSprint).
 - **Stance camera:** above 60 fps the camera moves in 60 Hz steps during stance drops (PR #85 residual).
 - **Fish lookups:** fish still find the player with `FindAnyObjectByType` (PR #83 follow-up).
-- **Networking (#13):** prediction and reconciliation are still to write. NGO has no built-in prediction for `CharacterController` ([physics-guidelines](https://github.com/chz160/washed-ashore/blob/main/docs/physics-guidelines.md) rule 2).
+- **Networking (#13):** not built (no netcode package; task #3). Prediction and reconciliation are still to write. NGO has no built-in prediction for `CharacterController` ([physics-guidelines](https://github.com/chz160/washed-ashore/blob/main/docs/physics-guidelines.md) rule 2). A pod review on 2026-11-11 (tasks #1-#4) found the guidelines assume one authority and one clock before #13 is settled. Proposed, not accepted: [[0017-one-authoritative-simulation-assumed]], [[0018-one-sim-clock-60hz]], [[0019-blocking-world-state-on-sim-tick]], [[0020-replay-is-side-effect-free]], [[0021-server-validates-client-input]]. Hatch and sash hinges tick on `Time.deltaTime` outside `PlayerSimState` (`TrapDoor.cs:169`, `WindowSash.cs:99`). Cross-machine replay determinism is unmeasured (assumed).
 
 ## Rulings
 [[0006-charactercontroller-kept]], [[0004-no-single-spawn-point]], [[0003-player-off-default-layer]]
+Proposed (not accepted): [[0017-one-authoritative-simulation-assumed]], [[0018-one-sim-clock-60hz]], [[0019-blocking-world-state-on-sim-tick]], [[0020-replay-is-side-effect-free]], [[0021-server-validates-client-input]]
 
 ## Patterns
 [[fixed-tick-player-sim]], [[stairs-and-ramps-with-a-charactercontroller]], [[probe-and-playmode-test-gotchas]], [[physics-layers-and-collision-masks]]
