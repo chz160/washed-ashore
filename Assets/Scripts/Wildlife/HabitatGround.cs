@@ -100,13 +100,6 @@ namespace WashedAshore.Wildlife
         /// <summary>Old-field grass weight under the point.</summary>
         public float Grass(Vector3 p) => Splat(p, GroundType.Grass);
 
-        /// <summary>
-        /// Weight of the canonical ground ID (a <see cref="GroundType"/> value, NOT a tile's alphamap slot); 0 for an unknown ID.
-        /// Kept so WildlifePlacer keeps compiling; use <see cref="Grass"/> or the GroundType overload.
-        /// </summary>
-        public float Splat(Vector3 p, int groundId) =>
-            groundId >= 0 && groundId < GroundTypes.Count ? Splat(p, (GroundType)groundId) : 0f;
-
         public struct TreeAt
         {
             public Vector3 world;

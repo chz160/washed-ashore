@@ -180,7 +180,7 @@ namespace WashedAshore.Wildlife.Level
                 if (routeD > 60f) bad.Add("route>60");
                 if (sp == "Deer")
                 {
-                    if (ground.Splat(a, 0) < 0.6f) bad.Add("grass<0.6");
+                    if (ground.Grass(a) < 0.6f) bad.Add("grass<0.6");
                     if (slope > 20f) bad.Add("slope>20");
                     if (!Near(trees, a2, 40f)) bad.Add("noTree40");
                     if (deerD < 100f) bad.Add("deerGap<100");

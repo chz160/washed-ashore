@@ -54,9 +54,7 @@ namespace WashedAshore.Tests.EditMode
             var p = new Vector3(Far + 50f, 0f, Far + 50f);
             Assert.AreEqual(0.7f, g.Grass(p), 0.01f);
             Assert.AreEqual(0.7f, g.Splat(p, GroundType.Grass), 0.01f);
-            Assert.AreEqual(g.Splat(p, GroundType.Grass), g.Splat(p, 0), "the int overload takes the canonical ground ID");
             Assert.AreEqual(0.2f, g.Splat(p, GroundType.ForestFloor), 0.01f);
-            Assert.AreEqual(0f, g.Splat(p, 99));
         }
 
         [Test]
