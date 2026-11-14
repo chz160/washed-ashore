@@ -149,7 +149,10 @@ namespace WashedAshore.Lookout.Editor
             m.SetFloat("_AlphaClip", alphaClip ? 1f : 0f);
             m.SetFloat("_Cutoff", AlphaClip);
             m.SetFloat("_Cull", twoSided ? (float)CullMode.Off : (float)CullMode.Back);
-            m.SetFloat("_SrcBlend", (float)(transparent ? BlendMode.SrcAlpha : BlendMode.One));
+            // Glass keeps its reflections ("Preserve Specular Lighting"), which URP pairs with
+            // SrcBlend One. Writing SrcAlpha here made Unity rewrite the .mat whenever it was opened.
+            m.SetFloat("_BlendModePreserveSpecular", 1f);
+            m.SetFloat("_SrcBlend", (float)BlendMode.One);
             m.SetFloat("_DstBlend", (float)(transparent ? BlendMode.OneMinusSrcAlpha : BlendMode.Zero));
             m.SetFloat("_ZWrite", transparent ? 0f : 1f);
             m.SetOverrideTag("RenderType", transparent ? "Transparent" : alphaClip ? "TransparentCutout" : "Opaque");
