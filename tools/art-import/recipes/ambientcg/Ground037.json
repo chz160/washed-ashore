@@ -1,0 +1,27 @@
+{
+  "height_metres": 0.03,
+  "input": {
+    "archive": "Ground037_1K-JPG.zip",
+    "archive_sha256": "4e69db2b7251b1736fa70fe6fe4ab80d64bd220117dd5dd4c7caaead51c2574e"
+  },
+  "library_id": "ambientcg:Ground037",
+  "license": "CC0-1.0",
+  "normal": {
+    "convention": "gl"
+  },
+  "notes": "archive sha256 matches the git-lfs pointer Ground037_1K-JPG.zip.lfsptr (oid, size 10574958). height_metres is a provisional manual guess. Only the 1K-JPG tier is staged.",
+  "role": "terrain-layer",
+  "schema": "art-import-recipe/1",
+  "ship_size": 1024,
+  "source": "ambientcg",
+  "source_id": "Ground037",
+  "tile_metres": [
+    4,
+    4
+  ],
+  "unity": {
+    "layer_key": "OldFieldGrass",
+    "legacy_smoothness": 0.05,
+    "slot": 0
+  }
+}

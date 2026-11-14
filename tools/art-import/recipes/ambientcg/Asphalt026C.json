@@ -1,0 +1,27 @@
+{
+  "height_metres": 0.02,
+  "input": {
+    "archive": "Asphalt026C_1K-JPG.zip",
+    "archive_sha256": "4f437fd9134fdb810e6e92c16c52aa80eaaefee8d6fe917d8b5a178cb8a1d5fa"
+  },
+  "library_id": "ambientcg:Asphalt026C",
+  "license": "CC0-1.0",
+  "normal": {
+    "convention": "gl"
+  },
+  "notes": "archive sha256 first seen 2026-11-13, hashed from _staging before any run (no upstream hash; trust on first use). height_metres is a provisional manual guess. Only the 1K-JPG tier is staged.",
+  "role": "terrain-layer",
+  "schema": "art-import-recipe/1",
+  "ship_size": 1024,
+  "source": "ambientcg",
+  "source_id": "Asphalt026C",
+  "tile_metres": [
+    8,
+    8
+  ],
+  "unity": {
+    "layer_key": "CrackedAsphalt",
+    "legacy_smoothness": 0.15,
+    "slot": 2
+  }
+}

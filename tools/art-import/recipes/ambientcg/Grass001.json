@@ -1,0 +1,27 @@
+{
+  "height_metres": 0.1,
+  "input": {
+    "archive": "Grass001_1K-JPG.zip",
+    "archive_sha256": "902f447a64171c8099589642d5bf2d1d6e52c40e94d957eb78eae722084b0cfb"
+  },
+  "library_id": "ambientcg:Grass001",
+  "license": "CC0-1.0",
+  "normal": {
+    "convention": "gl"
+  },
+  "notes": "archive sha256 first seen 2026-11-13, hashed from _staging before any run (no upstream hash; trust on first use). height_metres is a provisional manual guess. Only the 1K-JPG tier is staged.",
+  "role": "terrain-layer",
+  "schema": "art-import-recipe/1",
+  "ship_size": 1024,
+  "source": "ambientcg",
+  "source_id": "Grass001",
+  "tile_metres": [
+    4,
+    4
+  ],
+  "unity": {
+    "layer_key": "KudzuCover",
+    "legacy_smoothness": 0.1,
+    "slot": 6
+  }
+}

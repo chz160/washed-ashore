@@ -1,0 +1,27 @@
+{
+  "height_metres": 0.05,
+  "input": {
+    "archive": "Ground078_1K-JPG.zip",
+    "archive_sha256": "ab21b8c558be116bfc462124bc0e93919901882dae48ea57e5bffac0aedd8e4f"
+  },
+  "library_id": "ambientcg:Ground078",
+  "license": "CC0-1.0",
+  "normal": {
+    "convention": "gl"
+  },
+  "notes": "archive sha256 first seen 2026-11-13, hashed from _staging before any run (no upstream hash; trust on first use). height_metres is a provisional manual guess. Only the 1K-JPG tier is staged.",
+  "role": "terrain-layer",
+  "schema": "art-import-recipe/1",
+  "ship_size": 1024,
+  "source": "ambientcg",
+  "source_id": "Ground078",
+  "tile_metres": [
+    8,
+    4
+  ],
+  "unity": {
+    "layer_key": "OvergrownGravel",
+    "legacy_smoothness": 0.05,
+    "slot": 3
+  }
+}
