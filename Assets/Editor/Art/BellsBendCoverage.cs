@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using WashedAshore.World;
 using A = AmbientCgLayers;
 using T = BellsBendArtTargets;
 using V = BellsBendVegetation;
@@ -59,6 +60,7 @@ public static class BellsBendCoverage
             var o = t.transform.position;
             int ares = d.alphamapResolution, dres = d.detailResolution;
             var a = d.GetAlphamaps(0, 0, ares, ares);
+            var map = TerrainGroundMap.Build(d); // channel order differs per tile
             var shrubCount = new int[dres, dres];
             var kudzuCount = new int[dres, dres];
             foreach (int l in shrubLayers)
@@ -81,7 +83,7 @@ public static class BellsBendCoverage
                     if (zone == T.Outside || zone >= T.Zones.Length) continue;
                     var s = stats[zone];
                     int ax = Mathf.Min(ares - 1, (int)(cx / d.size.x * ares)), az = Mathf.Min(ares - 1, (int)(cz / d.size.z * ares));
-                    for (int l = 0; l < w8.Length; l++) w8[l] = a[az, ax, l];
+                    map.Expand(a, az, ax, w8);
                     // Detail cells whose centres fall inside this 5 m cell.
                     bool shrub = false, kudzu = false;
                     int x0 = Mathf.Max(0, Mathf.CeilToInt((cx - T.CellMetres / 2) / dc - 0.5f)), x1 = Mathf.Min(dres - 1, Mathf.FloorToInt((cx + T.CellMetres / 2) / dc - 0.5f));
