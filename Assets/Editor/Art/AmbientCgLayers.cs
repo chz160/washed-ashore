@@ -18,16 +18,28 @@ public static class AmbientCgLayers
     // Splat channel order is fixed: BellsBendGround paints by these indices, and wildlife/bird
     // habitat rules read layer 0 as grass (designer-2's brief, habitat contract).
     public const int Grass = 0, ForestFloor = 1, Asphalt = 2, Gravel = 3, Bank = 4, Rock = 5, Kudzu = 6;
+    // Tile sizes must divide the 1024 m terrain tile: layer UVs restart at each tile's corner, so any
+    // other size shows a straight seam at every tile border. Build() refuses sizes that don't.
     public static readonly (string key, string id, Vector2 tile, float smooth)[] Specs =
     {
-        ("OldFieldGrass", "Ground037", new Vector2(5f, 5f), 0.05f),   // moss, broomsedge stubble, twigs: not lawn
+        ("OldFieldGrass", "Ground037", new Vector2(4f, 4f), 0.05f),   // moss, broomsedge stubble, twigs: not lawn
         ("ForestFloor", "Ground023", new Vector2(4f, 4f), 0.05f),     // leaf litter (ridge, hollows, bank)
-        ("CrackedAsphalt", "Asphalt026C", new Vector2(6f, 6f), 0.15f),
-        ("OvergrownGravel", "Ground078", new Vector2(6f, 3f), 0.05f),  // 2:1 source image
-        ("RiverBank", "Ground054", new Vector2(5f, 5f), 0.2f),        // silt/mud
-        ("BluffRock", "Rock051", new Vector2(12f, 12f), 0.1f),        // grey limestone with moss
-        ("KudzuCover", "Grass001", new Vector2(3f, 3f), 0.1f),        // dense dark broadleaf cover on the verges
+        ("CrackedAsphalt", "Asphalt026C", new Vector2(8f, 8f), 0.15f),
+        ("OvergrownGravel", "Ground078", new Vector2(8f, 4f), 0.05f),  // 2:1 source image
+        ("RiverBank", "Ground054", new Vector2(4f, 4f), 0.2f),        // silt/mud
+        ("BluffRock", "Rock051", new Vector2(16f, 16f), 0.1f),        // grey limestone with moss
+        ("KudzuCover", "Grass001", new Vector2(4f, 4f), 0.1f),        // dense dark broadleaf cover on the verges
     };
+
+    const float TerrainTileMeters = 1024f;
+
+    static void CheckTileSizes()
+    {
+        foreach (var s in Specs)
+            foreach (var v in new[] { s.tile.x, s.tile.y })
+                if (v <= 0f || Mathf.Abs(TerrainTileMeters / v - Mathf.Round(TerrainTileMeters / v)) > 1e-4f)
+                    throw new System.InvalidOperationException($"{s.key}: tile size {v} m doesn't divide {TerrainTileMeters} m; it would seam at tile borders.");
+    }
 
     public static string Build()
     {
@@ -41,6 +53,7 @@ public static class AmbientCgLayers
     /// <summary>The layers in splat order; with create, (re)builds any that are missing or stale.</summary>
     public static TerrainLayer[] Load(bool create)
     {
+        if (create) CheckTileSizes();
         return Specs.Select(s =>
         {
             var path = $"{LayerRoot}/{s.key}.terrainlayer";

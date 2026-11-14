@@ -98,7 +98,10 @@ public static class BellsBendGround
         for (int y = 0; y < res; y++)
             for (int x = 0; x < res; x++)
             {
-                float nx = (x + 0.5f) / res, nz = (y + 0.5f) / res;
+                // TerrainLit reads control texel i at i/(res-1) of the tile, so the first and last
+                // texels sit on the tile edges. Sampling texel centres instead shifted the splat by up
+                // to 1 m across each border and showed a hard edge wherever weights change fast.
+                float nx = x / (res - 1f), nz = y / (res - 1f);
                 var p = new Vector3(o.x + nx * d.size.x, 0f, o.z + nz * d.size.z);
                 Weights(maps, p, w);
                 for (int l = 0; l < n; l++) a[y, x, l] = w[l];
