@@ -41,6 +41,7 @@ namespace WashedAshore.Birds
         public float idleTurnDegrees = 70f;
 
         [Header("Habitat (brief 3.2 / A4)")]
+        [Tooltip("Minimum weight of GroundType.Grass under a bird spot.")]
         public float minGrass = 0.6f;
         public float maxSlope = 15f;
         [Tooltip("A4: no start, hop or landing within this distance of the route polyline.")]

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using WashedAshore.Gameplay;
+using WashedAshore.World;
 
 namespace WashedAshore.Wildlife
 {
@@ -19,6 +20,8 @@ namespace WashedAshore.Wildlife
 
         readonly List<Terrain> tiles = new List<Terrain>();
         readonly Dictionary<Terrain, float[,,]> splat = new Dictionary<Terrain, float[,,]>();
+        readonly Dictionary<Terrain, TerrainGroundMap> ground = new Dictionary<Terrain, TerrainGroundMap>();
+        bool warnedUnknownLayers;
 
         /// <summary>South-west corner of the window (y = 0).</summary>
         public Vector3 Origin { get; }
@@ -68,20 +71,34 @@ namespace WashedAshore.Wildlife
             return m;
         }
 
-        /// <summary>Splat weight of <paramref name="layer"/> under the point (layer 0 is grass).</summary>
-        public float Splat(Vector3 p, int layer)
+        /// <summary>Splat weight of the ground type under the point, found by TerrainLayer asset on the tile under it (0 when that tile holds no such layer).</summary>
+        public float Splat(Vector3 p, GroundType g)
         {
             var t = TerrainQuery.TileAtOrNearest(p);
             if (t == null) return 0f;
             var d = t.terrainData;
-            if (layer >= d.alphamapLayers) return 0f;
+            if (!ground.TryGetValue(t, out var map))
+            {
+                ground[t] = map = TerrainGroundMap.Build(d);
+                // A tile may legitimately hold no grass (the painter drops unused layers), but a tile with layers and none of the known names means a renamed TerrainLayer.
+                if (map.LayerCount > 0 && !map.Has(GroundType.Grass) && !map.Has(GroundType.ForestFloor) && !map.Has(GroundType.Asphalt) && !map.Has(GroundType.Gravel)
+                    && !map.Has(GroundType.Bank) && !map.Has(GroundType.Rock) && !map.Has(GroundType.Kudzu) && !warnedUnknownLayers)
+                {
+                    warnedUnknownLayers = true;
+                    Debug.LogWarning($"HabitatGround: tile '{t.name}' has {map.LayerCount} terrain layers but none named in GroundTypes.LayerNames; ground weights read as 0 there (was a layer renamed?).");
+                }
+            }
+            if (!map.Has(g)) return 0f;
             if (!splat.TryGetValue(t, out var a))
                 splat[t] = a = d.GetAlphamaps(0, 0, d.alphamapWidth, d.alphamapHeight);
             var n = TerrainQuery.Normalized(t, p);
             int sx = Mathf.Clamp(Mathf.RoundToInt(n.x * (d.alphamapWidth - 1)), 0, d.alphamapWidth - 1);
             int sz = Mathf.Clamp(Mathf.RoundToInt(n.y * (d.alphamapHeight - 1)), 0, d.alphamapHeight - 1);
-            return a[sz, sx, layer];
+            return map.Weight(a, sz, sx, g);
         }
+
+        /// <summary>Old-field grass weight under the point.</summary>
+        public float Grass(Vector3 p) => Splat(p, GroundType.Grass);
 
         public struct TreeAt
         {

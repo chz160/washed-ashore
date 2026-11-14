@@ -20,9 +20,10 @@ namespace WashedAshore.Perf
     /// Frustum-culling harness for issue #9 (and the shared #10/#11 protocol), shaped by technical-director's #25 plan.
     /// Inert unless a -fc argument is on the player's command line, and refused outright in the Editor (Boot), so its
     /// asset and QualitySettings writes only ever touch a built player's memory. Trials are runtime overrides for the session only:
-    /// camera fields, Terrain component fields (never terrainData) and, for three keys only, the active URP asset in
-    /// memory. Those asset writes are refused in the Editor (where they would persist to disk) and put back at quit and
-    /// on destroy. Nothing is saved to World.unity, prefabs, URP assets, terrain data or ProjectSettings.
+    /// camera fields, Terrain component fields (never terrainData) and, for the asset keys only, the active URP asset, its
+    /// UniversalRendererData (depth priming) and QualitySettings (mip limit, lodBias) in memory. Those writes are refused in
+    /// the Editor (where they would persist to disk) and put back at quit and on destroy. Nothing is saved to World.unity,
+    /// prefabs, URP assets, terrain data or ProjectSettings.
     ///
     /// Spot run: -fcSpots spot[,spot]  (one spot per launch in the #25 plan; default all five) with -fcVariant id:k=v,..
     ///   repeated (TrialVariant). Per spot: -fcWarmup s of A (default 15, discarded), then the windows A V1 A V2 ... Vk A,
@@ -40,7 +41,18 @@ namespace WashedAshore.Perf
     ///   frustum-route.json at quit.
     /// Global trial flags (route, or a spot run with no -fcVariant, where they form variant "cli"): -fcFar m, -fcFarCab m,
     ///   -fcLayerCull Layer=m (repeat), -fcLayerCullSpherical, -fcDetail m, -fcShadowsOff, -fcShadowDist m, -fcGrdOcc on|off,
-    ///   -fcSmallMesh percent.
+    ///   -fcSmallMesh percent, -fcMipLimit 0-3, -fcLodBias x, -fcAA off|fxaa|smaa|taa|stp|msaa2|msaa4|msaa8,
+    ///   -fcDepthPrime off|auto|forced, -fcPost on|off (TrialVariant keys mipLimit, lodBias, aa, depthPrime, post). In a spot
+    ///   run with -fcVariant the global trial flags would be ignored, so that is an argument error.
+    /// AA and depth-priming keys (Phase 0): aa= sets the camera's AA mode, the URP asset's MSAA count and (stp) its upscaling
+    ///   filter; fxaa/smaa/taa/stp need camera post-processing, which they turn on unless post= is given (post_implied).
+    ///   depthPrime= sets every UniversalRendererData of the asset (SetDirty rebuilds the renderer: a hitch inside the
+    ///   settle). Readback adds a problem when MSAA is asked for and Camera.allowMSAA is false, when the asset's isStpUsed does
+    ///   not match the requested filter, or when depth priming is asked for while MSAA &gt; 1 (URP turns priming off then).
+    ///   mipLimit= re-uploads textures (a spike inside the settle); which textures it reaches (terrain layers included or not)
+    ///   is not verified here. For mipLimit, depthPrime and aa variants the in-frame authored twin still is skipped
+    ///   (twin_skipped): switching back and forth would re-upload or rebuild between grabs. For taa and stp every still waits
+    ///   16 frames for the temporal history instead of 2.
     /// Options: -fcRun n (run index, echoed), -fcArm id, -fcPose name=x,z,yaw,pitch[,height], -fcCabHeight m, -fcNoShots,
     ///   -fcEdgeShots (for a variant with layer culls or a detail distance: a still aimed at the cull edge, culled vs shown).
     ///
@@ -60,9 +72,14 @@ namespace WashedAshore.Perf
     ///   Renderer.isVisible, shadow-caster candidates (casting renderers in the frustum cut at the shadow distance) and
     ///   terrain tree instances within the tree distance, in the frustum and past fog end.
     /// Counters per timed frame (ProfilerRecorder, Render): batches, SetPass calls, draw calls, triangles, vertices, shadow
-    ///   casters, visible skinned meshes; extra: CPU "Main Thread" ms (Internal). GPU ms needs enableFrameTimingStats
-    ///   (off in ProjectSettings, not changed here), so it is null. GRD counters exist only in a development player with
-    ///   the profiler on; null otherwise. Each as median/p95/p99/max/mean, nearest rank as BellsBendFpsWalk.
+    ///   casters, visible skinned meshes; extra: CPU "Main Thread" ms (Internal) and gpu_frame_ms from FrameTimingManager
+    ///   (enableFrameTimingStats 1 since Phase 0; null, never 0, when the API reports no GPU time). GRD counters exist only in
+    ///   a development player with the profiler on; null otherwise. Each as median/p95/p99/max/mean, nearest rank as
+    ///   BellsBendFpsWalk.
+    /// Resources per window and route (ResourceRecorder, descriptive, not part of S1 unless a plan pre-registers it):
+    ///   FrameTimingManager CPU/main/render/GPU frame ms, ProfilerRecorder memory (total, GC, Gfx, System used/reserved),
+    ///   and Texture memory snapshots after the settle and after the timing. Machine() records the authored lodBias and mip
+    ///   limit (captured before any trial), so the header is the same in every arm; the live values are in the readback.
     /// GRD's InstanceCuller tests only the camera's cullingLayerMask, not layerCullDistances (core package,
     ///   Runtime/GPUDriven/Culling/InstanceCuller.cs), so a layer cull is expected to cut only non-GRD renderers; the
     ///   census counts what the camera settings ask for, and the counters and edge stills show what the engine did.
@@ -73,6 +90,9 @@ namespace WashedAshore.Perf
         const string PoseArg = "-fcPose", CabHeightArg = "-fcCabHeight", NoShotsArg = "-fcNoShots", EdgeShotsArg = "-fcEdgeShots";
         const string FarArg = "-fcFar", FarCabArg = "-fcFarCab", LayerCullArg = "-fcLayerCull", SphericalArg = "-fcLayerCullSpherical", DetailArg = "-fcDetail";
         const string ShadowsOffArg = "-fcShadowsOff", ShadowDistArg = "-fcShadowDist", GrdOccArg = "-fcGrdOcc", SmallMeshArg = "-fcSmallMesh";
+        const string MipLimitArg = "-fcMipLimit", LodBiasArg = "-fcLodBias", AaArg = "-fcAA", DepthPrimeArg = "-fcDepthPrime", PostArg = "-fcPost";
+        const int GrabFrames = 2, TemporalGrabFrames = 16;
+        const string TwinSkipped = "mipLimit, depthPrime and aa variants: switching to authored and back would re-upload textures or rebuild the renderer between grabs";
         const int Width = 1920, Height = 1080, Seed = 101;   // BellsBendFpsWalk.FixedSeed
         const float AuthoredFarExpected = 1000f, OccluderMaxSize = 50f, CornerPull = 0.1f, TreeRadius = 5f, EdgeWindow = 0.25f, Tolerance = 0.01f;
         static readonly int[] StillHeadings = { 0, 90, 180, 270 };
@@ -102,6 +122,13 @@ namespace WashedAshore.Perf
         static readonly Dictionary<Terrain, float> AuthoredDetail = new Dictionary<Terrain, float>();
         static UniversalRenderPipelineAsset asset;
         static bool assetTouched;
+        static int authoredMipLimit = -1, authoredMsaa = 1;
+        static float authoredLodBias = -1f;
+        static bool authoredPost, qualityTouched;
+        static AntialiasingMode authoredCamAa;
+        static UpscalingFilterSelection authoredUpscaling;
+        static UniversalRendererData[] authoredRenderers;   // copied from the asset's rendererDataList (a span) in CaptureAuthored
+        static DepthPrimingMode[] authoredDepthPrime;
 
         // ----- state -----
         static TrialVariant current = TrialVariant.Authored();
@@ -109,8 +136,9 @@ namespace WashedAshore.Perf
         static int farReapplied;
         static readonly List<double> RouteMs = new List<double>(), LookMs = new List<double>();
         static CounterSet routeCounters;
+        static ResourceRecorder routeResources;
         static bool routeWritten;
-        static string routeReadbackStart = "null";
+        static string routeReadbackStart = "null", routeTextureStart = "null";
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void ResetStatics()
@@ -123,8 +151,10 @@ namespace WashedAshore.Perf
             authoredCaptured = authoredSpherical = authoredGrdOcc = authoredFishActive = false; authoredRenderShadows = true; fishRoot = null;
             authoredFar = authoredShadowDist = authoredSmallMesh = -1f; authoredLayerCull = null;
             AuthoredDetail.Clear(); asset = null; assetTouched = false;
+            authoredMipLimit = -1; authoredMsaa = 1; authoredLodBias = -1f; authoredPost = qualityTouched = false;
+            authoredCamAa = AntialiasingMode.None; authoredUpscaling = UpscalingFilterSelection.Auto; authoredRenderers = null; authoredDepthPrime = null;
             current = TrialVariant.Authored(); currentSpot = ""; exeSha = ""; farReapplied = 0;
-            RouteMs.Clear(); LookMs.Clear(); routeCounters = null; routeWritten = false; routeReadbackStart = "null";
+            RouteMs.Clear(); LookMs.Clear(); routeCounters = null; routeResources = null; routeWritten = false; routeReadbackStart = "null"; routeTextureStart = "null";
             tileColliders = null; treePositions = null;
             routeProblems.Clear();
         }
@@ -220,11 +250,36 @@ namespace WashedAshore.Perf
                         if (FrustumMath.TryParseLayerCull(t, out string layer, out float metres, out string err)) cli.layerCull[layer] = metres; else ArgErrors.Add("-fcLayerCull " + err);
                         break;
                     }
+                    case MipLimitArg: { float v = Num(); if (v >= 0f && v <= 3f && v == Mathf.Floor(v)) cli.mipLimit = (int)v; else if (!float.IsNaN(v)) ArgErrors.Add("-fcMipLimit is an integer 0-3"); } break;
+                    case LodBiasArg: { float v = Num(); if (v > 0f && v <= 10f) cli.lodBias = v; else if (!float.IsNaN(v)) ArgErrors.Add("-fcLodBias is > 0 and <= 10"); } break;
+                    case AaArg:
+                    {
+                        var t = Text();
+                        if (t == null) break;
+                        if (TrialVariant.AaModes.Contains(t)) cli.aa = t; else ArgErrors.Add("-fcAA " + string.Join("|", TrialVariant.AaModes));
+                        break;
+                    }
+                    case DepthPrimeArg:
+                    {
+                        var t = Text();
+                        if (t == null) break;
+                        if (TrialVariant.DepthPrimeModes.Contains(t)) cli.depthPrime = t; else ArgErrors.Add("-fcDepthPrime off|auto|forced");
+                        break;
+                    }
+                    case PostArg:
+                    {
+                        var t = Text();
+                        if (t == "on") cli.post = 1; else if (t == "off") cli.post = 0; else if (t != null) ArgErrors.Add("-fcPost on|off");
+                        break;
+                    }
                     default: ArgErrors.Add($"unknown argument {a}"); break;
                 }
             }
             walkMode = args.Contains(BellsBendFpsWalk.Arg) || args.Contains(BellsBendFpsWalk.ShoreArg);
             if (spotMode && SpotNames.Count == 0) SpotNames.AddRange(FrustumSpots.StaticSpots);
+            string combo = TrialVariant.CombinationError(cli);
+            if (combo != null) ArgErrors.Add("global trial flags: " + combo);
+            if (spotMode && Variants.Count > 0 && !cli.IsAuthored) ArgErrors.Add("global trial flags are ignored in a spot run with -fcVariant; put the keys in the variant");
             if (spotMode && Variants.Count == 0 && !cli.IsAuthored) Variants.Add(cli);
         }
 
@@ -249,6 +304,9 @@ namespace WashedAshore.Perf
             authoredSpherical = cam.layerCullSpherical;
             var data = cam.GetUniversalAdditionalCameraData();
             authoredRenderShadows = data ? data.renderShadows : true;
+            if (data) { authoredCamAa = data.antialiasing; authoredPost = data.renderPostProcessing; }
+            authoredMipLimit = QualitySettings.globalTextureMipmapLimit;
+            authoredLodBias = QualitySettings.lodBias;
             foreach (var t in Terrain.activeTerrains) AuthoredDetail[t] = t.detailObjectDistance;
             fishRoot = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects().FirstOrDefault(g => g.name == FishRootName);
             authoredFishActive = fishRoot && fishRoot.activeSelf;
@@ -258,11 +316,35 @@ namespace WashedAshore.Perf
                 authoredShadowDist = asset.shadowDistance;
                 authoredSmallMesh = asset.smallMeshScreenPercentage;
                 authoredGrdOcc = asset.gpuResidentDrawerEnableOcclusionCullingInCameras;
+                authoredMsaa = asset.msaaSampleCount;
+                authoredUpscaling = asset.upscalingFilter;
+                // rendererDataList is a ReadOnlySpan: copy it here (a plain method); coroutines and lambdas use only the copy.
+                var list = asset.rendererDataList;
+                authoredRenderers = new UniversalRendererData[list.Length];
+                authoredDepthPrime = new DepthPrimingMode[list.Length];
+                for (int i = 0; i < list.Length; i++)
+                {
+                    authoredRenderers[i] = list[i] as UniversalRendererData;
+                    authoredDepthPrime[i] = authoredRenderers[i] ? authoredRenderers[i].depthPrimingMode : DepthPrimingMode.Disabled;
+                }
             }
             authoredCaptured = true;
         }
 
         static float WantFar(TrialVariant v) { float f = v.FarFor(currentSpot == FrustumSpots.Cab); return f > 0f ? f : authoredFar; }
+        static int WantMip(TrialVariant v) => v.mipLimit >= 0 ? v.mipLimit : authoredMipLimit;
+        static float WantLodBias(TrialVariant v) => v.lodBias > 0f ? v.lodBias : authoredLodBias;
+        static int WantMsaa(TrialVariant v) => v.aa != null ? TrialVariant.MsaaFor(v.aa) : authoredMsaa;
+        static AntialiasingMode WantCamAa(TrialVariant v) => v.aa != null ? TrialVariant.CameraAaFor(v.aa) : authoredCamAa;
+        static bool WantPost(TrialVariant v) => v.post >= 0 ? v.post == 1 : (TrialVariant.AaNeedsPost(v.aa) || authoredPost);
+
+        /// <summary>stp asks for the STP filter; another aa mode leaves the authored filter, or Auto if the authored one is STP.</summary>
+        static UpscalingFilterSelection WantUpscaling(TrialVariant v) =>
+            v.aa == "stp" ? UpscalingFilterSelection.STP :
+            v.aa != null && authoredUpscaling == UpscalingFilterSelection.STP ? UpscalingFilterSelection.Auto : authoredUpscaling;
+
+        static DepthPrimingMode WantDepthPrime(TrialVariant v, int renderer) =>
+            v.depthPrime != null ? TrialVariant.DepthPrimingFor(v.depthPrime) : authoredDepthPrime[renderer];
 
         static float[] WantLayerCull(TrialVariant v, List<string> problems)
         {
@@ -285,23 +367,44 @@ namespace WashedAshore.Perf
             cam.layerCullDistances = WantLayerCull(v, null);
             cam.layerCullSpherical = v.spherical || authoredSpherical;
             var data = cam.GetUniversalAdditionalCameraData();
-            if (data) data.renderShadows = !v.shadowsOff && authoredRenderShadows;
+            if (data)
+            {
+                data.renderShadows = !v.shadowsOff && authoredRenderShadows;
+                var camAa = WantCamAa(v);
+                if (data.antialiasing != camAa) data.antialiasing = camAa;
+                bool post = WantPost(v);
+                if (data.renderPostProcessing != post) data.renderPostProcessing = post;
+            }
             foreach (var t in Terrain.activeTerrains)
                 t.detailObjectDistance = v.detail >= 0f ? v.detail : (AuthoredDetail.TryGetValue(t, out float a) ? a : t.detailObjectDistance);
             // FISHOFF: the population is built in Awake, so toggling the root only pauses and hides it (OnEnable re-registers).
             if (fishRoot && fishRoot.activeSelf != (authoredFishActive && !v.fishOff)) fishRoot.SetActive(authoredFishActive && !v.fishOff);
-            if (!asset) return;
             if (Application.isEditor)
             {
-                if (v.WritesAsset) Debug.LogError($"[Frustum] variant {v.id} writes the URP asset; refused in the Editor (it would persist). The window is invalid.");
-                return;   // never write the asset in the Editor
+                if (v.WritesAsset) Debug.LogError($"[Frustum] variant {v.id} writes the URP asset or QualitySettings; refused in the Editor (it would persist). The window is invalid.");
+                return;   // never write the asset or QualitySettings in the Editor
             }
+            int mip = WantMip(v);
+            if (mip >= 0 && QualitySettings.globalTextureMipmapLimit != mip) { QualitySettings.globalTextureMipmapLimit = mip; qualityTouched = true; }
+            float lodBias = WantLodBias(v);
+            if (lodBias > 0f && !Mathf.Approximately(QualitySettings.lodBias, lodBias)) { QualitySettings.lodBias = lodBias; qualityTouched = true; }
+            if (!asset) return;
             float sd = v.shadowDist >= 0f ? v.shadowDist : authoredShadowDist;
             float sm = v.smallMesh >= 0f ? v.smallMesh : authoredSmallMesh;
             bool occ = v.grdOcclusion >= 0 ? v.grdOcclusion == 1 : authoredGrdOcc;
             if (!Mathf.Approximately(asset.shadowDistance, sd)) { asset.shadowDistance = sd; assetTouched = true; }
             if (!Mathf.Approximately(asset.smallMeshScreenPercentage, sm)) { asset.smallMeshScreenPercentage = sm; assetTouched = true; }
             if (asset.gpuResidentDrawerEnableOcclusionCullingInCameras != occ) { asset.gpuResidentDrawerEnableOcclusionCullingInCameras = occ; assetTouched = true; }
+            int msaa = WantMsaa(v);
+            if (asset.msaaSampleCount != msaa) { asset.msaaSampleCount = msaa; assetTouched = true; }
+            var up = WantUpscaling(v);
+            if (asset.upscalingFilter != up) { asset.upscalingFilter = up; assetTouched = true; }
+            for (int i = 0; authoredRenderers != null && i < authoredRenderers.Length; i++)
+            {
+                var r = authoredRenderers[i];
+                var want = WantDepthPrime(v, i);
+                if (r && r.depthPrimingMode != want) { r.depthPrimingMode = want; assetTouched = true; }   // the setter calls SetDirty: renderer rebuilt
+            }
         }
 
         /// <summary>Puts the URP asset back (the one change that could outlive a session).</summary>
@@ -311,10 +414,23 @@ namespace WashedAshore.Perf
             asset.shadowDistance = authoredShadowDist;
             asset.smallMeshScreenPercentage = authoredSmallMesh;
             asset.gpuResidentDrawerEnableOcclusionCullingInCameras = authoredGrdOcc;
+            asset.msaaSampleCount = authoredMsaa;
+            asset.upscalingFilter = authoredUpscaling;
+            for (int i = 0; authoredRenderers != null && i < authoredRenderers.Length; i++)
+                if (authoredRenderers[i] && authoredRenderers[i].depthPrimingMode != authoredDepthPrime[i]) authoredRenderers[i].depthPrimingMode = authoredDepthPrime[i];
             assetTouched = false;
         }
 
-        void OnDestroy() => RestoreAsset();
+        /// <summary>Puts QualitySettings' mip limit and lodBias back (they would outlive a session in the Editor).</summary>
+        static void RestoreQuality()
+        {
+            if (!qualityTouched) return;
+            if (authoredMipLimit >= 0) QualitySettings.globalTextureMipmapLimit = authoredMipLimit;
+            if (authoredLodBias > 0f) QualitySettings.lodBias = authoredLodBias;
+            qualityTouched = false;
+        }
+
+        void OnDestroy() { RestoreAsset(); RestoreQuality(); }
 
         static string F(float v) => FrustumMath.F(v);
         static string F(double v) => FrustumMath.F(v);
@@ -346,7 +462,24 @@ namespace WashedAshore.Perf
             bool wantFish = authoredFishActive && !v.fishOff;
             if (v.fishOff && !fishRoot) problems.Add("no Fish root to deactivate");
             else if (fishRoot && fishRoot.activeSelf != wantFish) problems.Add($"Fish root active {fishRoot.activeSelf} != {wantFish}");
-            if (v.WritesAsset && Application.isEditor) problems.Add("asset-writing variant refused in the Editor");
+            if (!data) { if (v.aa != null || v.post >= 0) problems.Add("no UniversalAdditionalCameraData to set aa or post on"); }
+            else
+            {
+                var camAa = WantCamAa(v);
+                if (data.antialiasing != camAa) problems.Add($"camera antialiasing {data.antialiasing} != {camAa}");
+                bool post = WantPost(v);
+                if (data.renderPostProcessing != post) problems.Add($"renderPostProcessing {data.renderPostProcessing} != {post}");
+            }
+            if (TrialVariant.MsaaFor(v.aa) > 1 && !cam.allowMSAA) problems.Add($"aa={v.aa} but Camera.allowMSAA is false: MSAA cannot run");
+            bool refused = v.WritesAsset && Application.isEditor;
+            if (!refused)
+            {
+                int mip = WantMip(v);
+                if (mip >= 0 && QualitySettings.globalTextureMipmapLimit != mip) problems.Add($"globalTextureMipmapLimit {QualitySettings.globalTextureMipmapLimit} != {mip}");
+                float lodBias = WantLodBias(v);
+                if (lodBias > 0f && Mathf.Abs(QualitySettings.lodBias - lodBias) > Tolerance) problems.Add($"lodBias {QualitySettings.lodBias} != {lodBias}");
+            }
+            if (refused) problems.Add("asset-writing variant refused in the Editor");
             else if (rp)
             {
                 float sd = v.shadowDist >= 0f ? v.shadowDist : authoredShadowDist;
@@ -356,6 +489,19 @@ namespace WashedAshore.Perf
                 if (Mathf.Abs(rp.smallMeshScreenPercentage - sm) > Tolerance) problems.Add($"smallMeshScreenPercentage {rp.smallMeshScreenPercentage} != {sm}");
                 if (rp.gpuResidentDrawerEnableOcclusionCullingInCameras != occ) problems.Add($"asset GRD occlusion {rp.gpuResidentDrawerEnableOcclusionCullingInCameras} != {occ}");
                 if (v.grdOcclusion >= 0 && grdOccLive != occ) problems.Add($"GPUResidentDrawer.IsInstanceOcclusionCullingEnabled() {grdOccLive} != {occ}");
+                int msaa = WantMsaa(v);
+                if (rp.msaaSampleCount != msaa) problems.Add($"msaaSampleCount {rp.msaaSampleCount} != {msaa}");
+                var up = WantUpscaling(v);
+                if (rp.upscalingFilter != up) problems.Add($"upscalingFilter {rp.upscalingFilter} != {up}");
+                // isStpUsed is the asset's own answer (it reads the upscaler name when ENABLE_UPSCALER_FRAMEWORK is defined).
+                if (rp.isStpUsed != (up == UpscalingFilterSelection.STP)) problems.Add($"isStpUsed {rp.isStpUsed} != {up == UpscalingFilterSelection.STP}");
+                for (int i = 0; authoredRenderers != null && i < authoredRenderers.Length; i++)
+                {
+                    var r = authoredRenderers[i];
+                    if (r && r.depthPrimingMode != WantDepthPrime(v, i)) problems.Add($"depthPrimingMode on {r.name} {r.depthPrimingMode} != {WantDepthPrime(v, i)}");
+                }
+                if (v.depthPrime != null && v.depthPrime != "off" && msaa > 1 && cam.allowMSAA)
+                    problems.Add($"depthPrime={v.depthPrime} with MSAA {msaa}: URP turns depth priming off when MSAA > 1");
             }
             else if (v.WritesAsset) problems.Add("no URP asset to write");
             var culls = new List<string>();
@@ -369,7 +515,12 @@ namespace WashedAshore.Perf
                    $"\"fog\":{B(RenderSettings.fog)},\"fog_mode\":{S(RenderSettings.fogMode.ToString())},\"fog_start\":{F(RenderSettings.fogStartDistance)},\"fog_end\":{F(RenderSettings.fogEndDistance)}," +
                    $"\"detail_min\":{F(tiles.Length > 0 ? tiles.Min(t => t.detailObjectDistance) : -1f)},\"detail_max\":{F(tiles.Length > 0 ? tiles.Max(t => t.detailObjectDistance) : -1f)}," +
                    $"\"tree_distance\":{F(tiles.Length > 0 ? tiles.Max(t => t.treeDistance) : -1f)},\"tiles\":{tiles.Length}," +
-                   $"\"fish_root_active\":{(fishRoot ? B(fishRoot.activeSelf) : "null")},\"fish_drawn\":{FishDrawn()},\"fish_counter_frames\":{FishDrawCounter.Frames}}}";
+                   $"\"fish_root_active\":{(fishRoot ? B(fishRoot.activeSelf) : "null")},\"fish_drawn\":{FishDrawn()},\"fish_counter_frames\":{FishDrawCounter.Frames}," +
+                   $"\"texture_mip_limit\":{QualitySettings.globalTextureMipmapLimit},\"lod_bias\":{F(QualitySettings.lodBias)},\"msaa\":{(rp ? rp.msaaSampleCount : -1)}," +
+                   $"\"upscaling_filter\":{S(rp ? rp.upscalingFilter.ToString() : "none")},\"stp_used\":{(rp ? B(rp.isStpUsed) : "null")},\"render_scale\":{F(rp ? rp.renderScale : -1f)}," +
+                   $"\"camera_aa\":{(data ? S(data.antialiasing.ToString()) : "null")},\"render_post_processing\":{(data ? B(data.renderPostProcessing) : "null")},\"allow_msaa\":{B(cam.allowMSAA)}," +
+                   $"\"depth_priming\":[{string.Join(",", (authoredRenderers ?? new UniversalRendererData[0]).Select(r => r ? S(r.depthPrimingMode.ToString()) : "null"))}]," +
+                   $"\"depth_priming_not_blocked_by_msaa\":{B(!(rp && rp.msaaSampleCount > 1 && cam.allowMSAA))}}}";
         }
 
         /// <summary>
@@ -384,7 +535,9 @@ namespace WashedAshore.Perf
         static string Machine() =>
             $"\"platform\":{S(Application.platform.ToString())},\"development\":{B(Debug.isDebugBuild)},\"exe_sha256\":{S(exeSha)}," +
             $"\"gpu\":{S(SystemInfo.graphicsDeviceName)},\"graphics_api\":{S(SystemInfo.graphicsDeviceType.ToString())},\"cpu\":{S(SystemInfo.processorType)}," +
-            $"\"quality\":{S(QualitySettings.names[QualitySettings.GetQualityLevel()])},\"lod_bias\":{F(QualitySettings.lodBias)},\"maximum_lod_level\":{QualitySettings.maximumLODLevel}," +
+            $"\"quality\":{S(QualitySettings.names[QualitySettings.GetQualityLevel()])},\"lod_bias\":{F(authoredCaptured ? authoredLodBias : QualitySettings.lodBias)},\"maximum_lod_level\":{QualitySettings.maximumLODLevel}," +
+            $"\"texture_mip_limit\":{(authoredCaptured ? authoredMipLimit : QualitySettings.globalTextureMipmapLimit)},\"texture_streaming\":{B(QualitySettings.streamingMipmapsActive)}," +
+            $"\"graphics_memory_mb\":{SystemInfo.graphicsMemorySize},\"system_memory_mb\":{SystemInfo.systemMemorySize}," +
             $"\"resolution\":\"{Screen.width}x{Screen.height}\",\"window_mode\":{S(Screen.fullScreenMode.ToString())},\"vsync\":{QualitySettings.vSyncCount}," +
             $"\"frame_timing_stats\":{B(FrameTimingManager.IsFeatureEnabled())},\"seed\":{Seed},\"arm\":{S(arm)},\"run\":{run},\"argument_errors\":[{string.Join(",", ArgErrors.Select(S))}]";
 
@@ -442,10 +595,11 @@ namespace WashedAshore.Perf
             static string Key(string name) => name.Replace(" Count", "").Replace(" ", "_").ToLowerInvariant();
             static string Sum(List<double> v) => v.Count > 0 ? FrustumMath.Json(FrustumMath.Summarize(v)) : "null";
 
-            public string Json() =>
+            /// <param name="gpuFrameMs">ResourceRecorder.GpuFrameMsJson(): a summary, or "null" when the API gave no GPU time.</param>
+            public string Json(string gpuFrameMs) =>
                 "{" + string.Join(",", RenderCounters.Select((c, i) => $"\"{Key(c)}\":{Sum(renderVals[i])}")) +
                 ",\"grd\":{" + string.Join(",", GrdCounters.Select((c, i) => $"\"{Key(c)}\":{Sum(grdVals[i])}")) + "}" +
-                $",\"extra_cpu_main_thread_ms\":{Sum(mainMs)},\"gpu_frame_ms\":null" + "}";
+                $",\"extra_cpu_main_thread_ms\":{Sum(mainMs)},\"gpu_frame_ms\":{gpuFrameMs ?? "null"}" + "}";
 
             public void Dispose()
             {
@@ -631,10 +785,9 @@ namespace WashedAshore.Perf
 
         // ----- stills -------------------------------------------------------------------------------------------
 
-        static IEnumerator Grab(System.Action<Texture2D> got)
+        static IEnumerator Grab(System.Action<Texture2D> got, int frames = GrabFrames)
         {
-            yield return null;
-            yield return null;
+            for (int i = 0; i < frames; i++) yield return null;
             yield return new WaitForEndOfFrame();
             got(ScreenCapture.CaptureScreenshotAsTexture());
         }
@@ -785,6 +938,8 @@ namespace WashedAshore.Perf
                 Debug.Log($"[Frustum] route variant {cli.Json()} readback {routeReadbackStart} problems [{string.Join("; ", problems)}]");
                 routeProblems.AddRange(problems);
                 routeCounters = new CounterSet();
+                routeTextureStart = ResourceRecorder.TextureSnapshotJson();
+                routeResources = new ResourceRecorder();
                 BellsBendFpsWalk.TimedFrame += OnTimedFrame;
                 yield break;   // the walk drives the session and quits; OnQuit writes the result
             }
@@ -807,6 +962,7 @@ namespace WashedAshore.Perf
             if (leg == "lookdown") { LookMs.Add(ms); return; }
             RouteMs.Add(ms);
             routeCounters?.Sample();
+            routeResources?.Sample();
         }
 
         static void OnQuit()
@@ -823,14 +979,16 @@ namespace WashedAshore.Perf
                     var json = "{" + Machine() + $",\"mode\":\"route\",\"route\":\"bb\",\"variant\":{cli.Json()},\"valid\":{B(valid)},\"problems\":[{string.Join(",", routeProblems.Select(S))}]," +
                                $"\"readback_start\":{routeReadbackStart},\"readback_end\":{end},\"far_reapplied\":{farReapplied}," +
                                $"\"frame_ms\":{FrustumMath.Json(FrustumMath.Summarize(RouteMs))},\"lookdown_ms\":{FrustumMath.Json(FrustumMath.Summarize(LookMs))}," +
-                               $"\"counters\":{(routeCounters != null ? routeCounters.Json() : "null")}" + "}";
+                               $"\"counters\":{(routeCounters != null ? routeCounters.Json(routeResources?.GpuFrameMsJson()) : "null")}," +
+                               $"\"resources\":{(routeResources != null ? routeResources.Json(routeTextureStart, ResourceRecorder.TextureSnapshotJson()) : "null")}" + "}";
                     File.WriteAllText(Path.Combine(LogDir(), "frustum-route.json"), json);
                     Debug.Log("[FRUSTUMJSON]" + json + "[/FRUSTUMJSON]");
                     Progress(RouteMs.Count > 0 ? "DONE route" : "FAILED route: no timed frames (is -bbFpsWalk on?)");
                 }
                 routeCounters?.Dispose();
+                routeResources?.Dispose();
             }
-            finally { RestoreAsset(); }
+            finally { RestoreAsset(); RestoreQuality(); }
         }
 
         IEnumerator RunSpots(Camera cam)
@@ -884,6 +1042,7 @@ namespace WashedAshore.Perf
             currentSpot = "";
             Apply(cam, TrialVariant.Authored());
             RestoreAsset();
+            RestoreQuality();
             var json = "{" + Machine() + $",\"mode\":\"spots\",\"warmup_s\":{F(warmup)},\"settle_s\":{F(settle)},\"yaw_speed_deg_s\":{F(yawSpeed)},\"still_headings\":[\"000\",\"090\",\"180\",\"270\",\"own\"]," +
                        $"\"variants\":[{string.Join(",", Variants.Select(x => x.Json()))}],\"far_reapplied\":{farReapplied},\"windows\":[{string.Join(",", rows)}]" + "}";
             if (!Application.isEditor) File.WriteAllText(Path.Combine(LogDir(), "frustum-spots.json"), json);
@@ -911,13 +1070,15 @@ namespace WashedAshore.Perf
             while (t < settle) { yield return null; Pose(pose.yaw, pose.pitch); t += Time.unscaledDeltaTime; }
             var problems = new List<string>();
             string readStart = Readback(cam, v, problems);
+            string textureStart = ResourceRecorder.TextureSnapshotJson();
 
             var ms = new List<double>();
             // Addendum 5 (#25 note_technical-director_fish_sample): at a fish_* spot, fish drawn on every timed frame.
             bool countFish = spot.StartsWith(FishSpotPrefix);
             var fishPerFrame = countFish ? new List<int>() : null;
-            string counters;
+            string counters, resources;
             using (var set = new CounterSet())
+            using (var res = new ResourceRecorder())
             {
                 float angle = 0f;
                 while (angle < 360f)
@@ -927,10 +1088,12 @@ namespace WashedAshore.Perf
                     float dt = Time.unscaledDeltaTime;
                     ms.Add(dt * 1000.0);
                     set.Sample();
+                    res.Sample();
                     if (countFish) fishPerFrame.Add(FishDrawn());
                     angle += yawSpeed * dt;
                 }
-                counters = set.Json();
+                counters = set.Json(res.GpuFrameMsJson());
+                resources = res.Json(textureStart, ResourceRecorder.TextureSnapshotJson());
             }
             string readEnd = Readback(cam, v, problems);
             bool valid = problems.Count == 0;
@@ -948,13 +1111,21 @@ namespace WashedAshore.Perf
                 if (shots)
                 {
                     Texture2D shot = null;
-                    yield return Grab(x => shot = x);
+                    yield return Grab(x => shot = x, v.Temporal ? TemporalGrabFrames : GrabFrames);
                     string file = $"{prefix}-h{label}.png";
                     Save(shot, file);
                     string cmp = "null";
                     if (LastA.TryGetValue(label, out var a)) cmp = FarViewProbe.Changed(a, shot, null);
                     string twin = "";
-                    if (!isA)
+                    if (!isA && v.HeavyTwin)
+                    {
+                        // Same frozen frame: the repeat only (noise floor); the authored twin is skipped (class header).
+                        yield return new WaitForEndOfFrame();
+                        var rep = ScreenCapture.CaptureScreenshotAsTexture();
+                        twin = $",\"repeat_same_frame\":{FarViewProbe.Changed(shot, rep, null)},\"authored\":null,\"twin_skipped\":{S(TwinSkipped)}";
+                        Destroy(rep);
+                    }
+                    else if (!isA)
                     {
                         // Same frozen frame: a repeat (noise floor), then the authored settings (the in-frame twin), then back.
                         yield return new WaitForEndOfFrame();
@@ -988,7 +1159,7 @@ namespace WashedAshore.Perf
             result($"{{\"spot\":{S(spot)},\"run\":{run},\"window\":{index},\"variant_id\":{S(v.id)},\"variant\":{v.Json()},\"valid\":{B(valid)},\"problems\":[{string.Join(",", problems.Select(S))}]," +
                    $"\"exe_sha256\":{S(exeSha)},\"seed\":{Seed},\"pose\":{poseJson},\"settle_s\":{F(settle)},\"yaw_speed_deg_s\":{F(yawSpeed)}," +
                    $"\"readback_after_settle\":{readStart},\"readback_after_timing\":{readEnd},\"frame_ms\":{FrustumMath.Json(FrustumMath.Summarize(ms))}," +
-                   $"\"counters\":{counters},\"fish_sample\":{(countFish ? FrustumMath.CountJson(fishPerFrame, 1) : "null")}," +
+                   $"\"counters\":{counters},\"resources\":{resources},\"fish_sample\":{(countFish ? FrustumMath.CountJson(fishPerFrame, 1) : "null")}," +
                    $"\"headings\":[{string.Join(",", heads)}],\"edge_stills\":{edges}" + "}");
         }
     }

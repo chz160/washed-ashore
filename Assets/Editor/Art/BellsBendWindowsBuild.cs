@@ -4,14 +4,14 @@ using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-// Technical-artist R2 tool: release Windows build from the live Editor into Builds/Windows-BellsBend/
-// (the birds-pod evidence in Builds/Windows stays untouched). Writes Builds/Windows-BellsBend.provenance.json.
+// Technical-artist R2 tool: release Windows build from the live Editor into Builds/Windows/
+// Writes Builds/Windows.provenance.json.
 // Run via: unity command eval --detach "return BellsBendWindowsBuild.Build();"
 // or batchmode: Unity.exe -batchmode -projectPath . -buildTarget Win64 -executeMethod BellsBendWindowsBuild.BuildBatch -logFile Builds/build-windows-bellsbend.log
 public static class BellsBendWindowsBuild
 {
-    const string Dir = "Builds/Windows-BellsBend";
-    const string DevDir = "Builds/Windows-BellsBend-dev";
+    const string Dir = "Builds/Windows";
+    const string DevDir = "Builds/Windows-dev";
     const string Exe = "WashedAshorePOC.exe";
 
     public static string Switch()
@@ -23,7 +23,7 @@ public static class BellsBendWindowsBuild
 
     public static void BuildBatch() => Build();
 
-    /// <summary>Development build for the H9 feel check (the F9 debug camera exists only here): Builds/Windows-BellsBend-dev/, its own provenance file with "development":true. The release BuildBatch is untouched.</summary>
+    /// <summary>Development build for the H9 feel check (the F9 debug camera exists only here): Builds/Windows-dev/, its own provenance file with "development":true. The release BuildBatch is untouched.</summary>
     public static void BuildDevBatch() => Build(true);
 
     public static string Build() => Build(false);
@@ -49,7 +49,7 @@ public static class BellsBendWindowsBuild
             $"\"result\":\"{s.result}\",\"errors\":{s.totalErrors},\"warnings\":{s.totalWarnings},\"size_bytes\":{s.totalSize}," +
             $"\"started_utc\":\"{started:O}\",\"ended_utc\":\"{System.DateTime.UtcNow:O}\",\"output\":\"{(dev ? DevDir : Dir)}/{Exe}\"," +
             $"\"scenes\":[{string.Join(",", scenes.Select(x => $"\"{x}\""))}],\"development\":{(dev ? "true" : "false")},\"messages\":[{string.Join(",", notes)}]}}";
-        File.WriteAllText(Path.Combine(root, dev ? "Builds/Windows-BellsBend-dev.provenance.json" : "Builds/Windows-BellsBend.provenance.json"), json);
+        File.WriteAllText(Path.Combine(root, dev ? "Builds/Windows-dev.provenance.json" : "Builds/Windows.provenance.json"), json);
         // -executeMethod in batchmode: make the process exit code follow the build result.
         if (Application.isBatchMode) EditorApplication.Exit(s.result == BuildResult.Succeeded ? 0 : 1);
         return json;

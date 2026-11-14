@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using WashedAshore.Gameplay;
+using WashedAshore.World;
 
 namespace WashedAshore.Wildlife
 {
@@ -211,7 +212,7 @@ namespace WashedAshore.Wildlife
                     switch (plan.species)
                     {
                         case WildlifeSpecies.Deer:
-                            if (g.Splat(p, 0) < r.deerMinGrass || slope > r.deerMaxSlope || !Near(trees, p2, r.deerMaxFromTree)) continue;
+                            if (g.Splat(p, GroundType.Grass) < r.deerMinGrass || slope > r.deerMaxSlope || !Near(trees, p2, r.deerMaxFromTree)) continue;
                             if (deer.Any(q => Flat(q.anchor, p) < r.deerHerdsMinApart)) continue;
                             break;
                         case WildlifeSpecies.Stag:

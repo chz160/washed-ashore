@@ -76,9 +76,18 @@ namespace WashedAshore.Tests.EditMode
                 string rel = full.Substring(ProjectRoot.Length + 1).Replace(Path.DirectorySeparatorChar, '/');
                 if (rel =="Assets/Scripts/Perf/WashedAshore.Perf.asmdef") continue;
                 string text = File.ReadAllText(full);
+                // Editor-only and test assemblies never ship in a player, so they may use Perf (its editor tools and tests).
+                if (IsEditorOrTestAssembly(text)) continue;
                 if (text.Contains("\"WashedAshore.Perf\"") || (perfGuid != null && text.Contains("GUID:" + perfGuid))) offenders.Add(rel);
             }
             Assert.IsEmpty(offenders, "assemblies that reference WashedAshore.Perf:\n" + string.Join("\n", offenders));
+        }
+
+        static bool IsEditorOrTestAssembly(string asmdef)
+        {
+            var platforms = Regex.Match(asmdef, "\"includePlatforms\"\\s*:\\s*\\[([^\\]]*)\\]");
+            if (platforms.Success && Regex.IsMatch(platforms.Groups[1].Value, "^\\s*\"Editor\"\\s*$")) return true;
+            return asmdef.Contains("\"UNITY_INCLUDE_TESTS\"");
         }
     }
 }

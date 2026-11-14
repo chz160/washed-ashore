@@ -1,0 +1,16 @@
+{
+    "name": "WashedAshore.Art.LibraryImport.Editor",
+    "rootNamespace": "WashedAshore.Art.Editor",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

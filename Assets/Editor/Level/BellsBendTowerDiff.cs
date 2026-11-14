@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
+using WashedAshore.World;
 
 // Level-designer: before/after evidence for the lookout tower's site dressing (spec P2). Snapshot the tree and detail
 // instances of every tile before art repaints, again after, then diff: trees may only leave the tower clearing and
@@ -63,12 +64,14 @@ public static class BellsBendTowerDiff
             }
             using (var w = new BinaryWriter(File.Create(Path.Combine(dir, name + ".splat"))))
             {
-                int res = d.alphamapResolution, layers = d.alphamapLayers;
+                // Always the canonical 7 channels (GroundType order), so snapshots stay comparable when tiles hold different layer lists.
+                int res = d.alphamapResolution, layers = GroundTypes.Count;
                 var a = d.GetAlphamaps(0, 0, res, res);
+                var map = TerrainGroundMap.Build(d);
                 var b = new byte[res * res * layers];
                 for (int y = 0; y < res; y++)
                     for (int x = 0; x < res; x++)
-                        for (int l = 0; l < layers; l++) b[(y * res + x) * layers + l] = (byte)Mathf.RoundToInt(a[y, x, l] * 255f);
+                        for (int l = 0; l < layers; l++) b[(y * res + x) * layers + l] = (byte)Mathf.RoundToInt(map.Weight(a, y, x, (GroundType)l) * 255f);
                 w.Write(res); w.Write(layers); w.Write(o.x); w.Write(o.z); w.Write(d.size.x); w.Write(b);
             }
             tiles++;

@@ -2,6 +2,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using WashedAshore.World;
 using A = AmbientCgLayers;
 using T = BellsBendArtTargets;
 
@@ -41,11 +42,15 @@ public static class BellsBendGround
         var layers = A.Load(true);
         var veg = BellsBendVegetation.Prototypes();
         int trees = 0; long details = 0;
-        foreach (var t in tiles)
+        var layerCounts = new int[tiles.Length];
+        var layerMasks = new uint[tiles.Length];
+        var edgeOnly = new uint[tiles.Length];   // kept only because they are non-zero on a tile edge (seam rule)
+        var marginOnly = new uint[tiles.Length]; // kept only because the margin ring outside the tile reaches the threshold
+        for (int ti = 0; ti < tiles.Length; ti++)
         {
+            var t = tiles[ti];
             var d = t.terrainData;
-            d.terrainLayers = layers;
-            PaintSplat(t, maps);
+            (layerMasks[ti], layerCounts[ti], edgeOnly[ti], marginOnly[ti]) = PaintSplat(t, maps, layers); // sets d.terrainLayers to the tile's own list
             trees += BellsBendVegetation.PlaceTrees(t, maps, veg);
             details += BellsBendVegetation.PaintDetails(t, maps, veg, DetailMetres);
             ApplyRenderSettings(t);
@@ -57,9 +62,18 @@ public static class BellsBendGround
         var scene = tiles[0].gameObject.scene;
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
-        return $"tiles={tiles.Length}[{string.Join(",", tiles.Select(t => t.name))}] layers={layers.Length} treeInstances={trees} detailInstances={details} seconds={sw.Elapsed.TotalSeconds:F0} " +
+        var over = Enumerable.Range(0, tiles.Length).Where(i => layerCounts[i] > TerrainLayerPlan.PassLimit)
+            .Select(i => $"{tiles[i].name}:{layerCounts[i]}({Names(layerMasks[i])}" + (edgeOnly[i] != 0 ? $"; edgeOnly={Names(edgeOnly[i])}" : "") + (marginOnly[i] != 0 ? $"; marginOnly={Names(marginOnly[i])}" : "") + ")").ToList();
+        var extras = Enumerable.Range(0, tiles.Length).Where(i => edgeOnly[i] != 0 || marginOnly[i] != 0)
+            .Select(i => $"{tiles[i].name}[" + (edgeOnly[i] != 0 ? "edgeOnly=" + Names(edgeOnly[i]) : "") + (marginOnly[i] != 0 ? (edgeOnly[i] != 0 ? " " : "") + "marginOnly=" + Names(marginOnly[i]) : "") + "]").ToList();
+        var histogram = layerCounts.GroupBy(c => c).OrderBy(g => g.Key).Select(g => $"{g.Key}:{g.Count()}");
+        return $"tiles={tiles.Length}[{string.Join(",", tiles.Select(t => t.name))}] layersTotal={layers.Length} " +
+               $"layerCounts=[{string.Join(",", Enumerable.Range(0, tiles.Length).Select(i => tiles[i].name + ":" + layerCounts[i]))}] layerCountHistogram={{{string.Join(",", histogram)}}} maxLayers={layerCounts.Max()} " +
+               $"tilesOver{TerrainLayerPlan.PassLimit}={(over.Count == 0 ? "none" : "[" + string.Join(",", over) + "]")} seamOrMarginKept={(extras.Count == 0 ? "none" : string.Join(",", extras))} treeInstances={trees} detailInstances={details} seconds={sw.Elapsed.TotalSeconds:F0} " +
                $"treeProtos=[{string.Join(",", veg.trees.Select(p => p.name))}] detailProtos=[{string.Join(",", BellsBendVegetation.DetailSpecs.Select(s => s.key))}]";
     }
+
+    static string Names(uint mask) => string.Join("+", TerrainLayerPlan.IdsOf(mask).Select(id => GroundTypes.LayerNames[id]));
 
     public static Terrain[] Tiles()
     {
@@ -86,27 +100,59 @@ public static class BellsBendGround
         if (rp && rp.defaultTerrainMaterial) t.materialTemplate = rp.defaultTerrainMaterial;
     }
 
-    static void PaintSplat(Terrain t, BellsBendMaps maps)
+    /// <summary>
+    /// Paints the tile's alphamap with only the layers it needs (I-3): weights for all 7 layers come from Weights() as before,
+    /// then <see cref="TerrainLayerPlan"/> keeps the layers whose max weight on the tile (plus a margin ring just outside it)
+    /// reaches the drop threshold or that are non-zero on a tile edge, zeroes the rest and renormalises. d.terrainLayers is set
+    /// to the kept layers in canonical ID order. No cap at 4: a tile that needs more keeps them (Unity renders a second pass).
+    /// The list depends only on this tile's own geometry, so subset builds and full builds agree. Returns the kept-layer mask and count, plus the layers kept only by the edge rule or only by the margin.
+    /// </summary>
+    static (uint mask, int count, uint edgeOnly, uint marginOnly) PaintSplat(Terrain t, BellsBendMaps maps, TerrainLayer[] all)
     {
         var d = t.terrainData;
         int res = Mathf.Clamp(Mathf.ClosestPowerOfTwo(Mathf.RoundToInt(d.size.x / TexelMetres)), 512, 2048);
         if (d.alphamapResolution != res) d.alphamapResolution = res;
-        int n = A.Specs.Length;
-        var a = new float[res, res, n];
+        int n = A.Specs.Length, m = TerrainLayerPlan.MarginTexels;
+        var raw = new float[res, res, n];
         var w = new float[n];
+        var max = new float[n];
+        var maxIn = new float[n]; // in-tile texels only, for reporting margin-only layers
+        uint edge = 0;
         var o = t.transform.position;
-        for (int y = 0; y < res; y++)
-            for (int x = 0; x < res; x++)
+        // TerrainLit reads control texel i at i/(res-1) of the tile, so the first and last
+        // texels sit on the tile edges. Sampling texel centres instead shifted the splat by up to 1 m
+        // across each border and showed a hard edge wherever weights change fast. The margin ring
+        // continues the same grid just outside the tile, folded into the layer maxima only.
+        for (int y = -m; y < res + m; y++)
+            for (int x = -m; x < res + m; x++)
             {
-                // TerrainLit reads control texel i at i/(res-1) of the tile, so the first and last
-                // texels sit on the tile edges. Sampling texel centres instead shifted the splat by up
-                // to 1 m across each border and showed a hard edge wherever weights change fast.
+                bool inside = x >= 0 && x < res && y >= 0 && y < res;
                 float nx = x / (res - 1f), nz = y / (res - 1f);
                 var p = new Vector3(o.x + nx * d.size.x, 0f, o.z + nz * d.size.z);
                 Weights(maps, p, w);
-                for (int l = 0; l < n; l++) a[y, x, l] = w[l];
+                TerrainLayerPlan.Prefilter(w);
+                for (int l = 0; l < n; l++) if (w[l] > max[l]) max[l] = w[l];
+                if (!inside) continue;
+                for (int l = 0; l < n; l++) if (w[l] > maxIn[l]) maxIn[l] = w[l];
+                if (x == 0 || x == res - 1 || y == 0 || y == res - 1) edge |= TerrainLayerPlan.EdgeMask(w);
+                for (int l = 0; l < n; l++) raw[y, x, l] = w[l];
             }
-        d.SetAlphamaps(0, 0, a);
+        uint mask = TerrainLayerPlan.Select(max, edge);
+        uint edgeOnly = mask & ~TerrainLayerPlan.Select(max, 0u);      // needed only for bit-identical seams
+        uint marginOnly = mask & ~TerrainLayerPlan.Select(maxIn, edge); // needed only by the margin ring outside the tile
+        int k = TerrainLayerPlan.Count(mask);
+        d.terrainLayers = A.Subset(all, mask); // before SetAlphamaps: alphamapLayers follows the layer count
+        var b = new float[res, res, k];
+        var dst = new float[k];
+        for (int y = 0; y < res; y++)
+            for (int x = 0; x < res; x++)
+            {
+                for (int l = 0; l < n; l++) w[l] = raw[y, x, l];
+                TerrainLayerPlan.Restrict(w, mask, dst);
+                for (int l = 0; l < k; l++) b[y, x, l] = dst[l];
+            }
+        d.SetAlphamaps(0, 0, b);
+        return (mask, k, edgeOnly, marginOnly);
     }
 
     /// <summary>Layer weights at a world point, normalised into w.</summary>

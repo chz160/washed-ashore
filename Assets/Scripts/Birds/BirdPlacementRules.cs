@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using WashedAshore.Wildlife;
+using WashedAshore.World;
 
 namespace WashedAshore.Birds
 {
@@ -176,7 +177,7 @@ namespace WashedAshore.Birds
             public float Slope(Vector3 p) => g.Steepness(p);
             public bool IsLand(Vector3 p) => g.IsLand(p);
 
-            public float Grass(Vector3 p) => g.Splat(p, 0);
+            public float Grass(Vector3 p) => g.Splat(p, GroundType.Grass);
 
             /// <summary>Flat distance to the nearest non-rock tree instance (bushes included), or +inf beyond <paramref name="max"/>.</summary>
             public float NearestTree(Vector3 p, float max) => Nearest(treeCells, p, max);

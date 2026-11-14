@@ -15,7 +15,7 @@ param(
     [switch]$List,
     [switch]$Summary,
     [switch]$ProcessCheck,
-    [string]$Exe = "Builds/Windows-BellsBend/WashedAshorePOC.exe",
+    [string]$Exe = "Builds/Windows/WashedAshorePOC.exe",
     [string]$ResultDir = "TestResults/tower-tools/farview",
     [string]$RidgeEyes = "",     # "x,z;x,z" in world metres: viewpoints for the ridge stills (default: the probe's zone rule)
     [string]$TowerParams = "tools/blender/lookout/mc39_params.json",

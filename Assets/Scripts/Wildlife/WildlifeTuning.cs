@@ -90,6 +90,7 @@ namespace WashedAshore.Wildlife
         public float sightlineTargetHeight = 1f;
 
         [Header("Deer")]
+        [Tooltip("Minimum weight of GroundType.Grass under a deer spot.")]
         public float deerMinGrass = 0.6f;
         public float deerMaxSlope = 20f;
         public float deerMaxFromTree = 40f;

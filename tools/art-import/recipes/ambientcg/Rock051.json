@@ -1,0 +1,27 @@
+{
+  "height_metres": 0.3,
+  "input": {
+    "archive": "Rock051_1K-JPG.zip",
+    "archive_sha256": "036c5c18beb3c63cca9411c898d3a42a6a0dd923b5672ee35b021cd81b888aa9"
+  },
+  "library_id": "ambientcg:Rock051",
+  "license": "CC0-1.0",
+  "normal": {
+    "convention": "gl"
+  },
+  "notes": "archive sha256 first seen 2026-11-13, hashed from _staging before any run (no upstream hash; trust on first use). height_metres is a provisional manual guess. Only the 1K-JPG tier is staged.",
+  "role": "terrain-layer",
+  "schema": "art-import-recipe/1",
+  "ship_size": 1024,
+  "source": "ambientcg",
+  "source_id": "Rock051",
+  "tile_metres": [
+    16,
+    16
+  ],
+  "unity": {
+    "layer_key": "BluffRock",
+    "legacy_smoothness": 0.1,
+    "slot": 5
+  }
+}
